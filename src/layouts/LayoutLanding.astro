@@ -1,0 +1,40 @@
+---
+import '../styles/main.css';
+
+import { Image } from 'astro:assets';
+
+import logo from '../assets/cascarillatech.svg';
+
+const { title } = Astro.props.frontmatter || Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+</head>
+<body>
+
+<header class="header">
+    <slot name="header-extra" />
+</header>
+
+<main class="container">
+
+    <Image src={logo} alt="Logo Cascarilla Tech A Coruña" class="logo" />
+
+    <slot />
+
+    <a href="mailto:asociacion@cascarillatech.com" class="contact-btn">Contactar</a>
+</main>
+
+
+<footer class="footer">
+    <slot name="footer-extra" />
+    <p>&copy; 2026 Asociación Cascarilla Tech. Tódolos dereitos reservados.</p>
+    <p>A Coruña, Galicia</p>
+</footer>
+</body>
+</html>
