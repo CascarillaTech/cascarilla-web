@@ -111,7 +111,7 @@ body {
 
 /* Tipografía */
 h1, h2 {
-    color: var(--color-text-heading);
+    color: var(--color-dark-logo);
     letter-spacing: 0.0625rem;
     text-transform: uppercase;
 }
@@ -124,7 +124,7 @@ h1 {
 h2 {
     font-size: 1.8rem;
     margin-bottom: 1.2rem;
-    border-bottom: 2px solid var(--color-background-logo); /* Subrayado fino con el amarillo apagado */
+    border-bottom: 2px solid var(--color-light-logo); /* Subrayado fino con el amarillo apagado */
     padding-bottom: 0.5rem;
 }
 
