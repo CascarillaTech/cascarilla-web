@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/LayoutLanding.astro';
+
+import '../styles/news.css';
+
+const allNews = await getCollection('news');
+
+const sortedNews = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout title="Novas - Cascarilla Tech">
+    <section class="news-list-section">
+        <h1>Actualidade de Cascarilla Tech</h1>
+        <p class="section-subtitle">Mantente ao tanto de todas as nosas actividades, eventos e novidades.</p>
+
+        <div class="news-grid">
+            {sortedNews.map((post) => (
+                    <article class="news-card">
+                        <header class="news-card-header">
+                            <time datetime={post.data.date.toISOString()}>
+                                {post.data.date.toLocaleDateString('gl-ES', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                })}
+                            </time>
+                            <h2>{post.data.date && post.data.title}</h2>
+                        </header>
+
+                        {post.data.description && <p>{post.data.description}</p>}
+
+                        {/* ENLACE PENDENTE: De momento non temos a páxina individual de cada nova,
+                        pero xa deixamos o botón preparado apuntando ao seu arquivo futuro */}
+                        <a href={`/novas/${post.id}`} class="read-more">Ler máis &rarr;</a>
+                    </article>
+            ))}
+        </div>
+    </section>
+</Layout>

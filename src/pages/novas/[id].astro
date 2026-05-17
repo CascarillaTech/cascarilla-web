@@ -1,0 +1,43 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/LayoutLanding.astro';
+
+export async function getStaticPaths() {
+    const newsEntries = await getCollection('news');
+    return newsEntries.map(entry => ({
+        params: { id: entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+
+const { Content } = await render(entry);
+
+const formattedDate = entry.data.date.toLocaleDateString('gl-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+});
+---
+
+<Layout title={`${entry.data.title} - Cascarilla Tech`}>
+    <article class="single-news-post">
+
+        <header class="post-header">
+            <a href="/news" class="back-link">&larr; Volver ás novas</a>
+            <time datetime={entry.data.date.toISOString()} class="post-date">
+                {formattedDate}
+            </time>
+            <h1 class="post-title">{entry.data.title}</h1>
+            {entry.data.description && <p class="post-description">{entry.data.description}</p>}
+        </header>
+
+        <hr class="post-divider" />
+
+        <div class="post-content">
+            <Content />
+        </div>
+
+    </article>
+</Layout>
