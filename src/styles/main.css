@@ -1,18 +1,25 @@
 /* Variables Globales */
 :root {
-    /* Paleta de colores */
+    /* Paleta de colores principal */
     --color-bg-main: #F6F4EE;
     --color-primary: #8C4B33;
     --color-secondary: #6B3622;
 
+    /* Tonos del Logo */
+    --color-background-logo: #f0e2b6; /* Amarillo más apagado y elegante */
+    --color-dark-logo: #451f14;
+    --color-light-logo: #9c5236;
+
     /* Colores de texto y elementos neutros */
     --color-text-main: #1A1A1A;
     --color-text-heading: #382117; /* Marrón muy oscuro */
-    --color-text-muted: #e3ad3c;   /* Marrón medio */
-    --color-background-logo: #f4ce8b;
-    --color-dark-logo: #451f14;
-    --color-light-logo: #9c5236;
+    --color-text-muted: #8C4B33;   /* Marrón medio para textos secundarios */
     --color-white: #FFFFFF;
+
+    /* Colores extra para secciones y estados (Pasados a variables) */
+    --color-bg-section-hero: #FAFAFA;
+    --color-border-card: #D4B246;
+    --color-shadow: rgba(0, 0, 0, 0.05);
 }
 
 /* Estilos generales y fondo */
@@ -21,20 +28,39 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
     background-color: var(--color-bg-main);
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     color: var(--color-text-main);
+}
+
+/* Estructura del Header y Menu */
+.header {
+    width: 100%;
+    padding: 1.5rem 0;
     text-align: center;
+}
+
+.header nav a {
+    color: var(--color-text-heading);
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.header nav a:hover {
+    color: var(--color-primary);
 }
 
 /* Contenedor principal */
 .container {
     padding: 2rem;
-    max-width: 80vmax;
+    max-width: 800px; /* Cambiado a px para que el texto de los estatutos no se estire infinito en pantallas gigantes */
+    margin: 0 auto;
+    flex: 1; /* Empuja al footer abajo si hay poco contenido */
     animation: fadeIn 1.5s ease-in-out;
+    text-align: center;
 }
 
 /* Estilo del logo */
@@ -44,21 +70,69 @@ body {
     height: auto;
     margin-bottom: 2.5rem;
     background-color: var(--color-background-logo);
+    padding: 1rem;
+    border-radius: 8px; /* Un pequeño redondeado sutil al fondo del logo */
+}
+
+/* Estructura de Secciones creadas en tu Markdown */
+.hero, .purpose, .activities, .footer-info {
+    text-align: left; /* El texto largo de los estatutos se lee mejor alineado a la izquierda */
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.hero {
+    text-align: center; /* La bienvenida sí queda chula centrada */
+    background-color: var(--color-bg-section-hero);
+}
+
+/* --- SOLUCIÓN A LAS LISTAS (Quitar asteriscos) --- */
+.purpose ul, .activities ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.purpose li, .activities li {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+/* Un detalle pro: en vez de punto, le ponemos una barrita elegante con el color de la asociación */
+.purpose li::before, .activities li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--color-border-card);
+    font-weight: bold;
 }
 
 /* Tipografía */
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+h1, h2 {
     color: var(--color-text-heading);
-    letter-spacing: 0.0625rem; /* 1px */
+    letter-spacing: 0.0625rem;
     text-transform: uppercase;
 }
 
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    border-bottom: 2px solid var(--color-background-logo); /* Subrayado fino con el amarillo apagado */
+    padding-bottom: 0.5rem;
+}
+
 p {
-    font-size: 1.2rem;
-    color: var(--color-text-muted);
-    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--color-text-main);
+    margin-bottom: 1.5rem;
 }
 
 /* Botón de contacto provisional */
@@ -68,21 +142,37 @@ p {
     background-color: var(--color-primary);
     color: var(--color-white);
     text-decoration: none;
-    border-radius: 0.5rem; /* 8px */
-    letter-spacing: 0.03125rem; /* 0.5px */
+    border-radius: 25px; /* Más redondeado, estilo píldora moderno */
+    letter-spacing: 0.03125rem;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 2rem 0;
 }
 
 .contact-btn:hover {
     background-color: var(--color-secondary);
-    transform: translateY(-0.125rem); /* -2px */
+    transform: translateY(-0.125rem);
+}
+
+/* Estructura del Footer */
+.footer {
+    width: 100%;
+    padding: 2rem 0;
+    text-align: center;
+    background-color: var(--color-text-heading);
+    color: var(--color-white);
+    font-size: 0.9rem;
+}
+
+.footer p {
+    color: var(--color-white);
+    margin-bottom: 0.5rem;
 }
 
 /* Pequeña animación de entrada */
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(1.25rem); /* 20px */
+        transform: translateY(1.25rem);
     }
     to {
         opacity: 1;
@@ -91,14 +181,17 @@ p {
 }
 
 /* Adaptación para móviles */
-@media (max-width: 30em) { /* 480px */
+@media (max-width: 30em) {
     h1 {
         font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.5rem;
     }
     p {
         font-size: 1rem;
     }
     .logo {
-        max-width: 15.625rem; /* 250px */
+        max-width: 15.625rem;
     }
 }
