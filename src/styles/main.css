@@ -8,7 +8,8 @@
     /* Colores de texto y elementos neutros */
     --color-text-main: #1A1A1A;
     --color-text-heading: #382117; /* Marrón muy oscuro */
-    --color-text-muted: #614030;   /* Marrón medio */
+    --color-text-muted: #e3ad3c;   /* Marrón medio */
+    --color-background-logo: #f4ce8b;
     --color-white: #FFFFFF;
 }
 
@@ -40,6 +41,7 @@ body {
     width: 100%;
     height: auto;
     margin-bottom: 2.5rem;
+    background-color: var(--color-background-logo);
 }
 
 /* Tipografía */
