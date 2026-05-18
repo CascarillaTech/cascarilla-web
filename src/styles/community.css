@@ -1,0 +1,140 @@
+.community-section {
+    width: 94vw;
+    max-width: 90vw;
+    margin-bottom: 10rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 5vh;
+}
+
+.section-header h1 {
+    font-size: 2.4rem;
+    color: var(--color-text-heading);
+}
+
+.section-header p {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    width: 100%;
+    max-width: 40rem;
+    margin: 0 auto;
+}
+
+.community-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2vw;
+}
+
+.community-card {
+    background-color: var(--color-white);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 10px var(--color-shadow);
+    border: 1px solid rgba(0,0,0,0.05);
+    width: 42vw;
+    max-width: 16rem;
+    transition: transform 0.2s ease;
+}
+
+.community-card:hover {
+    transform: translateY(-4px);
+}
+
+.card-image-container {
+    width: 100%;
+    height: 12vh;
+    background-color: var(--color-background-logo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5%;
+}
+
+.card-image {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.card-image-raster {
+    object-fit: contain;
+    width: auto;
+    height: auto;
+}
+
+.card-image-svg {
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.card-body {
+    padding: 6%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-body h3 {
+    margin: 0 0 0.4rem 0;
+    font-size: 1.15rem;
+    color: var(--color-text-heading);
+}
+
+.card-body p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--color-text-main);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.6rem;
+}
+
+.tag-pill {
+    background-color: var(--color-bg-main);
+    color: var(--color-primary);
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.community-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.community-link:hover {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+
+.no-link {
+    font-size: 0.8rem;
+    color: #999;
+    font-style: italic;
+}
+
+@media (max-width: 30rem) {
+    .community-grid {
+        gap: 4vw;
+    }
+    .community-card {
+        width: 90vw;
+        max-width: none;
+    }
+}

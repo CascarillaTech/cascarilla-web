@@ -1,45 +1,36 @@
-/* Estilos para a sección de Novas */
 .news-list-section {
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 5vh; /* 5% do alto da pantalla, máis dinámico */
 }
 
 .section-subtitle {
     color: var(--color-text-muted);
-    margin-bottom: 3rem;
+    margin-bottom: 6vh;
 }
 
-/* Reixendra para as tarxetas */
 .news-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    /* As tarxetas ocuparán un mínimo de 35vw (ancho de pantalla) ou 1fr */
+    grid-template-columns: repeat(auto-fit, minmax(35vw, 1fr));
+    gap: 4vw; /* Espazo fluído entre tarxetas */
     text-align: left;
 }
 
-/* Tarxeta individual */
 .news-card {
     background-color: var(--color-white);
-    padding: 2rem;
+    padding: 5%; /* Padding baseado no tamaño da propia tarxeta */
     border-radius: 8px;
     box-shadow: 0 4px 15px var(--color-shadow);
-    border-top: 4px solid var(--color-primary); /* Liña superior de cor */
+    border-top: 4px solid var(--color-primary);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.news-card time {
-    font-size: 0.85rem;
-    color: var(--color-primary);
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
 .news-card h2 {
     font-size: 1.4rem;
-    margin: 0.5rem 0 1rem 0;
-    border-bottom: none; /* Quitamos o subliñado xeral que tiñamos para os H2 */
+    margin: 1rem 0;
+    border-bottom: none;
     padding-bottom: 0;
 }
 
@@ -49,7 +40,6 @@
     margin-bottom: 1.5rem;
 }
 
-/* Enlace de ler máis */
 .read-more {
     color: var(--color-primary);
     text-decoration: none;
@@ -63,16 +53,15 @@
     color: var(--color-secondary);
 }
 
-/* --- ESTILOS PARA A NOVA INDIVIDUAL --- */
-
+/* --- NOVA INDIVIDUAL --- */
 .single-news-post {
-    max-width: 700px; /* Un ancho óptimo para lectura cómoda */
-    margin: 2rem auto 5rem auto;
-    text-align: left; /* O artigo léele á esquerda */
-    padding: 0 1rem;
+    width: 90vw; /* Ocupa o 90% do ancho en móbiles */
+    max-width: 45rem; /* Pero non medra máis de 45rem en PC para non cansar a vista */
+    margin: 4vh auto 10vh auto;
+    text-align: left;
+    padding: 0 2%;
 }
 
-/* Enlace de volver */
 .back-link {
     display: inline-block;
     color: var(--color-primary);
@@ -87,23 +76,12 @@
     color: var(--color-secondary);
 }
 
-/* Elementos da cabeceira */
-.post-date {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--color-primary);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05rem;
-    margin-bottom: 0.5rem;
-}
-
 .post-title {
-    font-size: 2.6rem;
+    font-size: 2.5rem;
     line-height: 1.2;
     color: var(--color-text-heading);
     margin-bottom: 1rem;
-    text-transform: none; /* Quitamos as maiúsculas automáticas do h1 xeral se queres un estilo máis xornalístico */
+    text-transform: none;
 }
 
 .post-description {
@@ -121,18 +99,11 @@
     margin: 2rem 0;
 }
 
-
 .post-content p {
     font-size: 1.15rem;
     line-height: 1.75;
     color: var(--color-text-main);
     margin-bottom: 1.6rem;
-}
-
-.post-content p.lead {
-    font-size: 1.3rem;
-    line-height: 1.6;
-    font-weight: 500;
 }
 
 .post-content h2 {
@@ -169,24 +140,6 @@
     background-color: var(--color-bg-section-hero);
     border-left: 4px solid var(--color-primary);
     margin: 2rem 0;
-    padding: 1.5rem;
+    padding: 5%;
     border-radius: 0 8px 8px 0;
-}
-
-.post-content blockquote p {
-    font-size: 1.1rem;
-    font-style: italic;
-    margin-bottom: 0;
-    color: var(--color-text-heading);
-}
-
-.post-content a {
-    color: var(--color-primary);
-    text-decoration: underline;
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-.post-content a:hover {
-    color: var(--color-secondary);
 }

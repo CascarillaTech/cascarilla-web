@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/LayoutBasic.astro';
+import comunidades from '../data/comunidades.json';
+import { Image } from 'astro:assets';
+import '../styles/community.css';
+
+const defaultImage = "/comunidade.png";
+---
+
+<Layout title="Comunidades Amigas - Cascarilla Tech">
+    <section class="community-section">
+        <header class="section-header">
+            <h1>Comunidades Amigas</h1>
+            <p>A Coruña ten un ecosistema tecnolóxico vibrante. Estas son algunhas das comunidades coas que colaboramos e compartimos inquedanzas.</p>
+        </header>
+
+        <article class="community-grid">
+            {comunidades.map((item) => {
+                const hasImage = item.image && item.image.trim() !== "";
+                let imgSrc;
+                let isSvg = false;
+
+                if (hasImage) {
+                    if (item.image.endsWith('.svg')) {
+                        isSvg = true;
+                        imgSrc = item.image;
+                    } else {
+                        imgSrc = item.image;
+                    }
+                } else {
+                    imgSrc = defaultImage;
+                }
+
+                const hasUrl = item.url && item.url.trim() !== "" && item.url !== null;
+
+                return (
+                        <div class="community-card">
+                            <div class="card-image-container">
+                                {isSvg ? (
+                                        <img
+                                                src={imgSrc}
+                                                alt={`Logo de ${item.name}`}
+                                                class="card-image card-image-svg"
+                                        />
+                                ) : (
+                                        <Image
+                                                src={imgSrc}
+                                                alt={`Logo de ${item.name}`}
+                                                class="card-image card-image-raster"
+                                                width={200}
+                                                height={150}
+                                                format="webp"
+                                        />
+                                )}
+                            </div>
+
+                            <div class="card-body">
+                                <div class="tags-container">
+                                    {item.tags && item.tags.map(tag => (
+                                            <span class="tag-pill">{tag}</span>
+                                    ))}
+                                </div>
+
+                                <h3>{item.name}</h3>
+                                <p>{item.description}</p>
+
+                                {hasUrl ? (
+                                        <a href={item.url} target="_blank" rel="noopener noreferrer" class="community-link">
+                                            Visitar web &rarr;
+                                        </a>
+                                ) : (
+                                        <span class="no-link">Sen web dispoñible</span>
+                                )}
+                            </div>
+                        </div>
+                );
+            })}
+        </article>
+    </section>
+</Layout>

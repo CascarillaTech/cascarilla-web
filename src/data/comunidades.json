@@ -1,0 +1,65 @@
+[
+  {
+    "name": "GDG A Coruña",
+    "description": "GDG A Coruña é unha comunidade aberta que conecta entusiastas da tecnoloxía na Coruña. Organizamos eventos, talleres e charlas para fomentar a aprendizaxe, o intercambio de ideas e a innovación tecnolóxica. Únete a nós para explorar novas tecnoloxías, crecer profesionalmente e colaborar nun futuro máis inclusivo e innovador. ",
+    "image": "/images/gdg.jpg",
+    "url": "https://gdg.community.dev/gdg-a-coruna/",
+    "tags": ["Google", "Dev", "Networking"]
+  },
+  {
+    "name": "GPUL",
+    "description": "Asociación de usuarios e desenvolvedores de Software Libre da Universidade da Coruña.",
+    "image": "/images/gpul.svg",
+    "url": "https://gpul.org",
+    "tags": ["Open Source", "UDC", "Linux"]
+  },
+  {
+    "name": "CoruñaWTF",
+    "description": "Comunidade tech informal da Coruña. Organizamos charlas técnicas relaxadas sobre tecnoloxías emerxentes, experiencias profesionais e temas diversos do mundo tech..",
+    "image": "/images/corunawtf.png",
+    "url": "",
+    "tags": ["Frontend", "Mobile"]
+  },
+  {
+    "name": "PythonCoruña",
+    "description": "Comunidade de desenvolvedores Python da Coruña. Organizamos eventos, talleres e encontros para compartir coñecemento sobre Python e o seu ecosistema.",
+    "image": "/images/python.jpeg",
+    "url": "",
+    "tags": ["Python", "FastAPI"]
+  },
+  {
+    "name": "Sysarmy Galicia",
+    "description": "Comunidade de sistemas. O soporte para os que dan soporte. Teñen actividade en A Coruña, Vigo e Ferrol",
+    "image": "/images/sysarmy.png",
+    "url": "",
+    "tags": ["Sistemas"]
+  },
+  {
+    "name": "Wordpress Coruña",
+    "description": "Comunidad de usuarios de Wordpress de A Coruña.",
+    "image": "/images/wordpress.jpeg",
+    "url": "",
+    "tags": ["Wordpress"]
+  },
+  {
+    "name": "Bricolabs",
+    "description": "BricoLabs é unha asociación que reúne semanalmente a todos aqueles que queiran colaborar no deseño, construción e probas de todo tipo de aparellos e gadgets, propostos polos propios participantes e ao estilo doutros HackerSpaces e FabLabs do mundo.",
+    "image": "/images/bricolabs_logo.png",
+    "url": "https://www.bricolabs.cc/",
+    "tags": ["maker", "OSHWDem"]
+  },
+  {
+    "name": "Coruña Tech",
+    "description": "O punto de encontro das comunidades tecnolóxicas da Coruña.",
+    "image": "/images/img-logo-comunidad-corunatech.png",
+    "url": "https://corunatech.org/",
+    "tags": ["maker", "OSHWDem"]
+  },
+  {
+    "name": "Aquelarre Dixital",
+    "description": "O punto de encontro das comunidades tecnolóxicas da Coruña.",
+    "image": "/images/aquelarre.jpeg",
+    "url": "https://linktr.ee/aquelarredixital",
+    "tags": ["Mulleres tech", "Formación"]
+  }
+]
