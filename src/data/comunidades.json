@@ -76,4 +76,12 @@
     "url": "https://galicia.isf.es/",
     "tags": ["Enxeñería", "Comunidade", "Refugallo"]
   }
+,
+  {
+    "name": "Coruña JUG",
+    "description": "Coruña Java User Group (ou CoruñaJUG, que é máis curto) é unha comunidade tecnolóxica nada na Coruña co propósito de unir a programadores profesionais e afeccionados, ou mesmo a persoas non técnicas, que queiran aprender sobre todo o que se executa sobre a JVM.",
+    "image": "/images/corunajug-logo.png",
+    "url": "https://corunajug.org/",
+    "tags": ["Java", "Kotlin", "Groovy", "Scala", "JUG"]
+  }
 ]
