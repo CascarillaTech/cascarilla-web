@@ -17,14 +17,14 @@
     "name": "CoruñaWTF",
     "description": "Comunidade tech informal da Coruña. Organizamos charlas técnicas relaxadas sobre tecnoloxías emerxentes, experiencias profesionais e temas diversos do mundo tech..",
     "image": "/images/corunawtf.png",
-    "url": "",
+    "url": "https://corunawtf.github.io/page/",
     "tags": ["Frontend", "Mobile"]
   },
   {
     "name": "PythonCoruña",
     "description": "Comunidade de desenvolvedores Python da Coruña. Organizamos eventos, talleres e encontros para compartir coñecemento sobre Python e o seu ecosistema.",
     "image": "/images/python.jpeg",
-    "url": "",
+    "url": "https://pythoncoruna.github.io/es/",
     "tags": ["Python", "FastAPI"]
   },
   {
@@ -38,7 +38,7 @@
     "name": "Wordpress Coruña",
     "description": "Comunidad de usuarios de Wordpress de A Coruña.",
     "image": "/images/wordpress.jpeg",
-    "url": "",
+    "url": "https://xn--wpcorua-9za.com/es/",
     "tags": ["Wordpress"]
   },
   {
@@ -53,7 +53,7 @@
     "description": "O punto de encontro das comunidades tecnolóxicas da Coruña.",
     "image": "/images/img-logo-comunidad-corunatech.png",
     "url": "https://corunatech.org/",
-    "tags": ["maker", "OSHWDem"]
+    "tags": ["Meta comunidade", "Coruña Tech"]
   },
   {
     "name": "Aquelarre Dixital",
