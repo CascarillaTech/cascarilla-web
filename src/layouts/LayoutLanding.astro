@@ -1,48 +1,17 @@
 ---
-import '../styles/main.css';
-
+import BaseLayout from './LayoutBasic.astro';
 import { Image } from 'astro:assets';
-
 import logo from '../assets/cascarillatech.svg';
 
 const { title } = Astro.props.frontmatter || Astro.props;
 ---
+<BaseLayout title={title}>
+    <slot name="header-extra" slot="header-extra" />
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}</title>
-</head>
-<body>
+    <main class="container">
+        <Image src={logo} alt="Logo Cascarilla Tech A Coruña" class="logo" />
+        <slot />
+    </main>
 
-<header class="header">
-    <nav class="nav-container">
-        <a href="/" class="nav-logo-link">
-            <Image src={logo} alt="Logo de Cascarilla Tech" class="nav-logo" />
-        </a>
-
-        <ul class="nav-menu">
-            <li><a href="/about">Quen somos</a></li>
-            <li><a href="/news">Novas</a></li>
-        </ul>
-    </nav>
-    <slot name="header-extra" />
-</header>
-
-<main class="container">
-
-    <Image src={logo} alt="Logo Cascarilla Tech A Coruña" class="logo" />
-
-    <slot />
-</main>
-
-
-<footer class="footer">
-    <slot name="footer-extra" />
-    <p>&copy; 2026 Asociación Cascarilla Tech.</p>
-    <p>A Coruña, Galicia</p>
-</footer>
-</body>
-</html>
+    <slot name="footer-extra" slot="footer-extra" />
+</BaseLayout>

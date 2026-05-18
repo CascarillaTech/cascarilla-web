@@ -5,6 +5,7 @@ import { Image } from 'astro:assets';
 import '../styles/community.css';
 
 const defaultImage = "/comunidade.png";
+const shuffledCommunities = [...comunidades].sort(() => Math.random() - 0.5);
 ---
 
 <Layout title="Comunidades Amigas - Cascarilla Tech">
@@ -15,7 +16,7 @@ const defaultImage = "/comunidade.png";
         </header>
 
         <article class="community-grid">
-            {comunidades.map((item) => {
+            {shuffledCommunities.map((item) => {
                 const hasImage = item.image && item.image.trim() !== "";
                 let imgSrc;
                 let isSvg = false;
