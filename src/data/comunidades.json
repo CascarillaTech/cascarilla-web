@@ -61,5 +61,19 @@
     "image": "/images/aquelarre.jpeg",
     "url": "https://linktr.ee/aquelarredixital",
     "tags": ["Mulleres tech", "Formación"]
+  },
+  {
+    "name": "Datola",
+    "description": "Comunidade dixital sobre analítica e datos. Unha nova forma de sumerxirte no mundo dos datos e a analítica dixital",
+    "image": "/images/logo_datola_web.webp",
+    "url": "https://datola.es/",
+    "tags": ["Datos", "Analítica", "Datolada"]
+  },
+  {
+    "name": "Enxeñería sen fronteiras",
+    "description": "Enxeñería Sen Fronteiras Galicia (ESF) é por enriba de todo as persoas que a forman, un espazo de creación colectiva para cambiar a sociedade poñendo a tecnoloxía ao servizo do ben común.",
+    "image": "/images/esf.png",
+    "url": "https://galicia.isf.es/",
+    "tags": ["Enxeñería", "Comunidade", "Refugallo"]
   }
 ]
