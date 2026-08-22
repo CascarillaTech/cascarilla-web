@@ -103,6 +103,16 @@
     margin-bottom: 0.2rem;
 }
 
+.event-card-venue a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.event-card-venue a:hover {
+    text-decoration: underline;
+}
+
 .event-card-address {
     font-size: 0.78rem;
     color: var(--color-text-muted);

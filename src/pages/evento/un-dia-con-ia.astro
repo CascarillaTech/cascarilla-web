@@ -33,7 +33,9 @@ const sponsors = [1, 2, 3];
             <h1>{evento.nombre}</h1>
             <div class="event-meta">
                 <span>📅 {evento.fechaTexto}</span>
-                <span>📍 {evento.lugar}</span>
+                <span>📍 {evento.lugar.includes('Odeene') ? (
+                    <a href="https://www.odeene.es" target="_blank" rel="noopener noreferrer">{evento.lugar}</a>
+                ) : evento.lugar}</span>
             </div>
             <p>
                 Unha xornada tecnolóxica pensada para conectar comunidade, coñecemento e empresas de A Coruña.

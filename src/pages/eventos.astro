@@ -41,6 +41,13 @@ function direccion(evt) {
     return [addr.street, addr.postalCode, addr.locality].filter(Boolean).join(', ');
 }
 
+// Se o venue menciona a Odeene, enlazamos á súa web
+const ODEENE_URL = "https://www.odeene.es";
+function venueUrl(venue) {
+    if (venue && venue.includes('Odeene')) return ODEENE_URL;
+    return null;
+}
+
 // Calcula cantas columnas amosar para que as filas queden o máis igualadas
 // posible (evita que quede unha soa tarxeta orfa nunha última fila).
 function bestColumns(n, maxCols = 4, minCols = 2) {
@@ -85,7 +92,15 @@ const pasadosCols = bestColumns(eventosPasados.length);
                                     <div class="event-card-date">{formatFecha(evt)}</div>
                                     <div class="event-card-body">
                                         <h3>{evt.name}</h3>
-                                        {venueOrModo(evt) && <p class="event-card-venue">📍 {venueOrModo(evt)}</p>}
+                                        {venueOrModo(evt) && (
+                                                <p class="event-card-venue">
+                                                    📍 {venueUrl(venueOrModo(evt)) ? (
+                                                        <a href={venueUrl(venueOrModo(evt))} target="_blank" rel="noopener noreferrer">
+                                                            {venueOrModo(evt)}
+                                                        </a>
+                                                    ) : venueOrModo(evt)}
+                                                </p>
+                                        )}
                                         {direccion(evt) && <p class="event-card-address">{direccion(evt)}</p>}
                                         {evt.description && <p class="event-card-desc">{evt.description}</p>}
                                         {evt.url && (
@@ -113,7 +128,15 @@ const pasadosCols = bestColumns(eventosPasados.length);
                                     <div class="event-card-date">{formatFecha(evt)}</div>
                                     <div class="event-card-body">
                                         <h3>{evt.name}</h3>
-                                        {venueOrModo(evt) && <p class="event-card-venue">📍 {venueOrModo(evt)}</p>}
+                                        {venueOrModo(evt) && (
+                                                <p class="event-card-venue">
+                                                    📍 {venueUrl(venueOrModo(evt)) ? (
+                                                        <a href={venueUrl(venueOrModo(evt))} target="_blank" rel="noopener noreferrer">
+                                                            {venueOrModo(evt)}
+                                                        </a>
+                                                    ) : venueOrModo(evt)}
+                                                </p>
+                                        )}
                                         {direccion(evt) && <p class="event-card-address">{direccion(evt)}</p>}
                                         {evt.description && <p class="event-card-desc">{evt.description}</p>}
                                         {evt.url && (
