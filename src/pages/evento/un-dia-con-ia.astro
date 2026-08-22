@@ -50,40 +50,68 @@ const sponsors = [1, 2, 3];
         </header>
 
         <section class="event-section-block">
-            <h2>Axenda</h2>
+            <div class="section-heading-row">
+                <h2>Axenda</h2>
+                <button type="button" id="agenda-toggle-btn" class="agenda-toggle-btn" aria-expanded="true" aria-controls="agenda-accordion">
+                    Ocultar axenda ▲
+                </button>
+            </div>
             <p class="section-intro">
                 Programa completo do día, de porta a porta. Toca en cada franxa para ver máis detalle;
-                nas charlas podes abrir tamén a ficha completa.
+                nas charlas ábrese directamente a súa ficha.
             </p>
 
             <ul class="agenda-accordion" id="agenda-accordion">
                 {axenda.map((item, idx) => (
-                        <li class:list={["agenda-acc-item", { "agenda-acc-talk": item.isTalk }]} data-idx={idx}>
-                            <button class="agenda-acc-trigger" aria-expanded="false">
-                                <span class="agenda-time">{item.time}</span>
-                                <span class="agenda-titlewrap">
-                                    <strong>{item.title}</strong>
-                                    {item.speaker && (
+                        item.isTalk ? (
+                                <li class="agenda-acc-item agenda-acc-talk" data-idx={idx}>
+                                    <button type="button" class="agenda-acc-trigger talk-open-btn" data-talk-idx={idx}>
+                                        <span class="agenda-time">{item.time}</span>
+                                        <span class="agenda-titlewrap">
+                                            <strong>{item.title}</strong>
                                             <span class="agenda-speaker-inline">
                                                 <img src={speakerPlaceholder} alt="" width="18" height="18" class="agenda-speaker-avatar" />
                                                 Poñente: {item.speaker}
                                             </span>
-                                    )}
-                                </span>
-                                <span class="agenda-acc-icon" aria-hidden="true">+</span>
-                            </button>
-                            <div class="agenda-acc-panel">
-                                {item.isTalk ? (
-                                        <button type="button" class="talk-open-btn" data-talk-idx={idx}>
-                                            Ver ficha da charla →
-                                        </button>
-                                ) : (
+                                        </span>
+                                        <span class="agenda-acc-icon" aria-hidden="true">→</span>
+                                    </button>
+                                </li>
+                        ) : (
+                                <li class="agenda-acc-item" data-idx={idx}>
+                                    <button type="button" class="agenda-acc-trigger" aria-expanded="false">
+                                        <span class="agenda-time">{item.time}</span>
+                                        <span class="agenda-titlewrap">
+                                            <strong>{item.title}</strong>
+                                        </span>
+                                        <span class="agenda-acc-icon" aria-hidden="true">+</span>
+                                    </button>
+                                    <div class="agenda-acc-panel">
                                         <p>{item.title}, ás {item.time}.</p>
-                                )}
-                            </div>
-                        </li>
+                                    </div>
+                                </li>
+                        )
                 ))}
             </ul>
+        </section>
+
+        <section class="event-section-block">
+            <h2>Charlas destacadas</h2>
+            <p class="section-intro">Poñentes en confirmación — en canto os pechemos, actualizamos esta sección.</p>
+
+            <div class="talks-grid">
+                {axenda.filter((i) => i.isTalk).map((talk) => {
+                    const idx = axenda.indexOf(talk);
+                    return (
+                            <button type="button" class="talk-card talk-open-btn" data-talk-idx={idx}>
+                                <img src={speakerPlaceholder} alt="Foto de exemplo do/a poñente" />
+                                <p class="talk-time">{talk.time}</p>
+                                <h3>{talk.title}</h3>
+                                <p class="talk-speaker">Poñente: {talk.speaker}</p>
+                            </button>
+                    );
+                })}
+            </div>
         </section>
 
         <section class="event-section-block">
@@ -125,8 +153,8 @@ const sponsors = [1, 2, 3];
 </Layout>
 
 <script define:vars={{ axenda, eventDateISO: evento.fecha }}>
-    // --- Acordeón da axenda ---
-    document.querySelectorAll('.agenda-acc-trigger').forEach((btn) => {
+    // --- Acordeón da axenda (só para as franxas que non son charla) ---
+    document.querySelectorAll('.agenda-acc-trigger:not(.talk-open-btn)').forEach((btn) => {
         btn.addEventListener('click', () => {
             const item = btn.closest('.agenda-acc-item');
             const isOpen = btn.getAttribute('aria-expanded') === 'true';
@@ -135,12 +163,21 @@ const sponsors = [1, 2, 3];
         });
     });
 
-    // --- Modal de charla ---
+    // --- Colapsar/amosar a axenda enteira ---
+    const agendaToggleBtn = document.getElementById('agenda-toggle-btn');
+    const agendaList = document.getElementById('agenda-accordion');
+
+    agendaToggleBtn?.addEventListener('click', () => {
+        const isHidden = agendaList.classList.toggle('agenda-hidden');
+        agendaToggleBtn.setAttribute('aria-expanded', String(!isHidden));
+        agendaToggleBtn.textContent = isHidden ? 'Amosar axenda ▼' : 'Ocultar axenda ▲';
+    });
+
+    // --- Modal de charla (agenda e sección de charlas destacadas comparten botón) ---
     const dialog = document.getElementById('talk-modal');
 
     document.querySelectorAll('.talk-open-btn').forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
+        btn.addEventListener('click', () => {
             const idx = Number(btn.dataset.talkIdx);
             const talk = axenda[idx];
             document.getElementById('talk-modal-title').textContent = talk.title;
@@ -180,7 +217,8 @@ const sponsors = [1, 2, 3];
             if (i === currentIdx + 1) el.classList.add('agenda-next');
             if (i === currentIdx || i === currentIdx + 1) {
                 el.classList.add('open');
-                el.querySelector('.agenda-acc-trigger')?.setAttribute('aria-expanded', 'true');
+                const panelTrigger = el.querySelector('.agenda-acc-trigger:not(.talk-open-btn)');
+                panelTrigger?.setAttribute('aria-expanded', 'true');
             }
         });
     }

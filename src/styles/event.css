@@ -96,6 +96,40 @@
     color: var(--color-text-muted);
 }
 
+.section-heading-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+}
+
+.section-heading-row h2 {
+    margin-bottom: 0;
+}
+
+.agenda-toggle-btn {
+    background: none;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: 0.85rem;
+    padding: 0.4em 1em;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.agenda-toggle-btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.agenda-accordion.agenda-hidden {
+    display: none;
+}
+
 /* ---------- Agenda (acordeón) ---------- */
 .agenda-accordion {
     list-style: none;
@@ -188,20 +222,17 @@
     padding: 0 0.5rem 1rem;
 }
 
-.talk-open-btn {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    border: none;
-    padding: 0.5em 1.1em;
-    border-radius: 25px;
-    font-weight: bold;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+.agenda-acc-item.agenda-acc-talk {
+    border-radius: 6px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.talk-open-btn:hover {
-    background-color: var(--color-secondary);
+.agenda-acc-item.agenda-acc-talk:hover {
+    background-color: var(--color-bg-main);
+}
+
+.agenda-acc-talk .agenda-acc-icon {
+    color: var(--color-primary);
 }
 
 .agenda-acc-item.agenda-current {
@@ -264,6 +295,61 @@
     color: var(--color-text-muted);
 }
 
+/* ---------- Charlas destacadas ---------- */
+.talks-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.talk-card {
+    background-color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--color-shadow);
+    padding: 1.5rem;
+    width: 20rem;
+    max-width: 90vw;
+    text-align: center;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    transition: transform 0.2s ease;
+}
+
+.talk-card:hover {
+    transform: translateY(-4px);
+}
+
+.talk-card img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: var(--color-background-logo);
+    margin-bottom: 1rem;
+}
+
+.talk-card h3 {
+    margin: 0 0 0.3rem;
+    color: var(--color-text-heading);
+}
+
+.talk-card .talk-time {
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+}
+
+.talk-card .talk-speaker {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
 /* ---------- Empresas colaboradoras ---------- */
 .sponsors-grid {
     display: flex;
@@ -311,9 +397,8 @@
 
 /* ---------- Móvil ---------- */
 @media (max-width: 30rem) {
-    .agenda-item {
-        flex-direction: column;
-        gap: 0.2rem;
+    .agenda-acc-trigger {
+        flex-wrap: wrap;
     }
 
     .agenda-time {
