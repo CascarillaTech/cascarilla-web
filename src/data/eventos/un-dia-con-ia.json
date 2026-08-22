@@ -1,0 +1,35 @@
+{
+    "slug": "un-dia-con-ia",
+    "nombre": "Un día con IA",
+    "fecha": "2026-09-21",
+    "fechaTexto": "21 de setembro de 2026",
+    "lugar": "Cidade das TIC, A Coruña",
+    "precio": "25 €",
+    "notaPrecio": "O importe da entrada destínase integramente á comida, excluíndo os gastos de xestión de entradas e o IVE.",
+    "organizadores": [
+        {
+            "nome": "Cascarilla Tech",
+            "url": "/",
+            "logo": "/images/cascarillatech-logo.svg"
+        },
+        {
+            "nome": "Coruña JUG",
+            "url": "https://corunajug.org/",
+            "logo": "/images/corunajug-logo.png"
+        }
+    ],
+    "axenda": [
+        { "time": "9:00", "title": "Apertura de portas" },
+        { "time": "9:01", "title": "Almorzo" },
+        { "time": "9:40", "title": "Keynote" },
+        { "talkId": "charla1" },
+        { "talkId": "charla2" },
+        { "time": "12:00", "title": "Descanso" },
+        { "talkId": "charla3" },
+        { "talkId": "charla4" },
+        { "time": "14:30", "title": "Comida" },
+        { "time": "15:30", "title": "Sobremesa" },
+        { "time": "17:45", "title": "Despedida" },
+        { "time": "18:30", "title": "Pechamos portas" }
+    ]
+}

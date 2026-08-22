@@ -6,6 +6,21 @@ import evento from '../../data/eventos/un-dia-con-ia.json';
 const speakerPlaceholder = "/images/speaker-placeholder.svg";
 const companyPlaceholder = "/images/company-placeholder.svg";
 
+// Cada charla vive no seu propio ficheiro en data/eventos/undiaconia/*.json
+const charlasModules = import.meta.glob('../../data/eventos/undiaconia/*.json', { eager: true });
+const charlasById = Object.fromEntries(
+    Object.values(charlasModules).map((mod) => [mod.default.id, mod.default])
+);
+
+// Fusiona a axenda: as entradas con `talkId` collen os datos completos da súa charla
+const axenda = evento.axenda.map((item) => {
+    if (item.talkId) {
+        const charla = charlasById[item.talkId];
+        return { ...charla, isTalk: true };
+    }
+    return item;
+});
+
 const sponsors = [1, 2, 3];
 ---
 
@@ -42,7 +57,7 @@ const sponsors = [1, 2, 3];
             </p>
 
             <ul class="agenda-accordion" id="agenda-accordion">
-                {evento.axenda.map((item, idx) => (
+                {axenda.map((item, idx) => (
                         <li class:list={["agenda-acc-item", { "agenda-acc-talk": item.isTalk }]} data-idx={idx}>
                             <button class="agenda-acc-trigger" aria-expanded="false">
                                 <span class="agenda-time">{item.time}</span>
@@ -109,7 +124,7 @@ const sponsors = [1, 2, 3];
 
 </Layout>
 
-<script define:vars={{ axenda: evento.axenda, eventDateISO: evento.fecha }}>
+<script define:vars={{ axenda, eventDateISO: evento.fecha }}>
     // --- Acordeón da axenda ---
     document.querySelectorAll('.agenda-acc-trigger').forEach((btn) => {
         btn.addEventListener('click', () => {
