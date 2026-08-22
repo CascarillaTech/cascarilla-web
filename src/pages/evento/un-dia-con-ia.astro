@@ -1,33 +1,10 @@
 ---
 import Layout from '../../layouts/LayoutBasic.astro';
 import '../../styles/event.css';
-
-// --- Datos del evento (edita aquí cuando estén confirmados) ---
-const evento = {
-    nombre: "Un día con IA",
-    fecha: "21 de setembro de 2026",
-    lugar: "Cidade das TIC, A Coruña",
-    precio: "25 €",
-    notaPrecio: "Prezo provisional",
-};
+import evento from '../../data/eventos/un-dia-con-ia.json';
 
 const speakerPlaceholder = "/images/speaker-placeholder.svg";
 const companyPlaceholder = "/images/company-placeholder.svg";
-
-const agenda = [
-    { time: "9:00", title: "Apertura de portas" },
-    { time: "9:01", title: "Almorzo" },
-    { time: "9:40", title: "Keynote" },
-    { time: "10:00", title: "Primeira charla", speaker: "TBA", highlight: true },
-    { time: "11:00", title: "Segunda charla", speaker: "TBA", highlight: true },
-    { time: "12:00", title: "Descanso" },
-    { time: "12:30", title: "Terceira charla", speaker: "TBA", highlight: true },
-    { time: "13:30", title: "Cuarta charla", speaker: "TBA", highlight: true },
-    { time: "14:30", title: "Comida" },
-    { time: "15:30", title: "Sobremesa" },
-    { time: "17:45", title: "Despedida" },
-    { time: "18:30", title: "Pechamos portas" },
-];
 
 const sponsors = [1, 2, 3];
 ---
@@ -40,51 +17,58 @@ const sponsors = [1, 2, 3];
             <span class="event-badge">Dossier para colaboradoras</span>
             <h1>{evento.nombre}</h1>
             <div class="event-meta">
-                <span>📅 {evento.fecha}</span>
+                <span>📅 {evento.fechaTexto}</span>
                 <span>📍 {evento.lugar}</span>
             </div>
             <p>
-                Unha xornada tecnolóxica organizada por <strong>Cascarilla Tech</strong>,
-                pensada para conectar comunidade, coñecemento e empresas de A Coruña.
+                Unha xornada tecnolóxica pensada para conectar comunidade, coñecemento e empresas de A Coruña.
+            </p>
+            <p class="event-organizers">
+                Organizado por:
+                {evento.organizadores.map((org) => (
+                        <a href={org.url} target="_blank" rel="noopener noreferrer" class="organizer-link">
+                            <img src={org.logo} alt={`Logo de ${org.nome}`} class="organizer-logo" />
+                            {org.nome}
+                        </a>
+                ))}
             </p>
         </header>
 
         <section class="event-section-block">
             <h2>Axenda</h2>
-            <p class="section-intro">Programa completo do día, de porta a porta.</p>
+            <p class="section-intro">
+                Programa completo do día, de porta a porta. Toca en cada franxa para ver máis detalle;
+                nas charlas podes abrir tamén a ficha completa.
+            </p>
 
-            <div class="agenda-list">
-                {agenda.map((item) => (
-                        <div class:list={["agenda-item", { "agenda-highlight": item.highlight }]}>
-                            <span class="agenda-time">{item.time}</span>
-                            <span class="agenda-desc">
-                                <strong>{item.title}</strong>
-                                {item.speaker && (
-                                        <span class="agenda-speaker">
-                                            <img src={speakerPlaceholder} alt="Foto de exemplo do/a poñente" width="20" height="20" style="border-radius:50%; vertical-align:middle; margin-right:0.4em;" />
-                                            Poñente: {item.speaker}
-                                        </span>
+            <ul class="agenda-accordion" id="agenda-accordion">
+                {evento.axenda.map((item, idx) => (
+                        <li class:list={["agenda-acc-item", { "agenda-acc-talk": item.isTalk }]} data-idx={idx}>
+                            <button class="agenda-acc-trigger" aria-expanded="false">
+                                <span class="agenda-time">{item.time}</span>
+                                <span class="agenda-titlewrap">
+                                    <strong>{item.title}</strong>
+                                    {item.speaker && (
+                                            <span class="agenda-speaker-inline">
+                                                <img src={speakerPlaceholder} alt="" width="18" height="18" class="agenda-speaker-avatar" />
+                                                Poñente: {item.speaker}
+                                            </span>
+                                    )}
+                                </span>
+                                <span class="agenda-acc-icon" aria-hidden="true">+</span>
+                            </button>
+                            <div class="agenda-acc-panel">
+                                {item.isTalk ? (
+                                        <button type="button" class="talk-open-btn" data-talk-idx={idx}>
+                                            Ver ficha da charla →
+                                        </button>
+                                ) : (
+                                        <p>{item.title}, ás {item.time}.</p>
                                 )}
-                            </span>
-                        </div>
+                            </div>
+                        </li>
                 ))}
-            </div>
-        </section>
-
-        <section class="event-section-block">
-            <h2>Charlas destacadas</h2>
-            <p class="section-intro">Poñentes en confirmación — en canto os pechemos, actualizamos esta sección.</p>
-
-            <div class="talks-grid">
-                {agenda.filter(i => i.speaker).map((talk) => (
-                        <div class="talk-card">
-                            <img src={speakerPlaceholder} alt="Foto de exemplo do/a poñente" />
-                            <p class="talk-time">{talk.time}</p>
-                            <h3>{talk.title}</h3>
-                            <p class="talk-speaker">Poñente: {talk.speaker}</p>
-                        </div>
-                ))}
-            </div>
+            </ul>
         </section>
 
         <section class="event-section-block">
@@ -114,4 +98,75 @@ const sponsors = [1, 2, 3];
 
     </section>
 
+    <dialog id="talk-modal" class="talk-modal">
+        <button type="button" class="talk-modal-close" aria-label="Pechar">✕</button>
+        <img id="talk-modal-img" src={speakerPlaceholder} alt="Foto de exemplo do/a poñente" />
+        <p class="talk-modal-time" id="talk-modal-time"></p>
+        <h3 id="talk-modal-title"></h3>
+        <p class="talk-modal-speaker" id="talk-modal-speaker"></p>
+        <p id="talk-modal-desc"></p>
+    </dialog>
+
 </Layout>
+
+<script define:vars={{ axenda: evento.axenda, eventDateISO: evento.fecha }}>
+    // --- Acordeón da axenda ---
+    document.querySelectorAll('.agenda-acc-trigger').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const item = btn.closest('.agenda-acc-item');
+            const isOpen = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', String(!isOpen));
+            item.classList.toggle('open', !isOpen);
+        });
+    });
+
+    // --- Modal de charla ---
+    const dialog = document.getElementById('talk-modal');
+
+    document.querySelectorAll('.talk-open-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const idx = Number(btn.dataset.talkIdx);
+            const talk = axenda[idx];
+            document.getElementById('talk-modal-title').textContent = talk.title;
+            document.getElementById('talk-modal-time').textContent = talk.time;
+            document.getElementById('talk-modal-speaker').textContent = 'Poñente: ' + (talk.speaker || 'TBA');
+            document.getElementById('talk-modal-desc').textContent = talk.description || 'Descrición pendente de confirmar.';
+            dialog.showModal();
+        });
+    });
+
+    dialog?.querySelector('.talk-modal-close')?.addEventListener('click', () => dialog.close());
+    dialog?.addEventListener('click', (e) => {
+        if (e.target === dialog) dialog.close();
+    });
+
+    // --- Slot actual e seguinte, só o día do evento ---
+    function parseMinutes(t) {
+        const [h, m] = t.split(':').map(Number);
+        return h * 60 + m;
+    }
+
+    const today = new Date();
+    const eventDate = new Date(`${eventDateISO}T00:00:00`);
+    const isEventDay = today.toDateString() === eventDate.toDateString();
+
+    if (isEventDay) {
+        const nowMinutes = today.getHours() * 60 + today.getMinutes();
+        const times = axenda.map((a) => parseMinutes(a.time));
+
+        let currentIdx = -1;
+        for (let i = 0; i < times.length; i++) {
+            if (times[i] <= nowMinutes) currentIdx = i;
+        }
+
+        document.querySelectorAll('.agenda-acc-item').forEach((el, i) => {
+            if (i === currentIdx) el.classList.add('agenda-current');
+            if (i === currentIdx + 1) el.classList.add('agenda-next');
+            if (i === currentIdx || i === currentIdx + 1) {
+                el.classList.add('open');
+                el.querySelector('.agenda-acc-trigger')?.setAttribute('aria-expanded', 'true');
+            }
+        });
+    }
+</script>
