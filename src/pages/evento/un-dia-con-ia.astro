@@ -1,0 +1,117 @@
+---
+import Layout from '../../layouts/LayoutBasic.astro';
+import '../../styles/event.css';
+
+// --- Datos del evento (edita aquí cuando estén confirmados) ---
+const evento = {
+    nombre: "Un día con IA",
+    fecha: "21 de setembro de 2026",
+    lugar: "Cidade das TIC, A Coruña",
+    precio: "25 €",
+    notaPrecio: "Prezo provisional",
+};
+
+const speakerPlaceholder = "/images/speaker-placeholder.svg";
+const companyPlaceholder = "/images/company-placeholder.svg";
+
+const agenda = [
+    { time: "9:00", title: "Apertura de portas" },
+    { time: "9:01", title: "Almorzo" },
+    { time: "9:40", title: "Keynote" },
+    { time: "10:00", title: "Primeira charla", speaker: "TBA", highlight: true },
+    { time: "11:00", title: "Segunda charla", speaker: "TBA", highlight: true },
+    { time: "12:00", title: "Descanso" },
+    { time: "12:30", title: "Terceira charla", speaker: "TBA", highlight: true },
+    { time: "13:30", title: "Cuarta charla", speaker: "TBA", highlight: true },
+    { time: "14:30", title: "Comida" },
+    { time: "15:30", title: "Sobremesa" },
+    { time: "17:45", title: "Despedida" },
+    { time: "18:30", title: "Pechamos portas" },
+];
+
+const sponsors = [1, 2, 3];
+---
+
+<Layout frontmatter={{ title: `${evento.nombre} · Dossier — Cascarilla Tech`, noindex: true }}>
+
+    <section class="event-section">
+
+        <header class="event-hero">
+            <span class="event-badge">Dossier para colaboradoras</span>
+            <h1>{evento.nombre}</h1>
+            <div class="event-meta">
+                <span>📅 {evento.fecha}</span>
+                <span>📍 {evento.lugar}</span>
+            </div>
+            <p>
+                Unha xornada tecnolóxica organizada por <strong>Cascarilla Tech</strong>,
+                pensada para conectar comunidade, coñecemento e empresas de A Coruña.
+            </p>
+        </header>
+
+        <section class="event-section-block">
+            <h2>Axenda</h2>
+            <p class="section-intro">Programa completo do día, de porta a porta.</p>
+
+            <div class="agenda-list">
+                {agenda.map((item) => (
+                        <div class:list={["agenda-item", { "agenda-highlight": item.highlight }]}>
+                            <span class="agenda-time">{item.time}</span>
+                            <span class="agenda-desc">
+                                <strong>{item.title}</strong>
+                                {item.speaker && (
+                                        <span class="agenda-speaker">
+                                            <img src={speakerPlaceholder} alt="Foto de exemplo do/a poñente" width="20" height="20" style="border-radius:50%; vertical-align:middle; margin-right:0.4em;" />
+                                            Poñente: {item.speaker}
+                                        </span>
+                                )}
+                            </span>
+                        </div>
+                ))}
+            </div>
+        </section>
+
+        <section class="event-section-block">
+            <h2>Charlas destacadas</h2>
+            <p class="section-intro">Poñentes en confirmación — en canto os pechemos, actualizamos esta sección.</p>
+
+            <div class="talks-grid">
+                {agenda.filter(i => i.speaker).map((talk) => (
+                        <div class="talk-card">
+                            <img src={speakerPlaceholder} alt="Foto de exemplo do/a poñente" />
+                            <p class="talk-time">{talk.time}</p>
+                            <h3>{talk.title}</h3>
+                            <p class="talk-speaker">Poñente: {talk.speaker}</p>
+                        </div>
+                ))}
+            </div>
+        </section>
+
+        <section class="event-section-block">
+            <h2>Empresas colaboradoras</h2>
+            <p class="section-intro">
+                Así se verá o espazo reservado para as empresas que colaboren co evento
+                (exemplo ilustrativo, aínda sen colaboradoras confirmadas).
+            </p>
+
+            <div class="sponsors-grid">
+                {sponsors.map(() => (
+                        <div class="sponsor-card">
+                            <img src={companyPlaceholder} alt="Logo de exemplo dunha empresa colaboradora" />
+                        </div>
+                ))}
+            </div>
+        </section>
+
+        <section class="event-section-block">
+            <h2>Entradas</h2>
+            <div class="tickets-box">
+                <p class="ticket-price">{evento.precio}</p>
+                <p class="ticket-price-note">{evento.notaPrecio}</p>
+                <a href="/evento/un-dia-con-ia" class="contact-btn">Mercar entradas</a>
+            </div>
+        </section>
+
+    </section>
+
+</Layout>

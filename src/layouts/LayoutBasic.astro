@@ -5,7 +5,7 @@ import { Image } from 'astro:assets';
 
 import logo from '../assets/cascarillatech.svg';
 
-const { title } = Astro.props.frontmatter || Astro.props;
+const { title, noindex } = Astro.props.frontmatter || Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -14,6 +14,7 @@ const { title } = Astro.props.frontmatter || Astro.props;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 </head>
 <body>
 

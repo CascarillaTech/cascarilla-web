@@ -151,6 +151,74 @@ p {
     margin-bottom: 1.5rem;
 }
 
+/* Banner destacado de evento (home) */
+.event-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-white);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 16px var(--color-shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: pulseBanner 2.5s ease-in-out infinite;
+}
+
+.event-banner:hover {
+    transform: translateY(-0.2rem) scale(1.01);
+    box-shadow: 0 8px 24px var(--color-shadow);
+}
+
+.event-banner-badge {
+    display: inline-block;
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.8rem;
+    border-radius: 25px;
+}
+
+.event-banner-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.event-banner-meta {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.event-banner-cta {
+    margin-top: 0.4rem;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+@keyframes pulseBanner {
+    0%, 100% {
+        box-shadow: 0 4px 16px var(--color-shadow);
+    }
+    50% {
+        box-shadow: 0 4px 24px var(--color-border-card);
+    }
+}
+
+@media (max-width: 30em) {
+    .event-banner-title {
+        font-size: 1.3rem;
+    }
+}
+
 /* Botón de contacto provisional */
 .contact-btn {
     display: inline-block;
