@@ -34,6 +34,31 @@ function venueOrModo(evt) {
     if (evt.location?.onlineUrl) return 'Evento en liña';
     return null;
 }
+
+// Calcula cantas columnas amosar para que as filas queden o máis igualadas
+// posible (evita que quede unha soa tarxeta orfa nunha última fila).
+function bestColumns(n, maxCols = 4, minCols = 2) {
+    if (n <= maxCols) return Math.max(n, 1);
+
+    let best = maxCols;
+    let bestDiff = Infinity;
+
+    for (let cols = maxCols; cols >= minCols; cols--) {
+        const rows = Math.ceil(n / cols);
+        const lastRow = n - (rows - 1) * cols;
+        const diff = cols - lastRow; // 0 = última fila completa
+
+        if (diff < bestDiff) {
+            bestDiff = diff;
+            best = cols;
+        }
+    }
+
+    return best;
+}
+
+const proximosCols = bestColumns(proximosEventos.length);
+const pasadosCols = bestColumns(eventosPasados.length);
 ---
 
 <Layout title="Eventos - Cascarilla Tech">
@@ -48,7 +73,7 @@ function venueOrModo(evt) {
             <p class="eventos-block-intro">Os vindeiros eventos que estamos a organizar.</p>
 
             {proximosEventos.length > 0 ? (
-                    <div class="eventos-grid">
+                    <div class="eventos-grid" style={`--cols: ${proximosCols}`}>
                         {proximosEventos.map((evt) => (
                                 <div class="event-card">
                                     <div class="event-card-date">{formatFecha(evt)}</div>
@@ -75,7 +100,7 @@ function venueOrModo(evt) {
             <p class="eventos-block-intro">Un repaso ao que xa organizamos.</p>
 
             {eventosPasados.length > 0 ? (
-                    <div class="eventos-grid">
+                    <div class="eventos-grid" style={`--cols: ${pasadosCols}`}>
                         {eventosPasados.map((evt) => (
                                 <div class="event-card event-card-past">
                                     <div class="event-card-date">{formatFecha(evt)}</div>

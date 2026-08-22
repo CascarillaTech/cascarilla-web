@@ -38,11 +38,16 @@
     color: var(--color-text-muted);
 }
 
+/* Grid limitado ao número de columnas "ideal" (--cols, calculado en base
+   ao número de eventos) para que as filas queden igualadas en vez de
+   deixar unha soa tarxeta orfa nunha última fila en pantallas anchas. */
 .eventos-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 20rem));
     justify-content: center;
     gap: 2vw;
+    max-width: calc(var(--cols, 3) * 20rem + (var(--cols, 3) - 1) * 2vw);
+    margin: 0 auto;
 }
 
 .event-card {
@@ -53,7 +58,7 @@
     flex-direction: column;
     box-shadow: 0 2px 10px var(--color-shadow);
     border: 1px solid rgba(0, 0, 0, 0.05);
-    width: 42vw;
+    width: 100%;
     max-width: 20rem;
     transition: transform 0.2s ease;
 }
@@ -126,11 +131,12 @@
 
 @media (max-width: 30rem) {
     .eventos-grid {
+        grid-template-columns: 1fr;
+        max-width: 90vw;
         gap: 4vw;
     }
 
     .event-card {
-        width: 90vw;
         max-width: none;
     }
 }
