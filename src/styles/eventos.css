@@ -100,7 +100,14 @@
 .event-card-venue {
     font-size: 0.85rem;
     color: var(--color-text-muted);
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.2rem;
+}
+
+.event-card-address {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    opacity: 0.85;
+    margin: 0 0 0.6rem 0;
 }
 
 .event-card-body p.event-card-desc {

@@ -10,8 +10,10 @@
     "location": {
         "venue": "Sngular",
         "address": {
+            "street": "Rúa Sor Joaquina, 6",
             "locality": "A Coruña",
             "region": "Galicia",
+            "postalCode": "15011",
             "country": "ES"
         }
     },

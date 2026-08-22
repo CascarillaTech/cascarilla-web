@@ -2,24 +2,26 @@
     "specVersion": "0.3.0",
     "id": "https://cascarillatech.org/eventos/exemplo-meetup",
     "url": "https://cascarillatech.org/eventos/exemplo-meetup",
-    "name": "Meetup de exemplo",
-    "description": "Isto é un evento de exemplo para amosar o formato OpenTechEvents. Substitúeo polo primeiro evento real en canto o teñamos pechado.",
-    "startDate": "2026-11-05T18:30",
-    "endDate": "2026-11-05T20:30",
+    "name": "Meetup aínda non pechado",
+    "description": "Aínda non sabemos cando será o evento.",
+    "startDate": "2026-09-17T18:30",
+    "endDate": "2026-09-17T21:30",
     "timezone": "Europe/Madrid",
     "attendanceMode": "offline",
     "location": {
         "venue": "Cidade das TIC, A Coruña",
         "address": {
+            "street": "Av. de Pedralonga",
             "locality": "A Coruña",
             "region": "Galicia",
+            "postalCode": "15009",
             "country": "ES"
         }
     },
     "organizers": [
         { "name": "Cascarilla Tech", "url": "https://cascarillatech.org" }
     ],
-    "tags": ["exemplo"],
+    "tags": ["Coruña Jug"],
     "offers": [
         { "price": 0 }
     ],

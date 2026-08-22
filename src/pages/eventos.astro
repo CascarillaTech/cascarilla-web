@@ -35,6 +35,12 @@ function venueOrModo(evt) {
     return null;
 }
 
+function direccion(evt) {
+    const addr = evt.location?.address;
+    if (!addr?.street) return null;
+    return [addr.street, addr.postalCode, addr.locality].filter(Boolean).join(', ');
+}
+
 // Calcula cantas columnas amosar para que as filas queden o máis igualadas
 // posible (evita que quede unha soa tarxeta orfa nunha última fila).
 function bestColumns(n, maxCols = 4, minCols = 2) {
@@ -80,6 +86,7 @@ const pasadosCols = bestColumns(eventosPasados.length);
                                     <div class="event-card-body">
                                         <h3>{evt.name}</h3>
                                         {venueOrModo(evt) && <p class="event-card-venue">📍 {venueOrModo(evt)}</p>}
+                                        {direccion(evt) && <p class="event-card-address">{direccion(evt)}</p>}
                                         {evt.description && <p class="event-card-desc">{evt.description}</p>}
                                         {evt.url && (
                                                 <a href={evt.url} target="_blank" rel="noopener noreferrer" class="event-card-link">
@@ -107,6 +114,7 @@ const pasadosCols = bestColumns(eventosPasados.length);
                                     <div class="event-card-body">
                                         <h3>{evt.name}</h3>
                                         {venueOrModo(evt) && <p class="event-card-venue">📍 {venueOrModo(evt)}</p>}
+                                        {direccion(evt) && <p class="event-card-address">{direccion(evt)}</p>}
                                         {evt.description && <p class="event-card-desc">{evt.description}</p>}
                                         {evt.url && (
                                                 <a href={evt.url} target="_blank" rel="noopener noreferrer" class="event-card-link">

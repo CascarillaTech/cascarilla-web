@@ -10,8 +10,10 @@
     "location": {
         "venue": "Cidade das TIC",
         "address": {
+            "street": "Av. de Pedralonga",
             "locality": "A Coruña",
             "region": "Galicia",
+            "postalCode": "15009",
             "country": "ES"
         }
     },
