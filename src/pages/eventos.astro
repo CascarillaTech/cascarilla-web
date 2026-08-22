@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/LayoutBasic.astro';
+import '../styles/eventos.css';
+
+// Cada evento vive no seu propio ficheiro JSON, seguindo o formato da
+// especificación aberta OpenTechEvents (OTE): https://opentechevents.org
+const proximosModules = import.meta.glob('../data/eventos/proximoseventos/*.json', { eager: true });
+const pasadosModules = import.meta.glob('../data/eventos/eventospasados/*.json', { eager: true });
+
+function toEvents(modules) {
+    return Object.values(modules)
+        .map((mod) => mod.default)
+        .filter((evt) => evt && evt.name && evt.startDate);
+}
+
+const proximosEventos = toEvents(proximosModules)
+    .sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+const eventosPasados = toEvents(pasadosModules)
+    .sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+
+function formatFecha(evt) {
+    const date = new Date(evt.startDate);
+    return date.toLocaleDateString('gl-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+}
+
+function venueOrModo(evt) {
+    if (evt.location?.venue) return evt.location.venue;
+    if (evt.attendanceMode === 'online') return 'Evento en liña';
+    if (evt.location?.onlineUrl) return 'Evento en liña';
+    return null;
+}
+---
+
+<Layout title="Eventos - Cascarilla Tech">
+    <section class="eventos-section">
+        <header class="section-header">
+            <h1>Eventos</h1>
+            <p>Todo o que organizamos, en formato aberto <a href="https://opentechevents.org" target="_blank" rel="noopener noreferrer">OpenTechEvents</a>.</p>
+        </header>
+
+        <section class="eventos-block">
+            <h2>Próximamente</h2>
+            <p class="eventos-block-intro">Os vindeiros eventos que estamos a organizar.</p>
+
+            {proximosEventos.length > 0 ? (
+                    <div class="eventos-grid">
+                        {proximosEventos.map((evt) => (
+                                <div class="event-card">
+                                    <div class="event-card-date">{formatFecha(evt)}</div>
+                                    <div class="event-card-body">
+                                        <h3>{evt.name}</h3>
+                                        {venueOrModo(evt) && <p class="event-card-venue">📍 {venueOrModo(evt)}</p>}
+                                        {evt.description && <p class="event-card-desc">{evt.description}</p>}
+                                        {evt.url && (
+                                                <a href={evt.url} target="_blank" rel="noopener noreferrer" class="event-card-link">
+                                                    Máis información &rarr;
+                                                </a>
+                                        )}
+                                    </div>
+                                </div>
+                        ))}
+                    </div>
+            ) : (
+                    <p class="eventos-empty">Aínda non hai eventos próximos publicados. Moi pronto!</p>
+            )}
+        </section>
+
+        <section class="eventos-block">
+            <h2>Xa fixemos</h2>
+            <p class="eventos-block-intro">Un repaso ao que xa organizamos.</p>
+
+            {eventosPasados.length > 0 ? (
+                    <div class="eventos-grid">
+                        {eventosPasados.map((evt) => (
+                                <div class="event-card event-card-past">
+                                    <div class="event-card-date">{formatFecha(evt)}</div>
+                                    <div class="event-card-body">
+                                        <h3>{evt.name}</h3>
+                                        {venueOrModo(evt) && <p class="event-card-venue">📍 {venueOrModo(evt)}</p>}
+                                        {evt.description && <p class="event-card-desc">{evt.description}</p>}
+                                        {evt.url && (
+                                                <a href={evt.url} target="_blank" rel="noopener noreferrer" class="event-card-link">
+                                                    Máis información &rarr;
+                                                </a>
+                                        )}
+                                    </div>
+                                </div>
+                        ))}
+                    </div>
+            ) : (
+                    <p class="eventos-empty">Aínda non publicamos aquí eventos pasados.</p>
+            )}
+        </section>
+    </section>
+</Layout>

@@ -1,0 +1,28 @@
+{
+    "specVersion": "0.3.0",
+    "id": "https://cascarillatech.org/eventos/exemplo-meetup",
+    "url": "https://cascarillatech.org/eventos/exemplo-meetup",
+    "name": "Meetup de exemplo",
+    "description": "Isto é un evento de exemplo para amosar o formato OpenTechEvents. Substitúeo polo primeiro evento real en canto o teñamos pechado.",
+    "startDate": "2026-11-05T18:30",
+    "endDate": "2026-11-05T20:30",
+    "timezone": "Europe/Madrid",
+    "attendanceMode": "offline",
+    "location": {
+        "venue": "Cidade das TIC, A Coruña",
+        "address": {
+            "locality": "A Coruña",
+            "region": "Galicia",
+            "country": "ES"
+        }
+    },
+    "organizers": [
+        { "name": "Cascarilla Tech", "url": "https://cascarillatech.org" }
+    ],
+    "tags": ["exemplo"],
+    "offers": [
+        { "price": 0 }
+    ],
+    "status": "scheduled",
+    "license": "CC-BY-4.0"
+}
