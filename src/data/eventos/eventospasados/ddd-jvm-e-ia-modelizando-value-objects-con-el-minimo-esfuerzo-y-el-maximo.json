@@ -1,0 +1,27 @@
+{
+    "specVersion": "0.3.0",
+    "id": "https://corunajug.org/eventos/ddd-jvm-e-ia-modelizando-value-objects-con-el-minimo-esfuerzo-y-el-maximo",
+    "url": "https://www.eventbrite.es/e/entradas-ddd-jvm-e-ia-modelizando-value-objects-con-el-minimo-esfuerzo-y-el-maximo-1684478674059",
+    "name": "DDD, JVM e IA: modelizando Value Objects con el mínimo esfuerzo y el máximo",
+    "startDate": "2025-09-24T19:30",
+    "endDate": "2025-09-24T21:30",
+    "timezone": "Europe/Madrid",
+    "attendanceMode": "offline",
+    "location": {
+        "venue": "Sngular",
+        "address": {
+            "locality": "A Coruña",
+            "region": "Galicia",
+            "country": "ES"
+        }
+    },
+    "organizers": [
+        {
+            "name": "Coruña JUG",
+            "url": "https://corunajug.org"
+        }
+    ],
+    "tags": [],
+    "status": "scheduled",
+    "license": "CC-BY-4.0"
+}

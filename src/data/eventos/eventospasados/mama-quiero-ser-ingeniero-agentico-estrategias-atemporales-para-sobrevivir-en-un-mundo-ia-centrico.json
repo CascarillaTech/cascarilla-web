@@ -1,0 +1,27 @@
+{
+    "specVersion": "0.3.0",
+    "id": "https://corunajug.org/eventos/mama-quiero-ser-ingeniero-agentico-estrategias-atemporales-para-sobrevivir-en-un-mundo-ia-centrico",
+    "url": "https://www.eventbrite.es/e/mama-quiero-ser-ingeniero-agentico-tickets-1766491978059?",
+    "name": "Mamá, quiero ser ingeniero agéntico, estrategias atemporales para sobrevivir en un mundo IA-céntrico",
+    "startDate": "2025-10-16T19:30",
+    "endDate": "2025-10-16T21:30",
+    "timezone": "Europe/Madrid",
+    "attendanceMode": "offline",
+    "location": {
+        "venue": "Cidade das TIC",
+        "address": {
+            "locality": "A Coruña",
+            "region": "Galicia",
+            "country": "ES"
+        }
+    },
+    "organizers": [
+        {
+            "name": "Coruña JUG",
+            "url": "https://corunajug.org"
+        }
+    ],
+    "tags": [],
+    "status": "scheduled",
+    "license": "CC-BY-4.0"
+}

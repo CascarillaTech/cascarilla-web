@@ -1,0 +1,27 @@
+{
+    "specVersion": "0.3.0",
+    "id": "https://corunajug.org/eventos/kotlin-para-desarrolladores-java-lo-que-te-estas-perdiendo",
+    "url": "https://www.eventbrite.es/e/novedades-en-java-26-tickets-1984159965870",
+    "name": "Kotlin para desarrolladores Java: lo que te estás perdiendo",
+    "startDate": "2026-04-22T19:30",
+    "endDate": "2026-04-22T21:30",
+    "timezone": "Europe/Madrid",
+    "attendanceMode": "offline",
+    "location": {
+        "venue": "Cidade das TIC",
+        "address": {
+            "locality": "A Coruña",
+            "region": "Galicia",
+            "country": "ES"
+        }
+    },
+    "organizers": [
+        {
+            "name": "Coruña JUG",
+            "url": "https://corunajug.org"
+        }
+    ],
+    "tags": [],
+    "status": "scheduled",
+    "license": "CC-BY-4.0"
+}

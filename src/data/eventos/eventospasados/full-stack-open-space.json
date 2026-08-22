@@ -1,0 +1,27 @@
+{
+    "specVersion": "0.3.0",
+    "id": "https://corunajug.org/eventos/full-stack-open-space",
+    "url": "https://www.eventbrite.es/e/entradas-full-stack-open-space-1974513421797",
+    "name": "Full Stack Open Space",
+    "startDate": "2025-12-11T19:30",
+    "endDate": "2025-12-11T21:30",
+    "timezone": "Europe/Madrid",
+    "attendanceMode": "offline",
+    "location": {
+        "venue": "Cidade das TIC",
+        "address": {
+            "locality": "A Coruña",
+            "region": "Galicia",
+            "country": "ES"
+        }
+    },
+    "organizers": [
+        {
+            "name": "Coruña JUG",
+            "url": "https://corunajug.org"
+        }
+    ],
+    "tags": [],
+    "status": "scheduled",
+    "license": "CC-BY-4.0"
+}
