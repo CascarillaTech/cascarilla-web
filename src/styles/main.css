@@ -39,6 +39,13 @@ body {
     color: var(--color-text-main);
 }
 
+/* O footer vai en position:fixed, así que deixamos sitio de abondo
+   debaixo do contido para que nunca quede tapado por el (sobre todo
+   en páxinas curtas, ou cando o footer medra por levar máis liñas). */
+main {
+    padding-bottom: 8rem;
+}
+
 /* Estructura del Header y Menu */
 .header {
     width: 100%;
