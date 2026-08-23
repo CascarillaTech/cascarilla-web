@@ -41,9 +41,11 @@ body {
 
 /* O footer vai en position:fixed, así que deixamos sitio de abondo
    debaixo do contido para que nunca quede tapado por el (sobre todo
-   en páxinas curtas, ou cando o footer medra por levar máis liñas). */
+   en páxinas curtas, ou cando o footer medra por levar máis liñas,
+   coma na home e en /about, que teñen un parágrafo extra en
+   footer-extra e por iso un footer máis alto do habitual). */
 main {
-    padding-bottom: 8rem;
+    padding-bottom: 14rem;
 }
 
 /* Estructura del Header y Menu */
