@@ -26,7 +26,13 @@ const { title, noindex } = Astro.props.frontmatter || Astro.props;
             <Image src={logo} alt="Logo de Cascarilla Tech" class="nav-logo" />
         </a>
 
-        <ul class="nav-menu">
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+
+        <ul class="nav-menu" id="nav-menu">
             <li><a href="/about">Quen somos</a></li>
             <li><a href="/news">Novas</a></li>
             <li><a href="/events">Eventos</a></li>
@@ -42,6 +48,25 @@ const { title, noindex } = Astro.props.frontmatter || Astro.props;
 
     <slot />
 </main>
+
+<script>
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    const setOpen = (open) => {
+        navMenu?.classList.toggle('open', open);
+        navToggle?.classList.toggle('open', open);
+        navToggle?.setAttribute('aria-expanded', String(open));
+    };
+
+    navToggle?.addEventListener('click', () => {
+        setOpen(!navMenu?.classList.contains('open'));
+    });
+
+    navMenu?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => setOpen(false));
+    });
+</script>
 
 
 <footer class="footer">
