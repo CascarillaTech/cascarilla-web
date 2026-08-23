@@ -1,0 +1,165 @@
+.membership-section {
+    width: 94vw;
+    max-width: 50rem;
+    margin: 0 auto 6rem;
+}
+
+.membership-hero {
+    text-align: center;
+    background-color: var(--color-bg-section-hero);
+    border-radius: 8px;
+    padding: 3rem 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.membership-hero p {
+    max-width: 38rem;
+    margin: 0 auto;
+}
+
+.membership-block {
+    margin-bottom: 3.5rem;
+}
+
+.membership-block h2 {
+    text-align: center;
+}
+
+.membership-block ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.membership-block li {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    padding-left: 1.5rem;
+    position: relative;
+    text-align: left;
+}
+
+.membership-block li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--color-border-card);
+    font-weight: bold;
+}
+
+.fees-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.fee-card {
+    background-color: var(--color-white);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--color-shadow);
+    padding: 1.75rem 1.5rem;
+    width: 15rem;
+    max-width: 90vw;
+    text-align: center;
+    border-top: 4px solid var(--color-border-card);
+}
+
+.fee-card.fee-card-highlight {
+    border-top-color: var(--color-primary);
+}
+
+.fee-card .fee-amount {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--color-text-heading);
+    margin-bottom: 0.2rem;
+}
+
+.fee-card .fee-name {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.8rem;
+}
+
+.fee-card p.fee-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+}
+
+.admission-steps {
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 2px 10px var(--color-shadow);
+}
+
+.admission-steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding-left: 0;
+    text-align: left;
+}
+
+.admission-steps li::before {
+    content: counter(step);
+    position: static;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.membership-note {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+.membership-closed-box {
+    text-align: center;
+    background-color: var(--color-bg-section-hero);
+    border-radius: 8px;
+    padding: 2.5rem 1.5rem;
+    border: 2px dashed var(--color-border-card);
+}
+
+.membership-closed-box .closed-badge {
+    display: inline-block;
+    background-color: var(--color-text-muted);
+    color: var(--color-white);
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border-radius: 25px;
+    margin-bottom: 1rem;
+}
+
+.membership-closed-box a {
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+@media (max-width: 30rem) {
+    .fee-card {
+        width: 100%;
+    }
+}

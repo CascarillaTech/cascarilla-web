@@ -300,6 +300,28 @@ p {
     color: var(--color-primary);
 }
 
+.nav-menu a.nav-cta {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 0.4em 1em;
+    border-radius: 25px;
+}
+
+.nav-menu a.nav-cta:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+}
+
+.footer-legal-links {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.footer-legal-links a {
+    color: var(--color-white);
+    text-decoration: underline;
+}
+
 
 
 

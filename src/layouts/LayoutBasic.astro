@@ -32,6 +32,7 @@ const { title, noindex } = Astro.props.frontmatter || Astro.props;
             <li><a href="/events">Eventos</a></li>
             <li><a href="/communities">As nosas amigas</a></li>
             <li><a href="/partners">Colaboradoras</a></li>
+            <li><a href="/membership" class="nav-cta">Faite socio/a</a></li>
         </ul>
     </nav>
     <slot name="header-extra" />
@@ -45,8 +46,11 @@ const { title, noindex } = Astro.props.frontmatter || Astro.props;
 
 <footer class="footer">
     <slot name="footer-extra" />
-    <p>&copy; 2026 Asociación Cascarilla Tech.</p>
+    <p>&copy; 2026 Asociación Cascarilla Tech. CIF G27653849</p>
     <p>A Coruña, Galicia</p>
+    <p class="footer-legal-links">
+        <a href="/legal">Aviso legal</a> · <a href="/privacy">Política de privacidade</a>
+    </p>
 </footer>
 </body>
 </html>
