@@ -1,6 +1,15 @@
 ---
 import Layout from '../layouts/LayoutBasic.astro';
 import '../styles/legal.css';
+import { getEntry } from 'astro:content';
+
+const org = await getEntry('org', 'info');
+
+if (!org) {
+    return Astro.redirect('/404');
+}
+
+const { denominacion, cif, domicilio, email } = org.data;
 ---
 
 <Layout title="Política de privacidade - Cascarilla Tech">
@@ -10,10 +19,10 @@ import '../styles/legal.css';
 
         <h2>1. Responsable do tratamento</h2>
         <ul>
-            <li><strong>Denominación:</strong> Asociación Cascarilla Tech</li>
-            <li><strong>CIF:</strong> G27653849</li>
-            <li><strong>Domicilio:</strong> Rúa Peñamaría de Llano, 2, 6ºB, A Coruña</li>
-            <li><strong>Correo de contacto:</strong> <a href="mailto:asociacion@cascarillatech.org">asociacion@cascarillatech.org</a></li>
+            <li><strong>Denominación:</strong> {denominacion}</li>
+            <li><strong>CIF:</strong> {cif}</li>
+            <li><strong>Domicilio:</strong> {domicilio}</li>
+            <li><strong>Correo de contacto:</strong> <a href={`mailto:${email}`}>{email}</a></li>
         </ul>
 
         <h2>2. Que datos tratamos e con que finalidade?</h2>
@@ -61,7 +70,7 @@ import '../styles/legal.css';
         <p>
             Podes exercer en calquera momento os teus dereitos de acceso, rectificación, supresión,
             oposición, limitación do tratamento e portabilidade dos teus datos, escribindo a
-            <a href="mailto:asociacion@cascarillatech.org">asociacion@cascarillatech.org</a>. Tamén tes
+            <a href={`mailto:${email}`}>{email}</a>. Tamén tes
             dereito a presentar unha reclamación ante a
             <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">Axencia Española de
             Protección de Datos (AEPD)</a> se consideras que non tratamos os teus datos correctamente.

@@ -1,6 +1,15 @@
 ---
 import Layout from '../layouts/LayoutBasic.astro';
 import '../styles/legal.css';
+import { getEntry } from 'astro:content';
+
+const org = await getEntry('org', 'info');
+
+if (!org) {
+    return Astro.redirect('/404');
+}
+
+const { denominacion, cif, domicilio, rexistroXunta, remac, email } = org.data;
 ---
 
 <Layout title="Aviso legal - Cascarilla Tech">
@@ -15,12 +24,12 @@ import '../styles/legal.css';
             recóllense os datos identificativos da entidade titular deste sitio web:
         </p>
         <ul>
-            <li><strong>Denominación:</strong> Asociación Cascarilla Tech</li>
-            <li><strong>CIF:</strong> G27653849</li>
-            <li><strong>Domicilio social:</strong> Rúa Peñamaría de Llano, 2, 6ºB, A Coruña</li>
-            <li><strong>Rexistro de Asociacións da Xunta de Galicia:</strong> núm. 2026/028289-1</li>
-            <li><strong>Rexistro Municipal de Asociacións da Coruña (REMAC):</strong> núm. 993</li>
-            <li><strong>Correo de contacto:</strong> <a href="mailto:asociacion@cascarillatech.org">asociacion@cascarillatech.org</a></li>
+            <li><strong>Denominación:</strong> {denominacion}</li>
+            <li><strong>CIF:</strong> {cif}</li>
+            <li><strong>Domicilio social:</strong> {domicilio}</li>
+            <li><strong>Rexistro de Asociacións da Xunta de Galicia:</strong> núm. {rexistroXunta}</li>
+            <li><strong>Rexistro Municipal de Asociacións da Coruña (REMAC):</strong> núm. {remac}</li>
+            <li><strong>Correo de contacto:</strong> <a href={`mailto:${email}`}>{email}</a></li>
         </ul>
 
         <h2>2. Obxecto</h2>

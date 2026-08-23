@@ -2,10 +2,14 @@
 import '../styles/main.css';
 
 import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
 
 import logo from '../assets/cascarillatech.svg';
 
 const { title, noindex } = Astro.props.frontmatter || Astro.props;
+
+const org = await getEntry('org', 'info');
+const cif = org?.data.cif;
 ---
 
 <!DOCTYPE html>
@@ -71,7 +75,7 @@ const { title, noindex } = Astro.props.frontmatter || Astro.props;
 
 <footer class="footer">
     <slot name="footer-extra" />
-    <p>&copy; 2026 Asociación Cascarilla Tech. CIF G27653849</p>
+    <p>&copy; 2026 Asociación Cascarilla Tech. CIF {cif}</p>
     <p>A Coruña, Galicia</p>
     <p class="footer-legal-links">
         <a href="/legal">Aviso legal</a> · <a href="/privacy">Política de privacidade</a>
