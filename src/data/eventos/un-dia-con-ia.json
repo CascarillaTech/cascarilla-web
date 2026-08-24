@@ -34,7 +34,7 @@
     "status": "scheduled",
     "license": "CC-BY-4.0",
 
-    "_comment_extensions": "priceDisplay, priceNote e axenda non forman parte do core de OTE v0.3, pero o schema non prohibe campos adicionais: úsanse aquí como extensións propias do dossier deste evento.",
+    "_comment_extensions": "price, agenda e slots non forman parte do core de OTE v0.3, pero o schema non prohibe campos adicionais: úsanse aquí como extensións propias do dossier deste evento.",
     "price": {
         "amount": "##",
         "currency": "€",
@@ -47,15 +47,15 @@
             "description": "Recepción e acreditación dos asistentes.",
             "type": "doors-open",
             "startDate": "2026-11-21T09:00",
-            "endDate": "2026-11-21T09:01",
+            "endDate": "2026-11-21T09:00",
             "timezone": "Europe/Madrid"
         },
         {
-            "time": "9:01",
+            "time": "9:00",
             "name": "Almorzo",
             "description": "Café e algo de comer para arrincar o día con enerxía.",
-            "type": "breakfast",
-            "startDate": "2026-11-21T09:01",
+            "type": "break",
+            "startDate": "2026-11-21T09:00",
             "endDate": "2026-11-21T09:40",
             "timezone": "Europe/Madrid"
         },
@@ -109,7 +109,7 @@
             "time": "14:30",
             "name": "Comida",
             "description": "Xantar para todos os asistentes.",
-            "type": "lunch",
+            "type": "break",
             "startDate": "2026-11-21T14:30",
             "endDate": "2026-11-21T15:30",
             "timezone": "Europe/Madrid"
@@ -120,7 +120,7 @@
             "description": "Espazo de conversa e networking despois da comida.",
             "type": "networking",
             "startDate": "2026-11-21T15:30",
-            "endDate": "2026-11-21T17:45",
+            "endDate": "2026-11-21T18:00",
             "timezone": "Europe/Madrid"
         },
         {
@@ -128,7 +128,7 @@
             "name": "Despedida",
             "description": "Peche da xornada e agradecementos.",
             "type": "closing",
-            "startDate": "2026-11-21T17:45",
+            "startDate": "2026-11-21T18:00",
             "endDate": "2026-11-21T18:30",
             "timezone": "Europe/Madrid"
         },
