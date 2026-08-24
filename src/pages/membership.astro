@@ -49,8 +49,10 @@ const { admissionClosed, adminNote, fees } = cuotas.data;
             <div class="fees-grid">
                 {fees.map((fee) => (
                         <div class:list={["fee-card", { "fee-card-highlight": fee.highlight }]}>
-                            <p class="fee-name">{fee.name}</p>
-                            <p class="fee-amount">{fee.amount} €</p>
+                            <div class="fee-header">
+                                <p class="fee-name">{fee.name}</p>
+                                <p class="fee-amount">{fee.amount} €</p>
+                            </div>
                             <p class="fee-desc">{fee.description}</p>
                         </div>
                 ))}
