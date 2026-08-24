@@ -6,7 +6,7 @@
     "startDate": "2025-10-16T19:30",
     "endDate": "2025-10-16T21:30",
     "timezone": "Europe/Madrid",
-    "attendanceMode": "offline",
+    "attendanceMode": "in-person",
     "location": {
         "venue": "Oficinas de Odeene. Cidade das TIC",
         "address": {

@@ -6,7 +6,7 @@
     "startDate": "2025-09-24T19:30",
     "endDate": "2025-09-24T21:30",
     "timezone": "Europe/Madrid",
-    "attendanceMode": "offline",
+    "attendanceMode": "in-person",
     "location": {
         "venue": "Sngular",
         "address": {

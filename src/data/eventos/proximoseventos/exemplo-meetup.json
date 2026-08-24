@@ -7,7 +7,7 @@
     "startDate": "2026-09-17T18:30",
     "endDate": "2026-09-17T21:30",
     "timezone": "Europe/Madrid",
-    "attendanceMode": "offline",
+    "attendanceMode": "in-person",
     "location": {
         "venue": "Oficinas de Odeene. Cidade das TIC, A Coruña",
         "address": {
