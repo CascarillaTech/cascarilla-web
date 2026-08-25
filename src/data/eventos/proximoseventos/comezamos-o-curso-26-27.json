@@ -1,0 +1,70 @@
+{
+    "specVersion": "0.3.0",
+    "id": "https://cascarillatech.org/eventos/comezamos-o-curso-26-27",
+    "name": "Comezamos o curso 26/27",
+    "description": "Arrincamos o novo curso do Coruña JUG cunha xuntanza de benvida, xunto con Cascarilla Tech.",
+    "startDate": "2026-09-24T19:30",
+    "endDate": "2026-09-24T21:30",
+    "timezone": "Europe/Madrid",
+    "attendanceMode": "in-person",
+    "location": {
+        "venue": "Cidade das TIC",
+        "address": {
+            "street": "Av. de Pedralonga",
+            "locality": "A Coruña",
+            "region": "Galicia",
+            "postalCode": "15009",
+            "country": "ES"
+        }
+    },
+    "organizers": [
+        { "name": "Cascarilla Tech", "url": "/" },
+        { "name": "Coruña JUG", "url": "https://corunajug.org/" }
+    ],
+    "sponsors": [
+        { "name": "Odeene", "url": "https://odeene.es/inicio", "img": "img/sponsors/odeene-logo.png" }
+    ],
+    "tags": ["java", "coruña jug", "cascarilla tech"],
+    "languages": ["gl"],
+    "status": "tentative",
+    "license": "CC-BY-4.0",
+    "updatedAt": "2026-08-25T00:00:00Z",
+    "agenda": [
+        {
+            "time": "19:15",
+            "name": "Apertura de portas",
+            "description": "Recepción dos asistentes.",
+            "type": "doors-open",
+            "startDate": "2026-09-24T19:15",
+            "endDate": "2026-09-24T19:30",
+            "timezone": "Europe/Madrid"
+        },
+        {
+            "time": "19:30",
+            "name": "Benvida e conversa",
+            "description": "Presentación do novo curso e espazo de conversa entre asistentes.",
+            "type": "networking",
+            "startDate": "2026-09-24T19:30",
+            "endDate": "2026-09-24T21:00",
+            "timezone": "Europe/Madrid"
+        },
+        {
+            "time": "21:00",
+            "name": "Despedida",
+            "description": "Peche do evento e agradecementos.",
+            "type": "closing",
+            "startDate": "2026-09-24T21:00",
+            "endDate": "2026-09-24T21:30",
+            "timezone": "Europe/Madrid"
+        },
+        {
+            "time": "21:30",
+            "name": "Pechamos portas",
+            "description": "Fin do evento.",
+            "type": "doors-close",
+            "startDate": "2026-09-24T21:30",
+            "endDate": "2026-09-24T21:30",
+            "timezone": "Europe/Madrid"
+        }
+    ]
+}
