@@ -4,6 +4,9 @@
     "url": "https://www.eventbrite.es/e/comezamos-o-curso-2627-tickets-1998924147936",
     "name": "Comezamos o curso 26/27",
     "description": "Arrincamos o novo curso do Coruña JUG cunha xuntanza de benvida, xunto con Cascarilla Tech.",
+    "image": [
+        "https://www.corunajug.org/img/talks/comezamos-o-curso-26-27.png"
+    ],
     "startDate": "2026-09-24T19:30",
     "endDate": "2026-09-24T21:30",
     "timezone": "Europe/Madrid",

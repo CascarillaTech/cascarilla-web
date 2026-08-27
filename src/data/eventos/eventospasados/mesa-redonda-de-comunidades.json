@@ -1,13 +1,13 @@
 {
     "specVersion": "0.3.0",
-    "id": "https://corunajug.org/eventos/kotlin-para-desarrolladores-java-lo-que-te-estas-perdiendo",
-    "url": "https://www.eventbrite.es/e/novedades-en-java-26-tickets-1984159965870",
-    "name": "Kotlin para desarrolladores Java: lo que te estás perdiendo",
+    "id": "https://cascarillatech.org/eventos/mesa-redonda-de-comunidades",
+    "url": "https://www.eventbrite.es/e/mesa-redonda-de-comunidades-tickets-1991005340570",
+    "name": "Mesa redonda de comunidades",
     "image": [
-        "https://www.corunajug.org/img/talks/kotlin-para-java.jpeg"
+        "https://www.corunajug.org/img/talks/mesa-final-temporada.png"
     ],
-    "startDate": "2026-04-22T19:30",
-    "endDate": "2026-04-22T21:30",
+    "startDate": "2026-07-02T19:00",
+    "endDate": "2026-07-02T21:30",
     "timezone": "Europe/Madrid",
     "attendanceMode": "in-person",
     "location": {
@@ -22,11 +22,10 @@
     },
     "organizers": [
         {
-            "name": "Coruña JUG",
-            "url": "https://corunajug.org"
+            "name": "Comunidades tech de A Coruña"
         }
     ],
-    "tags": ["kotlin", "java"],
+    "tags": ["Coruna_tech"],
     "languages": ["es"],
     "status": "scheduled",
     "license": "CC-BY-4.0",

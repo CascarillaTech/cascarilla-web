@@ -3,6 +3,9 @@
     "id": "https://corunajug.org/eventos/full-stack-open-space",
     "url": "https://www.eventbrite.es/e/entradas-full-stack-open-space-1974513421797",
     "name": "Full Stack Open Space",
+    "image": [
+        "https://www.corunajug.org/img/talks/full-stack-open-space.jpg"
+    ],
     "startDate": "2025-12-11T19:30",
     "endDate": "2025-12-11T21:30",
     "timezone": "Europe/Madrid",
@@ -23,7 +26,9 @@
             "url": "https://corunajug.org"
         }
     ],
-    "tags": [],
+    "tags": ["full-stack", "open-space"],
+    "languages": ["es"],
     "status": "scheduled",
-    "license": "CC-BY-4.0"
+    "license": "CC-BY-4.0",
+    "updatedAt": "2026-08-28T00:00:00Z"
 }

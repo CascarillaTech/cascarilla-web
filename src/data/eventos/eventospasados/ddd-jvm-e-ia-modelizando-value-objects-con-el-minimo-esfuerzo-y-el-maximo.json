@@ -3,6 +3,9 @@
     "id": "https://corunajug.org/eventos/ddd-jvm-e-ia-modelizando-value-objects-con-el-minimo-esfuerzo-y-el-maximo",
     "url": "https://www.eventbrite.es/e/entradas-ddd-jvm-e-ia-modelizando-value-objects-con-el-minimo-esfuerzo-y-el-maximo-1684478674059",
     "name": "DDD, JVM e IA: modelizando Value Objects con el mínimo esfuerzo y el máximo",
+    "image": [
+        "https://www.corunajug.org/img/talks/ddd-vo.jpg"
+    ],
     "startDate": "2025-09-24T19:30",
     "endDate": "2025-09-24T21:30",
     "timezone": "Europe/Madrid",
@@ -23,7 +26,9 @@
             "url": "https://corunajug.org"
         }
     ],
-    "tags": [],
+    "tags": ["ddd", "java", "ia"],
+    "languages": ["es"],
     "status": "scheduled",
-    "license": "CC-BY-4.0"
+    "license": "CC-BY-4.0",
+    "updatedAt": "2026-08-28T00:00:00Z"
 }

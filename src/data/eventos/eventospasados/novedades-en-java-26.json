@@ -3,6 +3,9 @@
     "id": "https://corunajug.org/eventos/novedades-en-java-26",
     "url": "https://www.eventbrite.es/e/novedades-en-java-26-tickets-1984159965870",
     "name": "Novedades en java 26",
+    "image": [
+        "https://www.corunajug.org/img/talks/java26.png"
+    ],
     "startDate": "2026-03-25T19:30",
     "endDate": "2026-03-25T21:30",
     "timezone": "Europe/Madrid",
@@ -23,7 +26,9 @@
             "url": "https://corunajug.org"
         }
     ],
-    "tags": [],
+    "tags": ["java"],
+    "languages": ["es"],
     "status": "scheduled",
-    "license": "CC-BY-4.0"
+    "license": "CC-BY-4.0",
+    "updatedAt": "2026-08-28T00:00:00Z"
 }
