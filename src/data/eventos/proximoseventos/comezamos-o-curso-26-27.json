@@ -22,7 +22,7 @@
         }
     },
     "organizers": [
-        { "name": "Cascarilla Tech", "url": "/" },
+        { "name": "Cascarilla Tech", "url": "https://cascarillatech.org/" },
         { "name": "Coruña JUG", "url": "https://corunajug.org/" }
     ],
     "sponsors": [
