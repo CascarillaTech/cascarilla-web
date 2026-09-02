@@ -1,0 +1,1139 @@
+/* ==========================================================================
+   1. TOKENS  (valores reais de src/styles/main.css)
+   ========================================================================== */
+:root {
+  --color-bg-main: #F6F4EE;
+  --color-primary: #8C4B33;
+  --color-secondary: #6B3622;
+  --color-background-logo: #f0e2b6;
+  --color-dark-logo: #451f14;
+  --color-light-logo: #9c5236;
+  --color-text-main: #1A1A1A;
+  --color-text-heading: #382117;
+  --color-white: #FFFFFF;
+  --color-border-card: #D4B246;
+
+  --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --rule: rgba(69, 31, 20, 0.14);
+  --shadow-card: 0 1px 2px rgba(69, 31, 20, .06), 0 8px 24px rgba(69, 31, 20, .06);
+
+  --nav-w: 272px;
+  --pad-x: 1.5rem;
+  --maxw: 1080px;
+}
+
+/* ==========================================================================
+   2. RESET + BASE
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;                 /* o scroll vive no contedor .deck */
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  color: var(--color-text-heading);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+p { margin: 0 0 .9em; }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--color-primary); }
+
+img { max-width: 100%; }
+
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.slide:focus { outline: none; }
+.slide:focus-visible { outline: 3px solid var(--color-primary); outline-offset: -6px; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ==========================================================================
+   3. BARRA SUPERIOR: idioma + descargar PDF  (fixa, sempre visible)
+   ========================================================================== */
+.toolbar {
+  position: fixed;
+  top: .65rem;
+  right: .65rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .3rem;
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  box-shadow: 0 2px 10px rgba(69, 31, 20, .10);
+  backdrop-filter: blur(6px);
+}
+
+.lang {
+  display: flex;
+  align-items: center;
+  gap: .15rem;
+}
+
+.lang__link {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  padding: .3rem .45rem;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--color-text-heading);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  opacity: .55;
+  transition: opacity .2s ease, background-color .2s ease;
+}
+.lang__link:hover { opacity: 1; background: var(--color-bg-main); }
+
+.lang__link[aria-current="true"] {
+  opacity: 1;
+  background: var(--color-background-logo);
+  color: var(--color-dark-logo);
+}
+
+.lang__flag {
+  display: block;
+  width: 21px;
+  height: 14px;
+  border-radius: 2px;
+  border: 1px solid rgba(69, 31, 20, .22);
+}
+.lang__code { display: none; }
+
+.toolbar__sep {
+  width: 1px;
+  height: 20px;
+  background: var(--rule);
+  flex: 0 0 auto;
+}
+
+.print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .42rem .8rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-family: inherit;
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+.print-btn:hover { background: var(--color-secondary); }
+.print-btn svg { width: 14px; height: 14px; flex: 0 0 auto; }
+.print-btn__long { display: none; }
+
+/* ==========================================================================
+   4. ÍNDICE LATERAL  — oculto en móbil, visible en escritorio (>=900px)
+   ========================================================================== */
+.deck-nav { display: none; }
+
+/* ==========================================================================
+   5. DECK + SLIDES  — BASE MÓBIL (mobile-first)
+   Cada sección é unha páxina completa; scroll vertical normal con snap.
+   ========================================================================== */
+.deck {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.slide {
+  min-height: 100%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4.2rem var(--pad-x) 2.6rem;
+  background-color: var(--color-bg-main);
+}
+
+.slide__inner {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+/* Alternancia de fondos */
+.slide--alt { background-color: var(--color-white); }
+
+/* Cabeceira de sección: número + título + regra dourada */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-bottom: .5rem;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.eyebrow__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 50%;
+  background: var(--color-background-logo);
+  color: var(--color-dark-logo);
+  font-size: .68rem;
+  letter-spacing: 0;
+}
+
+.slide h2 {
+  font-size: clamp(1.65rem, 6.5vw, 2.15rem);
+  margin-bottom: .75rem;
+}
+
+.rule {
+  width: 56px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-border-card);
+  margin: 0 0 1.1rem;
+}
+
+.lead {
+  font-size: 1.02rem;
+  color: var(--color-secondary);
+  max-width: 62ch;
+}
+
+/* ---- 5.1 Portada -------------------------------------------------------- */
+#sec-cover {
+  background-color: var(--color-background-logo);
+  text-align: center;
+  align-items: center;
+}
+.cover__logo {
+  width: min(190px, 52vw);
+  height: auto;
+  margin-bottom: 1.6rem;
+}
+.cover__kicker {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-light-logo);
+  margin-bottom: 1rem;
+}
+.cover h1 {
+  font-size: clamp(2.3rem, 12vw, 3.6rem);
+  color: var(--color-dark-logo);
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+}
+.cover__subtitle {
+  font-size: clamp(1rem, 4.4vw, 1.2rem);
+  color: var(--color-secondary);
+  max-width: 34ch;
+  margin: 0 auto 1.8rem;
+  line-height: 1.45;
+}
+.cover__rule {
+  width: 72px; height: 3px; border-radius: 2px;
+  background: var(--color-dark-logo);
+  opacity: .35;
+  margin: 0 auto 1.6rem;
+}
+.cover__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .4rem .9rem;
+  font-size: .78rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-light-logo);
+}
+.cover__meta span { white-space: nowrap; }
+
+/* ---- 5.2 Quen somos ----------------------------------------------------- */
+.about__text { max-width: 64ch; font-size: .96rem; }
+
+.aims {
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: .5rem;
+}
+.aims li {
+  position: relative;
+  padding-left: 1.6rem;
+  font-size: .92rem;
+  line-height: 1.45;
+}
+.aims li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .48em;
+  width: .55rem;
+  height: .55rem;
+  border-radius: 2px;
+  background: var(--color-border-card);
+}
+
+.board {
+  margin-top: 1.5rem;
+}
+.board__title,
+.community__title {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-top: 1.3rem;
+  margin-bottom: .8rem;
+}
+
+.board__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .8rem;
+}
+
+.person {
+  background: var(--color-white);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: .85rem .7rem;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+.slide--alt .person { background: var(--color-bg-main); }
+
+.person__photo {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto .55rem;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--color-background-logo);
+  border: 2px solid var(--color-border-card);
+}
+
+/* Último recurso: se falla tamén o placeholder, debuxamos o avatar por CSS
+   para que a tarxeta manteña o alto e non apareza icona de imaxe rota. */
+.person--nophoto::before {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto .55rem;
+  border-radius: 50%;
+  background: var(--color-background-logo);
+  border: 2px solid var(--color-border-card);
+}
+.person__name {
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  line-height: 1.25;
+}
+.person__role {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-top: .15rem;
+}
+.person__bio {
+  font-size: .76rem;
+  line-height: 1.4;
+  color: var(--color-secondary);
+  margin-top: .4rem;
+}
+
+.community {
+  margin-top: 1.4rem;
+  padding: 1rem 1.1rem;
+  border-left: 4px solid var(--color-border-card);
+  border-radius: 0 8px 8px 0;
+  background: var(--color-background-logo);
+}
+.community__name {
+  font-size: 1.02rem;
+  margin-bottom: .35rem;
+  color: var(--color-dark-logo);
+}
+.community__text {
+  font-size: .88rem;
+  line-height: 1.5;
+  color: var(--color-secondary);
+}
+
+/* ---- 5.3 Por que existimos ---------------------------------------------- */
+.problems {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.3rem;
+}
+
+.pblock {
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-white);
+  box-shadow: var(--shadow-card);
+}
+.slide--alt .pblock { background: var(--color-bg-main); }
+
+.pblock__part { padding: .95rem 1.05rem; }
+.pblock__part + .pblock__part { border-top: 1px solid var(--rule); }
+
+.pblock__label {
+  display: inline-block;
+  margin-bottom: .45rem;
+  padding: .15rem .55rem;
+  border-radius: 999px;
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.pblock__label--problem {
+  background: rgba(140, 75, 51, .12);
+  color: var(--color-secondary);
+}
+.pblock__label--solution {
+  background: var(--color-border-card);
+  color: var(--color-dark-logo);
+}
+.pblock__title {
+  font-size: 1rem;
+  margin-bottom: .35rem;
+}
+.pblock__text {
+  font-size: .87rem;
+  line-height: 1.5;
+  color: var(--color-secondary);
+}
+
+/* ---- 5.4 Que vén despois ------------------------------------------------ */
+.activities {
+  display: grid;
+  gap: .8rem;
+  margin-top: 1.3rem;
+}
+
+.activity {
+  position: relative;
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--color-border-card);
+  border-radius: 4px 4px 10px 10px;
+  background: var(--color-white);
+  box-shadow: var(--shadow-card);
+}
+.slide--alt .activity { background: var(--color-bg-main); }
+
+.activity__title {
+  font-size: 1rem;
+  margin-bottom: .4rem;
+}
+.activity__desc {
+  font-size: .86rem;
+  line-height: 1.5;
+  color: var(--color-secondary);
+  margin-bottom: .7rem;
+}
+.activity__audience {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+  align-items: baseline;
+  padding-top: .55rem;
+  border-top: 1px dashed var(--rule);
+  font-size: .78rem;
+  color: var(--color-text-main);
+}
+.activity__audience-label {
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+/* ---- 5.5 Formas de colaborar -------------------------------------------- */
+.collab-modes {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.1rem;
+}
+.collab-mode {
+  padding: .95rem 1.05rem;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--color-white);
+  box-shadow: var(--shadow-card);
+}
+.slide--alt .collab-mode { background: var(--color-bg-main); }
+.collab-mode__title {
+  font-size: 1rem;
+  margin-bottom: .35rem;
+}
+.collab-mode__text {
+  font-size: .87rem;
+  line-height: 1.5;
+  color: var(--color-secondary);
+}
+
+.collab-table {
+  width: 100%;
+  margin-top: 1.2rem;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--color-white);
+}
+.slide--alt .collab-table { background: var(--color-bg-main); }
+
+.collab-table td {
+  width: 50%;
+  vertical-align: top;
+  padding: .95rem 1rem;
+  border: 1px solid var(--rule);
+}
+.collab-table th {
+  width: 50%;
+  vertical-align: top;
+  padding: .95rem 1rem;
+  border: 1px solid var(--rule);
+  background: var(--color-background-logo);
+  color: var(--color-dark-logo);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-align: left;
+}
+.collab-table__title {
+  font-size: .95rem;
+  margin-bottom: .35rem;
+  color: var(--color-text-heading);
+}
+.collab-table__text {
+  font-size: .84rem;
+  line-height: 1.5;
+  color: var(--color-secondary);
+  margin: 0;
+}
+
+.collab-note {
+  margin-top: .8rem;
+  padding: .6rem .85rem;
+  border-left: 3px solid var(--color-primary);
+  background: rgba(140, 75, 51, .06);
+  border-radius: 0 6px 6px 0;
+  font-size: .8rem;
+  line-height: 1.5;
+  color: var(--color-secondary);
+}
+
+.collab-closing {
+  margin-top: 1.1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 10px;
+  background: var(--color-background-logo);
+  color: var(--color-dark-logo);
+  font-size: .95rem;
+  line-height: 1.55;
+  font-weight: 600;
+}
+
+.logos {
+  margin-top: 1.1rem;
+}
+.logos__label {
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: .55rem;
+}
+.logos__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+/* O propio company-placeholder.svg xa debuxa unha caixa punteada, así que
+   aquí o borde é sutil para non duplicar o efecto. */
+.logo-slot {
+  flex: 1 1 120px;
+  max-width: 180px;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .3rem;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--color-white);
+  overflow: hidden;
+}
+.slide--alt .logo-slot { background: var(--color-bg-main); }
+.logo-slot img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+/* Se ata o propio placeholder falla, debuxamos a caixa por CSS */
+.logo-slot--empty {
+  border-style: dashed;
+  border-color: rgba(140, 75, 51, .35);
+}
+.logo-slot--empty::after {
+  content: "O teu logo aquí";
+  font-size: .72rem;
+  color: var(--color-primary);
+}
+
+/* ---- 5.6 Contacto ------------------------------------------------------- */
+#sec-contact {
+  background-color: var(--color-dark-logo);
+  color: var(--color-background-logo);
+  text-align: center;
+  align-items: center;
+}
+#sec-contact h2 { color: var(--color-background-logo); }
+#sec-contact .eyebrow { color: var(--color-border-card); }
+#sec-contact .eyebrow__num {
+  background: rgba(240, 226, 182, .16);
+  color: var(--color-background-logo);
+}
+#sec-contact .eyebrow { justify-content: center; }
+#sec-contact .rule { background: var(--color-border-card); margin-left: auto; margin-right: auto; }
+#sec-contact .lead { color: rgba(240, 226, 182, .82); margin-left: auto; margin-right: auto; }
+
+.contact__email {
+  display: inline-block;
+  margin: 1.4rem 0 1.1rem;
+  padding: .7rem 1.2rem;
+  border: 2px solid var(--color-border-card);
+  border-radius: 10px;
+  color: var(--color-background-logo);
+  font-size: clamp(1.05rem, 5.2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  word-break: break-word;
+  transition: background-color .2s ease, color .2s ease;
+}
+.contact__email:hover {
+  background: var(--color-border-card);
+  color: var(--color-dark-logo);
+}
+
+.contact__cta {
+  max-width: 46ch;
+  margin: 0 auto;
+  font-size: .95rem;
+  line-height: 1.6;
+  color: rgba(240, 226, 182, .9);
+}
+
+.contact__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .5rem 1.2rem;
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(240, 226, 182, .22);
+  font-size: .82rem;
+}
+.contact__links a {
+  color: var(--color-border-card);
+  text-decoration: none;
+  font-weight: 600;
+}
+.contact__links a:hover { text-decoration: underline; }
+
+/* ==========================================================================
+   6. ESCRITORIO (>=900px) — carrusel de slides con índice lateral fixo
+   ========================================================================== */
+@media (min-width: 900px) {
+
+  .toolbar { top: 1rem; right: 1.25rem; }
+  .lang__code { display: inline; }
+  .print-btn__long { display: inline; }
+  .print-btn__short { display: none; }
+
+  /* --- Índice lateral --- */
+  .deck-nav {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--nav-w);
+    padding: 1.6rem 1.1rem;
+    background: var(--color-white);
+    border-right: 1px solid var(--rule);
+    z-index: 90;
+    overflow-y: auto;
+  }
+
+  .deck-nav__brand {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    padding-bottom: 1.1rem;
+    margin-bottom: 1.1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .deck-nav__brand img { width: 46px; height: auto; }
+  .deck-nav__brand-text {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    line-height: 1.35;
+  }
+
+  .deck-nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    counter-reset: navitem;
+  }
+
+  .deck-nav__link {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    padding: .5rem .55rem;
+    border-radius: 8px;
+    border-left: 3px solid transparent;
+    text-decoration: none;
+    color: var(--color-text-heading);
+    transition: background-color .2s ease, border-color .2s ease;
+  }
+  .deck-nav__link:hover { background: var(--color-bg-main); }
+
+  .deck-nav__link[aria-current="true"] {
+    background: var(--color-bg-main);
+    border-left-color: var(--color-border-card);
+  }
+
+  /* Miniatura CSS (falsa diapositiva) */
+  .deck-nav__thumb {
+    flex: 0 0 auto;
+    position: relative;
+    width: 42px;
+    height: 28px;
+    border-radius: 3px;
+    background: var(--color-bg-main);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+  }
+  .deck-nav__thumb::before {
+    content: "";
+    position: absolute; left: 5px; top: 6px;
+    width: 55%; height: 3px; border-radius: 2px;
+    background: var(--color-primary);
+    opacity: .8;
+  }
+  .deck-nav__thumb::after {
+    content: "";
+    position: absolute; left: 5px; top: 14px; right: 5px;
+    height: 2px; border-radius: 2px;
+    background: var(--color-text-main);
+    opacity: .22;
+    box-shadow: 0 5px 0 rgba(26, 26, 26, .22);
+  }
+  .deck-nav__link[aria-current="true"] .deck-nav__thumb {
+    background: var(--color-white);
+    border-color: var(--color-border-card);
+    box-shadow: 0 0 0 2px rgba(212, 178, 70, .25);
+  }
+
+  .deck-nav__meta { min-width: 0; }
+  .deck-nav__num {
+    display: block;
+    font-size: .6rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    color: var(--color-primary);
+    opacity: .75;
+  }
+  .deck-nav__label {
+    display: block;
+    font-size: .84rem;
+    font-weight: 600;
+    line-height: 1.25;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .deck-nav__hint {
+    margin-top: auto;
+    padding-top: 1rem;
+    font-size: .68rem;
+    line-height: 1.5;
+    color: var(--color-secondary);
+    opacity: .8;
+  }
+  .deck-nav__hint kbd {
+    display: inline-block;
+    padding: .05rem .3rem;
+    border: 1px solid var(--rule);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    background: var(--color-bg-main);
+    font-family: inherit;
+    font-size: .95em;
+  }
+
+  /* --- Área de slides --- */
+  .deck { margin-left: var(--nav-w); }
+
+  .slide {
+    padding: 3.2rem 3.5rem;
+    justify-content: center;
+  }
+
+  .slide h2 { font-size: clamp(2rem, 3.2vw, 2.7rem); }
+  .rule { width: 72px; margin-bottom: 1.4rem; }
+  .lead { font-size: 1.08rem; }
+
+  /* Portada */
+  .cover__logo { width: 230px; margin-bottom: 2rem; }
+  .cover h1 { font-size: clamp(3.2rem, 5.6vw, 4.6rem); }
+  .cover__subtitle { font-size: 1.25rem; max-width: 42ch; }
+  .cover__meta { font-size: .82rem; gap: .4rem 1.4rem; }
+
+  /* Quen somos: texto + fins en dúas columnas, xunta en fila de 4,
+     comunidade a todo o ancho por debaixo. */
+  .about__cols {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  .about__text { font-size: 1rem; }
+  .aims { margin-top: 0; }
+  .aims li { font-size: .95rem; }
+  /* Na columna dereita o rótulo vai arriba de todo: sen marxe superior
+     para que aliñe co primeiro parágrafo da columna esquerda. */
+  .about__aims .board__title { margin-top: 0; }
+  .board { margin-top: 1.5rem; }
+  .board__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+  .person { padding: 1rem .8rem; }
+  .person__photo,
+  .person--nophoto::before { width: 84px; height: 84px; }
+  .person__name { font-size: .95rem; }
+  .person__bio { font-size: .78rem; }
+  .community {
+    margin-top: 1.4rem;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: .3rem 1.5rem;
+    align-items: start;
+    padding: 1rem 1.3rem;
+  }
+  .community__name { margin-bottom: 0; }
+  .community__body { display: flex; flex-direction: column; gap: .5rem; }
+  .community__text { font-size: .9rem; }
+
+  /* Por que existimos: dous bloques lado a lado */
+  .problems { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-top: 1.8rem; }
+  .pblock__part { padding: 1.2rem 1.35rem; }
+  .pblock__title { font-size: 1.12rem; }
+  .pblock__text { font-size: .92rem; }
+
+  /* Que vén despois: 2x2, e 4 en liña en pantallas moi anchas */
+  .activities { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; margin-top: 1.8rem; }
+  .activity { padding: 1.2rem 1.3rem; }
+  .activity__title { font-size: 1.08rem; }
+  .activity__desc { font-size: .9rem; }
+
+  /* Colaborar */
+  .collab-modes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-top: 1.6rem; }
+  .collab-mode { padding: 1.2rem 1.35rem; }
+  .collab-mode__title { font-size: 1.12rem; }
+  .collab-mode__text { font-size: .92rem; }
+  .collab-table { margin-top: 1.7rem; }
+  .collab-table td, .collab-table th { padding: 1.25rem 1.4rem; }
+  .collab-table th { font-size: .82rem; }
+  .collab-table__title { font-size: 1.05rem; }
+  .collab-table__text { font-size: .9rem; }
+  .collab-note { font-size: .85rem; padding: .75rem 1rem; }
+  .collab-closing { font-size: 1.02rem; padding: 1.2rem 1.4rem; }
+  .logos__row { gap: 1rem; }
+
+  /* Contacto */
+  .contact__email { font-size: 2rem; padding: .85rem 1.8rem; }
+  .contact__cta { font-size: 1.05rem; }
+}
+
+@media (min-width: 1280px) {
+  .activities { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* --------------------------------------------------------------------------
+   Escritorio "baixo" (portátiles de 1366x768 e similares): comprimimos
+   espazados e tipografía para que cada sección siga collendo nunha pantalla.
+   -------------------------------------------------------------------------- */
+@media (min-width: 900px) and (max-height: 820px) {
+  .slide { padding: 2.1rem 3rem; }
+  .slide h2 { font-size: 1.75rem; margin-bottom: .45rem; }
+  .rule { margin-bottom: .85rem; height: 2px; }
+  .lead { font-size: .97rem; }
+  .eyebrow { margin-bottom: .35rem; }
+
+  .about__cols { gap: 1.5rem; }
+  .about__text { font-size: .9rem; }
+  .about__text p { margin-bottom: .6em; }
+  .aims { gap: .35rem; }
+  .aims li { font-size: .86rem; }
+  .board { margin-top: 1rem; }
+  .board__title, .community__title { margin-bottom: .55rem; }
+  .person { padding: .7rem .55rem; }
+  .person__photo,
+  .person--nophoto::before { width: 58px; height: 58px; margin-bottom: .4rem; }
+  .person__name { font-size: .86rem; }
+  .person__bio { font-size: .72rem; }
+  .community { margin-top: 1rem; padding: .8rem 1.1rem; }
+  .community__name { font-size: .95rem; }
+  .community__text { font-size: .85rem; }
+
+  .problems { gap: 1.1rem; margin-top: 1.1rem; }
+  .pblock__part { padding: .85rem 1rem; }
+  .pblock__title { font-size: .98rem; }
+  .pblock__text { font-size: .84rem; }
+  .pblock__label { margin-bottom: .35rem; }
+
+  .activities { gap: .85rem; margin-top: 1.1rem; }
+  .activity { padding: .85rem .95rem; }
+  .activity__title { font-size: .98rem; }
+  .activity__desc { font-size: .84rem; margin-bottom: .5rem; }
+  .activity__audience { padding-top: .4rem; font-size: .74rem; }
+
+  .collab-modes { gap: 1.1rem; margin-top: 1rem; }
+  .collab-mode { padding: .85rem 1rem; }
+  .collab-mode__title { font-size: .98rem; }
+  .collab-mode__text { font-size: .84rem; }
+  .collab-table { margin-top: 1rem; }
+  .collab-table td, .collab-table th { padding: .8rem .95rem; }
+  .collab-table__title { font-size: .95rem; }
+  .collab-table__text { font-size: .83rem; }
+  .collab-note { margin-top: .6rem; font-size: .79rem; padding: .55rem .85rem; }
+  .collab-closing { margin-top: .75rem; padding: .8rem 1.05rem; font-size: .93rem; }
+  .logos { margin-top: .75rem; }
+  .logos__label { margin-bottom: .4rem; }
+  .logo-slot { min-height: 44px; }
+  .logo-slot img { max-height: 34px; }
+
+  .cover__logo { width: 150px; margin-bottom: 1.2rem; }
+  .cover h1 { font-size: 3rem; }
+  .cover__subtitle { font-size: 1.05rem; margin-bottom: 1.2rem; }
+  .contact__email { font-size: 1.55rem; padding: .7rem 1.4rem; margin: 1rem 0 .9rem; }
+  .contact__cta { font-size: .95rem; }
+  .contact__links { margin-top: 1rem; padding-top: .9rem; }
+}
+
+/* ==========================================================================
+   7. MOVEMENTO REDUCIDO
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .deck { scroll-behavior: auto; }
+  * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
+/* ==========================================================================
+   8. IMPRESIÓN / PDF
+   IMPORTANTE: hai que desactivar 100vh + scroll-snap ou a paxinación rompe.
+   Este bloque vai ao final para gañarlle en cascada ao media query de 900px.
+   ========================================================================== */
+@media print {
+
+  /* Conservar os fondos de marca */
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 14mm 13mm;
+  }
+
+  /* --- Reset do modelo de scroll --- */
+  html, body {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    background: var(--color-white) !important;
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+
+  .deck {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin-left: 0 !important;      /* anula o oco do índice lateral */
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .slide {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    scroll-snap-align: none !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    padding: 0 0 6mm !important;
+    break-after: page;
+    page-break-after: always;
+    break-inside: auto;
+  }
+
+  /* Última sección: sen salto -> evita a páxina en branco final */
+  .slide:last-child {
+    break-after: auto !important;
+    page-break-after: auto !important;
+    padding-bottom: 0 !important;
+  }
+
+  .slide__inner { max-width: none !important; margin: 0 !important; }
+
+  /* --- Ocultar interface --- */
+  .toolbar,
+  .deck-nav,
+  .print-btn,
+  .lang { display: none !important; }
+
+  /* --- Axustes tipográficos de páxina --- */
+  h1, h2, h3, h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .slide h2 { font-size: 20pt; margin-bottom: .4rem; }
+  .rule { margin-bottom: .8rem; }
+  .lead { font-size: 11pt; max-width: none; }
+  .eyebrow { margin-bottom: .3rem; }
+
+  /* Nada destes bloques se debe partir entre páxinas */
+  .person,
+  .pblock,
+  .activity,
+  .community,
+  .collab-note,
+  .collab-closing,
+  .logo-slot,
+  .collab-mode,
+  .collab-table tr,
+  .collab-table td,
+  .collab-table th,
+  .contact__email {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .person, .pblock, .activity, .collab-mode, .collab-table, .logo-slot {
+    box-shadow: none !important;
+  }
+
+  /* Espazo por riba dos rótulos que en pantalla viven en columnas propias */
+  .board__title, .community__title { margin-top: 6mm; }
+  .logo-slot { min-height: 16mm; }
+
+  /* Portada: o bloque de cor enche practicamente a páxina.
+     250mm < 269mm de caixa útil (A4 menos marxes), logo non desborda
+     nin xera unha segunda páxina. Precisa !important porque .slide leva
+     min-height: 0 !important neste mesmo bloque. */
+  #sec-cover {
+    background: var(--color-background-logo) !important;
+    padding: 34mm 12mm 30mm !important;
+    min-height: 250mm !important;
+    text-align: center;
+  }
+  .cover__logo { width: 46mm !important; margin-bottom: 8mm; }
+  .cover h1 { font-size: 34pt !important; }
+  .cover__subtitle { font-size: 13pt !important; max-width: 40ch; }
+
+  /* Contacto: última páxina, fondo escuro de marca */
+  #sec-contact {
+    background: var(--color-dark-logo) !important;
+    color: var(--color-background-logo) !important;
+    padding: 60mm 12mm !important;
+    min-height: 250mm !important;
+    text-align: center;
+  }
+  .contact__email { font-size: 18pt !important; }
+
+  /* "Quen somos": no papel todo en fluxo normal, sen columnas */
+  .about__cols { display: block !important; }
+  .community { display: block !important; margin-top: 4mm !important; }
+  .aims { margin-top: .8rem !important; }
+  .board__grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 4mm !important; }
+  .person__photo { width: 20mm !important; height: 20mm !important; }
+  .problems { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 6mm !important; }
+  .activities { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 5mm !important; }
+  .collab-modes { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 6mm !important; }
+}
