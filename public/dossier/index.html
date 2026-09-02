@@ -1698,14 +1698,17 @@ function dossierLogoFallback(img) {
       <!-- CONTENT: sections.collaborate.closing -->
       <p class="collab-closing">Non vos imos prometer un gran evento de networking internacional nin miles de asistentes. O que vos ofrecemos é entrar no xerme dunha comunidade tecnolóxica local que empeza a organizarse con vocación de crecer, e aparecer desde o primeiro día como quen o fixo posible. Sen colaboracións coma a vosa, crecer vai custarnos moito máis.</p>
 
-      <!-- Logos de empresas colaboradoras (aínda ningunha confirmada) -->
+      <!-- Logos de empresas colaboradoras: Odeene é a primeira colaboradora
+           confirmada (datos reais de src/data/colaboradoras.json); os outros
+           dous slots quedan como placeholder para as próximas -->
       <div class="logos">
         <!-- CONTENT: ui.labels.logos_note -->
-        <p class="logos__label">Aquí aparecerán os logos das entidades colaboradoras.</p>
+        <p class="logos__label">Grazas a quen xa colabora con nós — e aínda queda sitio para máis.</p>
         <div class="logos__row">
           <div class="logo-slot">
-            <img src="../images/company-placeholder.svg" alt="" width="180" height="90"
-                 onerror="dossierLogoFallback(this);">
+            <a href="https://odeene.es/" target="_blank" rel="noopener noreferrer">
+              <img src="../images/colaboradoras/odeene-color-horizontal.png" alt="Logo de Odeene" width="180" height="45">
+            </a>
           </div>
           <div class="logo-slot">
             <img src="../images/company-placeholder.svg" alt="" width="180" height="90"
