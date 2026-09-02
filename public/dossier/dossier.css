@@ -156,6 +156,7 @@ img { max-width: 100%; }
 .print-btn:hover { background: var(--color-secondary); }
 .print-btn svg { width: 14px; height: 14px; flex: 0 0 auto; }
 .print-btn__long { display: none; }
+.toolbar__sep, .print-btn { display: none; }
 
 /* ==========================================================================
    4. ÍNDICE LATERAL  — oculto en móbil, visible en escritorio (>=900px)
@@ -710,6 +711,8 @@ img { max-width: 100%; }
   .lang__code { display: inline; }
   .print-btn__long { display: inline; }
   .print-btn__short { display: none; }
+  .toolbar__sep { display: block; }
+  .print-btn { display: inline-flex; }
 
   /* --- Índice lateral --- */
   .deck-nav {
