@@ -10,7 +10,16 @@
 
 export const prerender = true;
 
-const SITE_URL = "https://cascarillatech.org";
+// O dominio sae de `site` (astro.config.mjs, na raíz do proxecto) para non
+// duplicalo aquí. Se algún día queda sen definir é mellor romper o build que
+// publicar un feed con URLs inválidas, que é o que pasaría en silencio.
+const SITE_URL = import.meta.env.SITE;
+if (!SITE_URL) {
+  throw new Error(
+    "Falta `site` en astro.config.mjs: /feed.json precisa del para as URLs absolutas."
+  );
+}
+
 const FEED_ORGANIZER = { name: "Cascarilla Tech", url: SITE_URL };
 const LICENSE = "CC-BY-4.0";
 
