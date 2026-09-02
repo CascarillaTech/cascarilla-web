@@ -911,12 +911,13 @@ img { max-width: 100%; }
   .community {
     margin-top: 1.4rem;
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr 3fr;
     gap: .3rem 1.5rem;
-    align-items: baseline;
+    align-items: start;
     padding: 1rem 1.3rem;
   }
-  .community__name { margin-bottom: 0; white-space: nowrap; }
+  .community__name { margin-bottom: 0; }
+  .community__body { display: flex; flex-direction: column; gap: .5rem; }
   .community__text { font-size: .9rem; }
 
   /* Por que existimos: dous bloques lado a lado */
@@ -1472,14 +1473,20 @@ function dossierLogoFallback(img) {
         </div>
       </div>
 
-      <!-- ---- Bloque comunidade Coruña JUG ---- -->
+      <!-- ---- Bloque comunidade Coruña JUG ----
+           .community__body agrupa os dous parágrafos nun só fillo directo do
+           grid, para que ámbolos dous caian na columna dereita en vez de que
+           o segundo se derrame a unha segunda fila na columna estreita do
+           nome (é o que pasaba antes, con 3 fillos soltos e só 2 columnas). -->
       <div class="community">
         <!-- CONTENT: sections.about.community.title -->
         <h3 class="community__name">Coruña JUG</h3>
-        <!-- CONTENT: sections.about.community.paragraphs[0] -->
-        <p class="community__text">Coruña JUG es la comunidad técnica en torno a Java y la JVM (Java, Groovy, Scala, Kotlin) nacida en A Coruña. Organiza charlas y meetups de forma recurrente y tiene experiencia previa trabajando con empresas patrocinadoras.</p>
-        <!-- CONTENT: sections.about.community.paragraphs[1] -->
-        <p class="community__text">Es la comunidad fundadora que impulsa la actividad bajo el paraguas de Cascarilla Tech.</p>
+        <div class="community__body">
+          <!-- CONTENT: sections.about.community.paragraphs[0] -->
+          <p class="community__text">Coruña JUG es la comunidad técnica en torno a Java y la JVM (Java, Groovy, Scala, Kotlin) nacida en A Coruña. Organiza charlas y meetups de forma recurrente y tiene experiencia previa trabajando con empresas patrocinadoras.</p>
+          <!-- CONTENT: sections.about.community.paragraphs[1] -->
+          <p class="community__text">Es la comunidad fundadora que impulsa la actividad bajo el paraguas de Cascarilla Tech.</p>
+        </div>
       </div>
 
     </div>
