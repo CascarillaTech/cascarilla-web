@@ -1,0 +1,172 @@
+---
+import Layout from '../layouts/LayoutBasic.astro';
+import '../styles/alta.css';
+import { getEntry } from 'astro:content';
+
+const org = await getEntry('org', 'info');
+const cuotas = await getEntry('membership', 'cuotas');
+
+if (!org || !cuotas) {
+    return Astro.redirect('/404');
+}
+
+const { email } = org.data;
+const { admissionClosed, adminNote, fees } = cuotas.data;
+
+// slug estable por cota (para o value do radio e para o Apps Script),
+// derivado do nome tal e como vive en cuotas.md — non hai que duplicalo.
+const feeSlug = (name) => name.toLowerCase();
+---
+
+<Layout title="Alta de socio/a - Cascarilla Tech">
+    <section class="alta-section">
+
+        {admissionClosed ? (
+            <>
+                <h1>Alta de socio/a</h1>
+                <div class="alta-closed-box">
+                    <span class="alta-closed-badge">Admisión pechada</span>
+                    <p>{adminNote}</p>
+                    <p><a href={`mailto:${email}`}>{email}</a></p>
+                    <p><a href="/membership">Volver a Faite socio/a</a></p>
+                </div>
+            </>
+        ) : (
+            <>
+                <h1>Alta de socio/a</h1>
+                <p class="alta-intro">
+                    Cubre os teus datos para solicitar a alta. A Xunta Directiva revisará a solicitude e
+                    confirmarémosche por correo cando formes parte de Cascarilla Tech.
+                </p>
+
+                <form id="form-alta" class="alta-form">
+                    <div class="form-group">
+                        <label for="f-nombre">Nome (para dirixirnos a ti)*</label>
+                        <input type="text" id="f-nombre" name="nombre" placeholder="ex. María, Marta" required>
+                        <div class="form-help">Podes poñer varios nomes separados por coma</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="f-nombre-completo">Nome completo*</label>
+                        <input type="text" id="f-nombre-completo" name="nombre_completo" placeholder="ex. María García López" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="f-dni">DNI/CIF*</label>
+                        <input type="text" id="f-dni" name="dni" placeholder="ex. 12345678A" required>
+                        <div class="form-help">
+                            Requirido polo artigo 14 da Lei Orgánica 1/2002 para o rexistro de socios/as —
+                            ver a nosa <a href="/privacy">Política de Privacidade</a>.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="f-email">Correo electrónico*</label>
+                        <input type="email" id="f-email" name="email" placeholder="maria@exemplo.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="f-pronouns">Pronomes (opcional)</label>
+                        <select id="f-pronouns" name="pronouns">
+                            <option value="">Sen especificar</option>
+                            <option value="he">He/Him</option>
+                            <option value="she">She/Her</option>
+                            <option value="they">They/Them</option>
+                            <option value="other">Outro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cota anual*</label>
+                        <div class="fee-options">
+                            {fees.map((fee, i) => (
+                                    <label class="fee-option">
+                                        <input type="radio" name="membership" value={feeSlug(fee.name)} required={i === 0}>
+                                        <div class="fee-option-card">
+                                            <p class="fee-option-name">{fee.name}</p>
+                                            <p class="fee-option-price">{fee.amount} €/ano</p>
+                                            <p class="fee-option-desc">{fee.description}</p>
+                                        </div>
+                                    </label>
+                            ))}
+                        </div>
+                    </div>
+
+                    <p class="form-payment-note">
+                        O pagamento faise por transferencia bancaria. Non publicamos o número de conta
+                        aquí por seguridade: proporcionarémosche os datos unha vez recibamos esta
+                        solicitude.
+                    </p>
+
+                    <div class="form-group-checkbox">
+                        <input type="checkbox" id="f-terms" name="terms" required>
+                        <label for="f-terms">
+                            Acepto os <a href="/terms" target="_blank">termos e condicións de alta</a>*
+                        </label>
+                    </div>
+
+                    <div class="form-group-checkbox">
+                        <input type="checkbox" id="f-privacy" name="privacy" required>
+                        <label for="f-privacy">
+                            Acepto a <a href="/privacy" target="_blank">política de privacidade</a>*
+                        </label>
+                    </div>
+
+                    <button type="submit" id="btn-submit">Enviar solicitude de alta</button>
+                    <div class="form-footer" id="form-msg">Os teus datos irán directamente á nosa xestión de socios.</div>
+                </form>
+            </>
+        )}
+
+    </section>
+</Layout>
+
+<script>
+    // Pega aquí a URL que dá Apps Script ao desplegar como Web App
+    // (ver tools/alta-socios/apps-script-alta-socios.gs no repo)
+    const SCRIPT_URL = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT";
+
+    const form = document.getElementById("form-alta");
+    if (form) {
+        const btn = document.getElementById("btn-submit");
+        const msg = document.getElementById("form-msg");
+        const msgDefault = msg.textContent;
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.textContent = "Enviando...";
+            msg.textContent = msgDefault;
+            msg.classList.remove("form-msg-error", "form-msg-ok");
+
+            const datos = {
+                nombre: form.nombre.value.trim(),
+                nombre_completo: form.nombre_completo.value.trim(),
+                dni: form.dni.value.trim(),
+                email: form.email.value.trim(),
+                pronouns: form.pronouns.value,
+                membership: form.membership.value,
+                terms: form.terms.checked,
+                privacy: form.privacy.checked
+            };
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify(datos)
+                });
+                msg.textContent = "Solicitude enviada correctamente. Confirmarémosche a alta por correo.";
+                msg.classList.add("form-msg-ok");
+                form.reset();
+            } catch (err) {
+                msg.textContent = "Houbo un problema ao enviar. Téntao de novo ou escribe a asociacion@cascarillatech.org.";
+                msg.classList.add("form-msg-error");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Enviar solicitude de alta";
+            }
+        });
+    }
+</script>

@@ -1,0 +1,206 @@
+/* Formulario de alta de socio/a — reutiliza os tokens de cor de main.css,
+   non define paleta propia. */
+
+.alta-section {
+    max-width: 640px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+}
+
+.alta-section h1 {
+    color: var(--color-text-heading);
+    margin-bottom: 0.5rem;
+}
+
+.alta-intro {
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+}
+
+.alta-form {
+    background-color: var(--color-white);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--color-shadow);
+    padding: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    color: var(--color-text-heading);
+    margin-bottom: 0.4rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--color-border-card);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--color-text-main);
+    background-color: var(--color-bg-main);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 1px;
+}
+
+.form-help {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-top: 0.3rem;
+}
+
+/* --- Selección de cota: mesma linguaxe visual que .fee-card de /membership,
+   pero clicable coma tarxeta de radio --- */
+.fee-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.fee-option {
+    flex: 1 1 12rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.fee-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.fee-option-card {
+    border: 2px solid var(--color-border-card);
+    border-radius: 8px;
+    padding: 1rem;
+    height: 100%;
+    box-sizing: border-box;
+    transition: border-color .15s ease, background-color .15s ease;
+}
+
+.fee-option input[type="radio"]:checked + .fee-option-card {
+    border-color: var(--color-primary);
+    background-color: var(--color-bg-section-hero);
+}
+
+.fee-option input[type="radio"]:focus-visible + .fee-option-card {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.fee-option-name {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--color-secondary);
+}
+
+.fee-option-price {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--color-text-heading);
+    margin: 0.2rem 0 0.4rem;
+}
+
+.fee-option-desc {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.form-payment-note {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    background-color: var(--color-bg-main);
+    border-left: 3px solid var(--color-border-card);
+    padding: 0.75rem 1rem;
+    border-radius: 0 6px 6px 0;
+    margin: 1.5rem 0;
+}
+
+.form-group-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.form-group-checkbox input[type="checkbox"] {
+    margin-top: 0.2rem;
+    flex: 0 0 auto;
+}
+
+.form-group-checkbox label {
+    font-weight: normal;
+    color: var(--color-text-main);
+    margin-bottom: 0;
+}
+
+.form-group-checkbox a {
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+#btn-submit {
+    display: block;
+    width: 100%;
+    padding: 0.9rem;
+    border: 0;
+    border-radius: 999px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color .2s ease;
+}
+
+#btn-submit:hover:not(:disabled) { background-color: var(--color-secondary); }
+#btn-submit:disabled { opacity: 0.6; cursor: default; }
+
+#form-msg {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-top: 1rem;
+}
+
+#form-msg.form-msg-error { color: var(--color-primary); font-weight: bold; }
+#form-msg.form-msg-ok { color: var(--color-secondary); font-weight: bold; }
+
+/* --- Admisión pechada: mesma caixa que xa existe en /membership --- */
+.alta-closed-box {
+    background-color: var(--color-bg-main);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.alta-closed-badge {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+}

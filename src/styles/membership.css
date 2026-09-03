@@ -175,6 +175,25 @@
     font-weight: bold;
 }
 
+.membership-cta-block {
+    text-align: center;
+}
+
+.membership-cta {
+    display: inline-block;
+    padding: 0.9rem 2rem;
+    border-radius: 999px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color .2s ease;
+}
+
+.membership-cta:hover {
+    background-color: var(--color-secondary);
+}
+
 @media (max-width: 30rem) {
     .fee-card {
         width: 100%;
