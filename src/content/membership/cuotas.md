@@ -1,5 +1,5 @@
 ---
-admissionClosed: true
+admissionClosed: false
 adminNote: >
   De momento non temos aberto o proceso de alta de novos socios/as, pero
   estamos a traballar niso — moi pronto! Se tes présa por unirte ou

@@ -1,23 +1,23 @@
 /* Formulario de alta de socio/a — reutiliza os tokens de cor de main.css,
    non define paleta propia. */
 
-.alta-section {
+.registration-section {
     max-width: 640px;
     margin: 3rem auto;
     padding: 0 1.5rem;
 }
 
-.alta-section h1 {
+.registration-section h1 {
     color: var(--color-text-heading);
     margin-bottom: 0.5rem;
 }
 
-.alta-intro {
+.registration-intro {
     color: var(--color-text-muted);
     margin-bottom: 2rem;
 }
 
-.alta-form {
+.registration-form {
     background-color: var(--color-white);
     border-radius: 8px;
     box-shadow: 0 2px 10px var(--color-shadow);
@@ -61,18 +61,29 @@
     margin-top: 0.3rem;
 }
 
+.form-help a {
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
 /* --- Selección de cota: mesma linguaxe visual que .fee-card de /membership,
    pero clicable coma tarxeta de radio --- */
 .fee-options {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
 }
 
+@media (max-width: 30rem) {
+    .fee-options {
+        grid-template-columns: 1fr;
+    }
+}
+
 .fee-option {
-    flex: 1 1 12rem;
     position: relative;
     cursor: pointer;
+    height: 100%;
 }
 
 .fee-option input[type="radio"] {
@@ -185,14 +196,14 @@
 #form-msg.form-msg-ok { color: var(--color-secondary); font-weight: bold; }
 
 /* --- Admisión pechada: mesma caixa que xa existe en /membership --- */
-.alta-closed-box {
+.registration-closed-box {
     background-color: var(--color-bg-main);
     border-radius: 8px;
     padding: 2rem;
     text-align: center;
 }
 
-.alta-closed-badge {
+.registration-closed-badge {
     display: inline-block;
     background-color: var(--color-primary);
     color: var(--color-white);

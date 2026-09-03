@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/LayoutBasic.astro';
-import '../styles/alta.css';
+import '../styles/registration.css';
 import { getEntry } from 'astro:content';
 
 const org = await getEntry('org', 'info');
@@ -19,13 +19,13 @@ const feeSlug = (name) => name.toLowerCase();
 ---
 
 <Layout title="Alta de socio/a - Cascarilla Tech">
-    <section class="alta-section">
+    <section class="registration-section">
 
         {admissionClosed ? (
             <>
                 <h1>Alta de socio/a</h1>
-                <div class="alta-closed-box">
-                    <span class="alta-closed-badge">Admisión pechada</span>
+                <div class="registration-closed-box">
+                    <span class="registration-closed-badge">Admisión pechada</span>
                     <p>{adminNote}</p>
                     <p><a href={`mailto:${email}`}>{email}</a></p>
                     <p><a href="/membership">Volver a Faite socio/a</a></p>
@@ -34,12 +34,12 @@ const feeSlug = (name) => name.toLowerCase();
         ) : (
             <>
                 <h1>Alta de socio/a</h1>
-                <p class="alta-intro">
+                <p class="registration-intro">
                     Cubre os teus datos para solicitar a alta. A Xunta Directiva revisará a solicitude e
                     confirmarémosche por correo cando formes parte de Cascarilla Tech.
                 </p>
 
-                <form id="form-alta" class="alta-form">
+                <form id="form-registration" class="registration-form">
                     <div class="form-group">
                         <label for="f-nombre">Nome (para dirixirnos a ti)*</label>
                         <input type="text" id="f-nombre" name="nombre" placeholder="ex. María, Marta" required>
@@ -52,28 +52,8 @@ const feeSlug = (name) => name.toLowerCase();
                     </div>
 
                     <div class="form-group">
-                        <label for="f-dni">DNI/CIF*</label>
-                        <input type="text" id="f-dni" name="dni" placeholder="ex. 12345678A" required>
-                        <div class="form-help">
-                            Requirido polo artigo 14 da Lei Orgánica 1/2002 para o rexistro de socios/as —
-                            ver a nosa <a href="/privacy">Política de Privacidade</a>.
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label for="f-email">Correo electrónico*</label>
                         <input type="email" id="f-email" name="email" placeholder="maria@exemplo.com" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="f-pronouns">Pronomes (opcional)</label>
-                        <select id="f-pronouns" name="pronouns">
-                            <option value="">Sen especificar</option>
-                            <option value="he">He/Him</option>
-                            <option value="she">She/Her</option>
-                            <option value="they">They/Them</option>
-                            <option value="other">Outro</option>
-                        </select>
                     </div>
 
                     <div class="form-group">
@@ -123,10 +103,10 @@ const feeSlug = (name) => name.toLowerCase();
 
 <script>
     // Pega aquí a URL que dá Apps Script ao desplegar como Web App
-    // (ver tools/alta-socios/apps-script-alta-socios.gs no repo)
-    const SCRIPT_URL = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT";
+    // (ver tools/registration/apps-script-registration.gs no repo)
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJ0ofC86VTpxXCunE0g5D-xjOPBTM73u3FAwuy4i_ZAluypFfCtjQon-AzRczPDi3l/exec";
 
-    const form = document.getElementById("form-alta");
+    const form = document.getElementById("form-registration");
     if (form) {
         const btn = document.getElementById("btn-submit");
         const msg = document.getElementById("form-msg");
@@ -142,9 +122,7 @@ const feeSlug = (name) => name.toLowerCase();
             const datos = {
                 nombre: form.nombre.value.trim(),
                 nombre_completo: form.nombre_completo.value.trim(),
-                dni: form.dni.value.trim(),
                 email: form.email.value.trim(),
-                pronouns: form.pronouns.value,
                 membership: form.membership.value,
                 terms: form.terms.checked,
                 privacy: form.privacy.checked
