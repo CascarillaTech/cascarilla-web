@@ -1,7 +1,7 @@
 .eventos-section {
     width: 94vw;
     max-width: 90vw;
-    margin-bottom: 6rem;
+    margin: 0 auto 6rem;
 }
 
 .eventos-section .section-header {
