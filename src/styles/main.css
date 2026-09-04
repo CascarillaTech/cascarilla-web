@@ -43,7 +43,9 @@ body {
    debaixo do contido para que nunca quede tapado por el (sobre todo
    en páxinas curtas, ou cando o footer medra por levar máis liñas,
    coma na home e en /about, que teñen un parágrafo extra en
-   footer-extra e por iso un footer máis alto do habitual). */
+   footer-extra e por iso un footer máis alto do habitual). En móbil
+   o footer deixa de ser fixed (ver máis abaixo), así que este espazo
+   extra tamén se recorta nesa media query. */
 main {
     padding-bottom: 14rem;
 }
@@ -267,7 +269,20 @@ p {
     font-size: 0.9rem;
 }
 
+/* En móbil non queremos o footer fixed/sticky: que quede ao final do
+   contido, no fluxo normal da páxina, e non "pegado" abaixo do todo
+   da pantalla en todo momento. Ao quitar o fixed xa non fai falta
+   reservar aquel espazo baixo o main pensado para el. */
+@media (max-width: 48rem) {
+    main {
+        padding-bottom: 3rem;
+    }
 
+    .footer {
+        position: static;
+        box-shadow: none;
+    }
+}
 
 /* Contedor interno do menú en liña */
 .nav-container {
