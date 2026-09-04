@@ -383,6 +383,19 @@ p {
 
 /* Menú colapsable en móbil */
 @media (max-width: 48rem) {
+    /* Cabeceira máis compacta en móbil: menos padding e menos altura
+       que en escritorio. --height-header cámbiase tamén aquí para que
+       o menú despregable (.nav-menu, máis abaixo) siga aparecendo
+       xusto debaixo, sen ocos nin solapamentos. */
+    :root {
+        --height-header: 72px;
+    }
+
+    .header {
+        height: auto;
+        padding: 1rem 0;
+    }
+
     .nav-container {
         justify-content: flex-start;
         gap: 1rem;
