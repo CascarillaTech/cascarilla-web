@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" width="240" height="120">
+    <rect width="240" height="120" fill="#f0e2b6"/>
+    <rect x="20" y="40" width="200" height="40" rx="6" fill="none" stroke="#9c5236" stroke-width="2" stroke-dasharray="6 6"/>
+    <text x="120" y="65" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#8C4B33" text-anchor="middle">O teu logo aquí</text>
+</svg>

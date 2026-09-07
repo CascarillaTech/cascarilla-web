@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<!-- CONTENT: meta.title -->
+<title>Cascarilla Tech — Dossier de colaboración</title>
+<!-- CONTENT: meta.description -->
+<meta name="description" content="Dossier de colaboración para empresas da Asociación Cascarilla Tech, entidade sen ánimo de lucro da Coruña que dá soporte ás comunidades tecnolóxicas de Galicia.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="dossier.css">
+
+<!--
+  ============================================================================
+  DOSSIER DE COLABORACIÓN — Cascarilla Tech
+  ----------------------------------------------------------------------------
+  Xerado por scratchpad/build-dossier.mjs — non editar estes .html a man,
+  edita a plantilla/contido e volve executar o script. CSS e JS viven en
+  ficheiros compartidos (public/dossier/dossier.css, dossier-head.js,
+  dossier.js), non inline: as tres linguas cárganos unha soa vez, sen
+  dependencias externas fóra do propio sitio.
+  Tres páxinas, idénticas en deseño/CSS/JS: src/pages/dossier/index.html (gl),
+  src/pages/dossier/es/index.html (es) e src/pages/dossier/en/index.html (en).
+  Só cambian os textos, o atributo lang e a profundidade das rutas relativas.
+
+  Os comentarios <!- - CONTENT: ruta.no.json - -> van xusto enriba de cada
+  bloque substituíble e indican de que chave do JSON de contido
+  (gl.json / es.json / en.json) procede o texto, de cara a futuras edicións.
+  ============================================================================
+-->
+
+<script>window.__dossierImgPath = '../images/';</script>
+<script src="dossier-head.js"></script>
+</head>
+<body>
+
+<!-- ==========================================================================
+     BARRA SUPERIOR: selector de idioma + descargar PDF
+     Bandeiras en SVG inline (sen imaxes externas, e sen depender de que o
+     sistema operativo saiba debuxar os emoji de bandeira).
+     ---------------------------------------------------------------------
+     RUTAS DE IDIOMA:
+       en /dossier/index.html    :  GL -> ./      ES -> ./es/   EN -> ./en/
+       en /dossier/es/index.html :  GL -> ../     ES -> ./      EN -> ../en/
+       en /dossier/en/index.html :  GL -> ../     ES -> ../es/  EN -> ./
+     ========================================================================== -->
+<div class="toolbar">
+
+  <!-- CONTENT: ui.langNavLabel (texto de interface, traducido á man; non ven do JSON) -->
+  <nav class="lang" aria-label="Idioma do documento">
+
+    <!-- Galego -->
+    <a class="lang__link" href="./" hreflang="gl" lang="gl" aria-current="true" title="Galego">
+      <svg class="lang__flag" viewBox="0 0 60 40" role="img" aria-hidden="true" focusable="false">
+        <rect width="60" height="40" fill="#FFFFFF"/>
+        <path d="M0 0 L0 7 L53 40 L60 40 L60 33 L7 0 Z" fill="#0057B7"/>
+      </svg>
+      <span class="lang__code">GL</span>
+      <span class="visually-hidden">Galego</span>
+    </a>
+
+    <!-- Castelán -->
+    <a class="lang__link" href="./es/" hreflang="es" lang="es" title="Español">
+      <svg class="lang__flag" viewBox="0 0 60 40" role="img" aria-hidden="true" focusable="false">
+        <rect width="60" height="40" fill="#AA151B"/>
+        <rect y="10" width="60" height="20" fill="#F1BF00"/>
+      </svg>
+      <span class="lang__code">ES</span>
+      <span class="visually-hidden">Español</span>
+    </a>
+
+    <!-- Inglés -->
+    <a class="lang__link" href="./en/" hreflang="en" lang="en" title="English">
+      <svg class="lang__flag" viewBox="0 0 60 40" role="img" aria-hidden="true" focusable="false">
+        <rect width="60" height="40" fill="#012169"/>
+        <path d="M0 0 L60 40 M60 0 L0 40" stroke="#FFFFFF" stroke-width="8"/>
+        <path d="M0 0 L60 40 M60 0 L0 40" stroke="#C8102E" stroke-width="4"/>
+        <path d="M30 0 V40 M0 20 H60" stroke="#FFFFFF" stroke-width="13"/>
+        <path d="M30 0 V40 M0 20 H60" stroke="#C8102E" stroke-width="8"/>
+      </svg>
+      <span class="lang__code">EN</span>
+      <span class="visually-hidden">English</span>
+    </a>
+  </nav>
+
+  <span class="toolbar__sep" aria-hidden="true"></span>
+
+  <button type="button" class="print-btn" id="print-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/>
+    </svg>
+    <!-- CONTENT: ui.download_pdf -->
+    <span class="print-btn__long">Descargar PDF</span>
+    <span class="print-btn__short">PDF</span>
+  </button>
+</div>
+
+
+<!-- ==========================================================================
+     ÍNDICE LATERAL (só escritorio >=900px)
+     ========================================================================== -->
+<!-- CONTENT: ui.navLabel (texto de interface, traducido á man; non ven do JSON) -->
+<nav class="deck-nav" id="deck-nav" aria-label="Índice do dossier">
+
+  <div class="deck-nav__brand">
+    <!-- CONTENT: ui.logoAlt (texto de interface, traducido á man; non ven do JSON) -->
+    <img src="../images/cascarillatech-logo.svg" alt="Logotipo de Cascarilla Tech" width="46" height="29">
+    <!-- CONTENT: ui.navBrandText (texto de interface, traducido á man; non ven do JSON) -->
+    <span class="deck-nav__brand-text">Dossier<br>de colaboración</span>
+  </div>
+
+  <ol class="deck-nav__list">
+    <li>
+      <a class="deck-nav__link" href="#sec-cover" aria-current="true">
+        <span class="deck-nav__thumb" aria-hidden="true"></span>
+        <span class="deck-nav__meta">
+          <span class="deck-nav__num">01</span>
+          <!-- CONTENT: ui.nav.cover -->
+          <span class="deck-nav__label">Portada</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="deck-nav__link" href="#sec-about">
+        <span class="deck-nav__thumb" aria-hidden="true"></span>
+        <span class="deck-nav__meta">
+          <span class="deck-nav__num">02</span>
+          <!-- CONTENT: ui.nav.about -->
+          <span class="deck-nav__label">Quen somos</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="deck-nav__link" href="#sec-why">
+        <span class="deck-nav__thumb" aria-hidden="true"></span>
+        <span class="deck-nav__meta">
+          <span class="deck-nav__num">03</span>
+          <!-- CONTENT: ui.nav.why -->
+          <span class="deck-nav__label">Por que existimos</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="deck-nav__link" href="#sec-next">
+        <span class="deck-nav__thumb" aria-hidden="true"></span>
+        <span class="deck-nav__meta">
+          <span class="deck-nav__num">04</span>
+          <!-- CONTENT: ui.nav.roadmap -->
+          <span class="deck-nav__label">Que vén despois</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="deck-nav__link" href="#sec-collab">
+        <span class="deck-nav__thumb" aria-hidden="true"></span>
+        <span class="deck-nav__meta">
+          <span class="deck-nav__num">05</span>
+          <!-- CONTENT: ui.nav.collaborate -->
+          <span class="deck-nav__label">Formas de colaborar</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="deck-nav__link" href="#sec-contact">
+        <span class="deck-nav__thumb" aria-hidden="true"></span>
+        <span class="deck-nav__meta">
+          <span class="deck-nav__num">06</span>
+          <!-- CONTENT: ui.nav.contact -->
+          <span class="deck-nav__label">Contacto</span>
+        </span>
+      </a>
+    </li>
+  </ol>
+
+  <!-- CONTENT: ui.labels.nav_hint -->
+  <p class="deck-nav__hint">Usa as frechas ou o índice para navegar</p>
+</nav>
+
+
+<!-- ==========================================================================
+     DECK: as 6 seccións
+     ========================================================================== -->
+<main class="deck" id="deck">
+
+  <!-- ======================================================================
+       01 · PORTADA
+       ====================================================================== -->
+  <section class="slide cover" id="sec-cover" tabindex="-1" aria-labelledby="cover-title">
+    <div class="slide__inner">
+
+      <!-- CONTENT: ui.logoAlt (texto de interface, traducido á man; non ven do JSON) -->
+      <img class="cover__logo" src="../images/cascarillatech-logo.svg"
+           alt="Logotipo de Cascarilla Tech" width="230" height="145">
+
+      <!-- CONTENT: ui.labels.kicker -->
+      <p class="cover__kicker">Dossier de colaboración</p>
+
+      <!-- CONTENT: sections.cover.title -->
+      <h1 id="cover-title">Cascarilla Tech</h1>
+
+      <div class="cover__rule" aria-hidden="true"></div>
+
+      <!-- CONTENT: sections.cover.subtitle -->
+      <p class="cover__subtitle">Dossier de colaboración para empresas</p>
+
+      <!-- CONTENT: sections.cover.tagline (liña engadida, non estaba na plantilla orixinal) -->
+      <p class="cover__subtitle">Nacemos co desexo de axudar nas relacións entre os diferentes actores da tecnoloxía da comarca. Proporcionamos soporte xurídico e estrutural para as comunidades tecnolóxicas que o precisen.</p>
+
+      <!-- CONTENT: sections.cover.meta_line (dividido polo separador "·" en 2 anacos) -->
+      <p class="cover__meta">
+        <span>A Coruña</span>
+        <span>asociacion@cascarillatech.org</span>
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       02 · QUEN SOMOS
+       ====================================================================== -->
+  <section class="slide" id="sec-about" tabindex="-1" aria-labelledby="about-title">
+    <div class="slide__inner">
+
+      <p class="eyebrow">
+        <span class="eyebrow__num">01</span>
+        <!-- CONTENT: ui.labels.eyebrow_about -->
+        <span>Quen somos</span>
+      </p>
+
+      <!-- CONTENT: sections.about.title -->
+      <h2 id="about-title">Quen somos</h2>
+      <div class="rule" aria-hidden="true"></div>
+
+      <div class="about__cols">
+
+        <div class="about__text">
+          <!-- CONTENT: sections.about.paragraphs[0] -->
+          <p>Cascarilla Tech é unha asociación sen ánimo de lucro constituída en marzo de 2026 na Coruña, ao abeiro do artigo 22 da Constitución Española e da Lei Orgánica 1/2002, reguladora do dereito de asociación. Durante estes meses estivemos a realizar as diferentes actuacións burocráticas para establecer o punto de partida da entidade o 1 de setembro de 2026.</p>
+          <!-- CONTENT: sections.about.paragraphs[1] -->
+          <p>Nacemos para servir de fío transversal aos diferentes integrantes do ecosistema tecnolóxico. Poñemos á disposición das comunidades que o precisen o soporte xurídico e estrutural. Poñemos á disposición das empresas un ecosistema e a posibilidade de organizar xornadas conxuntas.</p>
+          <!-- CONTENT: sections.about.values (parágrafo engadido, non estaba na plantilla orixinal) -->
+          <p>Traballamos cunha organización horizontal e coas nosas actividades abertas e gratuítas dentro do posible. Non vendemos datos, non xeramos beneficios e procuramos que todo o material que producimos se publique con licenzas abertas.</p>
+        </div>
+
+        <div class="about__aims">
+          <!-- CONTENT: sections.about.aims.title -->
+          <p class="board__title">Fins estatutarios</p>
+          <ul class="aims">
+            <!-- CONTENT: sections.about.aims.items[0] -->
+            <li>Promover o uso da tecnoloxía en todos os ámbitos da sociedade.</li>
+            <!-- CONTENT: sections.about.aims.items[1] -->
+            <li>Formar e educar a cidadanía en aspectos tecnolóxicos.</li>
+            <!-- CONTENT: sections.about.aims.items[2] -->
+            <li>Colaborar con outras entidades e comunidades tecnolóxicas de propósitos afíns.</li>
+            <!-- CONTENT: sections.about.aims.items[3] -->
+            <li>Fomentar o uso do galego no ámbito tecnolóxico.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ---- Xunta directiva: 4 tarxetas con foto (sen bio: o contido non a define) ---- -->
+      <div class="board">
+        <!-- CONTENT: sections.about.board.title -->
+        <p class="board__title">Xunta directiva</p>
+
+        <div class="board__grid">
+
+          <!-- CONTENT: sections.about.board.members[0] -->
+          <div class="person">
+            <!-- Fotos aínda non existen: fallback a speaker-placeholder.svg e despois a avatar CSS -->
+            <img class="person__photo" src="../images/junta/alberto.png"
+                 alt="Retrato de Alberto Sánchez" width="84" height="84"
+                 onerror="dossierPhotoFallback(this);">
+            <!-- CONTENT: sections.about.board.members[0].name -->
+            <p class="person__name">Alberto Sánchez</p>
+            <!-- CONTENT: sections.about.board.members[0].role -->
+            <p class="person__role">Presidente</p>
+          </div>
+
+          <!-- CONTENT: sections.about.board.members[1] -->
+          <div class="person">
+            <!-- Fotos aínda non existen: fallback a speaker-placeholder.svg e despois a avatar CSS -->
+            <img class="person__photo" src="../images/junta/jose.png"
+                 alt="Retrato de José López" width="84" height="84"
+                 onerror="dossierPhotoFallback(this);">
+            <!-- CONTENT: sections.about.board.members[1].name -->
+            <p class="person__name">José López</p>
+            <!-- CONTENT: sections.about.board.members[1].role -->
+            <p class="person__role">Vicepresidente</p>
+          </div>
+
+          <!-- CONTENT: sections.about.board.members[2] -->
+          <div class="person">
+            <!-- Fotos aínda non existen: fallback a speaker-placeholder.svg e despois a avatar CSS -->
+            <img class="person__photo" src="../images/junta/marta.png"
+                 alt="Retrato de Marta Diz" width="84" height="84"
+                 onerror="dossierPhotoFallback(this);">
+            <!-- CONTENT: sections.about.board.members[2].name -->
+            <p class="person__name">Marta Diz</p>
+            <!-- CONTENT: sections.about.board.members[2].role -->
+            <p class="person__role">Secretaria</p>
+          </div>
+
+          <!-- CONTENT: sections.about.board.members[3] -->
+          <div class="person">
+            <!-- Fotos aínda non existen: fallback a speaker-placeholder.svg e despois a avatar CSS -->
+            <img class="person__photo" src="../images/junta/abel.png"
+                 alt="Retrato de Abel Crespo" width="84" height="84"
+                 onerror="dossierPhotoFallback(this);">
+            <!-- CONTENT: sections.about.board.members[3].name -->
+            <p class="person__name">Abel Crespo</p>
+            <!-- CONTENT: sections.about.board.members[3].role -->
+            <p class="person__role">Tesoureiro</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- Bloque comunidade Coruña JUG ----
+           .community__body agrupa os dous parágrafos nun só fillo directo do
+           grid, para que ámbolos dous caian na columna dereita en vez de que
+           o segundo se derrame a unha segunda fila na columna estreita do
+           nome (é o que pasaba antes, con 3 fillos soltos e só 2 columnas). -->
+      <div class="community">
+        <!-- CONTENT: sections.about.community.title -->
+        <h3 class="community__name">Coruña JUG</h3>
+        <div class="community__body">
+          <!-- CONTENT: sections.about.community.paragraphs[0] -->
+          <p class="community__text">Coruña JUG é a comunidade técnica arredor de Java e da JVM (Java, Groovy, Scala, Kotlin) nacida na Coruña. Organiza charlas e meetups de xeito recorrente e ten experiencia previa traballando con empresas patrocinadoras.</p>
+          <!-- CONTENT: sections.about.community.paragraphs[1] -->
+          <p class="community__text">É a comunidade fundadora que impulsa a actividade baixo o paraugas de Cascarilla Tech.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       03 · POR QUE EXISTIMOS
+       ====================================================================== -->
+  <section class="slide slide--alt" id="sec-why" tabindex="-1" aria-labelledby="why-title">
+    <div class="slide__inner">
+
+      <p class="eyebrow">
+        <span class="eyebrow__num">02</span>
+        <!-- CONTENT: ui.labels.eyebrow_why -->
+        <span>O contexto</span>
+      </p>
+
+      <!-- CONTENT: sections.why.title -->
+      <h2 id="why-title">Por que existimos</h2>
+      <div class="rule" aria-hidden="true"></div>
+
+      <!-- CONTENT: sections.why.intro -->
+      <p class="lead">Cascarilla Tech nace para resolver dous problemas concretos da contorna tecnolóxica galega.</p>
+
+      <div class="problems">
+
+        <!-- CONTENT: sections.why.problems[0] -->
+        <article class="pblock">
+          <div class="pblock__part">
+            <!-- CONTENT: ui.labels.problem -->
+            <p class="pblock__label pblock__label--problem">O problema</p>
+            <!-- CONTENT: sections.why.problems[0].title -->
+            <h3 class="pblock__title">Comunidades con actividade real e sen estrutura legal</h3>
+            <!-- CONTENT: sections.why.problems[0].problem -->
+            <p class="pblock__text">En A Coruña hai comunidades tecnolóxicas activas que xeran actividade real —charlas, obradoiros, encontros—, pero que non teñen capacidade legal nin administrativa propia para facturar, asinar convenios ou recibir patrocinios. Constituír unha asociación provoca unha serie de necesidades e burocracias que a maioría non pode asumir.</p>
+          </div>
+          <div class="pblock__part">
+            <!-- CONTENT: ui.labels.response -->
+            <p class="pblock__label pblock__label--solution">A nosa resposta</p>
+            <!-- CONTENT: sections.why.problems[0].response (a plantilla tiña aquí un h3 de
+                 título de solución separado; elimínase porque o contido non o define) -->
+            <p class="pblock__text">Cascarilla Tech achega esa estrutura: as comunidades seguen a facer o seu traballo e nós ocupámonos da parte formal.</p>
+          </div>
+        </article>
+
+        <!-- CONTENT: sections.why.problems[1] -->
+        <article class="pblock">
+          <div class="pblock__part">
+            <!-- CONTENT: ui.labels.problem -->
+            <p class="pblock__label pblock__label--problem">O problema</p>
+            <!-- CONTENT: sections.why.problems[1].title -->
+            <h3 class="pblock__title">Empresas que queren organizar unha xornada fóra da súa marca</h3>
+            <!-- CONTENT: sections.why.problems[1].problem -->
+            <p class="pblock__text">Hai empresas que queren organizar un evento propio, de calquera tipo, sen vinculalo á súa actividade habitual nin á súa propia marca.</p>
+          </div>
+          <div class="pblock__part">
+            <!-- CONTENT: ui.labels.response -->
+            <p class="pblock__label pblock__label--solution">A nosa resposta</p>
+            <!-- CONTENT: sections.why.problems[1].response (a plantilla tiña aquí un h3 de
+                 título de solución separado; elimínase porque o contido non o define) -->
+            <p class="pblock__text">Cascarilla Tech pode actuar como estrutura anfitrioa e dar cobertura organizativa a esa iniciativa.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       04 · QUE VÉN DESPOIS  (contido: sections.roadmap)
+       ====================================================================== -->
+  <section class="slide" id="sec-next" tabindex="-1" aria-labelledby="next-title">
+    <div class="slide__inner">
+
+      <p class="eyebrow">
+        <span class="eyebrow__num">03</span>
+        <!-- CONTENT: ui.labels.eyebrow_roadmap -->
+        <span>Folla de ruta</span>
+      </p>
+
+      <!-- CONTENT: sections.roadmap.title -->
+      <h2 id="next-title">Que vén despois</h2>
+      <div class="rule" aria-hidden="true"></div>
+
+      <!-- CONTENT: sections.roadmap.intro -->
+      <p class="lead">Estas son as actividades que temos sobre a mesa para os vindeiros meses.</p>
+
+      <!-- CONTENT: sections.roadmap.disclaimer (aviso engadido, non estaba na plantilla orixinal;
+           reutiliza o estilo .collab-note para que quede ben visible) -->
+      <p class="collab-note">Ningunha delas está pechada. Datas, formatos e sedes son orientativos e poden cambiar. Este apartado describe intencións, non compromisos.</p>
+
+      <div class="activities">
+
+        <!-- CONTENT: sections.roadmap.activities[0] -->
+        <article class="activity">
+          <!-- CONTENT: sections.roadmap.activities[0].name -->
+          <h3 class="activity__title">As charlas de Coruña JUG</h3>
+          <!-- CONTENT: sections.roadmap.activities[0].summary -->
+          <p class="activity__desc">Continuamos a organizar a charla mensual de Coruña JUG.</p>
+          <!-- CONTENT: sections.roadmap.labels.status + sections.roadmap.activities[0].status
+               (liña engadida, non estaba na plantilla orixinal) -->
+          <p class="activity__audience">
+            <span class="activity__audience-label">Estado</span>
+            <span>Datas e sede (Odeene, Cidade das TIC). Cada mes anunciaremos a data que corresponda.</span>
+          </p>
+          <p class="activity__audience">
+            <!-- CONTENT: sections.roadmap.labels.audience -->
+            <span class="activity__audience-label">Público esperado</span>
+            <!-- CONTENT: sections.roadmap.activities[0].audience -->
+            <span>25-40 persoas</span>
+          </p>
+        </article>
+
+        <!-- CONTENT: sections.roadmap.activities[1] -->
+        <article class="activity">
+          <!-- CONTENT: sections.roadmap.activities[1].name -->
+          <h3 class="activity__title">Un día con IA</h3>
+          <!-- CONTENT: sections.roadmap.activities[1].summary -->
+          <p class="activity__desc">Xornada para conectar comunidade, coñecemento e empresas da Coruña, cun formato de keynote, charlas e espazo de networking. Organízase xunto con Coruña JUG.</p>
+          <!-- CONTENT: sections.roadmap.labels.status + sections.roadmap.activities[1].status
+               (liña engadida, non estaba na plantilla orixinal) -->
+          <p class="activity__audience">
+            <span class="activity__audience-label">Estado</span>
+            <span>Data e sede tentativas (Odeene, Cidade das TIC). Sen pechar.</span>
+          </p>
+          <p class="activity__audience">
+            <!-- CONTENT: sections.roadmap.labels.audience -->
+            <span class="activity__audience-label">Público esperado</span>
+            <!-- CONTENT: sections.roadmap.activities[1].audience -->
+            <span>50-75 persoas</span>
+          </p>
+        </article>
+
+        <!-- CONTENT: sections.roadmap.activities[2] -->
+        <article class="activity">
+          <!-- CONTENT: sections.roadmap.activities[2].name -->
+          <h3 class="activity__title">Encontro tecnolóxico sobre IA</h3>
+          <!-- CONTENT: sections.roadmap.activities[2].summary -->
+          <p class="activity__desc">Encontro de comunidade arredor da intelixencia artificial.</p>
+          <!-- CONTENT: sections.roadmap.labels.status + sections.roadmap.activities[2].status
+               (liña engadida, non estaba na plantilla orixinal) -->
+          <p class="activity__audience">
+            <span class="activity__audience-label">Estado</span>
+            <span>Formato por definir. Data sen fixar.</span>
+          </p>
+          <p class="activity__audience">
+            <!-- CONTENT: sections.roadmap.labels.audience -->
+            <span class="activity__audience-label">Público esperado</span>
+            <!-- CONTENT: sections.roadmap.activities[2].audience -->
+            <span>50-75 persoas</span>
+          </p>
+        </article>
+
+        <!-- CONTENT: sections.roadmap.activities[3] -->
+        <article class="activity">
+          <!-- CONTENT: sections.roadmap.activities[3].name -->
+          <h3 class="activity__title">Openspace sobre tecnoloxía</h3>
+          <!-- CONTENT: sections.roadmap.activities[3].summary -->
+          <p class="activity__desc">Xornada en formato openspace: a axenda constrúena as persoas asistentes ao comezo do día.</p>
+          <!-- CONTENT: sections.roadmap.labels.status + sections.roadmap.activities[3].status
+               (liña engadida, non estaba na plantilla orixinal) -->
+          <p class="activity__audience">
+            <span class="activity__audience-label">Estado</span>
+            <span>Data e sede sen fixar.</span>
+          </p>
+          <p class="activity__audience">
+            <!-- CONTENT: sections.roadmap.labels.audience -->
+            <span class="activity__audience-label">Público esperado</span>
+            <!-- CONTENT: sections.roadmap.activities[3].audience -->
+            <span>50-75 persoas</span>
+          </p>
+        </article>
+
+        <!-- CONTENT: sections.roadmap.activities[4] -->
+        <article class="activity">
+          <!-- CONTENT: sections.roadmap.activities[4].name -->
+          <h3 class="activity__title">Mesa redonda sobre a problemática de contratación</h3>
+          <!-- CONTENT: sections.roadmap.activities[4].summary -->
+          <p class="activity__desc">Debate arredor dos retos de contratación de perfís tecnolóxicos en Galicia.</p>
+          <!-- CONTENT: sections.roadmap.labels.status + sections.roadmap.activities[4].status
+               (liña engadida, non estaba na plantilla orixinal) -->
+          <p class="activity__audience">
+            <span class="activity__audience-label">Estado</span>
+            <span>Data, formato e participantes sen fixar.</span>
+          </p>
+          <p class="activity__audience">
+            <!-- CONTENT: sections.roadmap.labels.audience -->
+            <span class="activity__audience-label">Público esperado</span>
+            <!-- CONTENT: sections.roadmap.activities[4].audience -->
+            <span>50-75 persoas</span>
+          </p>
+        </article>
+      </div>
+
+      <!-- CONTENT: sections.roadmap.context_note (nota engadida, non estaba na plantilla orixinal;
+           reutiliza o estilo .collab-note) -->
+      <p class="collab-note">Para poñer as cifras en contexto: as charlas e meetups habituais de Coruña JUG moven entre 30 e 50 persoas. O rango de 50 a 75 é a nosa expectativa para os eventos non habituais.</p>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       05 · FORMAS DE COLABORAR  (contido: sections.collaborate)
+       ====================================================================== -->
+  <section class="slide slide--alt" id="sec-collab" tabindex="-1" aria-labelledby="collab-title">
+    <div class="slide__inner">
+
+      <p class="eyebrow">
+        <span class="eyebrow__num">04</span>
+        <!-- CONTENT: ui.labels.eyebrow_collaborate -->
+        <span>Empresas</span>
+      </p>
+
+      <!-- CONTENT: sections.collaborate.title -->
+      <h2 id="collab-title">Formas de colaborar</h2>
+      <div class="rule" aria-hidden="true"></div>
+
+      <!-- CONTENT: sections.collaborate.intro -->
+      <p class="lead">Estas son as formas de colaborar coas nosas actividades. Podedes escoller unha ou ambas as dúas.</p>
+
+      <!-- CONTENT: sections.collaborate.modes[0..1] (bloque engadido, non estaba na
+           plantilla orixinal nin no primeiro pase de contido: distingue colaboración
+           estrutural vs. puntual por evento) -->
+      <div class="collab-modes">
+        <div class="collab-mode">
+          <h3 class="collab-mode__title">Colaboración estrutural</h3>
+          <p class="collab-mode__text">Se buscades unha relación continuada coa asociación, falamos e establecemos entre todos a forma de colaboración que mellor se adapte a vós.</p>
+        </div>
+        <div class="collab-mode">
+          <h3 class="collab-mode__title">Colaboración puntual, evento a evento</h3>
+          <p class="collab-mode__text">Se preferides decidir caso a caso, abrimos un canal de comunicación con vós e avisámosvos de cada actividade, para que elixades libremente se queredes participar.</p>
+        </div>
+      </div>
+
+      <!-- CONTENT: sections.collaborate.amounts_note (nota engadida, non estaba na plantilla
+           orixinal; reutiliza o estilo .collab-note) -->
+      <p class="collab-note">Non fixamos importes nin categorías de patrocinio: cada entidade achega o que considere oportuno e calquera achega é benvida.</p>
+
+      <!-- Táboa de 2 columnas x 2 filas CON CABECEIRA REAL.
+           A plantilla orixinal tiña aquí 4 tarxetas soltas (options[0..3]) sen
+           relación semántica entre columnas. Reestruturado: columna 1 = modalidade
+           de colaboración, columna 2 = que se ofrece a cambio; 2 filas de datos. -->
+      <!-- CONTENT: collab.tableLabel → aria-label descritivo, traducido á man; non ven do JSON -->
+      <table class="collab-table" aria-label="Táboa de formas de colaboración coa asociación">
+        <thead>
+          <tr>
+            <!-- CONTENT: sections.collaborate.table.headers[0] -->
+            <th scope="col">Forma de colaboración</th>
+            <!-- CONTENT: sections.collaborate.table.headers[1] -->
+            <th scope="col">Que ofrecemos a cambio</th>
+          </tr>
+        </thead>
+        <tbody>
+        <!-- CONTENT: sections.collaborate.table.rows[0] -->
+        <tr>
+          <td>
+            <!-- CONTENT: sections.collaborate.table.rows[0].modality -->
+            <p class="collab-table__text">Económica ou en especie (diñeiro, espazo, catering, material — o trato é o mesmo nos dous casos)</p>
+          </td>
+          <td>
+            <!-- CONTENT: sections.collaborate.table.rows[0].offer -->
+            <p class="collab-table__text">Logo como entidade colaboradora no dossier e na web do evento, roll-up visible na sede o día do evento, e mención nas redes sociais e na comunicación do evento.</p>
+          </td>
+        </tr>
+        <!-- CONTENT: sections.collaborate.table.rows[1] -->
+        <tr>
+          <td>
+            <!-- CONTENT: sections.collaborate.table.rows[1].modality -->
+            <p class="collab-table__text">Stand no evento</p>
+          </td>
+          <td>
+            <!-- CONTENT: sections.collaborate.table.rows[1].offer -->
+            <p class="collab-table__text">Espazo físico durante a xornada para contactar directamente coa comunidade: developers e perfís técnicos locais.</p>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <!-- CONTENT: sections.collaborate.talks_note -->
+      <p class="collab-note">As charlas do programa ofrécense de xeito altruísta por parte de quen quere compartir coñecemento. Non están vinculadas a ningún tipo de colaboración económica.</p>
+
+      <!-- CONTENT: sections.collaborate.closing -->
+      <p class="collab-closing">Non vos imos prometer un gran evento de networking internacional nin miles de asistentes. O que vos ofrecemos é entrar no xerme dunha comunidade tecnolóxica local que empeza a organizarse con vocación de crecer, e aparecer desde o primeiro día como quen o fixo posible. Sen a vosa colaboración, a mesa para xuntarnos vai quedar coxa.</p>
+
+      <!-- Logos de empresas colaboradoras: Odeene é a primeira colaboradora
+           confirmada (datos reais de src/data/colaboradoras.json); os outros
+           dous slots quedan como placeholder para as próximas -->
+      <div class="logos">
+        <!-- CONTENT: ui.labels.logos_note -->
+        <p class="logos__label">Grazas a quen xa colabora con nós — e aínda queda sitio para máis.</p>
+        <div class="logos__row">
+          <div class="logo-slot">
+            <a href="https://odeene.es/" target="_blank" rel="noopener noreferrer">
+              <img src="../images/colaboradoras/odeene-color-horizontal.png" alt="Logo de Odeene" width="180" height="45">
+            </a>
+          </div>
+          <div class="logo-slot">
+            <img src="../images/company-placeholder.svg" alt="" width="180" height="90"
+                 onerror="dossierLogoFallback(this);">
+          </div>
+          <div class="logo-slot">
+            <img src="../images/company-placeholder.svg" alt="" width="180" height="90"
+                 onerror="dossierLogoFallback(this);">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       06 · CONTACTO
+       ====================================================================== -->
+  <section class="slide" id="sec-contact" tabindex="-1" aria-labelledby="contact-title">
+    <div class="slide__inner">
+
+      <p class="eyebrow">
+        <span class="eyebrow__num">05</span>
+        <!-- CONTENT: ui.labels.eyebrow_contact -->
+        <span>Falemos</span>
+      </p>
+
+      <!-- CONTENT: sections.contact.title -->
+      <h2 id="contact-title">Contacto</h2>
+      <div class="rule" aria-hidden="true"></div>
+
+      <!-- CONTENT: sections.contact.paragraphs[0] -->
+      <p class="lead">Se queredes colaborar, propoñer unha idea ou coñecernos antes de decidir, escribídenos.</p>
+
+      <!-- CONTENT: sections.contact.email (texto e href mailto) -->
+      <a class="contact__email" href="mailto:asociacion@cascarillatech.org">asociacion@cascarillatech.org</a>
+
+      <!-- CONTENT: sections.contact.cta -->
+      <p class="contact__cta">Falemos</p>
+
+    </div>
+  </section>
+
+</main>
+
+<script src="dossier.js"></script>
+
+</body>
+</html>

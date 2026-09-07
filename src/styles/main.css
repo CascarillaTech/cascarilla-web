@@ -162,6 +162,21 @@ p {
     margin-bottom: 1.5rem;
 }
 
+/* Enlaces soltos dentro do texto (legal, termos, membership, o de
+   OpenTechEvents en /events...) que non teñen clase propia. Sen isto
+   quedaban co azul por defecto do navegador; as clases máis
+   específicas (.nav-menu a, .event-card-link, etc.) seguen mandando
+   sobre esta regra grazas á especificidade. */
+a {
+    color: var(--color-primary);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: var(--color-secondary);
+}
+
 /* Banner destacado de evento (home) */
 .event-banner {
     display: flex;
