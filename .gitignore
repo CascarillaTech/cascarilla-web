@@ -32,3 +32,4 @@ replay_pid*
 /.vscode/
 /node_modules/
 /.claude/
+/dist/
