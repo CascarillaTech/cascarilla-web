@@ -1,0 +1,362 @@
+/* ============================================================
+   poster.css — diseño del cartel/imagen promocional de eventos
+   (Cascarilla Tech / Coruña JUG). Usado SOLO por /events/[slug].astro.
+
+   Se mantiene separado del resto del CSS del sitio a propósito: esta
+   plantilla va a servir siempre como fuente única del diseño para la
+   imagen y el vídeo promocional de cada evento (ver
+   ~/.claude/skills/publish-event/references/poster-design.md).
+
+   Canvas fijo 1200×630px — no es responsive, es literalmente el
+   tamaño de la imagen/vídeo que se genera a partir de esta página.
+   ============================================================ */
+
+@font-face {
+    font-family: 'Playfair Display Italic';
+    src: url('/fonts/PlayfairDisplay-Italic.ttf') format('truetype');
+    font-style: italic;
+    font-weight: 400;
+    font-display: block;
+}
+
+:root {
+    --poster-bg-cream: #f0e2b6;
+    --poster-primary: #8C4B33;
+    --poster-secondary: #6B3622;
+    --poster-dark: #382117;
+    --poster-white: #FFFFFF;
+    --poster-ochre: #B8863B;
+
+    --poster-w: 1200px;
+    --poster-h: 630px;
+    --poster-footer-h: 80px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* La página, al visitarse normal, ensancha el cartel en el centro sobre un
+   fondo propio con un halo suave detrás — pero esto es solo "marco": la
+   imagen/vídeo derivados se capturan recortando exactamente el elemento
+   .poster (1200x630), así que este marco nunca aparece en ellos. */
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    box-sizing: border-box;
+    /* Mucho más oscuro que --poster-dark (la banda del footer, #382117) a
+       propósito, para que el marco de la página nunca se confunda con ella. */
+    background: radial-gradient(circle at 50% 38%, #1c0f08 0%, #120a05 60%, #070403 100%);
+}
+
+.poster {
+    position: relative;
+    flex: 0 0 auto;
+    width: var(--poster-w);
+    height: var(--poster-h);
+    overflow: hidden;
+    background: var(--poster-bg-cream);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        0 0 120px 24px rgba(184, 134, 59, 0.22);
+}
+
+/* --- Banda inferior --- */
+.poster-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: var(--poster-footer-h);
+    background: var(--poster-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 60px;
+    box-sizing: border-box;
+    color: var(--poster-white);
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.poster-footer-icon {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+}
+
+.poster-footer-venue {
+    margin-left: 26px;
+}
+
+/* --- Organizadores (arriba-izquierda, en fila) --- */
+.poster-organizers {
+    position: absolute;
+    left: 40px;
+    top: 40px;
+    height: 112px;
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
+
+.poster-organizers img {
+    height: 112px;
+    width: auto;
+    display: block;
+}
+
+/* --- Cascarilla Tech, siempre fija arriba-derecha --- */
+.poster-cascarilla {
+    position: absolute;
+    right: 60px;
+    top: 23px;
+    height: 64px;
+}
+
+.poster-cascarilla img {
+    height: 64px;
+    width: auto;
+    display: block;
+}
+
+/* --- Título --- */
+.poster-title-block {
+    position: absolute;
+    left: 90px;
+    top: 190px;
+}
+
+.poster-title {
+    margin: 0;
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 62px;
+    color: var(--poster-dark);
+    text-shadow: 3px 5px 4px rgba(56, 33, 23, 0.55);
+}
+
+/* Efecto máquina de escribir — xenérico, úsase no título e no texto do
+   footer (data/lugar). Cada letra xa está no DOM dende o principio (para
+   que o wrap por liñas sexa correcto dende xa), só oculta por opacity. O
+   propio CSS fai o "typing" vía transition-delay por letra (ver
+   [slug].astro, función typeElement) — sen setInterval en JS. Calquera
+   contedor que reciba as clases .tw-typing/.tw-start/.tw-done funciona
+   igual, sexa o <h1> do título ou un <span> do footer. */
+.tw-char {
+    opacity: 0;
+    transition: opacity 0.01s steps(1, end);
+}
+
+.tw-start .tw-char {
+    opacity: 1;
+}
+
+/* Subrayado tipo rotulador, ocre. Posición/ancho reales los fija el
+   script de layout una vez el título ya está renderizado (depende de
+   dónde acaba su última línea envuelta).
+
+   Se "dibuja" de izquierda a derecha con el truco clásico de
+   máscara-en-un-wrapper: el WRAPPER lleva la posición real y hace de
+   ventana (overflow:hidden), animando su ancho de 0 al final; el trazo de
+   dentro nace ya con su ancho definitivo y forma irregular — así las
+   puntas dibujadas a mano no se deforman al animar, solo se van revelando. */
+.poster-title-underline-wrap {
+    position: absolute;
+    overflow: hidden;
+    width: 0;
+    visibility: hidden;
+    transition: width 0.38s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.poster-title-underline-wrap.tw-visible {
+    visibility: visible;
+}
+
+.poster-title-underline {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 12px;
+    background: var(--poster-ochre);
+    opacity: 0.62;
+    border-radius: 6px;
+    /* ligera irregularidad tipo rotulador a mano */
+    clip-path: polygon(
+        1% 20%, 6% 0%, 94% 8%, 99% 25%,
+        98% 78%, 93% 100%, 8% 92%, 2% 75%
+    );
+}
+
+/* --- Ponentes --- */
+.poster-speakers {
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    /* O script (layoutPoster) coloca esta fila na súa posición real antes
+       do primeiro pintado. Cada tarxeta de dentro (.poster-speaker) fai o
+       seu propio fade-in individual cando lle toca na secuencia — así
+       nunca se ve nada nunha posición aínda sen calcular. */
+}
+
+.poster-speaker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* Aparece con fade á vez que empeza a escribirse o seu nome (ver
+       boot() en [slug].astro) — antes disto quedaba visible dende o
+       primeiro pintado, dando un "salto" cando JS aínda non tiña
+       calculada a súa posición vertical final. */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.poster-speaker.sp-start {
+    opacity: 1;
+}
+
+.poster-speaker-photo {
+    display: block;
+    object-fit: cover;
+    /* Mismo fondo que el resto del cartel — así los márgenes transparentes
+       del logo/foto se funden con el cartel en vez de mostrar un color
+       distinto detrás (igual que render_poster compone sobre COLOR_BG_CREAM). */
+    background: var(--poster-bg-cream);
+    box-sizing: border-box;
+}
+
+.poster-speaker--circle .poster-speaker-photo {
+    border-radius: 50%;
+    border: 4px solid var(--poster-white);
+}
+
+/* Marco hexagonal en vez de cuadrado para el slot por defecto (hexagons
+   are bestagons). El marco (.poster-speaker-frame) es más grande que la
+   foto a propósito — ver hexSize/hexMargin en [slug].astro — para que las
+   puntas del hexágono no tapen el logo, pero la foto de dentro NO se
+   agranda: queda fija a su tamaño original, centrada dentro del marco.
+
+   El "borde" no puede ser un `border` normal: al recortar un marco
+   rectangular con clip-path, el borde solo coincide con el hexágono en el
+   tramo plano de arriba/abajo y en las puntas — en los lados diagonales el
+   recorte pasa por el interior y el borde desaparece. En su lugar, dos
+   capas apiladas con el MISMO clip-path (oscura fuera, clara dentro) crean
+   un anillo hexagonal de verdad, con grosor uniforme en todo el contorno. */
+.poster-speaker-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.poster-speaker--square .poster-speaker-frame {
+    background: var(--poster-dark);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.poster-speaker-frame-inner {
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--poster-bg-cream);
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+
+.poster-speaker-name {
+    margin: 12px 0 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--poster-dark);
+    white-space: nowrap;
+}
+
+.poster-speaker--small .poster-speaker-name {
+    font-size: 20px;
+}
+
+.poster-speaker-role {
+    margin: 6px 0 0;
+    font-size: 15px;
+    color: var(--poster-secondary);
+    max-width: 170px;
+}
+
+/* --- Sponsors: fila "Powered by" --- */
+.poster-sponsors {
+    position: absolute;
+    left: 60px;
+    /* "top" que se pasa inline es el CENTRO vertical de la fila (igual que
+       band_cy en el script de Pillow) — se traslada -50% para centrarla de
+       verdad en vez de usarlo como borde superior. */
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.poster-sponsors-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.poster-sponsors-text {
+    font-family: 'Playfair Display Italic', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: var(--poster-dark);
+    white-space: nowrap;
+    /* Aparece coa fila de sponsors (ver .sp-start máis abaixo) */
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.poster-sponsors.sp-start .poster-sponsors-text {
+    opacity: 1;
+}
+
+/* A "pila"/circuíto (símbolo de fonte de alimentación) créce de esquerda a
+   dereita coma se se debuxase — mesmo truco do wrapper+overflow:hidden do
+   subrayado do título: o wrapper anima o seu ancho (0 -> ancho real, fixado
+   por JS en revealSponsors), o SVG de dentro xa nace co seu tamaño final. */
+.poster-sponsors-circuit-wrap {
+    display: inline-block;
+    overflow: hidden;
+    width: 0;
+    transition: width 0.6s ease;
+}
+
+.poster-sponsors-circuit {
+    display: block;
+    color: var(--poster-primary);
+}
+
+.poster-sponsors-logos {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.poster-sponsors-logos img {
+    display: block;
+    width: 190px;
+    height: auto;
+    /* Entra dende a esquerda coa fila de sponsors */
+    opacity: 0;
+    transform: translateX(-28px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.poster-sponsors.sp-start .poster-sponsors-logos img {
+    opacity: 1;
+    transform: translateX(0);
+}
