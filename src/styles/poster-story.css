@@ -1,0 +1,253 @@
+/* ============================================================
+   poster-story.css — versión vertical (Reels/Stories, 1080x1920) do
+   cartel do evento. Usada SÓ por /events/ig/[slug].astro.
+
+   Reutiliza as cores/fontes/tokens de poster.css (importado antes ca
+   este ficheiro na páxina) — este ficheiro SÓ ten regras de posición e
+   tamaño específicas do deseño vertical, non redefine paleta.
+   Tampouco toca .tw-char/.tw-start (efecto máquina de escribir xenérico,
+   xa definido en poster.css) nin as regras compartidas do hexágono/marco
+   do ponente (.poster-speaker-frame* — reutilizadas tal cal).
+   ============================================================ */
+
+:root {
+    --story-w: 1080px;
+    --story-h: 1920px;
+    --story-footer-h: 200px;
+}
+
+.poster-story {
+    position: relative;
+    width: var(--story-w);
+    height: var(--story-h);
+    overflow: hidden;
+    background: var(--poster-bg-cream);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        0 0 120px 24px rgba(184, 134, 59, 0.22);
+}
+
+/* --- Fila de marca, arriba (igual criterio que a horizontal: Cascarilla
+   Tech sempre fixa arriba-dereita, o resto de organizadores á esquerda) --- */
+.story-organizers {
+    position: absolute;
+    left: 56px;
+    top: 64px;
+    height: 92px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.story-organizers img {
+    height: 92px;
+    width: auto;
+    display: block;
+}
+
+.story-cascarilla {
+    position: absolute;
+    right: 56px;
+    top: 74px;
+    height: 72px;
+}
+
+.story-cascarilla img {
+    height: 72px;
+    width: auto;
+    display: block;
+}
+
+/* --- Bloque principal: todo o contido "heroe" nunha columna centrada,
+   entre a fila de marca de arriba e a banda do footer. Ao ser flow normal
+   (non posicións absolutas calculadas en JS coma na horizontal), o
+   ponente xa non precisa medir a altura do título para centrarse — vai
+   despois del no fluxo, sen máis. --- */
+.story-main {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 230px;
+    bottom: var(--story-footer-h);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.story-title-block {
+    width: 900px;
+    text-align: center;
+}
+
+.story-title {
+    margin: 0;
+    font-size: 76px;
+    font-weight: 700;
+    line-height: 90px;
+    color: var(--poster-dark);
+    text-shadow: 4px 6px 5px rgba(56, 33, 23, 0.55);
+}
+
+/* Subrayado: mesmo truco de wrapper+overflow:hidden animando o ancho que
+   na horizontal, pero aquí non fai falla posicionalo en absoluto — está
+   no fluxo normal, centrado polo flex do pai (.story-main). */
+.story-underline-wrap {
+    margin-top: 34px;
+    overflow: hidden;
+    width: 0;
+    height: 16px;
+    visibility: hidden;
+    transition: width 0.42s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.story-underline-wrap.tw-visible {
+    visibility: visible;
+}
+
+.story-underline {
+    position: relative;
+    left: 0;
+    top: 0;
+    height: 16px;
+    background: var(--poster-ochre);
+    opacity: 0.62;
+    border-radius: 8px;
+    clip-path: polygon(
+        1% 20%, 6% 0%, 94% 8%, 99% 25%,
+        98% 78%, 93% 100%, 8% 92%, 2% 75%
+    );
+}
+
+/* --- Ponente: columna centrada, foto/marco + nome + cargo. Reutiliza o
+   marco hexagonal/circular (.poster-speaker-frame*) e a foto
+   (.poster-speaker-photo) tal cal de poster.css, só cambian os tamaños
+   (pasados inline dende o .astro) e o espaciado. --- */
+.story-speakers {
+    margin-top: 84px;
+    display: flex;
+    gap: 70px;
+    justify-content: center;
+}
+
+.story-speaker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.story-speaker.sp-start {
+    opacity: 1;
+}
+
+.story-speaker-name {
+    margin: 26px 0 0;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--poster-dark);
+    white-space: nowrap;
+}
+
+.story-speaker-role {
+    margin: 8px 0 0;
+    font-size: 24px;
+    color: var(--poster-secondary);
+    max-width: 320px;
+}
+
+/* --- Sponsors: fila "Powered by", centrada, debaixo do ponente --- */
+.story-sponsors {
+    margin-top: 84px;
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.story-sponsors-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.story-sponsors-text {
+    font-family: 'Playfair Display Italic', serif;
+    font-style: italic;
+    font-size: 30px;
+    color: var(--poster-dark);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.story-sponsors.sp-start .story-sponsors-text {
+    opacity: 1;
+}
+
+.story-sponsors-circuit-wrap {
+    display: inline-block;
+    overflow: hidden;
+    width: 0;
+    transition: width 0.6s ease;
+}
+
+.story-sponsors-circuit {
+    display: block;
+    color: var(--poster-primary);
+}
+
+.story-sponsors-logos {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.story-sponsors-logos img {
+    display: block;
+    width: 230px;
+    height: auto;
+    opacity: 0;
+    transform: translateX(-32px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.story-sponsors.sp-start .story-sponsors-logos img {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --- Footer: banda escura fixa abaixo, data/hora e lugar en dúas liñas
+   centradas (na vertical non hai espazo horizontal de sobra coma na
+   horizontal para poñelo todo nunha soa liña). --- */
+.story-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: var(--story-footer-h);
+    background: var(--poster-dark);
+    color: var(--poster-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    box-sizing: border-box;
+    font-size: 34px;
+}
+
+.story-footer-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.story-footer-icon {
+    flex: 0 0 auto;
+    width: 30px;
+    height: 30px;
+}

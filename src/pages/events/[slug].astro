@@ -5,60 +5,14 @@
 // tanto a imaxe coma o vídeo do evento (ver poster.css e
 // ~/.claude/skills/publish-event/references/poster-design.md).
 import '../../styles/poster.css';
-
-const ORGANIZER_LOGOS: Record<string, string> = {
-    "Coruña JUG": "corunajug-logo.png",
-    "CoruñaWTF": "corunawtf-logo.png",
-    "Coruña WTF": "corunawtf-logo.png",
-};
-
-const MESES_GL = [
-    "xaneiro", "febreiro", "marzo", "abril", "maio", "xuño",
-    "xullo", "agosto", "setembro", "outubro", "novembro", "decembro",
-];
-
-const DEFAULT_SPEAKER_SLOT = {
-    name: "Coruña JUG",
-    role: "Comunidade",
-    image: "/images/poster/talks/default-corunajug-cascarilla.png",
-    shape: "square",
-};
+import { eventStaticPaths, deriveEventPosterData, resolveSpeakerImage } from '../../lib/eventPoster';
 
 export async function getStaticPaths() {
-    const proximos = import.meta.glob('../../data/eventos/proximoseventos/*.json', { eager: true });
-    const pasados = import.meta.glob('../../data/eventos/eventospasados/*.json', { eager: true });
-    const modules = { ...proximos, ...pasados };
-
-    return Object.entries(modules).map(([path, mod]) => {
-        const slug = path.split('/').pop()!.replace('.json', '');
-        return { params: { slug }, props: { event: (mod as any).default } };
-    });
+    return eventStaticPaths();
 }
 
 const { event } = Astro.props;
-
-// --- Organizadores: todos menos Cascarilla Tech van á esquerda, en orde.
-// Cascarilla Tech vai sempre fixa arriba-dereita (ver poster.css). ---
-const organizersLeft = (event.organizers || [])
-    .filter((o: any) => o.name !== "Cascarilla Tech")
-    .map((o: any) => ORGANIZER_LOGOS[o.name] || o.name);
-
-// --- Data/hora/lugar (formato galego, igual que event_to_poster_args) ---
-const dt = new Date(event.startDate);
-const dateStr = `${dt.getDate()} de ${MESES_GL[dt.getMonth()]} de ${dt.getFullYear()}`;
-const timeStr = `${String(dt.getHours()).padStart(2, '0')}:${String(dt.getMinutes()).padStart(2, '0')}`;
-const footerDate = `${dateStr}  ·  ${timeStr}`;
-const footerVenue = event.location?.venue || null;
-
-// --- Sponsors e speakers ---
-const sponsors = (event.sponsors || []).map((s: any) => s.img.split('/').pop());
-const speakers = (event.speakers && event.speakers.length) ? event.speakers : [DEFAULT_SPEAKER_SLOT];
-
-function resolveSpeakerImage(sp: any) {
-    if (!sp.image) return "/images/speaker-placeholder.svg";
-    if (sp.image === DEFAULT_SPEAKER_SLOT.image) return sp.image;
-    return `/images/poster/speakers/${sp.image.split('/').pop()}`;
-}
+const { organizersLeft, footerDate, footerVenue, sponsors, speakers } = deriveEventPosterData(event);
 
 // --- Xeometría do bloque de ponentes (mesmas fórmulas que render_poster) ---
 const n = speakers.length;
