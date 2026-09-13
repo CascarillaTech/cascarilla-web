@@ -1,0 +1,279 @@
+---
+// Páxina "cartel" vertical dun evento, pensada para Reels/Stories de
+// Instagram (1080x1920, 9:16). SEN o Layout do sitio, igual que a versión
+// horizontal (../[slug].astro) — é a fonte única do deseño para xerar a
+// imaxe/vídeo verticais. Comparte paleta/fontes/efecto máquina de escribir
+// con poster.css, pero as regras de posición son propias (poster-story.css)
+// porque a composición é distinta de todo (ponente debaixo do título en
+// vez de ao seu carón, sen cálculo de posición absoluta en JS: aquí case
+// todo é fluxo normal centrado).
+import '../../../styles/poster.css';
+import '../../../styles/poster-story.css';
+import { eventStaticPaths, deriveEventPosterData, resolveSpeakerImage } from '../../../lib/eventPoster';
+
+export async function getStaticPaths() {
+    return eventStaticPaths();
+}
+
+const { event } = Astro.props;
+const { organizersLeft, footerDate, footerVenue, sponsors, speakers } = deriveEventPosterData(event);
+
+// --- Tamaño do marco do ponente (maior ca na horizontal — aquí é o
+// protagonista, debaixo do título, non un elemento lateral pequeno) ---
+const n = speakers.length;
+const circleD = n === 1 ? 220 : 170;
+const HEX_SCALE = 1.18;
+const hexSize = circleD * HEX_SCALE;
+const hexMargin = -(hexSize - circleD) / 2;
+
+const TYPE_CHAR_DELAY_MS = 33;
+const titleChars = Array.from(event.name as string);
+const footerDateChars = Array.from(footerDate);
+const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
+---
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+    <meta charset="UTF-8" />
+    <title>{event.name} — Cascarilla Tech (IG)</title>
+</head>
+<body>
+<div class="poster-story" id="poster">
+
+    <div class="story-organizers">
+        {organizersLeft.map((fname: string) => (
+            <img src={`/images/poster/organizers/${fname}`} alt="" />
+        ))}
+    </div>
+
+    <div class="story-cascarilla">
+        <img src="/images/poster/organizers/cascarillatech-logo.png" alt="Cascarilla Tech" />
+    </div>
+
+    <div class="story-main">
+        <div class="story-title-block">
+            <h1 class="story-title" id="poster-title">
+                {titleChars.map((ch: string, i: number) => (
+                    <span class="tw-char" style={`transition-delay:${i * TYPE_CHAR_DELAY_MS}ms`}>{ch}</span>
+                ))}
+            </h1>
+        </div>
+        <div class="story-underline-wrap" id="poster-underline-wrap">
+            <div class="story-underline" id="poster-underline"></div>
+        </div>
+
+        <div class="story-speakers" id="poster-speakers">
+            {speakers.map((sp: any, spIdx: number) => (
+                <div class="story-speaker">
+                    <div
+                        class={`poster-speaker--${sp.shape === 'square' ? 'square' : 'circle'}`}
+                    >
+                        <div
+                            class="poster-speaker-frame"
+                            style={sp.shape === 'square'
+                                ? `width:${hexSize}px;height:${hexSize}px;margin:${hexMargin}px;`
+                                : `width:${circleD}px;height:${circleD}px;`}
+                        >
+                            {sp.shape === 'square' ? (
+                                <div class="poster-speaker-frame-inner">
+                                    <img
+                                        class="poster-speaker-photo"
+                                        style={`width:${circleD}px;height:${circleD}px;`}
+                                        src={resolveSpeakerImage(sp)}
+                                        alt={sp.name}
+                                    />
+                                </div>
+                            ) : (
+                                <img
+                                    class="poster-speaker-photo"
+                                    style={`width:${circleD}px;height:${circleD}px;`}
+                                    src={resolveSpeakerImage(sp)}
+                                    alt={sp.name}
+                                />
+                            )}
+                        </div>
+                    </div>
+                    <p class="story-speaker-name" id={`poster-speaker-name-${spIdx}`}>
+                        {Array.from(sp.name as string).map((ch: string, i: number) => (
+                            <span class="tw-char" style={`transition-delay:${i * TYPE_CHAR_DELAY_MS}ms`}>{ch}</span>
+                        ))}
+                    </p>
+                    <p class="story-speaker-role" id={`poster-speaker-role-${spIdx}`}>
+                        {Array.from(sp.role as string).map((ch: string, i: number) => (
+                            <span class="tw-char" style={`transition-delay:${i * TYPE_CHAR_DELAY_MS}ms`}>{ch}</span>
+                        ))}
+                    </p>
+                </div>
+            ))}
+        </div>
+
+        {sponsors.length > 0 && (
+            <div class="story-sponsors" id="poster-sponsors">
+                <div class="story-sponsors-label">
+                    <span class="story-sponsors-text" id="poster-sponsors-text">Powered by</span>
+                    <span class="story-sponsors-circuit-wrap" id="poster-sponsors-circuit-wrap">
+                        <svg class="story-sponsors-circuit" id="poster-sponsors-circuit" width="90" height="14" viewBox="0 0 90 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="0" y1="7" x2="38" y2="7" stroke="currentColor" stroke-width="2" />
+                            <circle cx="0" cy="7" r="2.5" fill="currentColor" />
+                            <line x1="40" y1="1" x2="40" y2="13" stroke="currentColor" stroke-width="2" />
+                            <line x1="48" y1="3" x2="48" y2="11" stroke="currentColor" stroke-width="4" />
+                            <line x1="52" y1="7" x2="90" y2="7" stroke="currentColor" stroke-width="2" />
+                            <circle cx="90" cy="7" r="2.5" fill="currentColor" />
+                        </svg>
+                    </span>
+                </div>
+                <div class="story-sponsors-logos">
+                    {sponsors.map((fname: string, i: number) => (
+                        <img src={`/images/poster/sponsors/${fname}`} alt="" style={`transition-delay:${i * 120}ms`} />
+                    ))}
+                </div>
+            </div>
+        )}
+    </div>
+
+    <div class="story-footer">
+        <div class="story-footer-row">
+            <svg class="story-footer-icon" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="5" width="20" height="16" rx="2.5" stroke="currentColor" stroke-width="2" />
+                <line x1="1" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2" />
+                <line x1="6.7" y1="1" x2="6.7" y2="7.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+                <line x1="15.3" y1="1" x2="15.3" y2="7.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+            </svg>
+            <span id="poster-footer-date">
+                {footerDateChars.map((ch: string, i: number) => (
+                    <span class="tw-char" style={`transition-delay:${i * TYPE_CHAR_DELAY_MS}ms`}>{ch}</span>
+                ))}
+            </span>
+        </div>
+        {footerVenue && (
+            <div class="story-footer-row">
+                <svg class="story-footer-icon" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 9.5 C4 5.4 7.1 2 11 2 C14.9 2 18 5.4 18 9.5 C18 14.5 11 21 11 21 C11 21 4 14.5 4 9.5 Z" fill="currentColor" />
+                    <circle cx="11" cy="9.3" r="3.4" fill="#382117" />
+                </svg>
+                <span class="story-footer-venue-text" id="poster-footer-venue">
+                    {footerVenueChars.map((ch: string, i: number) => (
+                        <span class="tw-char" style={`transition-delay:${i * TYPE_CHAR_DELAY_MS}ms`}>{ch}</span>
+                    ))}
+                </span>
+            </div>
+        )}
+    </div>
+
+</div>
+
+<script>
+    const HL_MARGIN = 18;
+
+    let pending = null;
+
+    // Moito máis simple ca na horizontal: aquí case todo vai en fluxo
+    // normal (flex column centrada), así que só fai falla JS para medir o
+    // ancho real das liñas do título (para o subrayado) e do texto
+    // "Powered by" (para o circuíto) — a posición vertical do ponente/
+    // sponsors xa a resolve o propio CSS, sen cálculos de altura de título.
+    function layoutPoster() {
+        const title = document.getElementById('poster-title');
+        const underline = document.getElementById('poster-underline');
+        const underlineWrap = document.getElementById('poster-underline-wrap');
+        const sponsorsCircuit = document.getElementById('poster-sponsors-circuit');
+        const sponsorsText = document.getElementById('poster-sponsors-text');
+        if (!title || !underline || !underlineWrap) return;
+
+        const chars = Array.from(title.querySelectorAll('.tw-char'));
+        const lines = [];
+        for (const el of chars) {
+            const r = el.getBoundingClientRect();
+            const top = Math.round(r.top);
+            let line = lines.find((l) => Math.abs(l.top - top) < 4);
+            if (!line) {
+                line = { top, left: r.left, right: r.right };
+                lines.push(line);
+            } else {
+                line.left = Math.min(line.left, r.left);
+                line.right = Math.max(line.right, r.right);
+            }
+        }
+        const maxLineW = lines.length ? Math.max(...lines.map((l) => l.right - l.left)) : 0;
+        const hlWidth = Math.max(maxLineW - 2 * HL_MARGIN, 20);
+        // O trazo nace xa co seu ancho FINAL fixo (non 100%) para que as
+        // puntas irregulares non se deformen cando o wrapper anima o seu
+        // propio ancho (0 -> hlWidth) para revelalo pouco a pouco.
+        underline.style.width = `${hlWidth}px`;
+        underlineWrap.style.width = '0px';
+
+        let circuitW = 0;
+        if (sponsorsCircuit && sponsorsText) {
+            circuitW = sponsorsText.getBoundingClientRect().width;
+            sponsorsCircuit.setAttribute('width', String(circuitW));
+        }
+
+        pending = { underlineWrap, hlWidth, circuitW };
+    }
+
+    const UNDERLINE_TRANSITION_MS = 460;
+
+    function wait(ms) {
+        return new Promise((resolve) => window.setTimeout(resolve, ms));
+    }
+
+    function typeElement(el) {
+        if (!el) return Promise.resolve();
+        const chars = el.querySelectorAll('.tw-char');
+        if (!chars.length) return Promise.resolve();
+
+        el.classList.add('tw-typing');
+        void el.offsetWidth;
+        el.classList.add('tw-start');
+
+        const last = chars[chars.length - 1];
+        const lastDelay = parseFloat(last.style.transitionDelay) || 0;
+        const totalMs = lastDelay + 130;
+
+        return wait(totalMs).then(() => {
+            el.classList.remove('tw-typing');
+            el.classList.add('tw-done');
+        });
+    }
+
+    function revealUnderline() {
+        if (!pending) return Promise.resolve();
+        pending.underlineWrap.classList.add('tw-visible');
+        void pending.underlineWrap.offsetWidth;
+        pending.underlineWrap.style.width = `${pending.hlWidth}px`;
+        return wait(UNDERLINE_TRANSITION_MS);
+    }
+
+    function revealSponsors() {
+        const el = document.getElementById('poster-sponsors');
+        const circuitWrap = document.getElementById('poster-sponsors-circuit-wrap');
+        if (!el) return;
+        el.classList.add('sp-start');
+        if (circuitWrap && pending) {
+            void circuitWrap.offsetWidth;
+            circuitWrap.style.width = `${pending.circuitW}px`;
+        }
+    }
+
+    async function boot() {
+        layoutPoster();
+        await typeElement(document.getElementById('poster-title'));
+        await revealUnderline();
+        for (const sp of Array.from(document.querySelectorAll('.story-speaker'))) {
+            sp.classList.add('sp-start');
+            await typeElement(sp.querySelector('.story-speaker-name'));
+            await typeElement(sp.querySelector('.story-speaker-role'));
+        }
+        revealSponsors();
+        await typeElement(document.getElementById('poster-footer-date'));
+        await typeElement(document.getElementById('poster-footer-venue'));
+    }
+
+    if ((document as any).fonts && (document as any).fonts.ready) {
+        (document as any).fonts.ready.then(boot);
+    } else {
+        window.addEventListener('load', boot);
+    }
+</script>
+</body>
+</html>
