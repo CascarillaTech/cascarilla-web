@@ -1,0 +1,3 @@
+# Os git hooks (tools/git-hooks/) execútanse tal cal via sh; se Windows os
+# convertise a CRLF nun checkout, o shebang rompería.
+tools/git-hooks/* text eol=lf
