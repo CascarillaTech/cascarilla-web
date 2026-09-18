@@ -1,0 +1,50 @@
+#!/bin/sh
+# Xera automaticamente o cartel PNG e o vídeo promocional de calquera
+# evento novo ou modificado en src/data/eventos/proximoseventos/, e
+# engade eses ficheiros nun commit adicional.
+#
+# Instalación (unha vez por clon):
+#   git config core.hooksPath tools/git-hooks
+#
+# Protección anti-recursión: os commits que xera este mesmo hook levan o
+# prefixo "chore(media):" na mensaxe — se o último commit xa o leva, saímos
+# sen facer nada (se non, cada commit xerado dispararía outro post-commit).
+
+last_msg=$(git log -1 --pretty=%s 2>/dev/null || echo "")
+case "$last_msg" in
+    "chore(media):"*)
+        exit 0
+        ;;
+esac
+
+changed_files=$(git diff-tree --no-commit-id --name-only -r --diff-filter=ACM HEAD -- src/data/eventos/proximoseventos/ 2>/dev/null)
+[ -z "$changed_files" ] && exit 0
+
+slugs=""
+for f in $changed_files; do
+    case "$f" in
+        *.json)
+            slug=$(basename "$f" .json)
+            slugs="$slugs $slug"
+            ;;
+    esac
+done
+[ -z "$slugs" ] && exit 0
+
+echo "post-commit: xerando cartel e vídeo para:$slugs"
+node tools/generate-event-media.mjs $slugs
+gen_status=$?
+if [ $gen_status -ne 0 ]; then
+    echo "post-commit: xeración de media fallou (código $gen_status) — non se crea commit adicional." >&2
+    exit 0
+fi
+
+git add video/renders/ public/images/poster/generated/ 2>/dev/null
+if git diff --cached --quiet; then
+    echo "post-commit: nada novo que commitear (media xa estaba ao día)."
+    exit 0
+fi
+
+label=$(echo "$slugs" | tr -s ' ' ',' | sed 's/^,//;s/,$//')
+git commit -m "chore(media): xerar cartel e vídeo para $label" --quiet
+echo "post-commit: commit adicional creado con cartel/vídeo xerados."
