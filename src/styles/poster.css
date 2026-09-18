@@ -35,35 +35,47 @@
 html, body {
     margin: 0;
     padding: 0;
+    background: var(--poster-bg-cream);
 }
 
-/* La página, al visitarse normal, ensancha el cartel en el centro sobre un
-   fondo propio con un halo suave detrás — pero esto es solo "marco": la
-   imagen/vídeo derivados se capturan recortando exactamente el elemento
-   .poster (1200x630), así que este marco nunca aparece en ellos. */
-body {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 48px;
-    box-sizing: border-box;
-    /* Mucho más oscuro que --poster-dark (la banda del footer, #382117) a
-       propósito, para que el marco de la página nunca se confunda con ella. */
-    background: radial-gradient(circle at 50% 38%, #1c0f08 0%, #120a05 60%, #070403 100%);
+/* El marco decorativo (centrado + halo detrás) SOLO se activa cando o
+   viewport é maior có canvas real do cartel — é dicir, cando o visita unha
+   persoa nun navegador normal. HyperFrames renderiza cun viewport EXACTO
+   1200x630 (data-width/data-height), así que este @media nunca se activa
+   durante o render: o body queda a 1200x630 xusto, sen padding arredor, e
+   o vídeo/imaxe resultante sae a bordo con bordo, sen o marco. */
+/* body:has(.poster) — non abondaba con "body" a secas: poster-story.css
+   (a versión vertical) tamén importa este ficheiro polas cores/fontes, e
+   coa súa canvas de 1920px de alto o OR de height activaría este mesmo
+   @media aínda que o ancho (1080) non chegase ao limiar pensado para a
+   horizontal. Cada deseño garda o seu propio marco decorativo. */
+@media (min-width: 1220px), (min-height: 650px) {
+    body:has(.poster) {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px;
+        box-sizing: border-box;
+        /* Mucho más oscuro que --poster-dark (la banda del footer, #382117) a
+           propósito, para que el marco de la página nunca se confunda con ella. */
+        background: radial-gradient(circle at 50% 38%, #1c0f08 0%, #120a05 60%, #070403 100%);
+    }
+
+    .poster {
+        box-shadow:
+            0 25px 60px rgba(0, 0, 0, 0.5),
+            0 0 120px 24px rgba(184, 134, 59, 0.22);
+    }
 }
 
 .poster {
     position: relative;
-    flex: 0 0 auto;
     width: var(--poster-w);
     height: var(--poster-h);
     overflow: hidden;
     background: var(--poster-bg-cream);
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.5),
-        0 0 120px 24px rgba(184, 134, 59, 0.22);
 }
 
 /* --- Banda inferior --- */
@@ -141,20 +153,18 @@ body {
     text-shadow: 3px 5px 4px rgba(56, 33, 23, 0.55);
 }
 
-/* Efecto máquina de escribir — xenérico, úsase no título e no texto do
-   footer (data/lugar). Cada letra xa está no DOM dende o principio (para
-   que o wrap por liñas sexa correcto dende xa), só oculta por opacity. O
-   propio CSS fai o "typing" vía transition-delay por letra (ver
-   [slug].astro, función typeElement) — sen setInterval en JS. Calquera
-   contedor que reciba as clases .tw-typing/.tw-start/.tw-done funciona
-   igual, sexa o <h1> do título ou un <span> do footer. */
+/* Efecto máquina de escribir — xenérico, úsase no título, no ponente e no
+   texto do footer (data/lugar). Cada letra xa está no DOM dende o
+   principio (para que o wrap por liñas sexa correcto dende xa), só oculta
+   por opacity:0. Un único timeline de GSAP (ver [slug].astro) fai un
+   stagger de opacity sobre estas letras — nada de transition CSS aquí:
+   unha transition CSS na MESMA propiedade que anima GSAP pelexaría con el
+   frame a frame (GSAP fixa un valor novo por inline style en cada seek, a
+   transition CSS tentaría suavizar dende o valor anterior en vez de
+   amosar exactamente o valor do instante seekeado — rompe o determinismo
+   que precisa o render). */
 .tw-char {
     opacity: 0;
-    transition: opacity 0.01s steps(1, end);
-}
-
-.tw-start .tw-char {
-    opacity: 1;
 }
 
 /* Subrayado tipo rotulador, ocre. Posición/ancho reales los fija el
@@ -163,19 +173,16 @@ body {
 
    Se "dibuja" de izquierda a derecha con el truco clásico de
    máscara-en-un-wrapper: el WRAPPER lleva la posición real y hace de
-   ventana (overflow:hidden), animando su ancho de 0 al final; el trazo de
-   dentro nace ya con su ancho definitivo y forma irregular — así las
-   puntas dibujadas a mano no se deforman al animar, solo se van revelando. */
+   ventana (overflow:hidden); GSAP anima su ancho de 0 al final (ver
+   [slug].astro) — el trazo de dentro nace ya con su ancho definitivo y
+   forma irregular, así las puntas dibujadas a mano no se deforman al
+   animar, solo se van revelando. Sin transition CSS aquí por lo mismo que
+   en .tw-char — el ancho lo anima GSAP en cada frame, no el navegador. */
 .poster-title-underline-wrap {
     position: absolute;
     overflow: hidden;
     width: 0;
     visibility: hidden;
-    transition: width 0.38s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-.poster-title-underline-wrap.tw-visible {
-    visibility: visible;
 }
 
 .poster-title-underline {
@@ -209,16 +216,12 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    /* Aparece con fade á vez que empeza a escribirse o seu nome (ver
-       boot() en [slug].astro) — antes disto quedaba visible dende o
+    /* Aparece con fade (GSAP) á vez que empeza a escribirse o seu nome
+       (ver boot() en [slug].astro) — antes disto quedaba visible dende o
        primeiro pintado, dando un "salto" cando JS aínda non tiña
-       calculada a súa posición vertical final. */
+       calculada a súa posición vertical final. Sen transition CSS: GSAP
+       fixa a opacity frame a frame. */
     opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.poster-speaker.sp-start {
-    opacity: 1;
 }
 
 .poster-speaker-photo {
@@ -315,24 +318,18 @@ body {
     font-size: 24px;
     color: var(--poster-dark);
     white-space: nowrap;
-    /* Aparece coa fila de sponsors (ver .sp-start máis abaixo) */
+    /* Aparece coa fila de sponsors, animado por GSAP (sen transition CSS) */
     opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.poster-sponsors.sp-start .poster-sponsors-text {
-    opacity: 1;
 }
 
 /* A "pila"/circuíto (símbolo de fonte de alimentación) créce de esquerda a
    dereita coma se se debuxase — mesmo truco do wrapper+overflow:hidden do
-   subrayado do título: o wrapper anima o seu ancho (0 -> ancho real, fixado
-   por JS en revealSponsors), o SVG de dentro xa nace co seu tamaño final. */
+   subrayado do título: GSAP anima o ancho do wrapper (0 -> ancho real), o
+   SVG de dentro xa nace co seu tamaño final. */
 .poster-sponsors-circuit-wrap {
     display: inline-block;
     overflow: hidden;
     width: 0;
-    transition: width 0.6s ease;
 }
 
 .poster-sponsors-circuit {
@@ -350,13 +347,9 @@ body {
     display: block;
     width: 190px;
     height: auto;
-    /* Entra dende a esquerda coa fila de sponsors */
+    /* Estado inicial só de opacity — o "entra dende a esquerda" (x) o
+       marca o propio GSAP con fromTo() no script, non CSS: mesturar un
+       transform inicial en CSS cun tween de GSAP na mesma propiedade
+       dispara o lint de HyperFrames (gsap_css_transform_conflict). */
     opacity: 0;
-    transform: translateX(-28px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.poster-sponsors.sp-start .poster-sponsors-logos img {
-    opacity: 1;
-    transform: translateX(0);
 }

@@ -5,9 +5,12 @@
    Reutiliza as cores/fontes/tokens de poster.css (importado antes ca
    este ficheiro na páxina) — este ficheiro SÓ ten regras de posición e
    tamaño específicas do deseño vertical, non redefine paleta.
-   Tampouco toca .tw-char/.tw-start (efecto máquina de escribir xenérico,
-   xa definido en poster.css) nin as regras compartidas do hexágono/marco
-   do ponente (.poster-speaker-frame* — reutilizadas tal cal).
+   Tampouco toca .tw-char (efecto máquina de escribir xenérico, xa
+   definido en poster.css) nin as regras compartidas do hexágono/marco
+   do ponente (.poster-speaker-frame* — reutilizadas tal cal). A animación
+   completa é un único timeline de GSAP (ver [slug].astro) — sen
+   transition CSS en nada que GSAP anime (opacity/width/x), para non
+   pelexar frame a frame co seek determinista que precisa o render.
    ============================================================ */
 
 :root {
@@ -23,9 +26,28 @@
     overflow: hidden;
     background: var(--poster-bg-cream);
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.5),
-        0 0 120px 24px rgba(184, 134, 59, 0.22);
+}
+
+/* Marco decorativo (centrado + halo) só para visitas humanas — igual
+   criterio que en poster.css, con limiares propios desta canvas
+   (1080x1920) e escopado a body:has(.poster-story) para non activarse
+   nunca durante o render de HyperFrames (viewport exacto 1080x1920). */
+@media (min-width: 1100px), (min-height: 1950px) {
+    body:has(.poster-story) {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px;
+        box-sizing: border-box;
+        background: radial-gradient(circle at 50% 38%, #1c0f08 0%, #120a05 60%, #070403 100%);
+    }
+
+    .poster-story {
+        box-shadow:
+            0 25px 60px rgba(0, 0, 0, 0.5),
+            0 0 120px 24px rgba(184, 134, 59, 0.22);
+    }
 }
 
 /* --- Fila de marca, arriba (igual criterio que a horizontal: Cascarilla
@@ -99,11 +121,6 @@
     width: 0;
     height: 16px;
     visibility: hidden;
-    transition: width 0.42s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-.story-underline-wrap.tw-visible {
-    visibility: visible;
 }
 
 .story-underline {
@@ -137,11 +154,6 @@
     align-items: center;
     text-align: center;
     opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.story-speaker.sp-start {
-    opacity: 1;
 }
 
 .story-speaker-name {
@@ -181,18 +193,12 @@
     color: var(--poster-dark);
     white-space: nowrap;
     opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.story-sponsors.sp-start .story-sponsors-text {
-    opacity: 1;
 }
 
 .story-sponsors-circuit-wrap {
     display: inline-block;
     overflow: hidden;
     width: 0;
-    transition: width 0.6s ease;
 }
 
 .story-sponsors-circuit {
@@ -210,14 +216,10 @@
     display: block;
     width: 230px;
     height: auto;
+    /* x inicial (-32px) marcado por GSAP fromTo() no script, non en CSS
+       (mesturar transform CSS + tween GSAP na mesma propiedade dispara
+       gsap_css_transform_conflict no lint de HyperFrames). */
     opacity: 0;
-    transform: translateX(-32px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.story-sponsors.sp-start .story-sponsors-logos img {
-    opacity: 1;
-    transform: translateX(0);
 }
 
 /* --- Footer: banda escura fixa abaixo, data/hora e lugar en dúas liñas
