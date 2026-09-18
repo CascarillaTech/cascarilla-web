@@ -8,6 +8,9 @@
 // herdanza de organizers/license/specVersion do feed cara a cada evento
 // para non repetila quen a comparte co valor por defecto.
 
+import { execFileSync } from "node:child_process";
+import path from "node:path";
+
 export const prerender = true;
 
 // O dominio sae de `site` (astro.config.mjs, na raíz do proxecto) para non
@@ -23,10 +26,39 @@ if (!SITE_URL) {
 const FEED_ORGANIZER = { name: "Cascarilla Tech", url: SITE_URL };
 const LICENSE = "CC-BY-4.0";
 
+// Data (ISO, UTC) do último commit que tocou o ficheiro do evento: é o
+// `updatedAt` do evento, así non hai que acordarse de actualizalo a man.
+// Usa a data de autor, que un rebase non cambia. Precisa o historial de git
+// completo: o deploy fai checkout con fetch-depth: 0 por isto.
+// Se o ficheiro aínda non está commiteado (ou non hai git) devolve null.
+let shallowWarned = false;
+function gitLastModified(file) {
+  try {
+    const git = (args) =>
+      execFileSync("git", args, { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+    if (!shallowWarned && git(["rev-parse", "--is-shallow-repository"]) === "true") {
+      shallowWarned = true;
+      console.warn(
+        "[feed.json] Repositorio con historial parcial: os updatedAt dos eventos non serán fiables."
+      );
+    }
+    const iso = git(["log", "-1", "--format=%aI", "--", file]);
+    return iso ? new Date(iso).toISOString().replace(/\.\d{3}Z$/, "Z") : null;
+  } catch {
+    return null;
+  }
+}
+
+// import.meta.glob devolve as chaves relativas á raíz do proxecto (/src/…),
+// que é o directorio de traballo do build.
 function toEvents(modules) {
-  return Object.values(modules)
-    .map((mod) => mod.default)
-    .filter((evt) => evt && evt.name && evt.startDate);
+  return Object.entries(modules)
+    .map(([key, mod]) => ({ ...mod.default, __file: path.join(process.cwd(), key) }))
+    .filter((evt) => evt.name && evt.startDate)
+    .map(({ __file, ...evt }) => {
+      const updatedAt = gitLastModified(__file) ?? evt.updatedAt;
+      return updatedAt ? { ...evt, updatedAt } : evt;
+    });
 }
 
 function isDefaultOrganizer(organizers) {
@@ -52,7 +84,8 @@ function toFeedEvent(event) {
 
 // O schema (OTE v0.3, D015) rexeita un feed onde o updatedAt dalgún evento
 // sexa posterior ao propio do feed. Derívase do máis recente entre os
-// eventos en vez de fixalo a man, para que nunca quede desincronizado.
+// eventos (que á súa vez saen de git, ver gitLastModified) en vez de fixalo
+// a man, para que nunca quede desincronizado.
 function latestUpdatedAt(events, fallback) {
   const stamps = events.map((e) => e.updatedAt).filter(Boolean);
   if (stamps.length === 0) return fallback;
@@ -62,10 +95,10 @@ function latestUpdatedAt(events, fallback) {
 }
 
 export function GET() {
-  const proximosModules = import.meta.glob("../data/eventos/proximoseventos/*.json", {
+  const proximosModules = import.meta.glob("/src/data/eventos/proximoseventos/*.json", {
     eager: true,
   });
-  const pasadosModules = import.meta.glob("../data/eventos/eventospasados/*.json", {
+  const pasadosModules = import.meta.glob("/src/data/eventos/eventospasados/*.json", {
     eager: true,
   });
 

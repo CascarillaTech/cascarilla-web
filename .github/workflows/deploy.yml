@@ -26,6 +26,10 @@ jobs:
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
+        with:
+          # Historial completo: /feed.json saca o updatedAt de cada evento
+          # da data do seu último commit (src/pages/feed.json.js).
+          fetch-depth: 0
 
       - name: Configurar Node.js
         uses: actions/setup-node@v4
