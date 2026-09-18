@@ -1,7 +1,7 @@
 {
     "specVersion": "0.3.0",
-    "id": "https://cascarillatech.org/eventos/exemplo-meetup",
-    "url": "https://cascarillatech.org/eventos/exemplo-meetup",
+    "id": "https://cascarillatech.org/events/exemplo-meetup",
+    "url": "https://cascarillatech.org/events/exemplo-meetup",
     "name": "Meetup aínda non pechado",
     "description": "Aínda non sabemos cando será o evento.",
     "startDate": "2026-09-17T18:30",
