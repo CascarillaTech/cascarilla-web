@@ -6,6 +6,7 @@
 // ~/.claude/skills/publish-event/references/poster-design.md).
 import '../../styles/poster.css';
 import { eventStaticPaths, deriveEventPosterData, resolveSpeakerImage } from '../../lib/eventPoster';
+import { computePosterRenderDuration } from '../../lib/posterTiming';
 
 export async function getStaticPaths() {
     return eventStaticPaths();
@@ -48,6 +49,20 @@ const TYPE_CHAR_DELAY_MS = 33;
 const titleChars = Array.from(event.name as string);
 const footerDateChars = Array.from(footerDate);
 const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
+
+// Duración total da animación, calculada no servidor coa mesma aritmética
+// có timeline GSAP do script de abaixo — ver src/lib/posterTiming.ts.
+const renderDuration = computePosterRenderDuration({
+    titleLength: titleChars.length,
+    underlineDuration: 0.4,
+    speakers: speakers.map((sp: any) => ({
+        nameLength: Array.from(sp.name as string).length,
+        roleLength: Array.from(sp.role as string).length,
+    })),
+    sponsorsCount: sponsors.length,
+    footerDateLength: footerDateChars.length,
+    footerVenueLength: footerVenueChars.length,
+});
 ---
 <!DOCTYPE html>
 <html lang="gl">
@@ -56,7 +71,14 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
     <title>{event.name} — Cascarilla Tech</title>
 </head>
 <body>
-<div class="poster" id="poster">
+<div
+    class="poster"
+    id="poster"
+    data-composition-id="event-poster"
+    data-width="1200"
+    data-height="630"
+    data-duration={renderDuration}
+>
 
     <div class="poster-organizers">
         {organizersLeft.map((fname: string) => (
@@ -178,16 +200,31 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
 </div>
 
 <script>
+    import { gsap } from 'gsap';
+
     const HL_MARGIN = 18;
     const HL_THICKNESS = 12;
     const HL_GAP = 34;
 
-    // Posicións calculadas trala primeira medida do título — o texto
-    // completo xa está no DOM dende o principio (só oculto letra a letra
-    // vía opacity), así que o wrap en liñas xa é definitivo dende o
-    // arranque e isto pode executarse antes de que remate o "escribido".
-    let pending = null;
+    // Todo o "typing" (letra a letra) usa os mesmos números en segundos.
+    const CHAR_STAGGER = 0.033; // separación entre letras (33ms, igual có deseño orixinal)
+    const CHAR_TAIL = 0.13; // marxe despois da última letra antes do seguinte bloque
+    const UNDERLINE_DURATION = 0.4;
+    const SPEAKER_FADE_DURATION = 0.5;
+    const SPONSORS_TEXT_DURATION = 0.4;
+    const SPONSORS_CIRCUIT_DURATION = 0.6;
+    const SPONSORS_LOGO_DURATION = 0.5;
+    const SPONSORS_LOGO_STAGGER = 0.12;
+    const SPONSORS_LOGO_X_FROM = -28;
 
+    // Mide o título/ponentes/"Powered by" xa renderizados e devolve as
+    // cantidades que precisa o timeline (anchos/posicións). O que NON
+    // cambia co tempo (posición estática do wrapper do subrayado, top dos
+    // ponentes, ancho fixo do trazo) fíxase aquí mesmo, directamente —
+    // só o que realmente anima (ancho do wrapper, opacity, x) queda para
+    // GSAP, para que o render (que salta no tempo, non reproduce en
+    // directo) poida amosar calquera fotograma sen depender de que este
+    // código xa se executase antes.
     function layoutPoster() {
         const poster = document.getElementById('poster');
         const title = document.getElementById('poster-title');
@@ -196,15 +233,14 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
         const speakers = document.getElementById('poster-speakers');
         const sponsorsCircuit = document.getElementById('poster-sponsors-circuit');
         const sponsorsText = document.getElementById('poster-sponsors-text');
-        if (!poster || !title || !underline) return;
+        if (!poster || !title || !underline) return { hlWidth: 0, circuitW: 0 };
 
         const posterRect = poster.getBoundingClientRect();
 
         // Mide directamente cada letra (.tw-char) e agrúpaas por liña — non
-        // se pode usar un Range sobre o título enteiro porque agora ten un
-        // <span> por letra (+ o cursor): Range.getClientRects() devolvería
-        // un rect por letra en vez dun por liña, e o "último rect" acabaría
-        // sendo o cursor (4px) en vez da liña completa.
+        // se pode usar un Range sobre o título enteiro porque ten un
+        // <span> por letra: Range.getClientRects() devolvería un rect por
+        // letra en vez dun por liña.
         const chars = Array.from(title.querySelectorAll('.tw-char'));
         const lines = [];
         for (const el of chars) {
@@ -223,25 +259,20 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
         lines.sort((a, b) => a.top - b.top);
         const rects = lines.map((l) => ({ left: l.left, right: l.right, width: l.right - l.left, top: l.top, bottom: l.bottom }));
 
+        let hlWidth = 0;
         if (rects.length) {
             const leftEdge = rects[0].left - posterRect.left;
             const maxLineW = Math.max(...rects.map((r) => r.width));
             const lastRect = rects[rects.length - 1];
 
-            const hlWidth = Math.max(lastRect.width - 2 * HL_MARGIN, 20);
+            hlWidth = Math.max(lastRect.width - 2 * HL_MARGIN, 20);
             const hlX1 = leftEdge + maxLineW - HL_MARGIN;
             const hlX0 = hlX1 - hlWidth;
             const hlY = (lastRect.bottom - posterRect.top) + HL_GAP;
 
-            // O wrapper leva a posición/ancho final (fixo) e faille de
-            // "ventá" con overflow:hidden; o trazo de dentro xa nace co
-            // seu ancho definitivo (hlWidth) para que as puntas irregulares
-            // debuxadas a man non se deformen — o que anima é canto do
-            // wrapper se ve, non o trazo en si (ver revealDecorations).
             underlineWrap.style.left = `${hlX0}px`;
             underlineWrap.style.top = `${hlY - HL_THICKNESS / 2}px`;
             underlineWrap.style.height = `${HL_THICKNESS}px`;
-            underlineWrap.style.width = '0px';
             underline.style.width = `${hlWidth}px`;
             underline.style.height = `${HL_THICKNESS}px`;
 
@@ -249,9 +280,6 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
                 const titleTop = rects[0].top - posterRect.top;
                 const titleBottom = lastRect.bottom - posterRect.top;
                 const titleMid = (titleTop + titleBottom) / 2;
-                // Centra o propio marco/foto (non o bloque enteiro nome+cargo
-                // incluído) na altura das letras do título — se non, o peso
-                // do nome+cargo por debaixo desprazaba o hexágono cara arriba.
                 const frame = speakers.querySelector('.poster-speaker-frame');
                 const frameH = frame ? frame.getBoundingClientRect().height : speakers.getBoundingClientRect().height;
                 const SPEAKERS_NUDGE_DOWN = 10; // ~1.5% do alto do cartel (630px), axuste fino a ollo
@@ -265,79 +293,77 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
             sponsorsCircuit.setAttribute('width', String(circuitW));
         }
 
-        pending = { underlineWrap, speakers, hlWidth: underline.style.width, circuitW };
+        return { hlWidth, circuitW };
     }
 
-    const UNDERLINE_TRANSITION_MS = 400; // igual có "width 0.38s" de poster.css + marxe
-
-    function wait(ms) {
-        return new Promise((resolve) => window.setTimeout(resolve, ms));
+    // Engade ao timeline un stagger de opacidade sobre os .tw-char dun
+    // contedor, en startTime, e devolve o instante en que remata (para
+    // encadear o seguinte bloque). Se non hai letras, non fai nada e
+    // devolve startTime sen cambios.
+    function addTypeStagger(tl, container, startTime) {
+        if (!container) return startTime;
+        const chars = container.querySelectorAll('.tw-char');
+        if (!chars.length) return startTime;
+        tl.to(chars, { opacity: 1, duration: 0.01, stagger: CHAR_STAGGER }, startTime);
+        return startTime + Math.max(0, chars.length - 1) * CHAR_STAGGER + 0.01 + CHAR_TAIL;
     }
 
-    // Escribe as letras dun contedor (título ou texto do footer) e devolve
-    // unha promesa que remata cando xa se viron todas — así toda a
-    // secuencia (título → subrayado → data → lugar) se encadea con
-    // async/await en vez de aniñar setTimeouts.
-    function typeElement(el) {
-        if (!el) return Promise.resolve();
-        const chars = el.querySelectorAll('.tw-char');
-        if (!chars.length) return Promise.resolve();
+    function boot() {
+        const geo = layoutPoster();
 
-        el.classList.add('tw-typing');
-        void el.offsetWidth; // forza reflow para que a transición se dispare
-        el.classList.add('tw-start');
+        const tl = gsap.timeline({ paused: true });
 
-        const last = chars[chars.length - 1];
-        const lastDelay = parseFloat(last.style.transitionDelay) || 0;
-        const totalMs = lastDelay + 130;
+        let t = addTypeStagger(tl, document.getElementById('poster-title'), 0);
 
-        return wait(totalMs).then(() => {
-            el.classList.remove('tw-typing');
-            el.classList.add('tw-done');
+        // Subrayado: o wrapper (overflow:hidden) crece de 0 até hlWidth,
+        // revelando o trazo (xa co seu ancho final fixo) de esquerda a
+        // dereita, coma se o trazaran a man.
+        const underlineWrap = document.getElementById('poster-underline-wrap');
+        if (underlineWrap) {
+            tl.set(underlineWrap, { visibility: 'visible' }, t);
+            tl.to(underlineWrap, { width: geo.hlWidth, duration: UNDERLINE_DURATION, ease: 'power2.inOut' }, t);
+        }
+        t += UNDERLINE_DURATION;
+
+        // Ponentes: foto/marco con fade-in á vez que empeza a escribirse
+        // o seu nome; despois o cargo.
+        for (const card of Array.from(document.querySelectorAll('.poster-speaker'))) {
+            tl.to(card, { opacity: 1, duration: SPEAKER_FADE_DURATION }, t);
+            const nameEnd = addTypeStagger(tl, card.querySelector('.poster-speaker-name'), t);
+            t = addTypeStagger(tl, card.querySelector('.poster-speaker-role'), nameEnd);
+        }
+
+        // "Powered by" + circuíto + logos arrincan á vez cá data (non
+        // despois: ver o gap entre sponsorsStart e onde arrinca a data).
+        const sponsorsStart = t;
+        const sponsorsText = document.getElementById('poster-sponsors-text');
+        const sponsorsCircuitWrap = document.getElementById('poster-sponsors-circuit-wrap');
+        if (sponsorsText) tl.to(sponsorsText, { opacity: 1, duration: SPONSORS_TEXT_DURATION }, sponsorsStart);
+        if (sponsorsCircuitWrap) tl.to(sponsorsCircuitWrap, { width: geo.circuitW, duration: SPONSORS_CIRCUIT_DURATION }, sponsorsStart);
+        document.querySelectorAll('.poster-sponsors-logos img').forEach((img, i) => {
+            tl.fromTo(
+                img,
+                { x: SPONSORS_LOGO_X_FROM },
+                { x: 0, opacity: 1, duration: SPONSORS_LOGO_DURATION },
+                sponsorsStart + i * SPONSORS_LOGO_STAGGER
+            );
         });
-    }
 
-    // Amosa o subrayado só cando remata de "escribirse" o título — se non,
-    // aparecía debaixo dun título aínda a medio escribir. A foto/marco do
-    // ponente xa é visible dende o principio (non pasa por aquí); o subrayado
-    // "debúxase" el mesmo: o wrapper arranca en 0 de ancho e transiciona ata
-    // o ancho real, revelando o trazo de esquerda a dereita coma se o
-    // trazaran a man. Devolve unha promesa que remata coa transición.
-    function revealUnderline() {
-        if (!pending) return Promise.resolve();
-        pending.underlineWrap.classList.add('tw-visible');
-        void pending.underlineWrap.offsetWidth;
-        pending.underlineWrap.style.width = pending.hlWidth;
-        return wait(UNDERLINE_TRANSITION_MS);
-    }
+        const dateEnd = addTypeStagger(tl, document.getElementById('poster-footer-date'), sponsorsStart);
+        addTypeStagger(tl, document.getElementById('poster-footer-venue'), dateEnd);
 
-    // "Powered by" + circuíto + logos — todo isto arrinca á vez cá data
-    // (non se agarda, ver boot()). O texto e os logos son transicións CSS
-    // vía a clase .sp-start; o circuíto usa o mesmo truco de
-    // wrapper+overflow:hidden có ancho animado có subrayado.
-    function revealSponsors() {
-        const el = document.getElementById('poster-sponsors');
-        const circuitWrap = document.getElementById('poster-sponsors-circuit-wrap');
-        if (!el) return;
-        el.classList.add('sp-start');
-        if (circuitWrap && pending) {
-            void circuitWrap.offsetWidth;
-            circuitWrap.style.width = `${pending.circuitW}px`;
+        // Rexistrar SÓ despois de rematar de construír o timeline: HyperFrames
+        // trata un timeline baleiro rexistrado antes de tempo coma "listo" e
+        // aniñado baleiro, o que dá duración cero no render.
+        window.__timelines = window.__timelines || {};
+        window.__timelines['event-poster'] = tl;
+        (window as any).__hfForceTimelineRebind?.();
+
+        // O render de HyperFrames controla o timeline el mesmo (pause+seek);
+        // para unha visita normal ao sitio reprodúcese só.
+        if (!(window as any).__hf) {
+            tl.play();
         }
-    }
-
-    async function boot() {
-        layoutPoster();
-        await typeElement(document.getElementById('poster-title'));
-        await revealUnderline();
-        for (const sp of Array.from(document.querySelectorAll('.poster-speaker'))) {
-            sp.classList.add('sp-start'); // fade-in da foto á vez có nome, non se agarda
-            await typeElement(sp.querySelector('.poster-speaker-name'));
-            await typeElement(sp.querySelector('.poster-speaker-role'));
-        }
-        revealSponsors(); // á vez cá data, non se agarda
-        await typeElement(document.getElementById('poster-footer-date'));
-        await typeElement(document.getElementById('poster-footer-venue'));
     }
 
     if ((document as any).fonts && (document as any).fonts.ready) {

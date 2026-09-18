@@ -10,6 +10,7 @@
 import '../../../styles/poster.css';
 import '../../../styles/poster-story.css';
 import { eventStaticPaths, deriveEventPosterData, resolveSpeakerImage } from '../../../lib/eventPoster';
+import { computePosterRenderDuration } from '../../../lib/posterTiming';
 
 export async function getStaticPaths() {
     return eventStaticPaths();
@@ -30,6 +31,20 @@ const TYPE_CHAR_DELAY_MS = 33;
 const titleChars = Array.from(event.name as string);
 const footerDateChars = Array.from(footerDate);
 const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
+
+// Duración total da animación, calculada no servidor coa mesma aritmética
+// có timeline GSAP do script de abaixo — ver src/lib/posterTiming.ts.
+const renderDuration = computePosterRenderDuration({
+    titleLength: titleChars.length,
+    underlineDuration: 0.46,
+    speakers: speakers.map((sp: any) => ({
+        nameLength: Array.from(sp.name as string).length,
+        roleLength: Array.from(sp.role as string).length,
+    })),
+    sponsorsCount: sponsors.length,
+    footerDateLength: footerDateChars.length,
+    footerVenueLength: footerVenueChars.length,
+});
 ---
 <!DOCTYPE html>
 <html lang="gl">
@@ -38,7 +53,14 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
     <title>{event.name} — Cascarilla Tech (IG)</title>
 </head>
 <body>
-<div class="poster-story" id="poster">
+<div
+    class="poster-story"
+    id="poster"
+    data-composition-id="event-poster-ig"
+    data-width="1080"
+    data-height="1920"
+    data-duration={renderDuration}
+>
 
     <div class="story-organizers">
         {organizersLeft.map((fname: string) => (
@@ -163,9 +185,18 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
 </div>
 
 <script>
-    const HL_MARGIN = 18;
+    import { gsap } from 'gsap';
 
-    let pending = null;
+    const HL_MARGIN = 18;
+    const CHAR_STAGGER = 0.033;
+    const CHAR_TAIL = 0.13;
+    const UNDERLINE_DURATION = 0.46;
+    const SPEAKER_FADE_DURATION = 0.5;
+    const SPONSORS_TEXT_DURATION = 0.4;
+    const SPONSORS_CIRCUIT_DURATION = 0.6;
+    const SPONSORS_LOGO_DURATION = 0.5;
+    const SPONSORS_LOGO_STAGGER = 0.12;
+    const SPONSORS_LOGO_X_FROM = -32;
 
     // Moito máis simple ca na horizontal: aquí case todo vai en fluxo
     // normal (flex column centrada), así que só fai falla JS para medir o
@@ -175,10 +206,9 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
     function layoutPoster() {
         const title = document.getElementById('poster-title');
         const underline = document.getElementById('poster-underline');
-        const underlineWrap = document.getElementById('poster-underline-wrap');
         const sponsorsCircuit = document.getElementById('poster-sponsors-circuit');
         const sponsorsText = document.getElementById('poster-sponsors-text');
-        if (!title || !underline || !underlineWrap) return;
+        if (!title || !underline) return { hlWidth: 0, circuitW: 0 };
 
         const chars = Array.from(title.querySelectorAll('.tw-char'));
         const lines = [];
@@ -196,11 +226,10 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
         }
         const maxLineW = lines.length ? Math.max(...lines.map((l) => l.right - l.left)) : 0;
         const hlWidth = Math.max(maxLineW - 2 * HL_MARGIN, 20);
-        // O trazo nace xa co seu ancho FINAL fixo (non 100%) para que as
-        // puntas irregulares non se deformen cando o wrapper anima o seu
-        // propio ancho (0 -> hlWidth) para revelalo pouco a pouco.
+        // O trazo nace xa co seu ancho FINAL fixo (non animado) para que as
+        // puntas irregulares non se deformen cando o wrapper (GSAP) anima
+        // o seu propio ancho para revelalo pouco a pouco.
         underline.style.width = `${hlWidth}px`;
-        underlineWrap.style.width = '0px';
 
         let circuitW = 0;
         if (sponsorsCircuit && sponsorsText) {
@@ -208,65 +237,66 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
             sponsorsCircuit.setAttribute('width', String(circuitW));
         }
 
-        pending = { underlineWrap, hlWidth, circuitW };
+        return { hlWidth, circuitW };
     }
 
-    const UNDERLINE_TRANSITION_MS = 460;
-
-    function wait(ms) {
-        return new Promise((resolve) => window.setTimeout(resolve, ms));
+    function addTypeStagger(tl, container, startTime) {
+        if (!container) return startTime;
+        const chars = container.querySelectorAll('.tw-char');
+        if (!chars.length) return startTime;
+        tl.to(chars, { opacity: 1, duration: 0.01, stagger: CHAR_STAGGER }, startTime);
+        return startTime + Math.max(0, chars.length - 1) * CHAR_STAGGER + 0.01 + CHAR_TAIL;
     }
 
-    function typeElement(el) {
-        if (!el) return Promise.resolve();
-        const chars = el.querySelectorAll('.tw-char');
-        if (!chars.length) return Promise.resolve();
+    function boot() {
+        const geo = layoutPoster();
 
-        el.classList.add('tw-typing');
-        void el.offsetWidth;
-        el.classList.add('tw-start');
+        const tl = gsap.timeline({ paused: true });
 
-        const last = chars[chars.length - 1];
-        const lastDelay = parseFloat(last.style.transitionDelay) || 0;
-        const totalMs = lastDelay + 130;
+        let t = addTypeStagger(tl, document.getElementById('poster-title'), 0);
 
-        return wait(totalMs).then(() => {
-            el.classList.remove('tw-typing');
-            el.classList.add('tw-done');
+        const underlineWrap = document.getElementById('poster-underline-wrap');
+        if (underlineWrap) {
+            tl.set(underlineWrap, { visibility: 'visible' }, t);
+            tl.to(underlineWrap, { width: geo.hlWidth, duration: UNDERLINE_DURATION, ease: 'power2.inOut' }, t);
+        }
+        t += UNDERLINE_DURATION;
+
+        for (const card of Array.from(document.querySelectorAll('.story-speaker'))) {
+            tl.to(card, { opacity: 1, duration: SPEAKER_FADE_DURATION }, t);
+            const nameEnd = addTypeStagger(tl, card.querySelector('.story-speaker-name'), t);
+            t = addTypeStagger(tl, card.querySelector('.story-speaker-role'), nameEnd);
+        }
+
+        const sponsorsStart = t;
+        const sponsorsText = document.getElementById('poster-sponsors-text');
+        const sponsorsCircuitWrap = document.getElementById('poster-sponsors-circuit-wrap');
+        if (sponsorsText) tl.to(sponsorsText, { opacity: 1, duration: SPONSORS_TEXT_DURATION }, sponsorsStart);
+        if (sponsorsCircuitWrap) tl.to(sponsorsCircuitWrap, { width: geo.circuitW, duration: SPONSORS_CIRCUIT_DURATION }, sponsorsStart);
+        document.querySelectorAll('.story-sponsors-logos img').forEach((img, i) => {
+            tl.fromTo(
+                img,
+                { x: SPONSORS_LOGO_X_FROM },
+                { x: 0, opacity: 1, duration: SPONSORS_LOGO_DURATION },
+                sponsorsStart + i * SPONSORS_LOGO_STAGGER
+            );
         });
-    }
 
-    function revealUnderline() {
-        if (!pending) return Promise.resolve();
-        pending.underlineWrap.classList.add('tw-visible');
-        void pending.underlineWrap.offsetWidth;
-        pending.underlineWrap.style.width = `${pending.hlWidth}px`;
-        return wait(UNDERLINE_TRANSITION_MS);
-    }
+        const dateEnd = addTypeStagger(tl, document.getElementById('poster-footer-date'), sponsorsStart);
+        addTypeStagger(tl, document.getElementById('poster-footer-venue'), dateEnd);
 
-    function revealSponsors() {
-        const el = document.getElementById('poster-sponsors');
-        const circuitWrap = document.getElementById('poster-sponsors-circuit-wrap');
-        if (!el) return;
-        el.classList.add('sp-start');
-        if (circuitWrap && pending) {
-            void circuitWrap.offsetWidth;
-            circuitWrap.style.width = `${pending.circuitW}px`;
+        // Rexistrar SÓ despois de rematar de construír o timeline: HyperFrames
+        // trata un timeline baleiro rexistrado antes de tempo coma "listo" e
+        // aniñado baleiro, o que dá duración cero no render.
+        window.__timelines = window.__timelines || {};
+        window.__timelines['event-poster-ig'] = tl;
+        (window as any).__hfForceTimelineRebind?.();
+
+        // O render de HyperFrames controla o timeline el mesmo (pause+seek);
+        // para unha visita normal ao sitio reprodúcese só.
+        if (!(window as any).__hf) {
+            tl.play();
         }
-    }
-
-    async function boot() {
-        layoutPoster();
-        await typeElement(document.getElementById('poster-title'));
-        await revealUnderline();
-        for (const sp of Array.from(document.querySelectorAll('.story-speaker'))) {
-            sp.classList.add('sp-start');
-            await typeElement(sp.querySelector('.story-speaker-name'));
-            await typeElement(sp.querySelector('.story-speaker-role'));
-        }
-        revealSponsors();
-        await typeElement(document.getElementById('poster-footer-date'));
-        await typeElement(document.getElementById('poster-footer-venue'));
     }
 
     if ((document as any).fonts && (document as any).fonts.ready) {
