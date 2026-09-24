@@ -34,7 +34,14 @@
     "status": "scheduled",
     "license": "CC-BY-4.0",
 
-    "_comment_extensions": "price, agenda e slots non forman parte do core de OTE v0.3, pero o schema non prohibe campos adicionais: úsanse aquí como extensións propias do dossier deste evento.",
+    "_comment_extensions": "price, agenda, slots e sponsors non forman parte do core de OTE v0.3, pero o schema non prohibe campos adicionais: úsanse aquí como extensións propias do dossier deste evento.",
+    "sponsors": [
+        {
+            "name": "Odeene",
+            "url": "https://odeene.es/",
+            "img": "/images/colaboradoras/odeene-color-horizontal.png"
+        }
+    ],
     "price": {
         "amount": "##",
         "currency": "€",

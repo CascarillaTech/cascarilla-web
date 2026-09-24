@@ -1,7 +1,11 @@
 ---
+import { getEntry } from 'astro:content';
 import Layout from '../../layouts/LayoutBasic.astro';
 import '../../styles/event.css';
 import evento from '../../data/eventos/one-ai-day.json';
+
+const org = await getEntry('org', 'info');
+const contactEmail = org?.data.email ?? 'asociacion@cascarillatech.org';
 
 // Data formatada a partir do startDate en formato OTE (ISO, sen fuso)
 const eventDateOnly = evento.startDate.split('T')[0];
@@ -29,7 +33,7 @@ const agenda = evento.agenda.map((item) => {
     return item;
 });
 
-const sponsors = [1, 2, 3];
+const sponsors = evento.sponsors ?? [];
 ---
 
 <Layout frontmatter={{ title: `${evento.name} - Cascarilla Tech` }}>
@@ -124,15 +128,15 @@ const sponsors = [1, 2, 3];
         <section class="event-section-block">
             <h2>Empresas colaboradoras</h2>
             <p class="section-intro">
-                Así se verá o espazo reservado para as empresas que colaboren co evento
-                (exemplo ilustrativo, aínda sen colaboradoras confirmadas).
+                Grazas a <strong>Odeene</strong> por participar no evento. Se queres formar parte deste evento,
+                <a href={`mailto:${contactEmail}`}>ponte en contacto connosco</a> e vemos a forma de colaborar.
             </p>
 
             <div class="sponsors-grid">
-                {sponsors.map(() => (
-                        <div class="sponsor-card">
-                            <img src={companyPlaceholder} alt="Logo de exemplo dunha empresa colaboradora" />
-                        </div>
+                {sponsors.map((sponsor) => (
+                        <a class="sponsor-card" href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                            <img src={sponsor.img ?? companyPlaceholder} alt={`Logo de ${sponsor.name}`} />
+                        </a>
                 ))}
             </div>
         </section>
