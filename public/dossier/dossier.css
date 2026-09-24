@@ -474,6 +474,21 @@ img { max-width: 100%; }
 }
 .slide--alt .activity { background: var(--color-bg-main); }
 
+/* Tarxeta que enlaza coa páxina real do evento (p.ex. Un día con IA):
+   resetea os estilos de <a> e engade un lixeiro "levantamento" ao pasar
+   o rato, para que se note que é clicable. */
+.activity--linked {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.activity--linked:hover,
+.activity--linked:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(69, 31, 20, .1), 0 14px 28px rgba(69, 31, 20, .12);
+}
+
 .activity__title {
   font-size: 1rem;
   margin-bottom: .4rem;
