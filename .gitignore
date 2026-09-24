@@ -33,3 +33,8 @@ replay_pid*
 /node_modules/
 /.claude/
 /dist/
+
+# Segredos locais e deps de ferramentas backend (p.ex. tools/socios-bot-mcp)
+.env
+!.env.example
+node_modules/
