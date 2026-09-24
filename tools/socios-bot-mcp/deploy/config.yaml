@@ -1,0 +1,50 @@
+# Copiar a ~/.hermes/socios/config.yaml dentro do contedor (é dicir, no
+# volume hermes_socios_data, baixo o perfil "socios" — HERMES_PROFILE=socios
+# xa está fixado no docker-compose.snippet.yml).
+#
+# Verificar os nomes exactos de toolsets con `hermes tools` antes do primeiro
+# arranque real — esta lista sae da documentación pero pode variar de
+# versión.
+
+model:
+  provider: anthropic
+  model: claude-sonnet-4-6 # axustar ao alias vixente cando se despregue
+
+agent:
+  # Bloquea todo o que este bot NON necesita. É un bot de cara ao público
+  # (calquera pode escribirlle en Telegram), non un asistente persoal — nada
+  # de navegador, terminal, ficheiros, xeración de imaxe, etc.
+  disabled_toolsets:
+    - web
+    - search
+    - terminal
+    - file
+    - browser
+    - vision
+    - image_gen
+    - skills
+    - tts
+    - todo
+    - session_search
+    - cronjob
+    - code_execution
+    - delegation
+    - homeassistant
+    - spotify
+    - discord
+    - discord_admin
+    - debugging
+
+mcp_servers:
+  socios:
+    command: "node"
+    args: ["/opt/socios-bot-mcp/index.js"]
+    # OLLO: non confirmei se este config.yaml soporta interpolación de
+    # variables de ambiente (${VAR}) — a documentación só amosa valores
+    # literais. Para ir sobre seguro, pon aquí os valores REAIS directamente
+    # (a URL do Apps Script e o mesmo BOT_TOKEN que puxeches nas Propiedades
+    # do script). Este ficheiro vive só no volume do contedor no VPS, nunca
+    # no repo, así que non hai problema en que leve os segredos en claro.
+    env:
+      APPS_SCRIPT_URL: "https://script.google.com/macros/s/XXXX/exec"
+      BOT_TOKEN: "o-mesmo-segredo-que-en-Propiedades-do-script"

@@ -1,0 +1,30 @@
+# Pegar coma un servizo máis dentro de /home/alberto/server/docker-compose.yml
+# (mesmo patrón que os servizos xa existentes: env_file: .env, rede "web").
+#
+# Requira antes: engadir un volume novo "hermes_socios_data" ao bloque
+# `volumes:` de arriba do todo do ficheiro, coma os que xa hai
+# (portainer_data, minio_data, etc.):
+#
+#   volumes:
+#     hermes_socios_data:
+#
+# E montar este cartafol (tools/socios-bot-mcp) nalgún sitio accesible, p.ex.
+# clonando/copiando o repo a /home/alberto/server/apps/socios-bot-mcp — o
+# volume de abaixo asume ese camiño, axústao se usas outro.
+
+  hermes-socios:
+    image: nousresearch/hermes-agent:latest
+    container_name: hermes-socios
+    restart: unless-stopped
+    command: gateway run
+    env_file: .env
+    environment:
+      - HERMES_PROFILE=socios
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - hermes_socios_data:/opt/data
+      - ./apps/socios-bot-mcp:/opt/socios-bot-mcp:ro
+    networks:
+      - web
+    mem_limit: 512m
