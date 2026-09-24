@@ -32,12 +32,11 @@ const agenda = evento.agenda.map((item) => {
 const sponsors = [1, 2, 3];
 ---
 
-<Layout frontmatter={{ title: `${evento.name} · Dossier — Cascarilla Tech`, noindex: true }}>
+<Layout frontmatter={{ title: `${evento.name} · Dossier — Cascarilla Tech` }}>
 
     <section class="event-section">
 
         <header class="event-hero">
-            <span class="event-badge">Dossier para colaboradoras</span>
             <h1>{evento.name}</h1>
             <div class="event-meta">
                 <span>📅 {fechaTexto}</span>
@@ -143,7 +142,7 @@ const sponsors = [1, 2, 3];
             <div class="tickets-box">
                 <p class="ticket-price">{evento.price.amount} {evento.price.currency}</p>
                 <p class="ticket-price-note">{evento.price.note}</p>
-                <a href="/evento/un-dia-con-ia" class="contact-btn">Mercar entradas</a>
+                <a href="/events/un-dia-con-ia" class="contact-btn">Mercar entradas</a>
             </div>
         </section>
 
