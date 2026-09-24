@@ -31,3 +31,21 @@ desincroniza. Este script `.gs` **si** ten os prezos hardcodeados
 (`PRECIOS_MEMBRESIA`, arriba do todo do ficheiro) porque non pode ler o
 `.md` do repo — se cambias as cotas, acórdate de actualizar tamén aquí e
 publicar unha nova versión da implementación.
+
+## Endpoint de lectura para o bot (doGet)
+
+Ademais do `doPost` público (o formulario), o script ten un `doGet`
+autenticado que consulta se un email é socio — é o que usa o bot de
+Telegram (ver [`tools/socios-bot-mcp/`](../socios-bot-mcp/)).
+
+Para activalo:
+
+1. No editor de Apps Script: **Configuración do proxecto** (icona engrenaxe) >
+   **Propiedades do script** > **Engadir propiedade do script**.
+2. Nome: `BOT_TOKEN`. Valor: calquera cadea longa e aleatoria (é o segredo
+   compartido co servidor MCP).
+3. Copia ese mesmo valor na variable `BOT_TOKEN` do `.env` do servidor MCP.
+4. Publica unha nova versión da implementación (os cambios en Propiedades do
+   script non requiren nova versión, pero o propio `doGet` engadido si).
+
+Sen esta propiedade configurada, `doGet` rexeita todas as peticións.
