@@ -2,7 +2,7 @@
  * Servidor MCP para o bot de socios de Cascarilla Tech.
  *
  * Expón unha única tool, `consultar_socio`, que consulta o doGet do Apps
- * Script de tools/registration/apps-script-registration.gs. Pensado para
+ * Script de tools/registration/alta.gs. Pensado para
  * ser lanzado por Hermes Agent coma un subproceso local (transporte stdio),
  * non coma un servidor HTTP independente.
  *

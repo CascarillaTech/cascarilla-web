@@ -3,7 +3,7 @@
 Servidor MCP (transporte stdio) que lle dá ao bot de Telegram/Hermes Agent
 unha única capacidade: consultar se un email é socio de Cascarilla Tech,
 consultando o `doGet` de
-[`tools/registration/apps-script-registration.gs`](../registration/apps-script-registration.gs).
+[`tools/registration/alta.gs`](../registration/alta.gs).
 
 Non se despregou co sitio (Astro/GitHub Pages) — corre no VPS, coma
 subproceso lanzado polo propio Hermes.

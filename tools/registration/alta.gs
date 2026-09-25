@@ -1,22 +1,17 @@
 /**
- * ALTA DE SOCIOS - CASCARILLA TECH
- * ---------------------------------
+ * ALTA DE SOCIOS - CASCARILLA TECH (alta.gs)
+ * --------------------------------------------
  * Backend do formulario en https://cascarillatech.org/registration (src/pages/registration.astro).
- * Este script pégase en Extensións > Apps Script dentro dun Google Sheet.
- * Ao desplegalo como "Web App" dá unha URL á que o formulario HTML envía os
- * datos por POST. Non fai falla backend propio.
  *
- * PASOS PARA DESPLEGAR:
- * 1. Crea un Google Sheet novo (ou usa un existente).
- * 2. Extensións > Apps Script. Borra o contido de Code.gs e pega isto.
- * 3. Garda (icona disco). Dálle un nome ao proxecto, p.ex. "Alta socios".
- * 4. Botón "Implementar" > "Nova implementación".
- *    - Tipo: "Aplicación web"
- *    - Executar como: "Ti" (a túa conta)
- *    - Quen ten acceso: "Calquera usuario"
- * 5. Autoriza os permisos que pida Google (é o teu propio script, o aviso é normal).
- * 6. Copia a URL que dá ("URL da aplicación web"). Esa é a que vai en
- *    src/pages/registration.astro na constante SCRIPT_URL.
+ * OLLO: este ficheiro vai XUNTO con Código.gs no MESMO proxecto de Apps
+ * Script, atado ao mesmo Google Sheet — non van en proxectos separados.
+ * Apps Script comparte as funcións globais entre tódolos ficheiros .gs dun
+ * proxecto, así que doPost (aquí embaixo) pode chamar directamente a
+ * avisarAdmin() e enviarCorreoDesdeDraft(), que están definidas en
+ * Código.gs. Ver tools/registration/README.md para o despregue completo.
+ *
+ * Ao desplegar o proxecto como "Web App" dá unha URL á que o formulario
+ * HTML envía os datos por POST. Non fai falla backend propio.
  *
  * Cada vez que cambies este código, terás que crear unha NOVA implementación
  * (ou "Xestionar implementacións" > editar) para que os cambios teñan efecto.
@@ -72,6 +67,23 @@ function doPost(e) {
       PRECIOS_MEMBRESIA[datos.membership] || "",
       "Pendente" // estado da alta: cámbiao a man a "Aprobado" cando a procesedes
     ]);
+
+    // Correo "DATOS": confirma á persoa o que acaba de enviar. É o único
+    // automático (os outros dous, ALTA e BENVIDA, mándanse a man dende
+    // Código.gs cando cambias o Estado). Se falla (p.ex. non existe o
+    // borrador "Confirmacion" en Gmail), non tombamos a alta — xa quedou
+    // gardada na folla — só avisamos ao admin.
+    try {
+      enviarCorreoDesdeDraft(ASUNTO_DRAFT_DATOS, TITULO_EMAIL_DATOS, datos.email, {
+        '{{nome}}': datos.nombre,
+        '{{nome_completo}}': datos.nombre_completo,
+        '{{email}}': datos.email,
+        '{{cota}}': datos.membership,
+        '{{prezo}}': PRECIOS_MEMBRESIA[datos.membership] || ""
+      });
+    } catch (err) {
+      avisarAdmin(`Non se puido enviar o correo de confirmación de datos a ${datos.email} (alta nº ${numeroSocio}): ${err.message}`);
+    }
 
     return respuesta({ ok: true, numeroSocio });
   } catch (err) {
