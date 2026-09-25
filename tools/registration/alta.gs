@@ -3,12 +3,14 @@
  * --------------------------------------------
  * Backend do formulario en https://cascarillatech.org/registration (src/pages/registration.astro).
  *
- * OLLO: este ficheiro vai XUNTO con Código.gs no MESMO proxecto de Apps
- * Script, atado ao mesmo Google Sheet — non van en proxectos separados.
- * Apps Script comparte as funcións globais entre tódolos ficheiros .gs dun
- * proxecto, así que doPost (aquí embaixo) pode chamar directamente a
- * avisarAdmin() e enviarCorreoDesdeDraft(), que están definidas en
- * Código.gs. Ver tools/registration/README.md para o despregue completo.
+ * OLLO: este ficheiro vai XUNTO con Código.gs e acciones-bot.gs no MESMO
+ * proxecto de Apps Script, atado ao mesmo Google Sheet — non van en
+ * proxectos separados. Apps Script comparte as funcións globais entre
+ * tódolos ficheiros .gs dun proxecto: doPost (aquí embaixo) chama a
+ * avisarAdmin() e enviarCorreoDesdeDraft() (definidas en Código.gs), e
+ * obtenerOCrearHoja()/respuesta() (definidas aquí) tamén as usa
+ * acciones-bot.gs, que é onde vive o doGet do bot de Telegram. Ver
+ * tools/registration/README.md para o despregue completo.
  *
  * Ao desplegar o proxecto como "Web App" dá unha URL á que o formulario
  * HTML envía os datos por POST. Non fai falla backend propio.
@@ -19,14 +21,6 @@
  * Os prezos e nomes das cotas veñen de src/content/membership/cuotas.md — se
  * cambian alí, cambia tamén PRECIOS_MEMBRESIA aquí embaixo para que coincidan
  * (este script non pode ler o .md do repo, é independente del).
- *
- * ENDPOINT DE LECTURA (doGet) PARA O BOT:
- * Ademais do POST público de alta, hai un GET autenticado que consulta se un
- * email é socio (úsao o bot de Telegram, ver tools/socios-bot-mcp/). Require
- * un token secreto que NON vive neste ficheiro: Configuración do proxecto >
- * Propiedades do script > engade unha propiedade "BOT_TOKEN" co valor que
- * lle pasarás tamén ao servidor MCP (variable BOT_TOKEN no seu .env). Sen
- * esa propiedade configurada, o doGet rexeita todas as peticións.
  */
 
 const NOMBRE_HOJA = "Socios";
@@ -91,49 +85,6 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
-}
-
-// GET autenticado para o bot: ?token=...&email=...
-// Devolve só a fila que coincide co email pedido (nunca a folla enteira).
-function doGet(e) {
-  const tokenEsperado = PropertiesService.getScriptProperties().getProperty("BOT_TOKEN");
-  const tokenRecibido = e.parameter.token;
-  if (!tokenEsperado || tokenRecibido !== tokenEsperado) {
-    return respuesta({ ok: false, error: "Non autorizado." });
-  }
-
-  const email = (e.parameter.email || "").trim().toLowerCase();
-  if (!email) {
-    return respuesta({ ok: false, error: "Falta o parámetro email." });
-  }
-
-  const hoja = obtenerOCrearHoja();
-  const numFilas = hoja.getLastRow() - 1; // sen cabeceira
-  if (numFilas <= 0) {
-    return respuesta({ ok: true, socio: null });
-  }
-
-  const filas = hoja.getRange(2, 1, numFilas, 9).getValues();
-  const fila = filas.find(function (f) {
-    return String(f[5]).trim().toLowerCase() === email;
-  });
-
-  if (!fila) {
-    return respuesta({ ok: true, socio: null });
-  }
-
-  return respuesta({
-    ok: true,
-    socio: {
-      numeroSocio: fila[0],
-      fechaAlta: fila[1],
-      fechaBaixa: fila[2],
-      nombre: fila[3],
-      membership: fila[6],
-      precio: fila[7],
-      estado: fila[8]
-    }
-  });
 }
 
 // Número de socio autoincremental. Calcúlase buscando o maior número xa

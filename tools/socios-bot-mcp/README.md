@@ -1,9 +1,9 @@
 # Servidor MCP do bot de socios
 
 Servidor MCP (transporte stdio) que lle dá ao bot de Telegram/Hermes Agent
-unha única capacidade: consultar se un email é socio de Cascarilla Tech,
-consultando o `doGet` de
-[`tools/registration/alta.gs`](../registration/alta.gs).
+dúas capacidades — consultar se un email é socio, e listar socios por
+estado — consultando o `doGet` de
+[`tools/registration/acciones-bot.gs`](../registration/acciones-bot.gs).
 
 Non se despregou co sitio (Astro/GitHub Pages) — corre no VPS, coma
 subproceso lanzado polo propio Hermes.
@@ -11,7 +11,7 @@ subproceso lanzado polo propio Hermes.
 ## Configurar
 
 1. Segue primeiro os pasos de
-   [`tools/registration/README.md`](../registration/README.md#endpoint-de-lectura-para-o-bot-doget)
+   [`tools/registration/README.md`](../registration/README.md#acci%C3%B3ns-do-bot-acciones-botgs--doget)
    para activar o `doGet` no Apps Script (propiedade `BOT_TOKEN`).
 2. `npm install` nesta carpeta.
 3. Copia `.env.example` a `.env` e rechea `APPS_SCRIPT_URL` (a mesma URL
@@ -43,4 +43,5 @@ mcp_servers:
       BOT_TOKEN: "o-mesmo-segredo"
 ```
 
-A tool queda dispoñible para o axente coma `mcp_socios_consultar_socio`.
+As tools quedan dispoñibles para o axente coma `mcp_socios_consultar_socio`
+e `mcp_socios_listar_socios`.

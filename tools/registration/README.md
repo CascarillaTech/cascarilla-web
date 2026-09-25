@@ -2,24 +2,31 @@
 
 O formulario en si vive no propio sitio: [`src/pages/registration.astro`](../../src/pages/registration.astro)
 (`https://cascarillatech.org/registration`). Este cartafol só garda o
-**backend** que recibe eses datos: dous ficheiros que van xuntos, no
+**backend** que recibe eses datos: tres ficheiros que van xuntos, no
 **mesmo** proxecto de Apps Script, atado ao **mesmo** Google Sheet.
 
 - **[`alta.gs`](alta.gs)** — recibe o `doPost` do formulario público (garda
-  a fila na folla "Socios") e o `doGet` autenticado que usa o bot de
-  Telegram para consultar socios.
+  a fila na folla "Socios").
 - **[`Código.gs`](Código.gs)** — xestiona o envío dos tres correos (ver
-  abaixo). Apps Script comparte as funcións e variables globais entre
-  tódolos ficheiros dun mesmo proxecto, así que `alta.gs` chama funcións
-  definidas en `Código.gs` sen problema, aínda que sexan ficheiros distintos
-  neste repo.
+  abaixo).
+- **[`acciones-bot.gs`](acciones-bot.gs)** — o `doGet` autenticado que usa o
+  bot de Telegram (ver [`tools/socios-bot-mcp/`](../socios-bot-mcp/)): todo o
+  que o bot pode facer contra a folla, nun único sitio. Engade aquí as
+  próximas accións do bot a medida que o vaias ampliando.
+
+Apps Script comparte as funcións e variables globais entre tódolos ficheiros
+dun mesmo proxecto, así que calquera dos tres pode chamar funcións definidas
+nos outros sen problema, aínda que sexan ficheiros distintos neste repo
+(p.ex. `acciones-bot.gs` usa `obtenerOCrearHoja()`/`respuesta()`, definidas
+en `alta.gs`).
 
 ## Como despregar (proxecto novo)
 
 1. Crea un Google Sheet novo (ou usa un existente).
 2. Extensións > Apps Script.
-3. Crea/pega o contido de `alta.gs` nun ficheiro co mesmo nome, e o de
-   `Código.gs` noutro ficheiro distinto dentro do MESMO proxecto.
+3. Crea un ficheiro por cada un dos tres (`alta.gs`, `Código.gs`,
+   `acciones-bot.gs`) dentro do MESMO proxecto, e pega en cada un o
+   contido correspondente.
 4. Configura as Propiedades do script (ver táboa abaixo).
 5. Implementar > Nova implementación > Tipo "Aplicación web", Executar como
    "Ti", Acceso "Calquera usuario".
@@ -31,10 +38,10 @@ O formulario en si vive no propio sitio: [`src/pages/registration.astro`](../../
 ## Estado actual
 
 O Apps Script **xa está desprégado** e `SCRIPT_URL` en
-`src/pages/registration.astro` xa apunta á súa URL. `alta.gs` (a parte do
-`doGet`, aínda sen publicar — ver [`tools/socios-bot-mcp/DEPLOY.md`](../socios-bot-mcp/DEPLOY.md))
-e o `doPost` orixinal xa funcionan. `Código.gs` correspóndese co que hai
-realmente desprégado (trasladado ao repo despois, non ao revés).
+`src/pages/registration.astro` xa apunta á súa URL. O `doPost` orixinal xa
+funciona. `Código.gs` correspóndese co que hai realmente desprégado
+(trasladado ao repo despois, non ao revés). `acciones-bot.gs` é NOVO,
+aínda sen publicar — ver [`tools/socios-bot-mcp/DEPLOY.md`](../socios-bot-mcp/DEPLOY.md).
 
 ## Se cambias o script
 
@@ -93,11 +100,21 @@ Configuración do proxecto (icona engrenaxe) > Propiedades do script:
 | `TITULO_EMAIL_ALTA` | Asunto real co que se envía o correo ALTA |
 | `TITULO_EMAIL_BENVIDA` | Asunto real co que se envía o correo BENVIDA |
 
-## Endpoint de lectura para o bot (doGet)
+## Accións do bot (acciones-bot.gs / doGet)
 
-Ademais do `doPost` público (o formulario), `alta.gs` ten un `doGet`
-autenticado que consulta se un email é socio — é o que usa o bot de
-Telegram (ver [`tools/socios-bot-mcp/`](../socios-bot-mcp/)).
+[`acciones-bot.gs`](acciones-bot.gs) ten o `doGet` autenticado que usa o bot
+de Telegram (ver [`tools/socios-bot-mcp/`](../socios-bot-mcp/)). É o único
+punto de entrada de lectura para o bot — a idea é ir engadindo aquí novas
+accións (novos parámetros/ramas dentro do mesmo `doGet`, ou funcións
+auxiliares novas) a medida que o bot medre, en vez de espallalas por varios
+sitios.
+
+Accións actuais:
+
+| Acción | Como se chama | Que devolve |
+|---|---|---|
+| Consultar un socio | `?token=...&email=...` | Os datos dese socio (nº, fecha, cota, prezo, estado), ou `null` se non existe |
+| Listar por estado | `?token=...&estado=Pendente\|Pendente ingreso\|Confirmado` | Lista de `{nome, nome_completo, estado}` — **sen email nin cota**, porque calquera pode pedir isto, non só a propia persoa |
 
 Para activalo:
 
@@ -106,7 +123,6 @@ Para activalo:
 2. Nome: `BOT_TOKEN`. Valor: calquera cadea longa e aleatoria (é o segredo
    compartido co servidor MCP).
 3. Copia ese mesmo valor na variable `BOT_TOKEN` do `.env` do servidor MCP.
-4. Publica unha nova versión da implementación (os cambios en Propiedades do
-   script non requiren nova versión, pero o propio `doGet` engadido si).
+4. Publica unha nova versión da implementación.
 
 Sen esta propiedade configurada, `doGet` rexeita todas as peticións.

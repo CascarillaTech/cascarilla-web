@@ -1,10 +1,12 @@
 /**
  * Servidor MCP para o bot de socios de Cascarilla Tech.
  *
- * Expón unha única tool, `consultar_socio`, que consulta o doGet do Apps
- * Script de tools/registration/alta.gs. Pensado para
- * ser lanzado por Hermes Agent coma un subproceso local (transporte stdio),
- * non coma un servidor HTTP independente.
+ * Expón dúas tools que consultan o doGet do Apps Script de
+ * tools/registration/acciones-bot.gs: `consultar_socio` (por email) e
+ * `listar_socios` (por estado — aberta a calquera, por iso só devolve nome
+ * e estado, nunca email). Pensado para ser lanzado por Hermes Agent coma un
+ * subproceso local (transporte stdio), non coma un servidor HTTP
+ * independente.
  *
  * Variables de entorno requiridas (ver .env.example):
  *   APPS_SCRIPT_URL — a URL "/exec" da implementación do Apps Script.
@@ -72,6 +74,53 @@ server.tool(
 
     return {
       content: [{ type: "text", text: JSON.stringify(datos.socio, null, 2) }]
+    };
+  }
+);
+
+const ESTADOS_VALIDOS = ["Pendente", "Pendente ingreso", "Confirmado"];
+
+server.tool(
+  "listar_socios",
+  "Lista os socios que teñen un Estado exacto (Pendente, Pendente ingreso " +
+    "ou Confirmado). Devolve só nome, nome completo e estado — nunca email " +
+    "nin cota, porque calquera persoa pode pedir isto, non só a propia.",
+  {
+    estado: z.enum(ESTADOS_VALIDOS).describe("Estado exacto a filtrar")
+  },
+  async ({ estado }) => {
+    const url = new URL(APPS_SCRIPT_URL);
+    url.searchParams.set("token", BOT_TOKEN);
+    url.searchParams.set("estado", estado);
+
+    let datos;
+    try {
+      const res = await fetch(url, { method: "GET" });
+      datos = await res.json();
+    } catch (err) {
+      return {
+        isError: true,
+        content: [
+          { type: "text", text: `Erro consultando o Apps Script: ${err.message}` }
+        ]
+      };
+    }
+
+    if (!datos.ok) {
+      return {
+        isError: true,
+        content: [{ type: "text", text: datos.error || "Erro descoñecido." }]
+      };
+    }
+
+    if (!datos.socios || datos.socios.length === 0) {
+      return {
+        content: [{ type: "text", text: `Non hai ningún socio con estado "${estado}".` }]
+      };
+    }
+
+    return {
+      content: [{ type: "text", text: JSON.stringify(datos.socios, null, 2) }]
     };
   }
 );
