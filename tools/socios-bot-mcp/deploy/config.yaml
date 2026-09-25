@@ -10,12 +10,32 @@
 
 model:
   provider: openrouter
-  # Modelo gratis (sufixo ":free"), verificado a man en openrouter.ai o
-  # 2026-09-25 — 27B, 262K contexto, pensado tamén para "long-running agent
-  # tasks". O catálogo gratis rota, así que confirma que segue existindo en
-  # https://openrouter.ai/models?max_price=0 antes do primeiro arranque.
-  # Alternativa tamén válida se este desaparece: nvidia/nemotron-3-ultra-550b-a55b:free
-  model: qwen/qwen3.8-27b:free
+  # OLLO: a clave chámase "default", non "model" — Hermes migra
+  # automaticamente model.model → model.default no seu schema (visto en
+  # despregue real, versión de schema 46), pero mellor poñelo xa co nome
+  # correcto. Modelo gratis (sufixo ":free"), verificado a man en
+  # openrouter.ai o 2026-09-25 — 27B, 262K contexto, pensado tamén para
+  # "long-running agent tasks". O catálogo gratis rota, así que confirma que
+  # segue existindo en https://openrouter.ai/models?max_price=0 antes do
+  # primeiro arranque.
+  default: qwen/qwen3.8-27b:free
+
+# Os modelos ":free" de OpenRouter comparten grupo de uso entre TODOS os
+# usuarios de OpenRouter — pódese saturar (HTTP 429) sen que teñamos nada
+# que ver co noso propio límite de conta. Con isto, se o modelo principal
+# está saturado, Hermes proba estes por orde automaticamente. Tódolos
+# verificados a man en openrouter.ai o 2026-09-25.
+fallback_providers:
+  - provider: openrouter
+    model: nvidia/nemotron-3.5-lightning:free
+  - provider: openrouter
+    model: nvidia/nemotron-3-ultra-550b-a55b:free
+  - provider: openrouter
+    model: poolside/laguna-s-2.1:free
+  - provider: openrouter
+    model: inclusionai/ling-3.0-flash-fin:free
+  - provider: openrouter
+    model: dots-studio/dots-3-note-preview:free
 
 agent:
   # Bloquea todo o que este bot NON necesita. É un bot de cara ao público
