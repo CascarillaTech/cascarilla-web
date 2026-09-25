@@ -7,8 +7,11 @@
 # versión.
 
 model:
-  provider: anthropic
-  model: claude-sonnet-4-6 # axustar ao alias vixente cando se despregue
+  provider: openrouter
+  # Modelo gratis (sufixo ":free"). O catálogo gratis de OpenRouter rota, así
+  # que confirma o id vixente en https://openrouter.ai/models?max_price=0
+  # antes do primeiro arranque — non fíes deste valor sen comprobalo.
+  model: nvidia/nemotron-3-ultra-550b:free
 
 agent:
   # Bloquea todo o que este bot NON necesita. É un bot de cara ao público

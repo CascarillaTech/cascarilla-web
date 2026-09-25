@@ -6,9 +6,11 @@ Runbook para cando teñas as credenciais a man. Todo isto corre no VPS
 
 ## 0. O que che fai falla antes de empezar
 
-- **API key de Anthropic** (console.anthropic.com — non vale unha
-  subscrición Claude Max, iso precisa navegador e este é un servidor
-  headless).
+- **API key de OpenRouter** (openrouter.ai/settings/keys — con $0 de crédito
+  xa chega para este bot, ver [`deploy/.env.example`](deploy/.env.example)).
+  Confirma nese momento que o modelo `:free` posto en
+  [`deploy/config.yaml`](deploy/config.yaml) segue existindo — o catálogo
+  gratis rota.
 - **Token de bot de Telegram novo**, de @BotFather (`/newbot`). Non
   reutilices o de `anti-bot-telegram`: xa está a facer outra cousa
   (verificación anti-spam de grupos) e un token só pode ter un proceso
