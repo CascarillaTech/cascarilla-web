@@ -92,7 +92,7 @@ const feeSlug = (name) => name.toLowerCase();
                         </label>
                     </div>
 
-                    <button type="submit" id="btn-submit">Enviar solicitude de alta</button>
+                    <button type="submit" id="btn-submit" disabled>Enviar solicitude de alta</button>
                     <div class="form-footer" id="form-msg">Os teus datos irán directamente á nosa xestión de socios.</div>
                 </form>
 
@@ -119,6 +119,15 @@ const feeSlug = (name) => name.toLowerCase();
         const dialog = document.getElementById("success-dialog");
         const dialogClose = document.getElementById("success-dialog-close");
         let dialogTimeout = null;
+
+        // O botón só se activa cos dous checks de termos e privacidade marcados.
+        const termsCheckbox = form.terms;
+        const privacyCheckbox = form.privacy;
+        const actualizarBoton = () => {
+            btn.disabled = !(termsCheckbox.checked && privacyCheckbox.checked);
+        };
+        termsCheckbox.addEventListener("change", actualizarBoton);
+        privacyCheckbox.addEventListener("change", actualizarBoton);
 
         if (dialog) {
             dialogClose?.addEventListener("click", () => dialog.close());
@@ -163,7 +172,9 @@ const feeSlug = (name) => name.toLowerCase();
                 msg.textContent = "Houbo un problema ao enviar. Téntao de novo ou escribe a asociacion@cascarillatech.org.";
                 msg.classList.add("form-msg-error");
             } finally {
-                btn.disabled = false;
+                // Tras un envío correcto, form.reset() desmarca os checks — o botón
+                // ten que volver quedar desactivado ata que se marquen outra vez.
+                actualizarBoton();
                 btn.textContent = "Enviar solicitude de alta";
             }
         });
