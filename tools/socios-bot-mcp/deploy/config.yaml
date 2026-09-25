@@ -62,6 +62,14 @@ agent:
     - discord_admin
     - debugging
 
+telegram:
+  # Desactivado por defecto en Hermes. Con isto activo, o bot marca cada
+  # mensaxe cunha reacción 👀 en canto empeza a procesala, e a cambia por
+  # 👍/👎 cando remata — así queda claro que está a facer algo mentres
+  # espera resposta do modelo (pode tardar, sobre todo se ten que probar
+  # varios modelos de fallback).
+  reactions: true
+
 mcp_servers:
   socios:
     command: "node"

@@ -114,7 +114,11 @@ Accións actuais:
 | Acción | Como se chama | Que devolve |
 |---|---|---|
 | Consultar un socio | `?token=...&email=...` | Os datos dese socio (nº, fecha, cota, prezo, estado), ou `null` se non existe |
-| Listar por estado | `?token=...&estado=Pendente\|Pendente ingreso\|Confirmado` | Lista de `{nome, nome_completo, estado}` — **sen email nin cota**, porque calquera pode pedir isto, non só a propia persoa |
+| Listar (todos) | `?token=...&listar=1` | Lista de `{nome, nome_completo, estado}` de TÓDOLOS os socios |
+| Listar por estado | `?token=...&listar=1&estado=Pendente\|Pendente ingreso\|Confirmado` | O mesmo, filtrado a ese estado exacto |
+
+A listaxe (con ou sen filtro) **nunca devolve email nin cota**, porque
+calquera pode pedir isto, non só a propia persoa.
 
 Para activalo:
 

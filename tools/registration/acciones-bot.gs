@@ -15,13 +15,16 @@
  *
  * Accións dispoñibles (engadir aquí as novas a medida que o bot medre):
  *
- *   ?token=...&email=...   → consulta se ESE email é socio (consultar_socio)
- *   ?token=...&estado=...  → lista socios con ESE Estado exacto (listar_socios)
- *                             "Pendente" / "Pendente ingreso" / "Confirmado".
- *                             Só devolve nome, nome completo e estado — sen
- *                             email nin cota, porque esta consulta está
- *                             aberta a calquera que escriba ao bot, non só
- *                             á propia persoa.
+ *   ?token=...&email=...            → consulta se ESE email é socio (consultar_socio)
+ *   ?token=...&listar=1             → lista TÓDOLOS socios (listar_socios, sen filtro)
+ *   ?token=...&listar=1&estado=...  → lista socios con ESE Estado exacto
+ *                                      "Pendente" / "Pendente ingreso" / "Confirmado".
+ *                                      A listaxe (con ou sen filtro) só
+ *                                      devolve nome, nome completo e estado
+ *                                      — sen email nin cota, porque esta
+ *                                      consulta está aberta a calquera que
+ *                                      escriba ao bot, non só á propia
+ *                                      persoa.
  */
 
 function doGet(e) {
@@ -32,10 +35,11 @@ function doGet(e) {
   }
 
   const email = (e.parameter.email || "").trim().toLowerCase();
+  const listar = !!e.parameter.listar;
   const estado = (e.parameter.estado || "").trim();
 
-  if (!email && !estado) {
-    return respuesta({ ok: false, error: "Fai falla o parámetro email ou estado." });
+  if (!email && !listar) {
+    return respuesta({ ok: false, error: "Fai falla o parámetro email ou listar." });
   }
 
   const hoja = obtenerOCrearHoja();
@@ -65,12 +69,12 @@ function doGet(e) {
     });
   }
 
-  // Listaxe por estado
+  // Listaxe, con ou sen filtro de estado
   if (numFilas <= 0) return respuesta({ ok: true, socios: [] });
 
   const filas = hoja.getRange(2, 1, numFilas, 9).getValues();
   const socios = filas
-    .filter(function (f) { return String(f[8]).trim() === estado; })
+    .filter(function (f) { return !estado || String(f[8]).trim() === estado; })
     .map(function (f) {
       return { nombre: f[3], nombre_completo: f[4], estado: f[8] };
     });

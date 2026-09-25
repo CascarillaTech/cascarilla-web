@@ -3,10 +3,10 @@
  *
  * Expón dúas tools que consultan o doGet do Apps Script de
  * tools/registration/acciones-bot.gs: `consultar_socio` (por email) e
- * `listar_socios` (por estado — aberta a calquera, por iso só devolve nome
- * e estado, nunca email). Pensado para ser lanzado por Hermes Agent coma un
- * subproceso local (transporte stdio), non coma un servidor HTTP
- * independente.
+ * `listar_socios` (tódolos socios, ou filtrados por estado — aberta a
+ * calquera, por iso só devolve nome e estado, nunca email). Pensado para
+ * ser lanzado por Hermes Agent coma un subproceso local (transporte
+ * stdio), non coma un servidor HTTP independente.
  *
  * Variables de entorno requiridas (ver .env.example):
  *   APPS_SCRIPT_URL — a URL "/exec" da implementación do Apps Script.
@@ -82,16 +82,21 @@ const ESTADOS_VALIDOS = ["Pendente", "Pendente ingreso", "Confirmado"];
 
 server.tool(
   "listar_socios",
-  "Lista os socios que teñen un Estado exacto (Pendente, Pendente ingreso " +
-    "ou Confirmado). Devolve só nome, nome completo e estado — nunca email " +
+  "Lista socios. Sen o parámetro estado, lista TÓDOLOS socios; con el, só " +
+    "os que teñan ese Estado exacto (Pendente, Pendente ingreso ou " +
+    "Confirmado). Devolve só nome, nome completo e estado — nunca email " +
     "nin cota, porque calquera persoa pode pedir isto, non só a propia.",
   {
-    estado: z.enum(ESTADOS_VALIDOS).describe("Estado exacto a filtrar")
+    estado: z
+      .enum(ESTADOS_VALIDOS)
+      .optional()
+      .describe("Estado exacto a filtrar; omitir para listar tódolos socios")
   },
   async ({ estado }) => {
     const url = new URL(APPS_SCRIPT_URL);
     url.searchParams.set("token", BOT_TOKEN);
-    url.searchParams.set("estado", estado);
+    url.searchParams.set("listar", "1");
+    if (estado) url.searchParams.set("estado", estado);
 
     let datos;
     try {
@@ -114,8 +119,9 @@ server.tool(
     }
 
     if (!datos.socios || datos.socios.length === 0) {
+      const descricion = estado ? `con estado "${estado}"` : "";
       return {
-        content: [{ type: "text", text: `Non hai ningún socio con estado "${estado}".` }]
+        content: [{ type: "text", text: `Non hai ningún socio ${descricion}.`.replace("  ", " ") }]
       };
     }
 
