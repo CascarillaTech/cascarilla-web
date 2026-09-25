@@ -8,10 +8,12 @@
 
 model:
   provider: openrouter
-  # Modelo gratis (sufixo ":free"). O catálogo gratis de OpenRouter rota, así
-  # que confirma o id vixente en https://openrouter.ai/models?max_price=0
-  # antes do primeiro arranque — non fíes deste valor sen comprobalo.
-  model: nvidia/nemotron-3-ultra-550b:free
+  # Modelo gratis (sufixo ":free"), verificado a man en openrouter.ai o
+  # 2026-09-25 — 27B, 262K contexto, pensado tamén para "long-running agent
+  # tasks". O catálogo gratis rota, así que confirma que segue existindo en
+  # https://openrouter.ai/models?max_price=0 antes do primeiro arranque.
+  # Alternativa tamén válida se este desaparece: nvidia/nemotron-3-ultra-550b-a55b:free
+  model: qwen/qwen3.8-27b:free
 
 agent:
   # Bloquea todo o que este bot NON necesita. É un bot de cara ao público
