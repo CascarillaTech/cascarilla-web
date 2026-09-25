@@ -11,6 +11,14 @@
 # E montar este cartafol (tools/socios-bot-mcp) nalgún sitio accesible, p.ex.
 # clonando/copiando o repo a /home/alberto/server/apps/socios-bot-mcp — o
 # volume de abaixo asume ese camiño, axústao se usas outro.
+#
+# OLLO — comprobado en despregue real: nesta imaxe Docker NON existen
+# subcartafoles por perfil dentro de /opt/data. O propio /opt/data (a raíz
+# do volume) XA é o perfil — Hermes xera aí mesmo o seu config.yaml, SOUL.md,
+# auth.json, etc. na primeira arrancada. NON crees un subcartafol "socios/"
+# dentro do volume — vai todo á raíz. Por iso non hai HERMES_PROFILE aquí
+# embaixo: como cada contedor ten o seu propio volume illado, xa abonda con
+# iso para illar este bot de calquera outro Hermes que corras noutro sitio.
 
   hermes-socios:
     image: nousresearch/hermes-agent:latest
@@ -25,10 +33,13 @@
     # arrincaría co token equivocado (o do bot anti-spam).
     env_file: .env
     environment:
-      - HERMES_PROFILE=socios
-      - PUID=1000
-      - PGID=1000
+      - PUID=1001
+      - PGID=1001
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN_CASCARILLA_ADMIN}
+      # Sen isto, Hermes ignora a calquera que escriba (política de
+      # emparellamento por defecto). O bot ten que responder a calquera
+      # (decisión do usuario para listar_socios), así que se abre.
+      - GATEWAY_ALLOW_ALL_USERS=true
     volumes:
       - hermes_socios_data:/opt/data
       - ./apps/socios-bot-mcp:/opt/socios-bot-mcp:ro

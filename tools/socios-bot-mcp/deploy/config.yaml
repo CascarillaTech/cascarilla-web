@@ -1,6 +1,8 @@
-# Copiar a ~/.hermes/socios/config.yaml dentro do contedor (é dicir, no
-# volume hermes_socios_data, baixo o perfil "socios" — HERMES_PROFILE=socios
-# xa está fixado no docker-compose.snippet.yml).
+# Copiar á RAÍZ do volume hermes_socios_data — /opt/data/config.yaml dentro
+# do contedor (NON nun subcartafol "socios/"; verificado en despregue real
+# que esta imaxe non usa subcartafoles por perfil, o propio /opt/data xa é
+# o perfil). Sobrescribe o config.yaml que Hermes xera automaticamente na
+# primeira arrancada.
 #
 # Verificar os nomes exactos de toolsets con `hermes tools` antes do primeiro
 # arranque real — esta lista sae da documentación pero pode variar de
