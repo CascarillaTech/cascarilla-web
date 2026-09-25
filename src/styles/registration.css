@@ -195,6 +195,47 @@
 #form-msg.form-msg-error { color: var(--color-primary); font-weight: bold; }
 #form-msg.form-msg-ok { color: var(--color-secondary); font-weight: bold; }
 
+/* --- Popup de confirmación de envío --- */
+.success-dialog {
+    position: relative;
+    max-width: 26rem;
+    width: calc(100% - 2rem);
+    border: 0;
+    border-radius: 8px;
+    padding: 2.25rem 1.75rem 1.75rem;
+    box-shadow: 0 4px 24px var(--color-shadow);
+    color: var(--color-text-main);
+    background-color: var(--color-white);
+    text-align: center;
+}
+
+.success-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.success-dialog p {
+    margin: 0;
+    font-weight: bold;
+    color: var(--color-secondary);
+}
+
+.success-dialog-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.6rem;
+    background: none;
+    border: 0;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+}
+
+.success-dialog-close:hover {
+    color: var(--color-primary);
+}
+
 /* --- Admisión pechada: mesma caixa que xa existe en /membership --- */
 .registration-closed-box {
     background-color: var(--color-bg-main);

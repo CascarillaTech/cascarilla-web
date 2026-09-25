@@ -95,6 +95,11 @@ const feeSlug = (name) => name.toLowerCase();
                     <button type="submit" id="btn-submit">Enviar solicitude de alta</button>
                     <div class="form-footer" id="form-msg">Os teus datos irán directamente á nosa xestión de socios.</div>
                 </form>
+
+                <dialog id="success-dialog" class="success-dialog">
+                    <button type="button" id="success-dialog-close" class="success-dialog-close" aria-label="Pechar">&times;</button>
+                    <p>Solicitude enviada correctamente. Confirmarémosche a alta por correo.</p>
+                </dialog>
             </>
         )}
 
@@ -111,6 +116,17 @@ const feeSlug = (name) => name.toLowerCase();
         const btn = document.getElementById("btn-submit");
         const msg = document.getElementById("form-msg");
         const msgDefault = msg.textContent;
+        const dialog = document.getElementById("success-dialog");
+        const dialogClose = document.getElementById("success-dialog-close");
+        let dialogTimeout = null;
+
+        if (dialog) {
+            dialogClose?.addEventListener("click", () => dialog.close());
+            // Se a persoa a pecha a man antes dos 15s, cancela o autopeche pendente.
+            dialog.addEventListener("close", () => {
+                if (dialogTimeout) clearTimeout(dialogTimeout);
+            });
+        }
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -138,6 +154,11 @@ const feeSlug = (name) => name.toLowerCase();
                 msg.textContent = "Solicitude enviada correctamente. Confirmarémosche a alta por correo.";
                 msg.classList.add("form-msg-ok");
                 form.reset();
+
+                if (dialog) {
+                    dialog.showModal();
+                    dialogTimeout = setTimeout(() => dialog.close(), 15000);
+                }
             } catch (err) {
                 msg.textContent = "Houbo un problema ao enviar. Téntao de novo ou escribe a asociacion@cascarillatech.org.";
                 msg.classList.add("form-msg-error");
