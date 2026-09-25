@@ -99,6 +99,22 @@ Configuración do proxecto (icona engrenaxe) > Propiedades do script:
 | `TITULO_EMAIL_DATOS` | Asunto real co que se envía o correo DATOS |
 | `TITULO_EMAIL_ALTA` | Asunto real co que se envía o correo ALTA |
 | `TITULO_EMAIL_BENVIDA` | Asunto real co que se envía o correo BENVIDA |
+| `TELEGRAM_BOT_TOKEN` | Token do bot (@CascarillaTechAdminBot), para avisar de altas novas |
+| `TELEGRAM_ADMIN_CHAT_ID` | O teu chat_id numérico de Telegram |
+
+## Aviso de alta nova por Telegram
+
+Cada vez que alguén envía o formulario público, `avisarTelegramNovaAlta()`
+(en [`acciones-bot.gs`](acciones-bot.gs), chamada dende `doPost` en
+`alta.gs`) manda unha mensaxe a `TELEGRAM_ADMIN_CHAT_ID` coa API de
+Telegram directamente — non depende de que Hermes estea funcionando. Se
+falta calquera das dúas Propiedades do script, simplemente non manda nada
+(non rompe a alta).
+
+Para sacar o teu chat_id: fálalle ao bot polo menos unha vez e mira
+`/opt/data/channel_directory.json` dentro do contedor `hermes-socios` do
+VPS (`docker exec hermes-socios cat /opt/data/channel_directory.json`), ou
+pídello a @userinfobot en Telegram.
 
 ## Accións do bot (acciones-bot.gs / doGet)
 

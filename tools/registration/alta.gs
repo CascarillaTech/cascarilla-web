@@ -79,6 +79,14 @@ function doPost(e) {
       avisarAdmin(`Non se puido enviar o correo de confirmación de datos a ${datos.email} (alta nº ${numeroSocio}): ${err.message}`);
     }
 
+    // Aviso por Telegram (definida en acciones-bot.gs). Se falla, non
+    // tombamos a alta — xa está gardada.
+    try {
+      avisarTelegramNovaAlta(datos, numeroSocio);
+    } catch (err) {
+      avisarAdmin(`Non se puido avisar por Telegram da alta nº ${numeroSocio}: ${err.message}`);
+    }
+
     return respuesta({ ok: true, numeroSocio });
   } catch (err) {
     return respuesta({ ok: false, error: err.message });

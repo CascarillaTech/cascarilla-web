@@ -13,6 +13,13 @@
  * valor que lle pasarás tamén ao servidor MCP (variable BOT_TOKEN no seu
  * .env). Sen esa propiedade configurada, doGet rexeita todas as peticións.
  *
+ * Tamén ten avisarTelegramNovaAlta(), que chama alta.gs (doPost) cando
+ * entra unha alta nova — manda un aviso por Telegram directamente coa API
+ * de Telegram (non fai falla pasar por Hermes para isto). Require dúas
+ * Propiedades do script máis: TELEGRAM_BOT_TOKEN (o token do bot, o mesmo
+ * que usa Hermes) e TELEGRAM_ADMIN_CHAT_ID (o teu chat_id numérico). Se
+ * calquera das dúas falta, non fai nada (non rompe a alta).
+ *
  * Accións dispoñibles (engadir aquí as novas a medida que o bot medre):
  *
  *   ?token=...&email=...            → consulta se ESE email é socio (consultar_socio)
@@ -80,4 +87,26 @@ function doGet(e) {
     });
 
   return respuesta({ ok: true, socios: socios });
+}
+
+// Aviso por Telegram de que entrou unha alta nova. Chámao doPost en
+// alta.gs, xusto despois de gardar a fila. Usa a API de Telegram
+// directamente (UrlFetchApp), non depende de que Hermes estea funcionando.
+function avisarTelegramNovaAlta(datos, numeroSocio) {
+  const token = PropertiesService.getScriptProperties().getProperty("TELEGRAM_BOT_TOKEN");
+  const chatId = PropertiesService.getScriptProperties().getProperty("TELEGRAM_ADMIN_CHAT_ID");
+  if (!token || !chatId) return; // non configurado — non facer nada
+
+  const texto =
+    "🆕 Nova alta de socio (nº " + numeroSocio + ")\n" +
+    datos.nombre_completo + "\n" +
+    datos.email + "\n" +
+    "Cota: " + datos.membership;
+
+  UrlFetchApp.fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
+    method: "post",
+    contentType: "application/json",
+    payload: JSON.stringify({ chat_id: chatId, text: texto }),
+    muteHttpExceptions: true
+  });
 }
