@@ -17,11 +17,18 @@
     container_name: hermes-socios
     restart: unless-stopped
     command: gateway run
+    # OLLO: env_file: .env inxecta TAMÉN o TELEGRAM_BOT_TOKEN de
+    # anti-bot-telegram (comparten o mesmo .env). Hermes espera a variable
+    # chamada literalmente TELEGRAM_BOT_TOKEN, así que hai que
+    # sobrescribila explicitamente aquí abaixo co valor correcto
+    # (TELEGRAM_BOT_TOKEN_CASCARILLA_ADMIN), senón o bot de socios
+    # arrincaría co token equivocado (o do bot anti-spam).
     env_file: .env
     environment:
       - HERMES_PROFILE=socios
       - PUID=1000
       - PGID=1000
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN_CASCARILLA_ADMIN}
     volumes:
       - hermes_socios_data:/opt/data
       - ./apps/socios-bot-mcp:/opt/socios-bot-mcp:ro
