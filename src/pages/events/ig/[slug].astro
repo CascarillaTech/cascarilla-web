@@ -9,7 +9,7 @@
 // todo é fluxo normal centrado).
 import '../../../styles/poster.css';
 import '../../../styles/poster-story.css';
-import { eventStaticPaths, deriveEventPosterData, resolveSpeakerImage } from '../../../lib/eventPoster';
+import { eventStaticPaths, deriveEventPosterData, resolveSpeakerImage, DEFAULT_SPEAKER_SLOT } from '../../../lib/eventPoster';
 import { computePosterRenderDuration } from '../../../lib/posterTiming';
 
 export async function getStaticPaths() {
@@ -29,6 +29,7 @@ const hexMargin = -(hexSize - circleD) / 2;
 
 const TYPE_CHAR_DELAY_MS = 33;
 const titleChars = Array.from(event.name as string);
+const subtitleChars = event.subtitle ? Array.from(event.subtitle as string) : [];
 const footerDateChars = Array.from(footerDate);
 const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
 
@@ -37,6 +38,7 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
 const renderDuration = computePosterRenderDuration({
     titleLength: titleChars.length,
     underlineDuration: 0.46,
+    subtitleLength: subtitleChars.length,
     speakers: speakers.map((sp: any) => ({
         nameLength: Array.from(sp.name as string).length,
         roleLength: Array.from(sp.role as string).length,
@@ -84,35 +86,39 @@ const renderDuration = computePosterRenderDuration({
             <div class="story-underline" id="poster-underline"></div>
         </div>
 
+        {subtitleChars.length > 0 && (
+            <p class="story-subtitle" id="poster-subtitle">
+                {subtitleChars.map((ch: string, i: number) => (
+                    <span class="tw-char" style={`transition-delay:${i * TYPE_CHAR_DELAY_MS}ms`}>{ch}</span>
+                ))}
+            </p>
+        )}
+
         <div class="story-speakers" id="poster-speakers">
             {speakers.map((sp: any, spIdx: number) => (
                 <div class="story-speaker">
-                    <div
-                        class={`poster-speaker--${sp.shape === 'square' ? 'square' : 'circle'}`}
-                    >
+                    <div class="poster-speaker--square">
                         <div
                             class="poster-speaker-frame"
-                            style={sp.shape === 'square'
-                                ? `width:${hexSize}px;height:${hexSize}px;margin:${hexMargin}px;`
-                                : `width:${circleD}px;height:${circleD}px;`}
+                            style={`width:${hexSize}px;height:${hexSize}px;margin:${hexMargin}px;`}
                         >
-                            {sp.shape === 'square' ? (
-                                <div class="poster-speaker-frame-inner">
+                            <div class="poster-speaker-frame-inner">
+                                {sp.image === DEFAULT_SPEAKER_SLOT.image ? (
                                     <img
                                         class="poster-speaker-photo"
                                         style={`width:${circleD}px;height:${circleD}px;`}
                                         src={resolveSpeakerImage(sp)}
                                         alt={sp.name}
                                     />
-                                </div>
-                            ) : (
-                                <img
-                                    class="poster-speaker-photo"
-                                    style={`width:${circleD}px;height:${circleD}px;`}
-                                    src={resolveSpeakerImage(sp)}
-                                    alt={sp.name}
-                                />
-                            )}
+                                ) : (
+                                    <img
+                                        class="poster-speaker-photo"
+                                        style={`width:${hexSize}px;height:${hexSize}px;`}
+                                        src={resolveSpeakerImage(sp)}
+                                        alt={sp.name}
+                                    />
+                                )}
+                            </div>
                         </div>
                     </div>
                     <p class="story-speaker-name" id={`poster-speaker-name-${spIdx}`}>
@@ -261,6 +267,8 @@ const renderDuration = computePosterRenderDuration({
             tl.to(underlineWrap, { width: geo.hlWidth, duration: UNDERLINE_DURATION, ease: 'power2.inOut' }, t);
         }
         t += UNDERLINE_DURATION;
+
+        t = addTypeStagger(tl, document.getElementById('poster-subtitle'), t);
 
         for (const card of Array.from(document.querySelectorAll('.story-speaker'))) {
             tl.to(card, { opacity: 1, duration: SPEAKER_FADE_DURATION }, t);

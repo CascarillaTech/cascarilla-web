@@ -123,6 +123,18 @@
     visibility: hidden;
 }
 
+/* Subtítulo, xusto debaixo do subrayado — metade do tamaño de letra do
+   título (76px / 2 = 38px). Sen posicionamento en JS: vai en fluxo normal,
+   centrado polo flex de .story-main coma o resto do bloque de cabeceira. */
+.story-subtitle {
+    width: 900px;
+    margin: 20px 0 0;
+    text-align: center;
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--poster-dark);
+}
+
 .story-underline {
     position: relative;
     left: 0;

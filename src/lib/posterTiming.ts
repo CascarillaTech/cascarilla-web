@@ -54,6 +54,7 @@ export interface PosterSpeakerTiming {
 export interface PosterTimingInput {
     titleLength: number;
     underlineDuration: number;
+    subtitleLength: number;
     speakers: PosterSpeakerTiming[];
     sponsorsCount: number;
     footerDateLength: number;
@@ -64,6 +65,7 @@ export interface PosterTimingInput {
 export function computePosterAnimationDuration(input: PosterTimingInput): number {
     let t = typeStaggerChainDuration(input.titleLength);
     t += input.underlineDuration;
+    t += typeStaggerChainDuration(input.subtitleLength);
 
     for (const sp of input.speakers) {
         const speakerStart = t;

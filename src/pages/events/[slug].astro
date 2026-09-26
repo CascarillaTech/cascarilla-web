@@ -5,7 +5,7 @@
 // tanto a imaxe coma o vídeo do evento (ver poster.css e
 // ~/.claude/skills/publish-event/references/poster-design.md).
 import '../../styles/poster.css';
-import { eventStaticPaths, deriveEventPosterData, resolveSpeakerImage } from '../../lib/eventPoster';
+import { eventStaticPaths, deriveEventPosterData, resolveSpeakerImage, DEFAULT_SPEAKER_SLOT } from '../../lib/eventPoster';
 import { computePosterRenderDuration } from '../../lib/posterTiming';
 
 export async function getStaticPaths() {
@@ -47,6 +47,7 @@ const bandCy = 630 - 80 - 46;
 // split('') para non partir mal os caracteres compostos/acentos. ---
 const TYPE_CHAR_DELAY_MS = 33;
 const titleChars = Array.from(event.name as string);
+const subtitleChars = event.subtitle ? Array.from(event.subtitle as string) : [];
 const footerDateChars = Array.from(footerDate);
 const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
 
@@ -55,6 +56,7 @@ const footerVenueChars = footerVenue ? Array.from(footerVenue) : [];
 const renderDuration = computePosterRenderDuration({
     titleLength: titleChars.length,
     underlineDuration: 0.4,
+    subtitleLength: subtitleChars.length,
     speakers: speakers.map((sp: any) => ({
         nameLength: Array.from(sp.name as string).length,
         roleLength: Array.from(sp.role as string).length,
@@ -101,36 +103,49 @@ const renderDuration = computePosterRenderDuration({
         <div class="poster-title-underline" id="poster-underline"></div>
     </div>
 
+    {subtitleChars.length > 0 && (
+        <p class="poster-subtitle" id="poster-subtitle" style={`left:${titleLeft}px;width:${titleMaxW}px`}>
+            {subtitleChars.map((ch: string, i: number) => (
+                <span class="tw-char" style={`transition-delay:${i * TYPE_CHAR_DELAY_MS}ms`}>{ch}</span>
+            ))}
+        </p>
+    )}
+
     <div
         class="poster-speakers"
         id="poster-speakers"
         style={`left:${speakersLeftEdge}px; width:${blockW}px; gap:${speakerGap}px;`}
     >
         {speakers.map((sp: any, spIdx: number) => (
-            <div class={`poster-speaker poster-speaker--${sp.shape === 'square' ? 'square' : 'circle'} ${circleD < 130 ? 'poster-speaker--small' : ''}`}>
+            <div class={`poster-speaker poster-speaker--square ${circleD < 130 ? 'poster-speaker--small' : ''}`}>
                 <div
                     class="poster-speaker-frame"
-                    style={sp.shape === 'square'
-                        ? `width:${hexSize}px;height:${hexSize}px;margin:${hexMargin}px;`
-                        : `width:${circleD}px;height:${circleD}px;`}
+                    style={`width:${hexSize}px;height:${hexSize}px;margin:${hexMargin}px;`}
                 >
-                    {sp.shape === 'square' ? (
-                        <div class="poster-speaker-frame-inner">
+                    <div class="poster-speaker-frame-inner">
+                        {sp.image === DEFAULT_SPEAKER_SLOT.image ? (
+                            // O logo por defecto vai máis pequeno cás puntas do
+                            // hexágono para que estas non o recorten (ten
+                            // información importante ata os bordos).
                             <img
                                 class="poster-speaker-photo"
                                 style={`width:${circleD}px;height:${circleD}px;`}
                                 src={resolveSpeakerImage(sp)}
                                 alt={sp.name}
                             />
-                        </div>
-                    ) : (
-                        <img
-                            class="poster-speaker-photo"
-                            style={`width:${circleD}px;height:${circleD}px;`}
-                            src={resolveSpeakerImage(sp)}
-                            alt={sp.name}
-                        />
-                    )}
+                        ) : (
+                            // Unha foto real de persoa cobre TODO o hexágono
+                            // (recórtase nas puntas coma calquera foto recortada
+                            // en círculo/cadrado) — se non, vense ocos do fondo
+                            // crema nas puntas.
+                            <img
+                                class="poster-speaker-photo"
+                                style={`width:${hexSize}px;height:${hexSize}px;`}
+                                src={resolveSpeakerImage(sp)}
+                                alt={sp.name}
+                            />
+                        )}
+                    </div>
                 </div>
                 <p class="poster-speaker-name" id={`poster-speaker-name-${spIdx}`}>
                     {Array.from(sp.name as string).map((ch: string, i: number) => (
@@ -205,6 +220,7 @@ const renderDuration = computePosterRenderDuration({
     const HL_MARGIN = 18;
     const HL_THICKNESS = 12;
     const HL_GAP = 34;
+    const SUBTITLE_GAP = 20;
 
     // Todo o "typing" (letra a letra) usa os mesmos números en segundos.
     const CHAR_STAGGER = 0.033; // separación entre letras (33ms, igual có deseño orixinal)
@@ -276,6 +292,11 @@ const renderDuration = computePosterRenderDuration({
             underline.style.width = `${hlWidth}px`;
             underline.style.height = `${HL_THICKNESS}px`;
 
+            const subtitle = document.getElementById('poster-subtitle');
+            if (subtitle) {
+                subtitle.style.top = `${hlY + HL_THICKNESS / 2 + SUBTITLE_GAP}px`;
+            }
+
             if (speakers) {
                 const titleTop = rects[0].top - posterRect.top;
                 const titleBottom = lastRect.bottom - posterRect.top;
@@ -324,6 +345,9 @@ const renderDuration = computePosterRenderDuration({
             tl.to(underlineWrap, { width: geo.hlWidth, duration: UNDERLINE_DURATION, ease: 'power2.inOut' }, t);
         }
         t += UNDERLINE_DURATION;
+
+        // Subtítulo, xusto despois do subrayado.
+        t = addTypeStagger(tl, document.getElementById('poster-subtitle'), t);
 
         // Ponentes: foto/marco con fade-in á vez que empeza a escribirse
         // o seu nome; despois o cargo.
