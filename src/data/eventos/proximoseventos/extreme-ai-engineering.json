@@ -1,6 +1,6 @@
 {
     "specVersion": "0.3.0",
-    "id": "https://www.corunajug.org/events/extreme-ai-engineering-2026-11-29",
+    "id": "https://www.corunajug.org/events/extreme-ai-engineering-2026-10-29",
     "url": "https://www.eventbrite.es/e/extreme-ai-engineering-tickets-2002328209576",
     "name": "Extreme AI engineering",
     "subtitle": "Abrazando el cambio al calor de los tokens",
@@ -8,8 +8,8 @@
     "image": [
         "https://www.corunajug.org/img/talks/extreme-ai-engineering.png"
     ],
-    "startDate": "2026-11-29T19:30",
-    "endDate": "2026-11-29T21:30",
+    "startDate": "2026-10-29T19:30",
+    "endDate": "2026-10-29T21:30",
     "timezone": "Europe/Madrid",
     "attendanceMode": "in-person",
     "location": {
@@ -39,8 +39,8 @@
             "name": "Apertura de portas",
             "description": "Recepción dos asistentes.",
             "type": "doors-open",
-            "startDate": "2026-11-29T19:15",
-            "endDate": "2026-11-29T19:30",
+            "startDate": "2026-10-29T19:15",
+            "endDate": "2026-10-29T19:30",
             "timezone": "Europe/Madrid"
         },
         {
@@ -48,8 +48,8 @@
             "name": "Charla: Extreme AI engineering",
             "description": "Roberto Sócrates (CTO @ VSDron): Abrazando el cambio al calor de los tokens.",
             "type": "talk",
-            "startDate": "2026-11-29T19:30",
-            "endDate": "2026-11-29T21:00",
+            "startDate": "2026-10-29T19:30",
+            "endDate": "2026-10-29T21:00",
             "timezone": "Europe/Madrid"
         },
         {
@@ -57,8 +57,8 @@
             "name": "Despedida",
             "description": "Peche do evento e agradecementos.",
             "type": "closing",
-            "startDate": "2026-11-29T21:00",
-            "endDate": "2026-11-29T21:30",
+            "startDate": "2026-10-29T21:00",
+            "endDate": "2026-10-29T21:30",
             "timezone": "Europe/Madrid"
         },
         {
@@ -66,8 +66,8 @@
             "name": "Pechamos portas",
             "description": "Fin do evento.",
             "type": "doors-close",
-            "startDate": "2026-11-29T21:30",
-            "endDate": "2026-11-29T21:30",
+            "startDate": "2026-10-29T21:30",
+            "endDate": "2026-10-29T21:30",
             "timezone": "Europe/Madrid"
         }
     ]
