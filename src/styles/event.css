@@ -410,6 +410,22 @@
     background-color: var(--color-secondary);
 }
 
+.ticket-member-note {
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+.ticket-member-note a {
+    color: var(--color-primary);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.ticket-member-note a:hover {
+    text-decoration: underline;
+}
+
 /* ---------- Móvil ---------- */
 @media (max-width: 30rem) {
     .agenda-acc-trigger {
