@@ -27,6 +27,10 @@ const HEX_SCALE = 1.18;
 const hexSize = circleD * HEX_SCALE;
 const hexMargin = -(hexSize - circleD) / 2;
 
+// Ver a mesma explicación en ../[slug].astro: sen isto, un speakerScale
+// grande fai que o marco pinte por riba do nome (marxe superior fixa en CSS).
+const speakerNameGap = Math.max(26, Math.ceil(-hexMargin) + 4);
+
 const TYPE_CHAR_DELAY_MS = 33;
 const titleChars = Array.from(event.name as string);
 const subtitleChars = event.subtitle ? Array.from(event.subtitle as string) : [];
@@ -113,7 +117,7 @@ const renderDuration = computePosterRenderDuration({
                                 ) : (
                                     <img
                                         class="poster-speaker-photo"
-                                        style={`width:${hexSize}px;height:${hexSize}px;`}
+                                        style={`width:${hexSize * (sp.imageScale ?? 1)}px;height:${hexSize * (sp.imageScale ?? 1)}px;`}
                                         src={resolveSpeakerImage(sp)}
                                         alt={sp.name}
                                     />
@@ -121,7 +125,7 @@ const renderDuration = computePosterRenderDuration({
                             </div>
                         </div>
                     </div>
-                    <p class="story-speaker-name" id={`poster-speaker-name-${spIdx}`}>
+                    <p class="story-speaker-name" id={`poster-speaker-name-${spIdx}`} style={`margin-top:${speakerNameGap}px`}>
                         {Array.from(sp.name as string).map((ch: string, i: number) => (
                             <span class="tw-char" style={`transition-delay:${i * TYPE_CHAR_DELAY_MS}ms`}>{ch}</span>
                         ))}

@@ -30,9 +30,9 @@
     "status": "scheduled",
     "license": "CC-BY-4.0",
     "speakers": [
-        { "name": "Cascarilla Tech", "role": "Organizador", "image": "cascarillatech-icon.svg" }
+        { "name": "Cascarilla Tech", "role": "Organizador", "image": "cascarillatech-icon.svg", "imageScale": 0.8 }
     ],
-    "speakerScale": 1.5,
+    "speakerScale": 1.35,
     "agenda": [
         {
             "time": "9:00",

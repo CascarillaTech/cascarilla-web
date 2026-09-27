@@ -33,6 +33,12 @@ const HEX_SCALE = 1.18;
 const hexSize = circleD * HEX_SCALE;
 const hexMargin = -(hexSize - circleD) / 2;
 
+// A marxe negativa fai que o marco pinte máis aló da súa caixa de layout
+// (hexMargin px arriba/abaixo) — se iso supera a marxe superior fixa do
+// nome (12px en CSS), o nome queda tapado polo marco. Calculado aquí para
+// que se adapte a calquera speakerScale, non só a un valor fixo.
+const speakerNameGap = Math.max(12, Math.ceil(-hexMargin) + 4);
+
 // --- Ancho dispoñible para o título antes de chocar cos ponentes ---
 const titleLeft = 90;
 const titleGapBeforeSpeakers = 40;
@@ -137,17 +143,20 @@ const renderDuration = computePosterRenderDuration({
                             // Unha foto real de persoa cobre TODO o hexágono
                             // (recórtase nas puntas coma calquera foto recortada
                             // en círculo/cadrado) — se non, vense ocos do fondo
-                            // crema nas puntas.
+                            // crema nas puntas. `imageScale` (opcional, por
+                            // defecto 1) permite encoller unha imaxe que non
+                            // sexa unha foto de persoa (p.ex. un logo) para que
+                            // caiba enteira sen que o recorte do hexágono a corte.
                             <img
                                 class="poster-speaker-photo"
-                                style={`width:${hexSize}px;height:${hexSize}px;`}
+                                style={`width:${hexSize * (sp.imageScale ?? 1)}px;height:${hexSize * (sp.imageScale ?? 1)}px;`}
                                 src={resolveSpeakerImage(sp)}
                                 alt={sp.name}
                             />
                         )}
                     </div>
                 </div>
-                <p class="poster-speaker-name" id={`poster-speaker-name-${spIdx}`}>
+                <p class="poster-speaker-name" id={`poster-speaker-name-${spIdx}`} style={`margin-top:${speakerNameGap}px`}>
                     {Array.from(sp.name as string).map((ch: string, i: number) => (
                         <span class="tw-char" style={`transition-delay:${i * TYPE_CHAR_DELAY_MS}ms`}>{ch}</span>
                     ))}
