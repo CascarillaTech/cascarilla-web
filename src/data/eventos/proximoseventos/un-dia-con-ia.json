@@ -32,7 +32,7 @@
     "speakers": [
         { "name": "Cascarilla Tech", "role": "Organizador", "image": "cascarillatech-icon.svg" }
     ],
-    "speakerScale": 2,
+    "speakerScale": 1.5,
     "agenda": [
         {
             "time": "9:00",
