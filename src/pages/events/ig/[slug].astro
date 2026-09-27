@@ -17,12 +17,12 @@ export async function getStaticPaths() {
 }
 
 const { event } = Astro.props;
-const { organizersLeft, footerDate, footerVenue, sponsors, speakers } = deriveEventPosterData(event);
+const { organizersLeft, footerDate, footerVenue, sponsors, speakers, speakerScale } = deriveEventPosterData(event);
 
 // --- Tamaño do marco do ponente (maior ca na horizontal — aquí é o
 // protagonista, debaixo do título, non un elemento lateral pequeno) ---
 const n = speakers.length;
-const circleD = n === 1 ? 220 : 170;
+const circleD = (n === 1 ? 220 : 170) * speakerScale;
 const HEX_SCALE = 1.18;
 const hexSize = circleD * HEX_SCALE;
 const hexMargin = -(hexSize - circleD) / 2;

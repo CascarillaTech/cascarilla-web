@@ -13,11 +13,11 @@ export async function getStaticPaths() {
 }
 
 const { event } = Astro.props;
-const { organizersLeft, footerDate, footerVenue, sponsors, speakers } = deriveEventPosterData(event);
+const { organizersLeft, footerDate, footerVenue, sponsors, speakers, speakerScale } = deriveEventPosterData(event);
 
 // --- Xeometría do bloque de ponentes (mesmas fórmulas que render_poster) ---
 const n = speakers.length;
-const circleD = n === 1 ? 140 : 110;
+const circleD = (n === 1 ? 140 : 110) * speakerScale;
 const speakerGap = n === 1 ? 50 : 70;
 const rightMargin = n === 1 ? 110 : 60;
 const blockW = n * circleD + (n - 1) * speakerGap;

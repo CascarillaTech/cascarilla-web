@@ -60,7 +60,14 @@ export function deriveEventPosterData(event: any) {
     const sponsors = (event.sponsors || []).map((s: any) => s.img.split('/').pop());
     const speakers = (event.speakers && event.speakers.length) ? event.speakers : [DEFAULT_SPEAKER_SLOT];
 
-    return { organizersLeft, footerDate, footerVenue, sponsors, speakers };
+    // Escala opcional do marco/foto do ponente (1 = tamaño estándar). Só a
+    // usa un evento que a declare explicitamente no seu JSON — non afecta
+    // a ningún outro evento por defecto.
+    const speakerScale = (typeof event.speakerScale === 'number' && event.speakerScale > 0)
+        ? event.speakerScale
+        : 1;
+
+    return { organizersLeft, footerDate, footerVenue, sponsors, speakers, speakerScale };
 }
 
 export function resolveSpeakerImage(sp: any) {
