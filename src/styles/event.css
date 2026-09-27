@@ -408,6 +408,8 @@
 
 .ticket-buy-btn:hover {
     background-color: var(--color-secondary);
+    color: var(--color-white);
+    font-weight: bold;
 }
 
 .ticket-member-note {

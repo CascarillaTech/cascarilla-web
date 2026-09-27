@@ -192,6 +192,8 @@
 
 .membership-cta:hover {
     background-color: var(--color-secondary);
+    color: var(--color-white);
+    font-weight: bold;
 }
 
 @media (max-width: 30rem) {
