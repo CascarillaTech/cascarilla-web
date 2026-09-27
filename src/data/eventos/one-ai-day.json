@@ -43,10 +43,11 @@
         }
     ],
     "price": {
-        "amount": "##",
+        "amount": "20",
         "currency": "€",
         "note": "O importe da entrada destínase integramente á comida, excluíndo os gastos de xestión de entradas e o IVE."
     },
+    "eventbriteUrl": "https://www.eventbrite.es/e/un-dia-con-ia-tickets-2002328703052",
     "agenda": [
         {
             "time": "9:00",

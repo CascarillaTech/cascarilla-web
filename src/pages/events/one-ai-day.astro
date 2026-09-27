@@ -144,8 +144,18 @@ const sponsors = evento.sponsors ?? [];
         <section class="event-section-block">
             <h2>Entradas</h2>
             <div class="tickets-box">
-                <p class="ticket-price">Entradas non dispoñibles de momento</p>
-                <p class="ticket-price-note">{evento.price.note}</p>
+                {evento.eventbriteUrl ? (
+                    <>
+                        <p class="ticket-price">Desde {evento.price.amount}{evento.price.currency}</p>
+                        <p class="ticket-price-note">{evento.price.note}</p>
+                        <a class="ticket-buy-btn" href={evento.eventbriteUrl} target="_blank" rel="noopener noreferrer">Merca a túa entrada</a>
+                    </>
+                ) : (
+                    <>
+                        <p class="ticket-price">Entradas non dispoñibles de momento</p>
+                        <p class="ticket-price-note">{evento.price.note}</p>
+                    </>
+                )}
             </div>
         </section>
 
