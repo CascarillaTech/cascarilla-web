@@ -81,7 +81,7 @@ const sponsors = evento.sponsors ?? [];
                                         <span class="agenda-titlewrap">
                                             <strong>{item.name}</strong>
                                             <span class="agenda-speaker-inline">
-                                                <img src={speakerPlaceholder} alt="" width="18" height="18" class="agenda-speaker-avatar" />
+                                                <img src={item.photo ?? speakerPlaceholder} alt="" width="18" height="18" class="agenda-speaker-avatar" />
                                                 Poñente: {item.speaker}
                                             </span>
                                         </span>
@@ -115,7 +115,7 @@ const sponsors = evento.sponsors ?? [];
                     const idx = agenda.indexOf(talk);
                     return (
                             <button type="button" class="talk-card talk-open-btn" data-talk-idx={idx}>
-                                <img src={speakerPlaceholder} alt="Foto de exemplo do/a poñente" />
+                                <img src={talk.photo ?? speakerPlaceholder} alt={talk.photo ? `Foto de ${talk.speaker}` : 'Foto de exemplo do/a poñente'} />
                                 <p class="talk-time">{talk.time}</p>
                                 <h3>{talk.name}</h3>
                                 <p class="talk-speaker">Poñente: {talk.speaker}</p>
@@ -168,11 +168,13 @@ const sponsors = evento.sponsors ?? [];
 
     <dialog id="talk-modal" class="talk-modal">
         <button type="button" class="talk-modal-close" aria-label="Pechar">✕</button>
-        <img id="talk-modal-img" src={speakerPlaceholder} alt="Foto de exemplo do/a poñente" />
+        <img id="talk-modal-img" src={speakerPlaceholder} data-placeholder={speakerPlaceholder} alt="Foto de exemplo do/a poñente" />
         <p class="talk-modal-time" id="talk-modal-time"></p>
         <h3 id="talk-modal-title"></h3>
         <p class="talk-modal-speaker" id="talk-modal-speaker"></p>
         <p id="talk-modal-desc"></p>
+        <p id="talk-modal-bio" class="talk-modal-bio" hidden></p>
+        <p id="talk-modal-links" class="talk-modal-links" hidden></p>
     </dialog>
 
 </Layout>
@@ -209,6 +211,26 @@ const sponsors = evento.sponsors ?? [];
             document.getElementById('talk-modal-time').textContent = talk.time;
             document.getElementById('talk-modal-speaker').textContent = 'Poñente: ' + (talk.speaker || 'TBA');
             document.getElementById('talk-modal-desc').textContent = talk.description || 'Descrición pendente de confirmar.';
+            const img = document.getElementById('talk-modal-img');
+            img.src = talk.photo || img.dataset.placeholder;
+            img.alt = talk.photo ? 'Foto de ' + talk.speaker : 'Foto de exemplo do/a poñente';
+
+            const bio = document.getElementById('talk-modal-bio');
+            bio.textContent = talk.bio || '';
+            bio.hidden = !talk.bio;
+
+            const links = document.getElementById('talk-modal-links');
+            links.replaceChildren();
+            (talk.links || []).forEach((l, i) => {
+                if (i > 0) links.append(' · ');
+                const a = document.createElement('a');
+                a.href = l.url;
+                a.textContent = l.label;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                links.append(a);
+            });
+            links.hidden = !(talk.links && talk.links.length);
             dialog.showModal();
         });
     });
