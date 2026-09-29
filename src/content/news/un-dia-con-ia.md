@@ -10,8 +10,10 @@ description: "O 21 de novembro celebramos Un día con IA, unha xornada de charla
 
 ## 📅 Cando e onde
 
-* **Data:** sábado 21 de novembro de 2026, de 9:00 a 18:30.
-* **Lugar:** oficinas de <a href="https://odeene.es/" target="_blank">Odeene</a>, na Cidade das TIC (A Coruña).
+<ul style="list-style: none; padding-left: 0;">
+<li><strong>Data:</strong> sábado 21 de novembro de 2026, de 9:00 a 18:30.</li>
+<li><strong>Lugar:</strong> oficinas de <a href="https://odeene.es/" target="_blank">Odeene</a>, na Cidade das TIC (A Coruña).</li>
+</ul>
 
 ## 🎤 Que imos ver
 
