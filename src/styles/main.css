@@ -196,6 +196,7 @@ a:hover {
 }
 
 .event-banner:hover {
+    color: var(--color-white);
     transform: translateY(-0.2rem) scale(1.01);
     box-shadow: 0 8px 24px var(--color-shadow);
 }
