@@ -47,7 +47,8 @@ function talkPosterEvent(event: any, talk: any, withFooter = false) {
     return {
         ...rest,
         name: talk.name,
-        subtitle: event.name,
+        // Sen subtítulo co nome do evento: o importante é a charla.
+        subtitle: undefined,
         posterNoFooter: !withFooter,
         startDate: talk.startDate,
         endDate: talk.endDate,
