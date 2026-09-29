@@ -190,5 +190,6 @@
             "image": "un-dia-con-ia-robot.jpg"
         }
     ],
-    "speakerScale": 1.35
+    "speakerScale": 1.35,
+    "posterSwapLogos": true
 }
