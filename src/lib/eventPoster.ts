@@ -42,21 +42,23 @@ function slugify(text: string) {
 /** Cartel dunha charla dun evento: mesmo deseño, co título da charla, o
  *  nome do evento como subtítulo, a hora da charla e o/a poñente (agora
  *  cunha foto). Sae das entradas de agenda type "talk" que teñan `photo`. */
-function talkPosterEvent(event: any, talk: any) {
+function talkPosterEvent(event: any, talk: any, withFooter = false) {
     const { agenda, ...rest } = event;
     return {
         ...rest,
         name: talk.name,
         subtitle: event.name,
-        posterNoFooter: true,
+        posterNoFooter: !withFooter,
         startDate: talk.startDate,
         endDate: talk.endDate,
         speakers: [{ name: talk.speaker, role: "Poñente", image: talk.photo.split('/').pop() }],
     };
 }
 
-/** getStaticPaths() común: un path por evento (slug = nome do ficheiro) e
- *  un máis por cada charla con foto (slug = <evento>-<poñente>). */
+/** getStaticPaths() común: un path por evento (slug = nome do ficheiro) e,
+ *  por cada charla con foto, dous: <evento>-<poñente> (sen banda inferior,
+ *  para presentar a charla) e <evento>-<poñente>-footer (con data e lugar,
+ *  para o anuncio). */
 export function eventStaticPaths() {
     const modules = getAllEventModules();
     return Object.entries(modules).flatMap(([path, mod]) => {
@@ -65,10 +67,13 @@ export function eventStaticPaths() {
         const talks = (event.agenda || []).filter((i: any) => i.type === 'talk' && i.photo && i.speaker);
         return [
             { params: { slug }, props: { event } },
-            ...talks.map((talk: any) => ({
-                params: { slug: `${slug}-${slugify(talk.speaker)}` },
-                props: { event: talkPosterEvent(event, talk) },
-            })),
+            ...talks.flatMap((talk: any) => {
+                const talkSlug = `${slug}-${slugify(talk.speaker)}`;
+                return [
+                    { params: { slug: talkSlug }, props: { event: talkPosterEvent(event, talk) } },
+                    { params: { slug: `${talkSlug}-footer` }, props: { event: talkPosterEvent(event, talk, true) } },
+                ];
+            }),
         ];
     });
 }
