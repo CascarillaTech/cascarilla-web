@@ -476,3 +476,12 @@
         gap: 0.5rem;
     }
 }
+
+.event-hero-img {
+    display: block;
+    width: min(22rem, 90%);
+    height: auto;
+    margin: 0 auto 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px var(--color-shadow);
+}
