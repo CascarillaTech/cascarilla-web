@@ -4,7 +4,7 @@ date: 2026-09-30
 description: "O 21 de novembro celebramos Un día con IA, unha xornada de charlas sobre intelixencia artificial na Cidade das TIC. Xa hai entradas á venda."
 ---
 
-<p class="lead">O <strong>21 de novembro</strong> volvemos xuntarnos! Cascarilla Tech e <a href="https://corunajug.org" target="_blank">Coruña JUG</a> organizamos:<br><strong>Un día con IA</strong>, unha xornada tecnolóxica pensada para conectar comunidade, coñecemento e empresas de A Coruña.</p>
+<p class="lead">O <strong>21 de novembro</strong> volvemos xuntarnos! Cascarilla Tech e <a href="https://corunajug.org" target="_blank">Coruña JUG</a> celebramos:<br><strong>Un día con IA</strong>, unha xornada tecnolóxica pensada para conectar comunidade, coñecemento e empresas de A Coruña.</p>
 
 ---
 
