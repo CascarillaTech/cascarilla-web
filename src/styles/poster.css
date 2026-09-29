@@ -137,6 +137,31 @@ html, body {
     display: block;
 }
 
+/* --- Variante con logos intercambiados (event.posterSwapLogos, p.ex.
+   "Un día con IA"): Cascarilla Tech grande arriba-esquerda e os
+   organizadores (Coruña JUG…) pequenos arriba-dereita. --- */
+.poster--swap-logos .poster-cascarilla {
+    right: auto;
+    left: 40px;
+    top: 40px;
+    height: 112px;
+}
+
+.poster--swap-logos .poster-cascarilla img {
+    height: 112px;
+}
+
+.poster--swap-logos .poster-organizers {
+    left: auto;
+    right: 60px;
+    top: 23px;
+    height: 64px;
+}
+
+.poster--swap-logos .poster-organizers img {
+    height: 64px;
+}
+
 /* --- Título --- */
 .poster-title-block {
     position: absolute;

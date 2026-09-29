@@ -80,7 +80,7 @@ const renderDuration = computePosterRenderDuration({
 </head>
 <body>
 <div
-    class="poster"
+    class={`poster${event.posterSwapLogos ? ' poster--swap-logos' : ''}`}
     id="poster"
     data-composition-id="event-poster"
     data-width="1200"
