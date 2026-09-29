@@ -48,6 +48,7 @@ function talkPosterEvent(event: any, talk: any) {
         ...rest,
         name: talk.name,
         subtitle: event.name,
+        posterNoFooter: true,
         startDate: talk.startDate,
         endDate: talk.endDate,
         speakers: [{ name: talk.speaker, role: "Poñente", image: talk.photo.split('/').pop() }],

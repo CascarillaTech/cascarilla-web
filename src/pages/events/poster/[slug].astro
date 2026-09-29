@@ -45,7 +45,8 @@ const titleGapBeforeSpeakers = 40;
 const titleMaxW = speakersLeftEdge - titleGapBeforeSpeakers - titleLeft;
 
 // --- Fila de sponsors, enriba da banda escura ---
-const bandCy = 630 - 80 - 46;
+// Sen banda (event.posterNoFooter, p.ex. carteis de charla) a fila baixa ata o borde.
+const bandCy = event.posterNoFooter ? 630 - 80 : 630 - 80 - 46;
 
 // --- Efecto máquina de escribir (título, data, lugar): cada letra é o
 // seu propio span cun transition-delay propio, así o "typing" en si o fai
@@ -80,7 +81,7 @@ const renderDuration = computePosterRenderDuration({
 </head>
 <body>
 <div
-    class={`poster${event.posterSwapLogos ? ' poster--swap-logos' : ''}`}
+    class={`poster${event.posterSwapLogos ? ' poster--swap-logos' : ''}${event.posterNoFooter ? ' poster--no-footer' : ''}`}
     id="poster"
     data-composition-id="event-poster"
     data-width="1200"
