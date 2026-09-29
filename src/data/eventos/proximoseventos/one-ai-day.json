@@ -191,5 +191,6 @@
         }
     ],
     "speakerScale": 1.35,
-    "posterSwapLogos": true
+    "posterSwapLogos": true,
+    "posterNoFooterVariant": true
 }

@@ -67,6 +67,11 @@ export function eventStaticPaths() {
         const talks = (event.agenda || []).filter((i: any) => i.type === 'talk' && i.photo && i.speaker);
         return [
             { params: { slug }, props: { event } },
+            // Variante sen banda inferior do cartel do evento (opt-in co campo
+            // posterNoFooterVariant no JSON): <evento>-sen-footer.
+            ...(event.posterNoFooterVariant
+                ? [{ params: { slug: `${slug}-sen-footer` }, props: { event: { ...event, posterNoFooter: true } } }]
+                : []),
             ...talks.flatMap((talk: any) => {
                 const talkSlug = `${slug}-${slugify(talk.speaker)}`;
                 return [
