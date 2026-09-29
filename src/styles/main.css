@@ -201,6 +201,15 @@ a:hover {
     box-shadow: 0 8px 24px var(--color-shadow);
 }
 
+.event-banner-img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 45% 35%;
+    border: 3px solid var(--color-white);
+}
+
 .event-banner-badge {
     display: inline-block;
     background-color: var(--color-white);
