@@ -167,7 +167,7 @@ const sponsors = evento.sponsors ?? [];
 
 </Layout>
 
-<script define:vars={{ agenda, eventDateISO: eventDateOnly }}>
+<script define:vars={{ agenda }}>
     // --- Acordeón da axenda (só para as franxas que non son charla) ---
     document.querySelectorAll('.agenda-acc-trigger:not(.talk-open-btn)').forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -228,33 +228,39 @@ const sponsors = evento.sponsors ?? [];
         if (e.target === dialog) dialog.close();
     });
 
-    // --- Slot actual e seguinte, só o día do evento ---
-    function parseMinutes(t) {
-        const [h, m] = t.split(':').map(Number);
-        return h * 60 + m;
+    // --- Estado da axenda segundo a hora (pasada / activa) ---
+    // Hora de Madrid como "AAAA-MM-DDTHH:MM", comparable como texto cos
+    // startDate/endDate da axenda. Para probar: ?now=2026-11-21T11:30
+    function madridNow() {
+        const forced = new URLSearchParams(location.search).get('now');
+        if (forced) return forced.slice(0, 16);
+        const p = Object.fromEntries(
+            new Intl.DateTimeFormat('en-CA', {
+                timeZone: 'Europe/Madrid', hourCycle: 'h23',
+                year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
+            }).formatToParts(new Date()).map((x) => [x.type, x.value])
+        );
+        return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`;
     }
 
-    const today = new Date();
-    const eventDate = new Date(`${eventDateISO}T00:00:00`);
-    const isEventDay = today.toDateString() === eventDate.toDateString();
-
-    if (isEventDay) {
-        const nowMinutes = today.getHours() * 60 + today.getMinutes();
-        const times = agenda.map((a) => parseMinutes(a.time));
-
-        let currentIdx = -1;
-        for (let i = 0; i < times.length; i++) {
-            if (times[i] <= nowMinutes) currentIdx = i;
-        }
-
-        document.querySelectorAll('.agenda-acc-item').forEach((el, i) => {
-            if (i === currentIdx) el.classList.add('agenda-current');
-            if (i === currentIdx + 1) el.classList.add('agenda-next');
-            if (i === currentIdx || i === currentIdx + 1) {
-                el.classList.add('open');
-                const panelTrigger = el.querySelector('.agenda-acc-trigger:not(.talk-open-btn)');
-                panelTrigger?.setAttribute('aria-expanded', 'true');
+    function updateAgendaState() {
+        const now = madridNow();
+        document.querySelectorAll('.agenda-acc-item').forEach((el) => {
+            const item = agenda[Number(el.dataset.idx)];
+            const start = item.startDate.slice(0, 16);
+            const end = item.endDate.slice(0, 16);
+            const isPast = end <= now;
+            const isCurrent = start <= now && now < end;
+            el.classList.toggle('agenda-past', isPast);
+            el.classList.toggle('agenda-current', isCurrent);
+            if (isCurrent) {
+                el.setAttribute('aria-current', 'true');
+            } else {
+                el.removeAttribute('aria-current');
             }
         });
     }
+
+    updateAgendaState();
+    setInterval(updateAgendaState, 60000);
 </script>
