@@ -194,7 +194,11 @@
 }
 
 .agenda-speaker-avatar {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .agenda-acc-icon {

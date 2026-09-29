@@ -78,10 +78,10 @@ const sponsors = evento.sponsors ?? [];
                                 <li class="agenda-acc-item agenda-acc-talk" data-idx={idx}>
                                     <button type="button" class="agenda-acc-trigger talk-open-btn" data-talk-idx={idx}>
                                         <span class="agenda-time">{item.time}</span>
+                                        <img src={item.photo ?? speakerPlaceholder} alt="" width="44" height="44" class="agenda-speaker-avatar" />
                                         <span class="agenda-titlewrap">
                                             <strong>{item.name}</strong>
                                             <span class="agenda-speaker-inline">
-                                                <img src={item.photo ?? speakerPlaceholder} alt="" width="18" height="18" class="agenda-speaker-avatar" />
                                                 Poñente: {item.speaker}
                                             </span>
                                         </span>
