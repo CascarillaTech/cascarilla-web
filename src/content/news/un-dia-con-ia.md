@@ -1,0 +1,30 @@
+---
+title: "Un día con IA: o 21 de novembro, xornada tecnolóxica en A Coruña"
+date: 2026-09-30
+description: "O 21 de novembro celebramos Un día con IA, unha xornada de charlas sobre intelixencia artificial na Cidade das TIC. Xa hai entradas á venda."
+---
+
+<p class="lead">O <strong>21 de novembro</strong> volvemos xuntarnos! Cascarilla Tech e <a href="https://corunajug.org" target="_blank">Coruña JUG</a> organizamos <strong>Un día con IA</strong>, unha xornada tecnolóxica pensada para conectar comunidade, coñecemento e empresas de A Coruña.</p>
+
+---
+
+## 📅 Cando e onde
+
+* **Data:** sábado 21 de novembro de 2026, de 9:00 a 18:30.
+* **Lugar:** oficinas de <a href="https://odeene.es/" target="_blank">Odeene</a>, na Cidade das TIC (A Coruña).
+
+## 🎤 Que imos ver
+
+Un día enteiro de charlas sobre intelixencia artificial e desenvolvemento con axentes, con pausas para o almorzo, a comida e a sobremesa, que é onde adoitan saír as mellores conversas.
+
+Xa está confirmada a charla de **Roberto Garcia Navarro**, «Code Is Cheap. Understanding the Business Isn't.», sobre como manter o criterio de arquitectura cando programamos con axentes de IA. Iremos anunciando o resto de poñentes na páxina do evento.
+
+## 🎟️ Entradas
+
+A entrada custa **20 €** e o importe destínase integramente á comida (sen contar os gastos de xestión de entradas nin o IVE). Os socios e socias de Cascarilla Tech teñen desconto: <a href="/membership">faite socio/a</a> e escríbenos para solicitalo.
+
+<a href="/events/one-ai-day">Ver axenda, charlas e mercar a túa entrada &rarr;</a>
+
+> 💡 **Colaboras connosco?** Se a túa empresa quere formar parte do evento, escríbenos e vemos a forma de facelo.
+
+*Contamos contigo!*
