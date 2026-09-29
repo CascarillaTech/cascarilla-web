@@ -2,7 +2,7 @@
 import { getEntry } from 'astro:content';
 import Layout from '../../layouts/LayoutBasic.astro';
 import '../../styles/event.css';
-import evento from '../../data/eventos/one-ai-day.json';
+import evento from '../../data/eventos/proximoseventos/one-ai-day.json';
 
 const org = await getEntry('org', 'info');
 const contactEmail = org?.data.email ?? 'asociacion@cascarillatech.org';
@@ -18,20 +18,8 @@ const fechaTexto = new Date(evento.startDate).toLocaleDateString('gl-ES', {
 const speakerPlaceholder = "/images/speaker-placeholder.svg";
 const companyPlaceholder = "/images/company-placeholder.svg";
 
-// Cada charla vive no seu propio ficheiro en data/eventos/undiaconia/*.json
-const charlasModules = import.meta.glob('../../data/eventos/undiaconia/*.json', { eager: true });
-const charlasById = Object.fromEntries(
-    Object.values(charlasModules).map((mod) => [mod.default.id, mod.default])
-);
-
-// Fusiona a axenda: as entradas con `talkId` collen os datos completos da súa charla
-const agenda = evento.agenda.map((item) => {
-    if (item.talkId) {
-        const charla = charlasById[item.talkId];
-        return { ...charla, isTalk: true };
-    }
-    return item;
-});
+// As charlas (type: "talk") levan na propia axenda os datos do poñente
+const agenda = evento.agenda.map((item) => ({ ...item, isTalk: item.type === "talk" }));
 
 const sponsors = evento.sponsors ?? [];
 ---
