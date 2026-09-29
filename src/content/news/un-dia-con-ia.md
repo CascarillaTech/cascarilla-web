@@ -6,6 +6,8 @@ description: "O 21 de novembro celebramos Un día con IA, unha xornada de charla
 
 <p class="lead"><strong>O 21 de novembro celebramos Un día con IA</strong><br>Cascarilla Tech e <a href="https://corunajug.org" target="_blank">Coruña JUG</a> organizamos unha xornada tecnolóxica pensada para conectar comunidade, coñecemento e empresas de A Coruña.</p>
 
+<img src="/images/un-dia-con-ia-robot.jpg" alt="Robot mascota de Un día con IA" style="display: block; width: min(22rem, 100%); height: auto; margin: 1.5rem auto; border-radius: 16px;">
+
 ---
 
 ## 📅 Cando e onde
