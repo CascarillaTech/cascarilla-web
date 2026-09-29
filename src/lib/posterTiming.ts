@@ -1,7 +1,7 @@
 // Cálculo (server-side) da duración total da animación "máquina de escribir"
 // dos cartéis de evento (poster.css / poster-story.css). Ten que replicar
 // EXACTAMENTE a aritmética do timeline GSAP construído en runtime polos
-// scripts de src/pages/events/[slug].astro e .../events/ig/[slug].astro
+// scripts de src/pages/events/poster/[slug].astro e .../events/ig/[slug].astro
 // (mesmas constantes, mesma orde de bloques) — é a fonte única desa
 // aritmética para que non se desincronicen.
 //

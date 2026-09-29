@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Xera automaticamente, a partir da páxina "cartel" HTML/CSS xa existente
-// (src/pages/events/[slug].astro e .../events/ig/[slug].astro), o vídeo
+// (src/pages/events/poster/[slug].astro e .../events/ig/[slug].astro), o vídeo
 // promocional (HyperFrames, landscape + vertical IG) e o PNG estático do
 // seu fotograma final (Eventbrite / corunajug / redes) dun evento.
 //
@@ -83,7 +83,7 @@ for (const slug of slugs) {
         console.warn(`!! "${slug}" non parece un slug válido — omitindo (agárdase [a-z0-9-])`);
         continue;
     }
-    const landscapeSrc = path.posix.join('events', slug, 'index.html');
+    const landscapeSrc = path.posix.join('events', 'poster', slug, 'index.html');
     const verticalSrc = path.posix.join('events', 'ig', slug, 'index.html');
     if (!existsSync(path.join(ROOT, 'dist', landscapeSrc))) {
         console.warn(`!! dist/${landscapeSrc} non existe (evento sen páxina de cartel?) — omitindo ${slug}`);

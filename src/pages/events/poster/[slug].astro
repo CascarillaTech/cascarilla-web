@@ -4,9 +4,9 @@
 // deseño promocional, nada máis. É a fonte única do deseño para xerar
 // tanto a imaxe coma o vídeo do evento (ver poster.css e
 // ~/.claude/skills/publish-event/references/poster-design.md).
-import '../../styles/poster.css';
-import { eventStaticPaths, deriveEventPosterData, resolveSpeakerImage, DEFAULT_SPEAKER_SLOT } from '../../lib/eventPoster';
-import { computePosterRenderDuration } from '../../lib/posterTiming';
+import '../../../styles/poster.css';
+import { eventStaticPaths, deriveEventPosterData, resolveSpeakerImage, DEFAULT_SPEAKER_SLOT } from '../../../lib/eventPoster';
+import { computePosterRenderDuration } from '../../../lib/posterTiming';
 
 export async function getStaticPaths() {
     return eventStaticPaths();

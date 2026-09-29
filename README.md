@@ -20,7 +20,7 @@ Requiren Node ≥ 22.12.
 ```text
 src/
 ├── pages/        rutas (about, events, membership, registration, …)
-│   ├── events/[slug].astro       cartel 1200×630 dun evento
+│   ├── events/poster/[slug].astro  cartel 1200×630 dun evento
 │   ├── events/ig/[slug].astro    cartel vertical 1080×1920 (Instagram)
 │   ├── evento/un-dia-con-ia.astro  dossier do evento «Un día con IA»
 │   └── feed.json.js              feed público de eventos (OpenTechEvents)
@@ -43,7 +43,7 @@ Cada evento é un ficheiro JSON en formato
 - `src/data/eventos/exemplo-meetup.json.template` — punto de partida.
 
 O nome do ficheiro (sen `.json`) é o *slug* que se usa nas rutas
-`/events/<slug>` e `/events/ig/<slug>`.
+`/events/poster/<slug>` e `/events/ig/<slug>`.
 
 O `id` do evento é a URL canónica dese evento. Se o evento tamén está en
 [corunajug.org](https://www.corunajug.org), usa **o mesmo `id` nos dous sitios**

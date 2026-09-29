@@ -1,5 +1,5 @@
 // Lóxica de datos compartida entre as páxinas "cartel" dun evento
-// (src/pages/events/[slug].astro, horizontal, e .../story.astro,
+// (src/pages/events/poster/[slug].astro, horizontal, e .../story.astro,
 // vertical). Deriva organizadores/sponsors/speakers/data a partir dun
 // JSON OTE do evento — a mesma lóxica que event_to_poster_args() en
 // gen_event_poster.py, para que as tres versións (Pillow, HTML horizontal,

@@ -1,6 +1,6 @@
 /* ============================================================
    poster.css — diseño del cartel/imagen promocional de eventos
-   (Cascarilla Tech / Coruña JUG). Usado SOLO por /events/[slug].astro.
+   (Cascarilla Tech / Coruña JUG). Usado SOLO por /events/poster/[slug].astro.
 
    Se mantiene separado del resto del CSS del sitio a propósito: esta
    plantilla va a servir siempre como fuente única del diseño para la
