@@ -27,6 +27,12 @@ A entrada custa **20 €** e o importe destínase integramente á comida (sen co
 
 <a href="/events/one-ai-day">Ver axenda, charlas e mercar a túa entrada &rarr;</a>
 
+## 🤝 Empresas colaboradoras
+
+Grazas a **Odeene** por participar no evento e acollernos nas súas oficinas.
+
+<a href="https://odeene.es/" target="_blank" rel="noopener noreferrer"><img src="/images/colaboradoras/odeene-color-horizontal.png" alt="Logo de Odeene" style="max-width: 220px; height: auto;"></a>
+
 > 💡 **Colaboras connosco?** Se a túa empresa quere formar parte do evento, escríbenos e vemos a forma de facelo.
 
 *Contamos contigo!*
