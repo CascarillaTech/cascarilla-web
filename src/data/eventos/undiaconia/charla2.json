@@ -1,7 +1,13 @@
 {
     "id": "charla2",
     "time": "11:00",
-    "name": "Segunda charla",
-    "speaker": "TBA",
-    "description": "Descrición pendente de confirmar. En canto pechemos o/a poñente, actualizaremos este espazo cos detalles da charla."
+    "name": "Code Is Cheap. Understanding the Business Isn’t.",
+    "speaker": "Roberto Garcia Navarro",
+    "photo": "/images/ponentes/roberto-garcia.jpg",
+    "bio": "Enxeñeiro de software con máis de 10 anos de experiencia en backend e arquitectura de software, actualmente traballando como Platform Engineer en Zephyr Cloud. Namorado da filosofía software craftsmanship, das arquitecturas limpas e da infraestrutura, e agora entusiasta da IA e de todo o que xira arredor do desenvolvemento guiado por axentes.",
+    "links": [
+        { "label": "LinkedIn", "url": "https://es.linkedin.com/in/roberto-garcia-navarro" },
+        { "label": "X", "url": "https://x.com/s0ulcodex" }
+    ],
+    "description": "Esta charla presenta a Slop Grenade: cambios asistidos por IA que compilan, pasan os tests e parecen razoables, pero fan que o sistema sexa máis difícil de entender e modificar. Veremos por que a arquitectura importa aínda máis no desenvolvemento con axentes, como os límites reducen o contexto necesario para facer cambios seguros e como DDD e Ports and Adapters separan as regras de negocio da tecnoloxía."
 }
