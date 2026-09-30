@@ -403,9 +403,14 @@ html, body {
         background: #120a05;
     }
 
+    /* Cartel centrado verticalmente na pantalla */
     body:has(.poster) {
-        display: block;
-        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        min-height: 100vh;
+        min-height: 100dvh;
         padding: 0;
     }
 
