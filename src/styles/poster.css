@@ -389,3 +389,100 @@ html, body {
        dispara o lint de HyperFrames (gsap_css_transform_conflict). */
     opacity: 0;
 }
+
+/* --- Móbil / ventá estreita: o cartel deixa de ser un lenzo fixo de
+   1200x630 e apílase en vertical (logos, título, poñente debaixo, sponsors,
+   banda). HyperFrames renderiza cun viewport exacto de 1200px, así que
+   isto NUNCA se aplica ao render do vídeo/imaxe. Os !important son para
+   pisar as posicións inline que calcula o script (top/left/width). --- */
+@media (max-width: 1219px) {
+    /* Fondo escuro arredor (igual que o marco do escritorio) para que o crema
+       remate onde remata o cartel, non onde remata a pantalla. */
+    html:has(.poster),
+    body:has(.poster) {
+        background: #120a05;
+    }
+
+    body:has(.poster) {
+        display: block;
+        min-height: 0;
+        padding: 0;
+    }
+
+    .poster {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        box-shadow: none;
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-content: start;
+        align-items: center;
+        gap: 18px 12px;
+        padding: 24px 20px 0;
+        padding-bottom: 0;
+    }
+
+    .poster > *:not(.poster-title-underline-wrap) {
+        position: static !important;
+        transform: none !important;
+        left: auto !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: auto !important;
+        margin: 0 !important;
+        grid-column: 1 / -1;
+    }
+
+    /* Fila de logos: organizadores e Cascarilla Tech, un a cada lado */
+    .poster-organizers,
+    .poster-cascarilla {
+        height: 56px !important;
+        grid-row: 1;
+    }
+
+    .poster-organizers img,
+    .poster-cascarilla img,
+    .poster--swap-logos .poster-organizers img,
+    .poster--swap-logos .poster-cascarilla img {
+        height: 56px;
+    }
+
+    .poster-organizers { grid-column: 1; justify-self: start; }
+    .poster-cascarilla { grid-column: 2; justify-self: end; }
+    .poster--swap-logos .poster-cascarilla { grid-column: 1; justify-self: start; }
+    .poster--swap-logos .poster-organizers { grid-column: 2; justify-self: end; }
+
+    .poster-title { font-size: clamp(28px, 8.5vw, 44px); line-height: 1.2; }
+    .poster-subtitle { font-size: clamp(18px, 5vw, 24px); }
+
+    /* O subrayado segue a ser animado por GSAP (ancho), só o poñemos en fluxo */
+    .poster-title-underline-wrap {
+        position: relative !important;
+        left: 0 !important;
+        top: 0 !important;
+        grid-column: 1 / -1;
+        justify-self: start;
+    }
+
+    /* Poñente debaixo do título, centrado */
+    .poster-speakers {
+        justify-self: center;
+        justify-content: center;
+    }
+
+    .poster-sponsors {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .poster-footer {
+        margin: 10px -20px 0 !important;
+        padding: 16px 20px;
+        flex-wrap: wrap;
+        row-gap: 8px;
+        font-size: 16px;
+    }
+}
