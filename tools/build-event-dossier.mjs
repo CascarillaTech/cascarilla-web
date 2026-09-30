@@ -76,9 +76,10 @@ const LANGS = {
       headers: ['Tipo de achega', 'Onde axuda'],
       rows: [
         ['Económica', 'Cobre os custos da xornada (xestión, material, cartelaría) e permite manter a entrada accesible.'],
-        ['Comida, café ou bebida', 'A entrada de 20 € vai íntegra á comida: canto máis se cubra en especie, máis se pode abaratar ou mellorar o xantar e o almorzo.'],
+        ['Comida, café ou bebida', 'Almorzo, café, xantar ou bebida para as persoas asistentes.'],
         ['Material e impresión', 'Cartelaría, acreditacións, roll-ups, papelaría ou merchandising para as persoas asistentes.'],
-        ['Espazo ou equipamento', 'Son, proxección, salas ou calquera recurso que faga a xornada máis cómoda.'],
+        ['Espazo ou equipamento', 'Xa está cuberto: Odeene cédenos o seu espazo para a xornada.', 'Xa cuberto'],
+        ['Outro tipo de colaboración', 'Estamos abertos a outras formas de colaborar que non estean nesta lista. Cóntanos a túa idea e falámolo.'],
       ],
       talks: 'As charlas do programa ofrécense de forma altruísta por parte de quen quere compartir coñecemento. Non están vinculadas a ningunha colaboración económica.',
       closing: 'Non vos prometemos miles de asistentes nin un evento de networking internacional. Ofrecémosvos entrar no xerme dunha comunidade tecnolóxica local que empeza a organizarse con vocación de crecer, e aparecer desde o primeiro día como quen o fixo posible.',
@@ -145,9 +146,10 @@ const LANGS = {
       headers: ['Tipo de aportación', 'En qué ayuda'],
       rows: [
         ['Económica', 'Cubre los costes de la jornada (gestión, material, cartelería) y permite mantener la entrada accesible.'],
-        ['Comida, café o bebida', 'La entrada de 20 € va íntegra a la comida: cuanto más se cubra en especie, más se puede abaratar o mejorar el almuerzo y el desayuno.'],
+        ['Comida, café o bebida', 'Desayuno, café, comida o bebida para las personas asistentes.'],
         ['Material e impresión', 'Cartelería, acreditaciones, roll-ups, papelería o merchandising para las personas asistentes.'],
-        ['Espacio o equipamiento', 'Sonido, proyección, salas o cualquier recurso que haga la jornada más cómoda.'],
+        ['Espacio o equipamiento', 'Ya está cubierto: Odeene nos cede su espacio para la jornada.', 'Ya cubierto'],
+        ['Otro tipo de colaboración', 'Estamos abiertos a otras formas de colaborar que no estén en esta lista. Cuéntanos tu idea y lo hablamos.'],
       ],
       talks: 'Las charlas del programa se ofrecen de forma altruista por parte de quien quiere compartir conocimiento. No están vinculadas a ningún tipo de colaboración económica.',
       closing: 'No os prometemos miles de asistentes ni un gran evento de networking internacional. Os ofrecemos entrar en el germen de una comunidad tecnológica local que empieza a organizarse con vocación de crecer, y aparecer desde el primer día como quienes lo hicieron posible.',
@@ -214,9 +216,10 @@ const LANGS = {
       headers: ['Type of contribution', 'How it helps'],
       rows: [
         ['Financial', 'Covers the running costs of the day (ticketing, material, signage) and helps keep tickets affordable.'],
-        ['Food, coffee or drinks', 'The €20 ticket goes entirely to food: the more is covered in kind, the more we can lower the price or improve breakfast and lunch.'],
+        ['Food, coffee or drinks', 'Breakfast, coffee, lunch or drinks for attendees.'],
         ['Material and printing', 'Signage, badges, roll-ups, stationery or merchandising for attendees.'],
-        ['Space or equipment', 'Sound, projection, rooms or any resource that makes the day more comfortable.'],
+        ['Space or equipment', 'Already covered: Odeene is lending us its space for the day.', 'Already covered'],
+        ['Any other collaboration', 'We are open to other ways of collaborating that are not on this list. Tell us your idea and we will talk it over.'],
       ],
       talks: 'The talks in the programme are given altruistically by people who want to share knowledge. They are not tied to any financial collaboration.',
       closing: 'We will not promise thousands of attendees or a big international networking event. What we offer is a place in the seed of a local tech community that is starting to organise itself with the ambition to grow, and to appear from day one as the ones who made it possible.',
@@ -273,8 +276,8 @@ function build(code) {
           <p class="activity__desc" style="margin-bottom:0">${esc(p)}</p>
         </article>`).join('\n');
 
-  const giveRows = L.give.rows.map(([a, b]) => `          <tr>
-            <td><p class="collab-table__title">${esc(a)}</p></td>
+  const giveRows = L.give.rows.map(([a, b, badge]) => `          <tr>
+            <td><p class="collab-table__title">${esc(a)}</p>${badge ? `<span style="display:inline-block;padding:.1rem .5rem;border-radius:999px;background:var(--color-background-logo);color:var(--color-dark-logo);font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase">${esc(badge)}</span>` : ''}</td>
             <td><p class="collab-table__text">${esc(b)}</p></td>
           </tr>`).join('\n');
 
