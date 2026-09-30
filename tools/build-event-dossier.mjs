@@ -364,7 +364,7 @@ ${eventCards}
       <div class="rule" aria-hidden="true"></div>
       <div class="about__text">
 ${L.about.paragraphs.map((p) => `        <p>${esc(p)}</p>`).join('\n')}
-        <p><a href="${L.about.moreHref}">${esc(L.about.more)} &rarr;</a></p>
+        <p><a href="${L.about.moreHref}" target="_blank" rel="noopener">${esc(L.about.more)} &rarr;</a></p>
       </div>
     </div>
   </section>
