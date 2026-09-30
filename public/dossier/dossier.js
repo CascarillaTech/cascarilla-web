@@ -5,6 +5,22 @@
   var slides = Array.prototype.slice.call(deck.querySelectorAll('.slide'));
   var links  = Array.prototype.slice.call(document.querySelectorAll('.deck-nav__link'));
   var current = 0;
+  var desktopQuery = window.matchMedia('(min-width: 900px)');
+
+  /* ---- Puntos de paxinación (só se ven en móbil, onde o deck é horizontal) ---- */
+  var dotsWrap = document.createElement('div');
+  dotsWrap.className = 'deck-dots';
+  var dots = links.map(function (link, index) {
+    var dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'deck-dots__dot';
+    var label = link.querySelector('.deck-nav__label');
+    dot.setAttribute('aria-label', label ? label.textContent : String(index + 1));
+    dot.addEventListener('click', function () { goTo(index, true); });
+    dotsWrap.appendChild(dot);
+    return dot;
+  });
+  document.body.appendChild(dotsWrap);
 
   var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   function scrollMode() { return motionQuery.matches ? 'auto' : 'smooth'; }
@@ -19,6 +35,10 @@
       } else {
         links[i].removeAttribute('aria-current');
       }
+      if (dots[i]) {
+        if (i === index) { dots[i].setAttribute('aria-current', 'true'); }
+        else { dots[i].removeAttribute('aria-current'); }
+      }
     }
   }
 
@@ -28,7 +48,7 @@
     if (index > slides.length - 1) { index = slides.length - 1; }
 
     var target = slides[index];
-    target.scrollIntoView({ behavior: scrollMode(), block: 'start' });
+    target.scrollIntoView({ behavior: scrollMode(), block: 'start', inline: 'start' });
     setActive(index);
 
     if (moveFocus) {
@@ -84,13 +104,17 @@
     if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable)) { return; }
 
     switch (event.key) {
+      /* En móbil o deck é horizontal e as frechas verticais deben seguir a
+         facer scroll dentro da sección. */
       case 'ArrowDown':
-      case 'ArrowRight':
       case 'PageDown':
+        if (!desktopQuery.matches) { return; }
+      case 'ArrowRight':
         event.preventDefault(); goTo(current + 1, true); break;
       case 'ArrowUp':
-      case 'ArrowLeft':
       case 'PageUp':
+        if (!desktopQuery.matches) { return; }
+      case 'ArrowLeft':
         event.preventDefault(); goTo(current - 1, true); break;
       case 'Home':
         event.preventDefault(); goTo(0, true); break;
@@ -112,7 +136,7 @@
     });
     if (startIndex > -1) {
       window.requestAnimationFrame(function () {
-        slides[startIndex].scrollIntoView({ behavior: 'auto', block: 'start' });
+        slides[startIndex].scrollIntoView({ behavior: 'auto', block: 'start', inline: 'start' });
         setActive(startIndex);
       });
     }
