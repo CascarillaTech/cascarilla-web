@@ -82,6 +82,7 @@ const LANGS = {
         ['Outro tipo de colaboración', 'Estamos abertos a outras formas de colaborar que non estean nesta lista. Cóntanos a túa idea e falámolo.'],
       ],
       example: { title: 'Un exemplo de colaboración', note: 'Isto é só un exemplo, sen ningunha vinculación legal e de carácter meramente informativo, para facernos á idea. A colaboración final pecharémola de forma conxunta.', items: ['Achega económica: 500 € + IVE (605 €)', 'Invitación e entradas para o evento', 'Agradecemento tanto o día do evento como nas redes sociais'] },
+      comm: { title: 'Un exemplo de comunicación', text: 'Así anunciamos e agradecemos en LinkedIn a colaboración de Odeene, a primeira empresa que se sumou a Un día con IA.', link: 'Ver a publicación en LinkedIn', href: 'https://www.linkedin.com/feed/update/urn:li:activity:7511089850050281474' },
       talks: 'As charlas do programa ofrécense de forma altruísta por parte de quen quere compartir coñecemento. Non están vinculadas a ningunha colaboración económica.',
       closing: 'Non vos prometemos miles de asistentes nin un evento de networking internacional. Ofrecémosvos entrar no xerme dunha comunidade tecnolóxica local que empeza a organizarse con vocación de crecer, e aparecer desde o primeiro día como quen o fixo posible.',
       logos: 'Grazas a quen xa colabora — e aínda queda sitio para máis.',
@@ -153,6 +154,7 @@ const LANGS = {
         ['Otro tipo de colaboración', 'Estamos abiertos a otras formas de colaborar que no estén en esta lista. Cuéntanos tu idea y lo hablamos.'],
       ],
       example: { title: 'Un ejemplo de colaboración', note: 'Esto es solo un ejemplo, sin ninguna vinculación legal y de carácter meramente informativo, para hacernos a la idea. La colaboración final la cerraremos de forma conjunta.', items: ['Aportación económica: 500 € + IVA (605 €)', 'Invitación y entradas para el evento', 'Agradecimiento tanto el día del evento como en redes sociales'] },
+      comm: { title: 'Un ejemplo de comunicación', text: 'Así anunciamos y agradecemos en LinkedIn la colaboración de Odeene, la primera empresa que se sumó a Un día con IA.', link: 'Ver la publicación en LinkedIn', href: 'https://www.linkedin.com/feed/update/urn:li:activity:7511089850050281474' },
       talks: 'Las charlas del programa se ofrecen de forma altruista por parte de quien quiere compartir conocimiento. No están vinculadas a ningún tipo de colaboración económica.',
       closing: 'No os prometemos miles de asistentes ni un gran evento de networking internacional. Os ofrecemos entrar en el germen de una comunidad tecnológica local que empieza a organizarse con vocación de crecer, y aparecer desde el primer día como quienes lo hicieron posible.',
       logos: 'Gracias a quien ya colabora con nosotros — y todavía queda sitio para más.',
@@ -224,6 +226,7 @@ const LANGS = {
         ['Any other collaboration', 'We are open to other ways of collaborating that are not on this list. Tell us your idea and we will talk it over.'],
       ],
       example: { title: 'An example of a collaboration', note: 'This is just an example, with no legal commitment and for information only, to give you an idea. The final collaboration will be agreed together.', items: ['Financial contribution: €500 + VAT (€605)', 'Invitation and tickets to the event', 'Thanks both on the day of the event and on social media'] },
+      comm: { title: 'An example of communication', text: 'This is how we announced and thanked Odeene on LinkedIn, the first company to join One AI Day.', link: 'See the LinkedIn post', href: 'https://www.linkedin.com/feed/update/urn:li:activity:7511089850050281474' },
       talks: 'The talks in the programme are given altruistically by people who want to share knowledge. They are not tied to any financial collaboration.',
       closing: 'We will not promise thousands of attendees or a big international networking event. What we offer is a place in the seed of a local tech community that is starting to organise itself with the ambition to grow, and to appear from day one as the ones who made it possible.',
       logos: 'Thanks to those who already collaborate with us — and there is still room for more.',
@@ -407,6 +410,11 @@ ${giveRows}
           <ul class="aims">
 ${L.give.example.items.map((i) => `            <li>${esc(i)}</li>`).join('\n')}
           </ul>
+        </div>
+        <div class="collab-mode">
+          <h3 class="collab-mode__title">${esc(L.give.comm.title)}</h3>
+          <p class="collab-mode__text">${esc(L.give.comm.text)}</p>
+          <p class="collab-mode__text"><a href="${L.give.comm.href}" target="_blank" rel="noopener">${esc(L.give.comm.link)} &rarr;</a></p>
         </div>
       </div>
       <p class="collab-note">${esc(L.give.example.note)}</p>
