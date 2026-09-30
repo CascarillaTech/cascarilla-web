@@ -72,7 +72,7 @@ const LANGS = {
     },
     give: {
       eyebrow: 'Como achegar', title: 'Como se pode colaborar',
-      lead: 'Non fixamos importes: cada entidade achega o que considere oportuno, e calquera achega é benvida.',
+      lead: 'Non fixamos importes: cada entidade achega o que considere oportuno, e calquera achega é benvida. O exemplo de abaixo é só orientativo.',
       headers: ['Tipo de achega', 'Onde axuda'],
       rows: [
         ['Económica', 'Cobre os custos da xornada (xestión, material, cartelaría) e permite manter a entrada accesible.'],
@@ -81,6 +81,7 @@ const LANGS = {
         ['Espazo ou equipamento', 'Xa está cuberto: Odeene encargouse da xestión do espazo.', 'Xa cuberto'],
         ['Outro tipo de colaboración', 'Estamos abertos a outras formas de colaborar que non estean nesta lista. Cóntanos a túa idea e falámolo.'],
       ],
+      example: { title: 'Un exemplo de colaboración', note: 'Isto é só un exemplo, sen ningunha vinculación legal e de carácter meramente informativo, para facernos á idea. A colaboración final pecharémola de forma conxunta.', items: ['Achega económica: 500 € + IVE (605 €)', 'Invitación e entradas para o evento', 'Agradecemento tanto o día do evento como nas redes sociais'] },
       talks: 'As charlas do programa ofrécense de forma altruísta por parte de quen quere compartir coñecemento. Non están vinculadas a ningunha colaboración económica.',
       closing: 'Non vos prometemos miles de asistentes nin un evento de networking internacional. Ofrecémosvos entrar no xerme dunha comunidade tecnolóxica local que empeza a organizarse con vocación de crecer, e aparecer desde o primeiro día como quen o fixo posible.',
       logos: 'Grazas a quen xa colabora — e aínda queda sitio para máis.',
@@ -142,7 +143,7 @@ const LANGS = {
     },
     give: {
       eyebrow: 'Cómo aportar', title: 'Cómo se puede colaborar',
-      lead: 'No fijamos importes: cada entidad aporta lo que considere oportuno y cualquier aportación es bienvenida.',
+      lead: 'No fijamos importes: cada entidad aporta lo que considere oportuno y cualquier aportación es bienvenida. El ejemplo de debajo es solo orientativo.',
       headers: ['Tipo de aportación', 'En qué ayuda'],
       rows: [
         ['Económica', 'Cubre los costes de la jornada (gestión, material, cartelería) y permite mantener la entrada accesible.'],
@@ -151,6 +152,7 @@ const LANGS = {
         ['Espacio o equipamiento', 'Ya está cubierto: Odeene se ha encargado de la gestión del espacio.', 'Ya cubierto'],
         ['Otro tipo de colaboración', 'Estamos abiertos a otras formas de colaborar que no estén en esta lista. Cuéntanos tu idea y lo hablamos.'],
       ],
+      example: { title: 'Un ejemplo de colaboración', note: 'Esto es solo un ejemplo, sin ninguna vinculación legal y de carácter meramente informativo, para hacernos a la idea. La colaboración final la cerraremos de forma conjunta.', items: ['Aportación económica: 500 € + IVA (605 €)', 'Invitación y entradas para el evento', 'Agradecimiento tanto el día del evento como en redes sociales'] },
       talks: 'Las charlas del programa se ofrecen de forma altruista por parte de quien quiere compartir conocimiento. No están vinculadas a ningún tipo de colaboración económica.',
       closing: 'No os prometemos miles de asistentes ni un gran evento de networking internacional. Os ofrecemos entrar en el germen de una comunidad tecnológica local que empieza a organizarse con vocación de crecer, y aparecer desde el primer día como quienes lo hicieron posible.',
       logos: 'Gracias a quien ya colabora con nosotros — y todavía queda sitio para más.',
@@ -212,7 +214,7 @@ const LANGS = {
     },
     give: {
       eyebrow: 'How to contribute', title: 'Ways to collaborate',
-      lead: 'We do not set amounts: each organisation contributes what it sees fit, and any contribution is welcome.',
+      lead: 'We do not set amounts: each organisation contributes what it sees fit, and any contribution is welcome. The example below is only indicative.',
       headers: ['Type of contribution', 'How it helps'],
       rows: [
         ['Financial', 'Covers the running costs of the day (ticketing, material, signage) and helps keep tickets affordable.'],
@@ -221,6 +223,7 @@ const LANGS = {
         ['Space or equipment', 'Already covered: Odeene has taken care of managing the space.', 'Already covered'],
         ['Any other collaboration', 'We are open to other ways of collaborating that are not on this list. Tell us your idea and we will talk it over.'],
       ],
+      example: { title: 'An example of a collaboration', note: 'This is just an example, with no legal commitment and for information only, to give you an idea. The final collaboration will be agreed together.', items: ['Financial contribution: €500 + VAT (€605)', 'Invitation and tickets to the event', 'Thanks both on the day of the event and on social media'] },
       talks: 'The talks in the programme are given altruistically by people who want to share knowledge. They are not tied to any financial collaboration.',
       closing: 'We will not promise thousands of attendees or a big international networking event. What we offer is a place in the seed of a local tech community that is starting to organise itself with the ambition to grow, and to appear from day one as the ones who made it possible.',
       logos: 'Thanks to those who already collaborate with us — and there is still room for more.',
@@ -398,6 +401,15 @@ ${offerCards}
 ${giveRows}
         </tbody>
       </table>
+      <div class="collab-modes">
+        <div class="collab-mode">
+          <h3 class="collab-mode__title">${esc(L.give.example.title)}</h3>
+          <ul class="aims">
+${L.give.example.items.map((i) => `            <li>${esc(i)}</li>`).join('\n')}
+          </ul>
+        </div>
+      </div>
+      <p class="collab-note">${esc(L.give.example.note)}</p>
       <p class="collab-note">${esc(L.give.talks)}</p>
       <p class="collab-closing">${esc(L.give.closing)}</p>
       <div class="logos">
