@@ -59,7 +59,7 @@ const LANGS = {
     },
     offer: {
       eyebrow: 'Que ofrecemos', title: 'O que recibe unha empresa colaboradora',
-      lead: 'Non montamos categorías nin tarifas: queremos que a colaboración se note e que se agradeza en público. Isto é o que ofrecemos a quen se sume.',
+      lead: 'Non montamos categorías nin tarifas, e para nós non sodes patrocinadores: sodes colaboradores. Xuntos facemos o evento da mellor forma posible e buscamos que todo o mundo quede agradecido del. Isto é o que ofrecemos a quen se sume.',
       cards: [
         ['Agradecemento e mención nas charlas', 'Nomeamos e agradecemos a colaboración da empresa en voz alta durante a xornada, na apertura e no peche.'],
         ['Aparecer explicitamente como colaboradora', 'Logo e nome como entidade colaboradora na páxina do evento, no cartel, neste dossier e na comunicación de Un día con IA.'],
@@ -129,7 +129,7 @@ const LANGS = {
     },
     offer: {
       eyebrow: 'Qué ofrecemos', title: 'Lo que recibe una empresa colaboradora',
-      lead: 'No montamos categorías ni tarifas: queremos que la colaboración se note y se agradezca en público. Esto es lo que ofrecemos a quien se sume.',
+      lead: 'No montamos categorías ni tarifas, y para nosotros no sois patrocinadores: sois colaboradores. Juntos hacemos el evento de la mejor forma posible y buscamos que todo el mundo quede agradecido con él. Esto es lo que ofrecemos a quien se sume.',
       cards: [
         ['Agradecimiento y mención en las charlas', 'Nombramos y agradecemos en voz alta la colaboración de la empresa durante la jornada, en la apertura y en el cierre.'],
         ['Aparecer explícitamente como colaboradora', 'Logo y nombre como entidad colaboradora en la página del evento, en el cartel, en este dossier y en la comunicación de Un día con IA.'],
@@ -170,10 +170,10 @@ const LANGS = {
       hint: 'Use the arrow keys or the index to navigate',
       nav: ['Cover', 'The event', 'Who organises it', 'What we offer', 'How to contribute', 'Contact'],
     },
-    title: 'One AI Day — Sponsorship dossier',
+    title: 'One AI Day — Collaboration dossier',
     description: 'Dossier for companies that want to collaborate on One AI Day (Un día con IA), the tech day by Cascarilla Tech and Coruña JUG on 21 November 2026 at Cidade das TIC, A Coruña.',
     cover: {
-      kicker: 'Sponsorship dossier', title: 'One AI Day',
+      kicker: 'Collaboration dossier', title: 'One AI Day',
       subtitle: 'A tech day to connect community, knowledge and companies in A Coruña.',
       meta: ['21 November 2026', 'Cidade das TIC, A Coruña'],
     },
@@ -193,13 +193,13 @@ const LANGS = {
       eyebrow: 'Who organises it', title: 'Cascarilla Tech and Coruña JUG',
       paragraphs: [
         'Cascarilla Tech is a non-profit association in A Coruña that provides legal and structural support to tech communities and organises joint events with companies in the sector. We work horizontally, keep our activities open wherever possible, and publish our material under open licences.',
-        'Coruña JUG is the technical community around Java and the JVM born in A Coruña. It runs talks and meetups on a regular basis and has previous experience working with sponsoring companies. One AI Day is organised jointly.',
+        'Coruña JUG is the technical community around Java and the JVM born in A Coruña. It runs talks and meetups on a regular basis and has previous experience working with collaborating companies. One AI Day is organised jointly.',
       ],
       more: 'Learn about the association in the general dossier', moreHref: '/dossier/en/',
     },
     offer: {
       eyebrow: 'What we offer', title: 'What a collaborating company receives',
-      lead: 'We do not set up tiers or price lists: we want the collaboration to be visible and thanked in public. This is what we offer to anyone who joins.',
+      lead: 'We do not set up tiers or price lists, and to us you are not sponsors: you are collaborators. Together we make the event the best it can be, and we want everyone to come away grateful for it. This is what we offer to anyone who joins.',
       cards: [
         ['Thanks and mention during the talks', 'We name and thank the company out loud during the day, at the opening and at the closing.'],
         ['Explicitly listed as a collaborator', 'Logo and name as a collaborating organisation on the event page, on the poster, in this dossier and in One AI Day communications.'],
