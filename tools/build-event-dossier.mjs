@@ -42,7 +42,7 @@ const LANGS = {
       lead: 'Unha xornada completa, de 9:00 a 18:30, para xuntar a comunidade tecnolóxica da Coruña arredor da intelixencia artificial e do desenvolvemento de software.',
       cards: [
         ['Cando', 'Sábado, 21 de novembro de 2026', 'Horario', '9:00 – 18:30'],
-        ['Onde', 'Oficinas de Odeene, Cidade das TIC (Av. de Pedralonga, A Coruña)', 'Estado', 'Data e sede confirmadas'],
+        ['Onde', 'Cidade das TIC (Av. de Pedralonga, A Coruña)', 'Estado', 'Data e sede confirmadas'],
         ['Formato', 'Almorzo, keynote, charlas, comida e sobremesa de networking.', 'Público esperado', '50-75 persoas'],
         ['Organiza', 'Cascarilla Tech e Coruña JUG', 'Idioma', 'Castelán'],
       ],
@@ -68,7 +68,7 @@ const LANGS = {
         ['Material propio para as persoas asistentes', 'Posibilidade de deixar folletos, merchandising ou un pequeno detalle na zona de acollida. Concretámolo xuntos.'],
         ['Calquera outra idea', 'Se se vos ocorre outra forma de aparecer ou de achegar valor á comunidade, sempre a podemos falar.'],
       ],
-      stand: 'A priori non temos previsto stand. O evento é unha xornada de charlas nunha oficina, sen zona de exposición. Se a vosa empresa ten interese nun, estudámolo entre todos.',
+      stand: 'A priori non temos previsto stand. O evento é unha xornada de charlas, sen zona de exposición. Se a vosa empresa ten interese nun, estudámolo entre todos.',
     },
     give: {
       eyebrow: 'Como achegar', title: 'Como se pode colaborar',
@@ -112,7 +112,7 @@ const LANGS = {
       lead: 'Una jornada completa, de 9:00 a 18:30, para reunir a la comunidad tecnológica de A Coruña en torno a la inteligencia artificial y el desarrollo de software.',
       cards: [
         ['Cuándo', 'Sábado, 21 de noviembre de 2026', 'Horario', '9:00 – 18:30'],
-        ['Dónde', 'Oficinas de Odeene, Cidade das TIC (Av. de Pedralonga, A Coruña)', 'Estado', 'Fecha y sede confirmadas'],
+        ['Dónde', 'Cidade das TIC (Av. de Pedralonga, A Coruña)', 'Estado', 'Fecha y sede confirmadas'],
         ['Formato', 'Desayuno, keynote, charlas, comida y sobremesa de networking.', 'Público esperado', '50-75 personas'],
         ['Organiza', 'Cascarilla Tech y Coruña JUG', 'Idioma', 'Castellano'],
       ],
@@ -138,7 +138,7 @@ const LANGS = {
         ['Material propio para las personas asistentes', 'Posibilidad de dejar folletos, merchandising o un pequeño detalle en la zona de acogida. Lo concretamos juntos.'],
         ['Cualquier otra idea', 'Si se os ocurre otra forma de aparecer o de aportar valor a la comunidad, siempre podemos hablarlo.'],
       ],
-      stand: 'A priori no tenemos previsto stand. El evento es una jornada de charlas en una oficina, sin zona de exposición. Si vuestra empresa tiene interés en uno, lo estudiamos entre todos.',
+      stand: 'A priori no tenemos previsto stand. El evento es una jornada de charlas, sin zona de exposición. Si vuestra empresa tiene interés en uno, lo estudiamos entre todos.',
     },
     give: {
       eyebrow: 'Cómo aportar', title: 'Cómo se puede colaborar',
@@ -182,7 +182,7 @@ const LANGS = {
       lead: 'A full day, from 9:00 to 18:30, bringing the A Coruña tech community together around artificial intelligence and software development.',
       cards: [
         ['When', 'Saturday, 21 November 2026', 'Hours', '9:00 – 18:30'],
-        ['Where', 'Odeene offices, Cidade das TIC (Av. de Pedralonga, A Coruña)', 'Status', 'Date and venue confirmed'],
+        ['Where', 'Cidade das TIC (Av. de Pedralonga, A Coruña)', 'Status', 'Date and venue confirmed'],
         ['Format', 'Breakfast, keynote, talks, lunch and a networking afternoon.', 'Expected audience', '50-75 people'],
         ['Organised by', 'Cascarilla Tech and Coruña JUG', 'Language', 'Spanish'],
       ],
@@ -208,7 +208,7 @@ const LANGS = {
         ['Your own material for attendees', 'The option to leave flyers, merchandising or a small giveaway at the welcome area. We work out the details together.'],
         ['Any other idea', 'If you can think of another way to appear or to add value to the community, we can always talk about it.'],
       ],
-      stand: 'We do not plan to have booths, at least for now. The event is a day of talks in an office, with no exhibition area. If your company is interested in one, we will look at it together.',
+      stand: 'We do not plan to have booths, at least for now. The event is a day of talks, with no exhibition area. If your company is interested in one, we will look at it together.',
     },
     give: {
       eyebrow: 'How to contribute', title: 'Ways to collaborate',
