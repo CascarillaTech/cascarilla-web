@@ -330,6 +330,8 @@
 
 .talk-modal-title-2 {
     margin: 1.25rem 0 0.5rem;
+    font-weight: normal;
+    font-style: italic;
 }
 
 /* ---------- Charlas destacadas ---------- */
