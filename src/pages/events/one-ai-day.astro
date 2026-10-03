@@ -163,6 +163,7 @@ const sponsors = evento.sponsors ?? [];
         <p class="talk-modal-speaker" id="talk-modal-speaker"></p>
         <p id="talk-modal-bio" class="talk-modal-bio" hidden></p>
         <p id="talk-modal-links" class="talk-modal-links" hidden></p>
+        <h4 id="talk-modal-title-2" class="talk-modal-title-2"></h4>
         <p id="talk-modal-desc"></p>
     </dialog>
 
@@ -197,6 +198,7 @@ const sponsors = evento.sponsors ?? [];
             const idx = Number(btn.dataset.talkIdx);
             const talk = agenda[idx];
             document.getElementById('talk-modal-title').textContent = talk.name;
+            document.getElementById('talk-modal-title-2').textContent = talk.name;
             document.getElementById('talk-modal-time').textContent = talk.time;
             document.getElementById('talk-modal-speaker').textContent = 'Poñente: ' + (talk.speaker || 'TBA');
             document.getElementById('talk-modal-desc').textContent = talk.description || 'Descrición pendente de confirmar.';
