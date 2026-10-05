@@ -393,9 +393,10 @@ html, body {
 /* --- Móbil / ventá estreita: o cartel deixa de ser un lenzo fixo de
    1200x630 e apílase en vertical (logos, título, poñente debaixo, sponsors,
    banda). HyperFrames renderiza cun viewport exacto de 1200px, así que
-   isto NUNCA se aplica ao render do vídeo/imaxe. Os !important son para
+   o render do vídeo/imaxe (viewport exacto 1200x630) queda excluído
+   explicitamente na media query. Os !important son para
    pisar as posicións inline que calcula o script (top/left/width). --- */
-@media (max-width: 1219px) {
+@media (max-width: 1219px) and (not ((width: 1200px) and (height: 630px))) {
     /* Fondo escuro arredor (igual que o marco do escritorio) para que o crema
        remate onde remata o cartel, non onde remata a pantalla. */
     html:has(.poster),
