@@ -16,8 +16,6 @@ concurrency:
 
 env:
   BUILD_PATH: '.'
-  # Forzamos a GitHub a usar Node 24 para evitar los avisos de deprecación
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
@@ -25,22 +23,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout del repositorio
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           # Historial completo: /feed.json saca o updatedAt de cada evento
           # da data do seu último commit (src/pages/feed.json.js).
           fetch-depth: 0
 
       - name: Configurar Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 24 # Actualizado a Node 24
+          node-version: 24 # LTS actual (coincide co Node local)
           cache: npm
           cache-dependency-path: ${{ env.BUILD_PATH }}/package-lock.json
 
       - name: Configurar GitHub Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Instalar dependencias
         run: npm ci
@@ -51,7 +49,7 @@ jobs:
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Subir artefacto compilado
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ${{ env.BUILD_PATH }}/dist
 
@@ -65,4 +63,4 @@ jobs:
     steps:
       - name: Desplegar en GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
