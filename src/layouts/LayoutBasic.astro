@@ -6,7 +6,9 @@ import { getEntry } from 'astro:content';
 
 import logo from '../assets/cascarillatech.svg';
 
-const { title, noindex } = Astro.props.frontmatter || Astro.props;
+const { title, noindex, description, ogImage } = Astro.props.frontmatter || Astro.props;
+const ogImageUrl = ogImage ? new URL(ogImage, 'https://cascarillatech.org').href : undefined;
+const canonicalUrl = new URL(Astro.url.pathname, 'https://cascarillatech.org').href;
 
 const org = await getEntry('org', 'info');
 const cif = org?.data.cif;
@@ -20,7 +22,20 @@ const cif = org?.data.cif;
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {ogImageUrl && (
+        <>
+            <meta property="og:type" content="website" />
+            <meta property="og:site_name" content="Cascarilla Tech" />
+            <meta property="og:title" content={title} />
+            <meta property="og:url" content={canonicalUrl} />
+            {description && <meta property="og:description" content={description} />}
+            <meta property="og:image" content={ogImageUrl} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta name="twitter:card" content="summary_large_image" />
+        </>
+    )}
+    {noindex &&<meta name="robots" content="noindex, nofollow" />}
 </head>
 <body>
 
