@@ -4,6 +4,17 @@
         "description": "Talento para a transformación dixital.",
         "image": "/images/colaboradoras/odeene-color-horizontal.png",
         "url": "https://odeene.es/",
-        "tags": ["Colaboradora"]
+        "tags": [
+            "Colaboradora"
+        ]
+    },
+    {
+        "name": "Bahía Software",
+        "description": "Empresa de desenvolvemento de software.",
+        "image": "/images/colaboradoras/bahia-software-color.png",
+        "url": "https://www.bahiasoftware.es/",
+        "tags": [
+            "Colaboradora"
+        ]
     }
 ]
