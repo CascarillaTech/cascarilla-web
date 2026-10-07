@@ -117,7 +117,7 @@ const sponsors = evento.sponsors ?? [];
         <section class="event-section-block">
             <h2>Empresas colaboradoras</h2>
             <p class="section-intro">
-                Grazas a <strong>Odeene</strong> por participar no evento. Se queres formar parte deste evento,
+                Grazas a <strong>{sponsors.map((s) => s.name).join(' e ')}</strong> por participar no evento. Se queres formar parte deste evento,
                 <a href={`mailto:${contactEmail}`}>ponte en contacto connosco</a> e vemos a forma de colaborar.
             </p>
 

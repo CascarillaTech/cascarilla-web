@@ -46,6 +46,11 @@
             "name": "Odeene",
             "url": "https://odeene.es/",
             "img": "/images/colaboradoras/odeene-color-horizontal.png"
+        },
+        {
+            "name": "Bahía Software",
+            "url": "https://www.bahiasoftware.es/",
+            "img": "/images/colaboradoras/bahia-software-color.png"
         }
     ],
     "price": {
