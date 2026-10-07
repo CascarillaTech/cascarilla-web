@@ -381,8 +381,8 @@ html, body {
 
 .poster-sponsors-logos img {
     display: block;
-    width: 190px;
-    height: auto;
+    width: auto;
+    height: 73px;
     /* Estado inicial só de opacity — o "entra dende a esquerda" (x) o
        marca o propio GSAP con fromTo() no script, non CSS: mesturar un
        transform inicial en CSS cun tween de GSAP na mesma propiedade

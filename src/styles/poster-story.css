@@ -226,8 +226,8 @@
 
 .story-sponsors-logos img {
     display: block;
-    width: 230px;
-    height: auto;
+    width: auto;
+    height: 88px;
     /* x inicial (-32px) marcado por GSAP fromTo() no script, non en CSS
        (mesturar transform CSS + tween GSAP na mesma propiedade dispara
        gsap_css_transform_conflict no lint de HyperFrames). */
