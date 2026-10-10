@@ -20,7 +20,7 @@ Requiren Node ≥ 22.12.
 ```text
 src/
 ├── pages/        rutas (about, events, membership, registration, …)
-│   ├── events/poster/[slug].astro  cartel 1200×630 dun evento
+│   ├── events/poster/[slug].astro  cartel 1920×1080 (16:9) dun evento
 │   ├── events/ig/[slug].astro    cartel vertical 1080×1920 (Instagram)
 │   ├── evento/un-dia-con-ia.astro  dossier do evento «Un día con IA»
 │   └── feed.json.js              feed público de eventos (OpenTechEvents)
@@ -29,7 +29,6 @@ src/
 ├── layouts/  lib/  styles/
 public/           estáticos (imaxes, dossier, fontes)
 tools/            scripts de mantemento (ver abaixo)
-video/renders/    vídeos promocionais xerados
 ```
 
 ## Eventos
@@ -60,8 +59,8 @@ Publicar un evento nos dous sitios e en Eventbrite faino a skill de Claude Code
 ## Cartel e vídeo automáticos
 
 Ao facer commit dun evento novo ou modificado en `proximoseventos/`, un hook
-`post-commit` xera o cartel PNG (`public/images/poster/generated/`) e os vídeos
-landscape e vertical (`video/renders/`) e engádeos nun commit adicional
+`post-commit` xera o cartel PNG, a páxina HTML autónoma e os vídeos landscape e
+vertical (todo en `public/images/poster/generated/`) e engádeos nun commit adicional
 `chore(media): …`. Actívase unha vez por clon:
 
 ```bash
@@ -70,7 +69,7 @@ git config core.hooksPath tools/git-hooks
 
 Tamén se pode lanzar a man con `node tools/generate-event-media.mjs <slug>`.
 Necesita `ffmpeg` e `ffprobe` no `PATH`; o render usa HyperFrames sobre o
-propio sitio compilado. Detalles en [`video/README.md`](video/README.md).
+propio sitio compilado (ver `tools/generate-event-media.mjs`).
 
 ## Alta de socios/as
 

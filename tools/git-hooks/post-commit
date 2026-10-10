@@ -39,7 +39,7 @@ if [ $gen_status -ne 0 ]; then
     exit 0
 fi
 
-git add video/renders/ public/images/poster/generated/ 2>/dev/null
+git add public/images/poster/generated/ 2>/dev/null
 if git diff --cached --quiet; then
     echo "post-commit: nada novo que commitear (media xa estaba ao día)."
     exit 0

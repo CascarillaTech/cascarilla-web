@@ -7,8 +7,9 @@
    imagen y el vídeo promocional de cada evento (ver
    ~/.claude/skills/publish-event/references/poster-design.md).
 
-   Canvas fijo 1200×630px — no es responsive, es literalmente el
-   tamaño de la imagen/vídeo que se genera a partir de esta página.
+   Canvas fijo 1200×675px (16:9), renderizado a 1920×1080 con zoom 1.6 —
+   no es responsive, es literalmente el tamaño de la imagen/vídeo que se
+   genera a partir de esta página.
    ============================================================ */
 
 @font-face {
@@ -28,7 +29,7 @@
     --poster-ochre: #B8863B;
 
     --poster-w: 1200px;
-    --poster-h: 630px;
+    --poster-h: 675px;
     --poster-footer-h: 80px;
 }
 
@@ -49,7 +50,7 @@ html, body {
    coa súa canvas de 1920px de alto o OR de height activaría este mesmo
    @media aínda que o ancho (1080) non chegase ao limiar pensado para a
    horizontal. Cada deseño garda o seu propio marco decorativo. */
-@media (min-width: 1220px), (min-height: 650px) {
+@media ((min-width: 1220px) or (min-height: 695px)) and (not ((width: 1920px) and (height: 1080px))) {
     body:has(.poster) {
         min-height: 100vh;
         display: flex;
@@ -66,6 +67,21 @@ html, body {
         box-shadow:
             0 25px 60px rgba(0, 0, 0, 0.5),
             0 0 120px 24px rgba(184, 134, 59, 0.22);
+    }
+}
+
+/* Render de vídeo/PNG: HyperFrames usa un viewport EXACTO de 1920x1080
+   (16:9, para proxección). O deseño segue sendo 1200x675 en píxeles CSS;
+   zoom 1.6 énchea o viewport sen barras nin marco. Para unha visita normal
+   ao sitio (calquera outro tamaño) o cartel móstrase a 1200x675 co marco. */
+@media (width: 1920px) and (height: 1080px) {
+    .poster {
+        /* !important: HyperFrames fija width/height en línea a partir de
+           data-width/data-height (1920x1080) y, con zoom, quedaría 1.6x
+           demasiado grande. */
+        width: 1200px !important;
+        height: 675px !important;
+        zoom: 1.6;
     }
 }
 

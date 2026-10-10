@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 // Xera automaticamente, a partir da páxina "cartel" HTML/CSS xa existente
 // (src/pages/events/poster/[slug].astro e .../events/ig/[slug].astro), o vídeo
-// promocional (HyperFrames, landscape + vertical IG) e o PNG estático do
-// seu fotograma final (Eventbrite / corunajug / redes) dun evento.
+// promocional (HyperFrames, landscape + vertical IG), o PNG estático do seu
+// fotograma final e o HTML autónomo dun evento, en
+// public/images/poster/generated/<slug>/.
 //
 // Uso: node tools/generate-event-media.mjs <slug> [<slug> ...]
 //
@@ -11,17 +12,24 @@
 // facer `astro build` antes de renderizar.
 
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const HYPERFRAMES_VERSION = '0.8.40'; // mesma versión pinada en video/package.json
+const HYPERFRAMES_VERSION = '0.8.40';
 const VIDEO_QUALITY = 'looks';
 
-const slugs = process.argv.slice(2);
+// --only=landscape|vertical  (por defecto, os dous formatos)
+const onlyArg = process.argv.find((a) => a.startsWith('--only='));
+const only = onlyArg ? onlyArg.slice('--only='.length) : null;
+if (only && !['landscape', 'vertical'].includes(only)) {
+    console.error('--only agarda "landscape" ou "vertical"');
+    process.exit(1);
+}
+const slugs = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 if (slugs.length === 0) {
-    console.error('Uso: node tools/generate-event-media.mjs <slug> [<slug> ...]');
+    console.error('Uso: node tools/generate-event-media.mjs <slug> [<slug> ...] [--only=landscape|vertical]');
     process.exit(1);
 }
 
@@ -32,13 +40,17 @@ function run(cmd, args, opts = {}) {
     execFileSync(cmd, args, { stdio: 'inherit', cwd: ROOT, shell: true, ...opts });
 }
 
-function renderComposition(compositionRelPath, outputRelPath) {
+// extraArgs: o vertical renderízase con 1 só worker e captura por pantallazo —
+// co paralelismo "auto" os fotogramas saían desordenados (a máquina de
+// escribir reiniciábase e as letras pestanexaban). O landscape non o precisa.
+function renderComposition(compositionRelPath, outputRelPath, extraArgs = []) {
     run('npx', [
         '--yes', `hyperframes@${HYPERFRAMES_VERSION}`,
         'render', 'dist',
         '-c', compositionRelPath,
         '--output', outputRelPath,
         '--quality', VIDEO_QUALITY,
+        ...extraArgs,
     ]);
 }
 
@@ -68,13 +80,38 @@ function extractLastFrame(videoRelPath, pngRelPath) {
     ]);
 }
 
+
+const MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp' };
+
+// Xera unha versión autónoma (CSS, JS e imaxes embebidos) da páxina de cartel,
+// para poder abrila ou publicala sen o sitio.
+function writeStandaloneHtml(htmlAbsPath, outAbsPath) {
+    const dist = path.join(ROOT, 'dist');
+    const fromDist = (url) => path.join(dist, url.replace(/^\//, ''));
+    let html = readFileSync(htmlAbsPath, 'utf8');
+    html = html.replace(/<link[^>]*rel="stylesheet"[^>]*href="(\/[^"]+\.css)"[^>]*>/g,
+        (_, url) => {
+            const css = readFileSync(fromDist(url), 'utf8').replace(/url\((\/[^)]+\.(?:ttf|woff2?))\)/g, (m, f) => {
+                const file = fromDist(f);
+                return existsSync(file)
+                    ? `url(data:font/${path.extname(file).slice(1)};base64,${readFileSync(file).toString('base64')})`
+                    : m;
+            });
+            return `<style>${css}</style>`;
+        });
+    html = html.replace(/<script[^>]*src="(\/[^"]+\.js)"[^>]*><\/script>/g,
+        (_, url) => `<script type="module">${readFileSync(fromDist(url), 'utf8').replace(/<\/script/gi, '<\\/script')}</script>`);
+    html = html.replace(/(src|href)="(\/[^"]+\.(?:png|jpe?g|svg|webp))"/g, (m, attr, url) => {
+        const file = fromDist(url);
+        if (!existsSync(file)) return m;
+        const mime = MIME[path.extname(file).toLowerCase()];
+        return `${attr}="data:${mime};base64,${readFileSync(file).toString('base64')}"`;
+    });
+    writeFileSync(outAbsPath, html);
+}
+
 console.log(`== Recompilando o sitio (astro build) ==`);
 run('npm', ['run', 'build']);
-
-const videoRendersDir = path.join(ROOT, 'video', 'renders');
-const posterDir = path.join(ROOT, 'public', 'images', 'poster', 'generated');
-mkdirSync(videoRendersDir, { recursive: true });
-mkdirSync(posterDir, { recursive: true });
 
 const SLUG_RE = /^[a-z0-9][a-z0-9-]*$/;
 
@@ -90,17 +127,31 @@ for (const slug of slugs) {
         continue;
     }
 
-    console.log(`\n== ${slug}: vídeo landscape ==`);
-    const landscapeVideo = path.posix.join('video', 'renders', `${slug}.mp4`);
-    renderComposition(landscapeSrc, landscapeVideo);
+    // Cada evento ten o seu propio directorio:
+    //   generated/<slug>/<slug>.{mp4,png,html}  e  <slug>-ig.{mp4,png}
+    const outRel = path.posix.join('public', 'images', 'poster', 'generated', slug);
+    mkdirSync(path.join(ROOT, outRel), { recursive: true });
 
-    console.log(`== ${slug}: vídeo vertical (IG) ==`);
-    const verticalVideo = path.posix.join('video', 'renders', `${slug}-ig.mp4`);
-    renderComposition(verticalSrc, verticalVideo);
+    const landscapeVideo = path.posix.join(outRel, `${slug}.mp4`);
+    const verticalVideo = path.posix.join(outRel, `${slug}-ig.mp4`);
 
-    console.log(`== ${slug}: cartel PNG (fotograma final) ==`);
-    extractLastFrame(landscapeVideo, path.posix.join('public', 'images', 'poster', 'generated', `${slug}.png`));
-    extractLastFrame(verticalVideo, path.posix.join('public', 'images', 'poster', 'generated', `${slug}-ig.png`));
+    if (only !== 'vertical') {
+        console.log(`\n== ${slug}: vídeo landscape ==`);
+        renderComposition(landscapeSrc, landscapeVideo);
+        console.log(`== ${slug}: cartel PNG landscape (fotograma final) ==`);
+        extractLastFrame(landscapeVideo, path.posix.join(outRel, `${slug}.png`));
+    }
+
+    if (only !== 'landscape') {
+        console.log(`\n== ${slug}: vídeo vertical (IG) ==`);
+        renderComposition(verticalSrc, verticalVideo, ['--workers', '1', '--experimental-fast-capture=false']);
+        console.log(`== ${slug}: cartel PNG vertical (fotograma final) ==`);
+        extractLastFrame(verticalVideo, path.posix.join(outRel, `${slug}-ig.png`));
+    }
+
+    if (only === 'vertical') continue;
+    console.log(`== ${slug}: HTML autónomo ==`);
+    writeStandaloneHtml(path.join(ROOT, 'dist', landscapeSrc), path.join(ROOT, outRel, `${slug}.html`));
 }
 
 console.log('\nListo.');

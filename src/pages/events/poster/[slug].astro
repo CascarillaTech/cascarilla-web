@@ -1,6 +1,7 @@
 ---
 // Páxina "cartel" dun evento: SEN o Layout do sitio (sen header/nav/footer)
-// a propósito — isto ten que ser exactamente o canvas de 1200x630 do
+// a propósito — isto ten que ser exactamente o canvas de 1200x675 (16:9,
+// renderizado a 1920x1080 con zoom 1.6, ver poster.css) do
 // deseño promocional, nada máis. É a fonte única do deseño para xerar
 // tanto a imaxe coma o vídeo do evento (ver poster.css e
 // ~/.claude/skills/publish-event/references/poster-design.md).
@@ -46,7 +47,8 @@ const titleMaxW = speakersLeftEdge - titleGapBeforeSpeakers - titleLeft;
 
 // --- Fila de sponsors, enriba da banda escura ---
 // Sen banda (event.posterNoFooter, p.ex. carteis de charla) a fila baixa ata o borde.
-const bandCy = event.posterNoFooter ? 630 - 80 : 630 - 80 - 46;
+const POSTER_H = 675;
+const bandCy = event.posterNoFooter ? POSTER_H - 80 : POSTER_H - 80 - 46;
 
 // --- Efecto máquina de escribir (título, data, lugar): cada letra é o
 // seu propio span cun transition-delay propio, así o "typing" en si o fai
@@ -84,8 +86,8 @@ const renderDuration = computePosterRenderDuration({
     class={`poster${event.posterSwapLogos ? ' poster--swap-logos' : ''}${event.posterNoFooter ? ' poster--no-footer' : ''}`}
     id="poster"
     data-composition-id="event-poster"
-    data-width="1200"
-    data-height="630"
+    data-width="1920"
+    data-height="1080"
     data-duration={renderDuration}
 >
 
@@ -261,7 +263,16 @@ const renderDuration = computePosterRenderDuration({
         const sponsorsText = document.getElementById('poster-sponsors-text');
         if (!poster || !title || !underline) return { hlWidth: 0, circuitW: 0 };
 
-        const posterRect = poster.getBoundingClientRect();
+        // Durante o render o viewport é 1920x1080 e .poster leva zoom 1.6
+        // (ver poster.css): getBoundingClientRect devolve píxeles xa
+        // multiplicados polo zoom, pero os style.left/top/width que
+        // asignamos van en píxeles de deseño. Dividimos todo por S.
+        const S = window.matchMedia('(width: 1920px) and (height: 1080px)').matches ? 1.6 : 1;
+        const rectOf = (el) => {
+            const r = el.getBoundingClientRect();
+            return { left: r.left / S, right: r.right / S, top: r.top / S, bottom: r.bottom / S, width: r.width / S, height: r.height / S };
+        };
+        const posterRect = rectOf(poster);
 
         // Mide directamente cada letra (.tw-char) e agrúpaas por liña — non
         // se pode usar un Range sobre o título enteiro porque ten un
@@ -270,7 +281,7 @@ const renderDuration = computePosterRenderDuration({
         const chars = Array.from(title.querySelectorAll('.tw-char'));
         const lines = [];
         for (const el of chars) {
-            const r = el.getBoundingClientRect();
+            const r = rectOf(el);
             const top = Math.round(r.top);
             let line = lines.find((l) => Math.abs(l.top - top) < 4);
             if (!line) {
@@ -312,15 +323,15 @@ const renderDuration = computePosterRenderDuration({
                 const titleBottom = lastRect.bottom - posterRect.top;
                 const titleMid = (titleTop + titleBottom) / 2;
                 const frame = speakers.querySelector('.poster-speaker-frame');
-                const frameH = frame ? frame.getBoundingClientRect().height : speakers.getBoundingClientRect().height;
-                const SPEAKERS_NUDGE_DOWN = 10; // ~1.5% do alto do cartel (630px), axuste fino a ollo
+                const frameH = frame ? rectOf(frame).height : rectOf(speakers).height;
+                const SPEAKERS_NUDGE_DOWN = 10; // ~1.5% do alto do cartel (675px), axuste fino a ollo
                 speakers.style.top = `${titleMid - frameH / 2 + SPEAKERS_NUDGE_DOWN}px`;
             }
         }
 
         let circuitW = 0;
         if (sponsorsCircuit && sponsorsText) {
-            circuitW = sponsorsText.getBoundingClientRect().width;
+            circuitW = rectOf(sponsorsText).width;
             sponsorsCircuit.setAttribute('width', String(circuitW));
         }
 

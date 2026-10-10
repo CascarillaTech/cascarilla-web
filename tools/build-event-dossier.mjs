@@ -298,7 +298,7 @@ function build(code) {
 <link rel="canonical" href="https://cascarillatech.org${L.path}">
 <meta property="og:title" content="${esc(L.title)}">
 <meta property="og:description" content="${esc(L.description)}">
-<meta property="og:image" content="https://cascarillatech.org/images/poster/generated/one-ai-day.png">
+<meta property="og:image" content="https://cascarillatech.org/images/poster/generated/one-ai-day/one-ai-day.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="/dossier/dossier.css">
 <!--
