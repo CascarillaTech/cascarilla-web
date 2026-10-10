@@ -2,6 +2,12 @@
 title: "Bahía Software súmase a Un día con IA como empresa colaboradora"
 date: 2026-10-07
 description: "Bahía Software, consultora tecnolóxica galega, apoia Un día con IA, a xornada do 21 de novembro na Cidade das TIC. Moitas grazas!"
+video:
+  tipo: colaboradora
+  etiqueta: Empresa colaboradora
+  titular: "Grazas, Bahía Software!"
+  liña: "Tamén colabora en Un día con IA"
+  imaxe: /images/colaboradoras/bahia-software-color.png
 ---
 
 <p class="lead"><strong>Bahía Software tamén colabora en Un día con IA!</strong><br>Moitas grazas por apostar pola comunidade tecnolóxica galega e por axudarnos a facer posible a xornada.</p>

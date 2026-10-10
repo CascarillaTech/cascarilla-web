@@ -2,6 +2,12 @@
 title: "Un día con IA: o 21 de novembro, xornada tecnolóxica en A Coruña"
 date: 2026-09-30
 description: "O 21 de novembro celebramos Un día con IA, unha xornada de charlas sobre intelixencia artificial na Cidade das TIC. Xa hai entradas á venda."
+video:
+  tipo: evento
+  etiqueta: Xornada tecnolóxica
+  titular: "Un día con IA"
+  liña: "Charlas sobre intelixencia artificial e axentes. Xa hai entradas!"
+  imaxe: /images/poster/speakers/un-dia-con-ia-robot.jpg
 ---
 
 <p class="lead"><strong>O 21 de novembro celebramos Un día con IA</strong><br>Cascarilla Tech e <a href="https://corunajug.org" target="_blank">Coruña JUG</a> organizamos unha xornada tecnolóxica pensada para conectar comunidade, coñecemento e empresas de A Coruña.</p>

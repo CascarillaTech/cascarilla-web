@@ -2,6 +2,12 @@
 title: "Xa estamos aquí! Nace Cascarilla Tech"
 date: 2026-05-04
 description: "Damos o pistoletazo de saída á nova asociación tecnolóxica de A Coruña. Descubre quen somos e que imos facer."
+video:
+  tipo: xeral
+  etiqueta: Nova
+  titular: "Xa estamos aquí!"
+  liña: "Nace Cascarilla Tech, a asociación tecnolóxica de A Coruña"
+  imaxe: /images/poster/speakers/cascarillatech-icon.svg
 ---
 
 <p class="lead">Hoxe é un día moi especial para nos e esperamos que para a comunidade dixital coruñesa. Nace oficialmente <strong>Cascarilla Tech</strong>, un espazo aberto e sen ánimo de lucro creado por e para entusiastas da tecnoloxía.</p>

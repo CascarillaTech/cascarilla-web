@@ -1,0 +1,134 @@
+/* ============================================================
+   news-card.css — cartel/vídeo dunha nova de Cascarilla Tech.
+   Usado SÓ por src/components/NewsCard.astro (/news/poster/[slug] e
+   /news/ig/[slug]). Mesma paleta/fontes cós carteis de evento
+   (poster.css), pero autónomo: non depende dese ficheiro.
+
+   - Landscape: deseño 1200x675 (16:9); en render, viewport 1920x1080 e
+     zoom 1.6 (igual ca poster.css).
+   - Vertical (ig): 1080x1920 nativo.
+   Sen transition CSS en nada que anime GSAP (opacity/transform): o
+   render fai seek determinista frame a frame.
+   ============================================================ */
+
+:root {
+    --nc-cream: #f0e2b6;
+    --nc-primary: #8C4B33;
+    --nc-dark: #382117;
+    --nc-white: #ffffff;
+    --nc-ochre: #B8863B;
+}
+
+html, body { margin: 0; padding: 0; background: var(--nc-cream); }
+
+.nc {
+    position: relative;
+    overflow: hidden;
+    background: var(--nc-cream);
+    color: var(--nc-dark);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+.nc--land { width: 1200px; height: 675px; }
+.nc--ig   { width: 1080px; height: 1920px; }
+
+/* Marco decorativo só para visitas humanas (non no render). */
+@media ((min-width: 1220px) or (min-height: 695px)) and (not ((width: 1920px) and (height: 1080px))) {
+    body:has(.nc--land) {
+        min-height: 100vh; display: flex; align-items: center; justify-content: center;
+        padding: 48px; box-sizing: border-box;
+        background: radial-gradient(circle at 50% 38%, #1c0f08 0%, #120a05 60%, #070403 100%);
+    }
+    .nc--land { box-shadow: 0 25px 60px rgba(0,0,0,.5), 0 0 120px 24px rgba(184,134,59,.22); }
+}
+@media (min-width: 1100px), (min-height: 1950px) {
+    body:has(.nc--ig) {
+        min-height: 100vh; display: flex; align-items: center; justify-content: center;
+        padding: 48px; box-sizing: border-box;
+        background: radial-gradient(circle at 50% 38%, #1c0f08 0%, #120a05 60%, #070403 100%);
+    }
+    .nc--ig { box-shadow: 0 25px 60px rgba(0,0,0,.5), 0 0 120px 24px rgba(184,134,59,.22); }
+}
+/* Render landscape: viewport exacto 1920x1080 → zoom 1.6. !important porque
+   HyperFrames fixa width/height en liña a partir de data-width/data-height. */
+@media (width: 1920px) and (height: 1080px) {
+    .nc--land { width: 1200px !important; height: 675px !important; zoom: 1.6; }
+}
+
+/* ---- Marca ---- */
+.nc-brand { position: absolute; }
+.nc-brand img { display: block; height: 100%; width: auto; }
+.nc--land .nc-brand { right: 60px; top: 28px; height: 60px; }
+.nc--ig .nc-brand   { right: 64px; top: 64px; height: 92px; }
+
+/* ---- Contido ---- */
+/* Sen banda inferior (`pe` baleiro): o contido baixa ata case o borde. */
+.nc-main { position: absolute; display: flex; }
+.nc--land .nc-main { left: 60px; right: 60px; top: 110px; bottom: 100px; flex-direction: row; align-items: center; gap: 56px; }
+.nc--ig .nc-main   { left: 72px; right: 72px; top: 260px; bottom: 300px; flex-direction: column; align-items: center; justify-content: center; gap: 56px; text-align: center; }
+
+.nc-text { flex: 1 1 auto; min-width: 0; }
+.nc--ig .nc-text { flex: 0 0 auto; width: 100%; }
+
+.nc-kicker {
+    display: inline-block;
+    color: var(--nc-ochre);
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(8px);
+}
+.nc--land .nc-kicker { font-size: 20px; margin-bottom: 18px; }
+.nc--ig .nc-kicker   { font-size: 34px; margin-bottom: 28px; }
+
+.nc-title { margin: 0; font-weight: 800; line-height: 1.08; text-shadow: 3px 5px 4px rgba(0,0,0,.28); }
+.nc--land .nc-title { font-size: 68px; }
+.nc--ig .nc-title   { font-size: 96px; }
+.nc--land.nc--long .nc-title { font-size: 50px; }
+.nc--ig.nc--long .nc-title   { font-size: 70px; }
+
+.nc-rule { height: 12px; background: var(--nc-ochre); border-radius: 6px 3px 7px 4px; transform: scaleX(0); transform-origin: left center; }
+.nc--land .nc-rule { width: 340px; margin: 26px 0 26px 4px; }
+.nc--ig .nc-rule   { width: 520px; margin: 40px auto; transform-origin: center; }
+
+.nc-line   { margin: 0; font-weight: 500; line-height: 1.25; }
+.nc--land .nc-line { font-size: 32px; }
+.nc--ig .nc-line   { font-size: 46px; }
+.nc-detail { margin: 14px 0 0; color: var(--nc-primary); font-weight: 600; }
+.nc--land .nc-detail { font-size: 24px; }
+.nc--ig .nc-detail   { font-size: 36px; margin-top: 22px; }
+
+.tw-char { opacity: 0; }
+
+/* ---- Imaxe (hero) ---- */
+.nc-hero { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(.94); }
+.nc--land .nc-hero { width: 400px; }
+.nc--ig .nc-hero   { width: 760px; order: -1; }
+
+.nc-hero--card { background: var(--nc-white); border-radius: 28px; box-shadow: 0 12px 30px rgba(56,33,23,.18); }
+.nc--land .nc-hero--card { height: 250px; padding: 36px; box-sizing: border-box; }
+.nc--ig .nc-hero--card   { height: 420px; padding: 60px; box-sizing: border-box; }
+.nc-hero--card img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+.nc-hex { position: relative; aspect-ratio: 1 / 1.1547; background: var(--nc-white); clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+.nc--land .nc-hex { width: 270px; }
+.nc--ig .nc-hex   { width: 520px; }
+.nc-hex img { position: absolute; inset: 7px; width: calc(100% - 14px); height: calc(100% - 14px); object-fit: cover;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+
+.nc-hero--pic img { border-radius: 22px; object-fit: cover; box-shadow: 0 12px 30px rgba(56,33,23,.18); }
+.nc--land .nc-hero--pic img { width: 300px; height: 300px; }
+.nc--ig .nc-hero--pic img   { width: 560px; height: 560px; }
+.nc-hero--icon img { object-fit: contain; border-radius: 0; box-shadow: none; }
+
+.nc--land.nc--nofooter .nc-main { top: 120px; bottom: 60px; }
+.nc--ig.nc--nofooter .nc-main   { top: 260px; bottom: 120px; }
+
+/* ---- Banda inferior ---- */
+.nc-footer {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    background: var(--nc-dark); color: var(--nc-white);
+    display: flex; align-items: center; box-sizing: border-box;
+}
+.nc--land .nc-footer { height: 80px; padding: 0 60px; font-size: 26px; }
+.nc--ig .nc-footer   { height: 200px; padding: 0 56px; font-size: 32px; white-space: nowrap; justify-content: center; text-align: center; }

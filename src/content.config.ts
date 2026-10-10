@@ -15,6 +15,17 @@ const newsCollection = defineCollection({
         title: z.string(),
         date: z.coerce.date(), // Converte automaticamente o texto a data
         description: z.string().optional(), // Un resumo opcional
+        // Datos para o cartel/vídeo da nova (ver src/lib/newsCard.ts). Todo
+        // opcional: sen isto xérase unha tarxeta "xeral" co título e a data.
+        video: z.object({
+            tipo: z.enum(['colaboradora', 'ponente', 'evento', 'xeral']).default('xeral'),
+            etiqueta: z.string().optional(), // pequeno rótulo sobre o titular
+            titular: z.string().optional(),  // por defecto, title
+            liña: z.string().optional(),     // por defecto, description
+            detalle: z.string().optional(),  // terceira liña (cargo, etc.)
+            imaxe: z.string().optional(),    // ruta en /public (logo, foto...)
+            pe: z.string().optional(),       // texto da banda inferior
+        }).optional(),
     }),
 });
 

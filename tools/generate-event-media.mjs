@@ -12,9 +12,10 @@
 // facer `astro build` antes de renderizar.
 
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { writeStandaloneHtml } from './lib/standalone-html.mjs';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const HYPERFRAMES_VERSION = '0.8.40';
@@ -81,34 +82,6 @@ function extractLastFrame(videoRelPath, pngRelPath) {
 }
 
 
-const MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp' };
-
-// Xera unha versión autónoma (CSS, JS e imaxes embebidos) da páxina de cartel,
-// para poder abrila ou publicala sen o sitio.
-function writeStandaloneHtml(htmlAbsPath, outAbsPath) {
-    const dist = path.join(ROOT, 'dist');
-    const fromDist = (url) => path.join(dist, url.replace(/^\//, ''));
-    let html = readFileSync(htmlAbsPath, 'utf8');
-    html = html.replace(/<link[^>]*rel="stylesheet"[^>]*href="(\/[^"]+\.css)"[^>]*>/g,
-        (_, url) => {
-            const css = readFileSync(fromDist(url), 'utf8').replace(/url\((\/[^)]+\.(?:ttf|woff2?))\)/g, (m, f) => {
-                const file = fromDist(f);
-                return existsSync(file)
-                    ? `url(data:font/${path.extname(file).slice(1)};base64,${readFileSync(file).toString('base64')})`
-                    : m;
-            });
-            return `<style>${css}</style>`;
-        });
-    html = html.replace(/<script[^>]*src="(\/[^"]+\.js)"[^>]*><\/script>/g,
-        (_, url) => `<script type="module">${readFileSync(fromDist(url), 'utf8').replace(/<\/script/gi, '<\\/script')}</script>`);
-    html = html.replace(/(src|href)="(\/[^"]+\.(?:png|jpe?g|svg|webp))"/g, (m, attr, url) => {
-        const file = fromDist(url);
-        if (!existsSync(file)) return m;
-        const mime = MIME[path.extname(file).toLowerCase()];
-        return `${attr}="data:${mime};base64,${readFileSync(file).toString('base64')}"`;
-    });
-    writeFileSync(outAbsPath, html);
-}
 
 console.log(`== Recompilando o sitio (astro build) ==`);
 run('npm', ['run', 'build']);
@@ -151,7 +124,7 @@ for (const slug of slugs) {
 
     if (only === 'vertical') continue;
     console.log(`== ${slug}: HTML autónomo ==`);
-    writeStandaloneHtml(path.join(ROOT, 'dist', landscapeSrc), path.join(ROOT, outRel, `${slug}.html`));
+    writeStandaloneHtml(path.join(ROOT, 'dist', landscapeSrc), path.join(ROOT, outRel, `${slug}.html`), ROOT);
 }
 
 console.log('\nListo.');

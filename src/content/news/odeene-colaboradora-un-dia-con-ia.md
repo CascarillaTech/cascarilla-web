@@ -2,6 +2,12 @@
 title: "Odeene, primeira empresa colaboradora de Un día con IA"
 date: 2026-09-30
 description: "Odeene é a primeira empresa que se suma a Un día con IA, a xornada tecnolóxica do 21 de novembro na Cidade das TIC. Moitas grazas!"
+video:
+  tipo: colaboradora
+  etiqueta: Primeira empresa colaboradora
+  titular: "Grazas, Odeene!"
+  liña: "Confiaron en Un día con IA e acóllennos nas súas oficinas"
+  imaxe: /images/colaboradoras/odeene-color-horizontal.png
 ---
 
 <p class="lead"><strong>Odeene é a primeira empresa colaboradora de Un día con IA!</strong><br>Moitísimas grazas por confiar en nós e por apostar pola comunidade tecnolóxica de A Coruña.</p>

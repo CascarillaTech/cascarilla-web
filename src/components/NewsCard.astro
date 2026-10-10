@@ -1,0 +1,122 @@
+---
+// Cartel/vídeo dunha nova. Dúas variantes: 'land' (LinkedIn, 1920x1080 en
+// render) e 'ig' (Instagram, 1080x1920). A fonte única do deseño para as
+// imaxes/vídeos das novas — ver src/lib/newsCard.ts e news-card.css.
+import '../styles/news-card.css';
+import { deriveNewsCardData, computeNewsRenderDuration } from '../lib/newsCard';
+
+interface Props { entry: any; format: 'land' | 'ig'; }
+const { entry, format } = Astro.props;
+
+const card = deriveNewsCardData(entry);
+const renderDuration = computeNewsRenderDuration(card);
+const chars = (s: string) => Array.from(s);
+const isLong = chars(card.titular).length > 24;
+const compId = `news-${format}`;
+const dataW = format === 'land' ? 1920 : 1080;
+const dataH = format === 'land' ? 1080 : 1920;
+const heroClass = {
+    colaboradora: 'nc-hero--card',
+    ponente: 'nc-hero--hex',
+    evento: 'nc-hero--pic',
+    xeral: 'nc-hero--pic nc-hero--icon',
+}[card.tipo];
+---
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+    <meta charset="UTF-8" />
+    <title>{card.titular} — Cascarilla Tech (nova)</title>
+</head>
+<body>
+<div
+    class={`nc nc--${format}${isLong ? ' nc--long' : ''}${card.pe ? '' : ' nc--nofooter'}`}
+    id="poster"
+    data-composition-id={compId}
+    data-width={dataW}
+    data-height={dataH}
+    data-duration={renderDuration}
+>
+    <div class="nc-brand"><img src="/images/poster/organizers/cascarillatech-logo.png" alt="Cascarilla Tech" /></div>
+
+    <div class="nc-main">
+        <div class="nc-text">
+            <span class="nc-kicker" id="nc-kicker">{card.etiqueta}</span>
+            <h1 class="nc-title" id="nc-title">
+                {chars(card.titular).map((ch) => <span class="tw-char">{ch}</span>)}
+            </h1>
+            <div class="nc-rule" id="nc-rule"></div>
+            {card.liña && (
+                <p class="nc-line" id="nc-line">
+                    {chars(card.liña).map((ch) => <span class="tw-char">{ch}</span>)}
+                </p>
+            )}
+            {card.detalle && (
+                <p class="nc-detail" id="nc-detail">
+                    {chars(card.detalle).map((ch) => <span class="tw-char">{ch}</span>)}
+                </p>
+            )}
+        </div>
+
+        {card.imaxe && (
+            <div class={`nc-hero ${heroClass}`} id="nc-hero">
+                {card.tipo === 'ponente'
+                    ? <div class="nc-hex"><img src={card.imaxe} alt={card.titular} /></div>
+                    : <img src={card.imaxe} alt="" />}
+            </div>
+        )}
+    </div>
+
+    {card.pe && (
+        <div class="nc-footer"><span id="nc-pe">
+            {chars(card.pe).map((ch) => <span class="tw-char">{ch}</span>)}
+        </span></div>
+    )}
+</div>
+
+<script>
+    import { gsap } from 'gsap';
+
+    // Constantes: espello de src/lib/newsCard.ts / posterTiming.ts.
+    const CHAR_STAGGER = 0.033;
+    const CHAR_TAIL = 0.13;
+    const INTRO = 0.75;
+    const RULE_DURATION = 0.46;
+
+    function addType(tl: any, el: HTMLElement | null, start: number) {
+        if (!el) return start;
+        const chars = el.querySelectorAll('.tw-char');
+        if (!chars.length) return start;
+        tl.to(chars, { opacity: 1, duration: 0.01, stagger: CHAR_STAGGER }, start);
+        return start + (chars.length - 1) * CHAR_STAGGER + 0.01 + CHAR_TAIL;
+    }
+
+    function boot() {
+        const root = document.getElementById('poster')!;
+        const compId = root.getAttribute('data-composition-id')!;
+        const tl = gsap.timeline({ paused: true });
+
+        tl.to('#nc-kicker', { opacity: 1, y: 0, duration: 0.4 }, 0);
+        const hero = document.getElementById('nc-hero');
+        if (hero) tl.to(hero, { opacity: 1, scale: 1, duration: 0.6 }, 0.15);
+
+        let t = INTRO;
+        t = addType(tl, document.getElementById('nc-title'), t);
+        tl.to('#nc-rule', { scaleX: 1, duration: RULE_DURATION, ease: 'power2.inOut' }, t);
+        t += RULE_DURATION;
+        t = addType(tl, document.getElementById('nc-line'), t);
+        t = addType(tl, document.getElementById('nc-detail'), t);
+        addType(tl, document.getElementById('nc-pe'), t);
+
+        // Rexistrar SÓ despois de construír o timeline (ver os carteis de evento).
+        (window as any).__timelines = (window as any).__timelines || {};
+        (window as any).__timelines[compId] = tl;
+        (window as any).__hfForceTimelineRebind?.();
+        if (!(window as any).__hf) tl.play();
+    }
+
+    if ((document as any).fonts && (document as any).fonts.ready) (document as any).fonts.ready.then(boot);
+    else window.addEventListener('load', boot);
+</script>
+</body>
+</html>

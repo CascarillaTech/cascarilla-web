@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "media": "node tools/generate-event-media.mjs"
+    "media": "node tools/generate-event-media.mjs",
+    "media:news": "node tools/generate-news-media.mjs"
   },
   "dependencies": {
     "astro": "^6.3.3",
