@@ -2,6 +2,9 @@
 // Cartel/vídeo dunha nova. Dúas variantes: 'land' (LinkedIn, 1920x1080 en
 // render) e 'ig' (Instagram, 1080x1920). A fonte única do deseño para as
 // imaxes/vídeos das novas — ver src/lib/newsCard.ts e news-card.css.
+//
+// Unha nova pode ter varias "pantallas" (video.escenas): o logo/foto, a
+// marca de Cascarilla Tech e a etiqueta quedan fixos e só cambia o texto.
 import '../styles/news-card.css';
 import { deriveNewsCardData, computeNewsRenderDuration } from '../lib/newsCard';
 
@@ -11,7 +14,6 @@ const { entry, format } = Astro.props;
 const card = deriveNewsCardData(entry);
 const renderDuration = computeNewsRenderDuration(card);
 const chars = (s: string) => Array.from(s);
-const isLong = chars(card.titular).length > 24;
 const compId = `news-${format}`;
 const dataW = format === 'land' ? 1920 : 1080;
 const dataH = format === 'land' ? 1080 : 1920;
@@ -30,32 +32,39 @@ const heroClass = {
 </head>
 <body>
 <div
-    class={`nc nc--${format}${isLong ? ' nc--long' : ''}${card.pe ? '' : ' nc--nofooter'}`}
+    class={`nc nc--${format}${card.pe ? '' : ' nc--nofooter'}`}
     id="poster"
     data-composition-id={compId}
     data-width={dataW}
     data-height={dataH}
     data-duration={renderDuration}
 >
+    {card.evento && <div class="nc-event" id="nc-event">{card.evento}</div>}
     <div class="nc-brand"><img src="/images/poster/organizers/cascarillatech-logo.png" alt="Cascarilla Tech" /></div>
 
     <div class="nc-main">
         <div class="nc-text">
             <span class="nc-kicker" id="nc-kicker">{card.etiqueta}</span>
-            <h1 class="nc-title" id="nc-title">
-                {chars(card.titular).map((ch) => <span class="tw-char">{ch}</span>)}
-            </h1>
-            <div class="nc-rule" id="nc-rule"></div>
-            {card.liña && (
-                <p class="nc-line" id="nc-line">
-                    {chars(card.liña).map((ch) => <span class="tw-char">{ch}</span>)}
-                </p>
-            )}
-            {card.detalle && (
-                <p class="nc-detail" id="nc-detail">
-                    {chars(card.detalle).map((ch) => <span class="tw-char">{ch}</span>)}
-                </p>
-            )}
+            <div class="nc-scenes">
+                {card.escenas.map((scene, i) => (
+                    <div class={`nc-scene${chars(scene.titular).length > 24 ? ' nc-scene--long' : ''}`} data-scene={i}>
+                        <h1 class="nc-title">
+                            {chars(scene.titular).map((ch) => <span class="tw-char">{ch}</span>)}
+                        </h1>
+                        <div class="nc-rule"></div>
+                        {scene.liña && (
+                            <p class="nc-line">
+                                {chars(scene.liña).map((ch) => <span class="tw-char">{ch}</span>)}
+                            </p>
+                        )}
+                        {scene.detalle && (
+                            <p class="nc-detail">
+                                {chars(scene.detalle).map((ch) => <span class="tw-char">{ch}</span>)}
+                            </p>
+                        )}
+                    </div>
+                ))}
+            </div>
         </div>
 
         {card.imaxe && (
@@ -82,8 +91,10 @@ const heroClass = {
     const CHAR_TAIL = 0.13;
     const INTRO = 0.75;
     const RULE_DURATION = 0.46;
+    const SCENE_HOLD = 1.1;
+    const SCENE_FADE = 0.35;
 
-    function addType(tl: any, el: HTMLElement | null, start: number) {
+    function addType(tl: any, el: Element | null, start: number) {
         if (!el) return start;
         const chars = el.querySelectorAll('.tw-char');
         if (!chars.length) return start;
@@ -97,15 +108,24 @@ const heroClass = {
         const tl = gsap.timeline({ paused: true });
 
         tl.to('#nc-kicker', { opacity: 1, y: 0, duration: 0.4 }, 0);
+        if (document.getElementById('nc-event')) tl.to('#nc-event', { opacity: 1, y: 0, duration: 0.4 }, 0);
         const hero = document.getElementById('nc-hero');
         if (hero) tl.to(hero, { opacity: 1, scale: 1, duration: 0.6 }, 0.15);
 
         let t = INTRO;
-        t = addType(tl, document.getElementById('nc-title'), t);
-        tl.to('#nc-rule', { scaleX: 1, duration: RULE_DURATION, ease: 'power2.inOut' }, t);
-        t += RULE_DURATION;
-        t = addType(tl, document.getElementById('nc-line'), t);
-        t = addType(tl, document.getElementById('nc-detail'), t);
+        const scenes = Array.from(document.querySelectorAll('.nc-scene'));
+        scenes.forEach((scene, i) => {
+            t = addType(tl, scene.querySelector('.nc-title'), t);
+            tl.to(scene.querySelector('.nc-rule'), { scaleX: 1, duration: RULE_DURATION, ease: 'power2.inOut' }, t);
+            t += RULE_DURATION;
+            t = addType(tl, scene.querySelector('.nc-line'), t);
+            t = addType(tl, scene.querySelector('.nc-detail'), t);
+            if (i < scenes.length - 1) {
+                // Pausa e saída da pantalla; a seguinte escríbese xusto despois.
+                tl.to(scene, { opacity: 0, y: -14, duration: SCENE_FADE, ease: 'power1.in' }, t + SCENE_HOLD);
+                t += SCENE_HOLD + SCENE_FADE;
+            }
+        });
         addType(tl, document.getElementById('nc-pe'), t);
 
         // Rexistrar SÓ despois de construír o timeline (ver os carteis de evento).

@@ -20,11 +20,19 @@ const newsCollection = defineCollection({
         video: z.object({
             tipo: z.enum(['colaboradora', 'ponente', 'evento', 'xeral']).default('xeral'),
             etiqueta: z.string().optional(), // pequeno rótulo sobre o titular
+            evento: z.string().optional(),   // nome do evento: fixo arriba á esquerda
             titular: z.string().optional(),  // por defecto, title
             liña: z.string().optional(),     // por defecto, description
             detalle: z.string().optional(),  // terceira liña (cargo, etc.)
             imaxe: z.string().optional(),    // ruta en /public (logo, foto...)
             pe: z.string().optional(),       // texto da banda inferior
+            // Varias "pantallas": a imaxe/logos e a etiqueta quedan fixos e
+            // cambia só o texto. Sen isto, unha única pantalla (titular/liña).
+            escenas: z.array(z.object({
+                titular: z.string(),
+                liña: z.string().optional(),
+                detalle: z.string().optional(),
+            })).optional(),
         }).optional(),
     }),
 });

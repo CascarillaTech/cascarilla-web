@@ -60,6 +60,12 @@ html, body { margin: 0; padding: 0; background: var(--nc-cream); }
 .nc--land .nc-brand { right: 60px; top: 28px; height: 60px; }
 .nc--ig .nc-brand   { right: 64px; top: 64px; height: 92px; }
 
+/* ---- Nome do evento (cabeceira fixa, arriba á esquerda) ---- */
+.nc-event { position: absolute; font-weight: 800; letter-spacing: .01em; opacity: 0; transform: translateY(-8px); }
+.nc-event::after { content: ''; display: block; width: 56px; height: 5px; margin-top: 10px; background: var(--nc-ochre); border-radius: 3px; }
+.nc--land .nc-event { left: 60px; top: 34px; font-size: 30px; max-width: 640px; }
+.nc--ig .nc-event   { left: 72px; top: 70px; font-size: 46px; max-width: 640px; }
+
 /* ---- Contido ---- */
 /* Sen banda inferior (`pe` baleiro): o contido baixa ata case o borde. */
 .nc-main { position: absolute; display: flex; }
@@ -84,8 +90,13 @@ html, body { margin: 0; padding: 0; background: var(--nc-cream); }
 .nc-title { margin: 0; font-weight: 800; line-height: 1.08; text-shadow: 3px 5px 4px rgba(0,0,0,.28); }
 .nc--land .nc-title { font-size: 68px; }
 .nc--ig .nc-title   { font-size: 96px; }
-.nc--land.nc--long .nc-title { font-size: 50px; }
-.nc--ig.nc--long .nc-title   { font-size: 70px; }
+.nc--land .nc-scene--long .nc-title { font-size: 50px; }
+.nc--ig .nc-scene--long .nc-title   { font-size: 70px; }
+
+/* Pantallas (video.escenas): todas na mesma cela dunha grella, así o
+   contedor ten o alto da máis alta e o texto non salta ao cambiar. */
+.nc-scenes { display: grid; }
+.nc-scene { grid-area: 1 / 1; }
 
 .nc-rule { height: 12px; background: var(--nc-ochre); border-radius: 6px 3px 7px 4px; transform: scaleX(0); transform-origin: left center; }
 .nc--land .nc-rule { width: 340px; margin: 26px 0 26px 4px; }

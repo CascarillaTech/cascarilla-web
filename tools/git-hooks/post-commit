@@ -1,7 +1,11 @@
 #!/bin/sh
-# Xera automaticamente o cartel PNG e o vídeo promocional de calquera
-# evento novo ou modificado en src/data/eventos/proximoseventos/, e
-# engade eses ficheiros nun commit adicional.
+# Xera automaticamente os medios (cartel PNG, vídeo e HTML autónomo) de:
+#   - calquera evento novo ou modificado en src/data/eventos/proximoseventos/
+#     (node tools/generate-event-media.mjs) → public/images/poster/generated/
+#   - calquera nova nova ou modificada en src/content/news/ que teña un
+#     bloque `video:` no frontmatter (node tools/generate-news-media.mjs)
+#     → public/images/news/generated/
+# e engade eses ficheiros nun commit adicional "chore(media): ...".
 #
 # Instalación (unha vez por clon):
 #   git config core.hooksPath tools/git-hooks
@@ -17,34 +21,53 @@ case "$last_msg" in
         ;;
 esac
 
-changed_files=$(git diff-tree --no-commit-id --name-only -r --diff-filter=ACM HEAD -- src/data/eventos/proximoseventos/ 2>/dev/null)
-[ -z "$changed_files" ] && exit 0
-
-slugs=""
-for f in $changed_files; do
+# --- Eventos -----------------------------------------------------------
+event_slugs=""
+for f in $(git diff-tree --no-commit-id --name-only -r --diff-filter=ACM HEAD -- src/data/eventos/proximoseventos/ 2>/dev/null); do
     case "$f" in
-        *.json)
-            slug=$(basename "$f" .json)
-            slugs="$slugs $slug"
+        *.json) event_slugs="$event_slugs $(basename "$f" .json)" ;;
+    esac
+done
+
+# --- Novas (só as que declaran `video:` no frontmatter) ------------------
+news_slugs=""
+for f in $(git diff-tree --no-commit-id --name-only -r --diff-filter=ACM HEAD -- src/content/news/ 2>/dev/null); do
+    case "$f" in
+        *.md)
+            if git show "HEAD:$f" | awk 'NR==1 && $0 !~ /^---/ {exit 1} NR>1 && /^---/ {exit !found} /^video:/ {found=1} END {exit !found}'; then
+                news_slugs="$news_slugs $(basename "$f" .md)"
+            fi
             ;;
     esac
 done
-[ -z "$slugs" ] && exit 0
 
-echo "post-commit: xerando cartel e vídeo para:$slugs"
-node tools/generate-event-media.mjs $slugs
-gen_status=$?
-if [ $gen_status -ne 0 ]; then
-    echo "post-commit: xeración de media fallou (código $gen_status) — non se crea commit adicional." >&2
-    exit 0
+[ -z "$event_slugs" ] && [ -z "$news_slugs" ] && exit 0
+
+added=""
+if [ -n "$event_slugs" ]; then
+    echo "post-commit: xerando cartel e vídeo de eventos:$event_slugs"
+    if node tools/generate-event-media.mjs $event_slugs; then
+        git add public/images/poster/generated/ 2>/dev/null
+        added="$added eventos:$(echo "$event_slugs" | tr -s ' ' ',' | sed 's/^,//')"
+    else
+        echo "post-commit: xeración de media de eventos fallou — omitida." >&2
+    fi
 fi
 
-git add public/images/poster/generated/ 2>/dev/null
+if [ -n "$news_slugs" ]; then
+    echo "post-commit: xerando cartel e vídeo de novas:$news_slugs"
+    if node tools/generate-news-media.mjs $news_slugs; then
+        git add public/images/news/generated/ 2>/dev/null
+        added="$added novas:$(echo "$news_slugs" | tr -s ' ' ',' | sed 's/^,//')"
+    else
+        echo "post-commit: xeración de media de novas fallou — omitida." >&2
+    fi
+fi
+
 if git diff --cached --quiet; then
     echo "post-commit: nada novo que commitear (media xa estaba ao día)."
     exit 0
 fi
 
-label=$(echo "$slugs" | tr -s ' ' ',' | sed 's/^,//;s/,$//')
-git commit -m "chore(media): xerar cartel e vídeo para $label" --quiet
+git commit -m "chore(media): xerar cartel e vídeo para$added" --quiet
 echo "post-commit: commit adicional creado con cartel/vídeo xerados."

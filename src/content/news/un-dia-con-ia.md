@@ -3,6 +3,7 @@ title: "Un día con IA: o 21 de novembro, xornada tecnolóxica en A Coruña"
 date: 2026-09-30
 description: "O 21 de novembro celebramos Un día con IA, unha xornada de charlas sobre intelixencia artificial na Cidade das TIC. Xa hai entradas á venda."
 video:
+  evento: Un día con IA
   tipo: evento
   etiqueta: Xornada tecnolóxica
   titular: "Un día con IA"

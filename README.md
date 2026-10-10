@@ -58,18 +58,25 @@ Publicar un evento nos dous sitios e en Eventbrite faino a skill de Claude Code
 
 ## Cartel e vídeo automáticos
 
-Ao facer commit dun evento novo ou modificado en `proximoseventos/`, un hook
-`post-commit` xera o cartel PNG, a páxina HTML autónoma e os vídeos landscape e
-vertical (todo en `public/images/poster/generated/`) e engádeos nun commit adicional
-`chore(media): …`. Actívase unha vez por clon:
+Ao facer commit dun evento novo ou modificado en `proximoseventos/`, ou dunha
+nova de `src/content/news/` que teña un bloque `video:` no frontmatter, un hook
+`post-commit` xera o cartel PNG, o HTML autónomo e os vídeos landscape e
+vertical e engádeos nun commit adicional `chore(media): …`:
+
+- eventos → `public/images/poster/generated/<slug>/`
+- novas → `public/images/news/generated/<slug>/`
+
+Actívase unha vez por clon:
 
 ```bash
 git config core.hooksPath tools/git-hooks
 ```
 
-Tamén se pode lanzar a man con `node tools/generate-event-media.mjs <slug>`.
+Tamén se pode lanzar a man con `npm run media -- <slug-evento>` ou
+`npm run media:news -- <slug-nova>` (ambos aceptan `--only=landscape|vertical`).
 Necesita `ffmpeg` e `ffprobe` no `PATH`; o render usa HyperFrames sobre o
-propio sitio compilado (ver `tools/generate-event-media.mjs`).
+propio sitio compilado (ver `tools/generate-event-media.mjs` e
+`tools/generate-news-media.mjs`).
 
 ## Alta de socios/as
 

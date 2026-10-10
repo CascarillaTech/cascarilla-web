@@ -3,6 +3,7 @@ title: "Primeiro poñente confirmado en Un día con IA: Roberto Garcia Navarro"
 date: 2026-09-30
 description: "Roberto Garcia Navarro, Platform Engineer en Zephyr Cloud, abrirá as charlas de Un día con IA con «Code Is Cheap. Understanding the Business Isn't.»"
 video:
+  evento: Un día con IA
   tipo: ponente
   etiqueta: Primeiro poñente confirmado
   titular: "Roberto Garcia Navarro"
