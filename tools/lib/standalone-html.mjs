@@ -3,6 +3,7 @@
 // Compartido por generate-event-media.mjs e generate-news-media.mjs.
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import { buildSync } from 'esbuild';
 
 const MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp' };
 
@@ -20,8 +21,20 @@ export function writeStandaloneHtml(htmlAbsPath, outAbsPath, rootDir) {
             });
             return `<style>${css}</style>`;
         });
-    html = html.replace(/<script[^>]*src="(\/[^"]+\.js)"[^>]*><\/script>/g,
-        (_, url) => `<script type="module">${readFileSync(fromDist(url), 'utf8').replace(/<\/script/gi, '<\\/script')}</script>`);
+    // O script de Astro importa GSAP dun fragmento compartido (./index.xxxx.js):
+    // incrustado tal cal, ese import relativo xa non existe. Empaquetámolo
+    // (esbuild, xa presente por Vite) nun único script con todo dentro.
+    html = html.replace(/<script[^>]*src="(\/[^"]+\.js)"[^>]*><\/script>/g, (_, url) => {
+        const bundled = buildSync({
+            entryPoints: [fromDist(url)],
+            bundle: true,
+            write: false,
+            format: 'iife',
+            minify: true,
+            logLevel: 'silent',
+        }).outputFiles[0].text;
+        return `<script>${bundled.replace(/<\/script/gi, '<\\/script')}</script>`;
+    });
     html = html.replace(/(src|href)="(\/[^"]+\.(?:png|jpe?g|svg|webp))"/g, (m, attr, url) => {
         const file = fromDist(url);
         if (!existsSync(file)) return m;
