@@ -35,6 +35,12 @@ Grazas a **Odeene** por participar no evento e acollernos nas súas oficinas.
 
 <a href="https://odeene.es/" target="_blank" rel="noopener noreferrer"><img src="/images/colaboradoras/odeene-color-horizontal.png" alt="Logo de Odeene" style="max-width: 220px; height: auto;"></a>
 
+Moitas grazas tamén a **Bahía Software**, que está connosco nesta aventura.
+
+
+<a href="https://bahiasoftware.es/" target="_blank" rel="noopener noreferrer"><img src="/images/colaboradoras/bahia-software-color.png" alt="Logo de Bahía Software" style="max-width: 220px; height: auto;"></a>
+
+
 > 💡 **Colaboras connosco?** Se a túa empresa quere formar parte do evento, escríbenos e vemos a forma de facelo.
 
 *Contamos contigo!*
