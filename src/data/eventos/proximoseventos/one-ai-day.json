@@ -140,7 +140,15 @@
             "time": "12:30",
             "name": "Terceira charla",
             "description": "Descrición pendente de confirmar. En canto pechemos o/a poñente, actualizaremos este espazo cos detalles da charla.",
-            "speaker": "TBA",
+            "speaker": "Marcos Muíño",
+            "photo": "/images/ponentes/marcos-muino.webp",
+            "bio": "Engineering Director en Factorial, onde lidera Factorial Code e Integrations. Cofundador de Trileuco e fundador de YepCode, adquirida por Factorial en maio de 2026.",
+            "links": [
+                {
+                    "label": "LinkedIn",
+                    "url": "https://www.linkedin.com/in/mmuino/"
+                }
+            ],
             "type": "talk",
             "startDate": "2026-11-21T12:30",
             "endDate": "2026-11-21T13:30",
