@@ -1,0 +1,24 @@
+---
+import Layout from '../../../layouts/LayoutBasic.astro';
+import '../../../styles/legal.css';
+import { getEntry, render } from 'astro:content';
+import evento from '../../../data/eventos/proximoseventos/one-ai-day.json';
+
+// O texto vive en src/content/pages/codigo-de-conduta-un-dia-con-ia.md
+const entry = await getEntry('pages', 'codigo-de-conduta-un-dia-con-ia');
+if (!entry) {
+    return Astro.redirect('/404');
+}
+const { Content } = await render(entry);
+---
+
+<Layout
+    title={`${entry.data.title} - ${evento.name} - Cascarilla Tech`}
+    description={`Código de conduta de ${evento.name}: como queremos que sexa o ambiente da xornada e que facer se algo non vai ben.`}
+>
+    <section class="legal-section">
+        <h1>{entry.data.title}</h1>
+        <p class="legal-updated">{evento.name} · 21 de novembro de 2026 · Cidade das TIC, A Coruña</p>
+        <Content />
+    </section>
+</Layout>

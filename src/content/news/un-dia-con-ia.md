@@ -8,6 +8,18 @@ video:
   etiqueta: Xornada tecnolóxica
   titular: "Un día con IA"
   liña: "Charlas sobre intelixencia artificial e axentes. Xa hai entradas!"
+  escenas:
+    - titular: "Unha xornada sobre IA en A Coruña"
+      liña: "Charlas sobre intelixencia artificial e desenvolvemento con axentes"
+    - titular: "21 de novembro"
+      liña: "Sábado, de 9:00 a 18:30 · Oficinas de Odeene, Cidade das TIC"
+    - titular: "Primeira charla"
+      liña: "Roberto González González: Surfeando o tsunami dev: como elixir a táboa correcta."
+    - titular: "Segunda charla"
+      liña: "Roberto Garcia Navarro: Code Is Cheap. Understanding the Business Isn't."
+    - titular: "Entradas: 20 €"
+      liña: "Xa á venda · O importe vai íntegro á comida · Desconto para socios/as"
+      detalle: "cascarillatech.org/events/one-ai-day"
   imaxe: /images/poster/speakers/un-dia-con-ia-robot.jpg
 ---
 

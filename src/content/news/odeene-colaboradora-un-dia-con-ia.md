@@ -8,7 +8,15 @@ video:
   etiqueta: Primeira empresa colaboradora
   titular: "Grazas, Odeene!"
   liña: "Confiaron en Un día con IA e acóllennos nas súas oficinas"
-  imaxe: /images/colaboradoras/odeene-color-horizontal.png
+escenas:
+  - titular: "Primeira empresa colaboradora: Odeene!"
+    liña: "Odeene colabora con -Un día con IA-"
+  - titular: "Odeene únese a nos para levar a cabo o día da IA"
+    liña: "Talento para a transformación dixital"
+  - titular: "21 de novembro · Cidade das TIC"
+    liña: "Entrada a 20 €, destinada íntegra á comida"
+    detalle: "cascarillatech.org/events/one-ai-day"
+imaxe: /images/colaboradoras/odeene-color-horizontal.png
 ---
 
 <p class="lead"><strong>Odeene é a primeira empresa colaboradora de Un día con IA!</strong><br>Moitísimas grazas por confiar en nós e por apostar pola comunidade tecnolóxica de A Coruña.</p>
