@@ -1,18 +1,18 @@
 ---
-title: "Novo poñente confirmado en Un día con IA: Roberto González"
+title: "Poñente confirmado en Un día con IA: Roberto González"
 date: 2026-10-14
 description: "Roberto González, arquitecto, abrirá as charlas de Un día con IA con «Surfeando o tsunami dev: como elixir a táboa correcta»."
 video:
   evento: Un día con IA
   tipo: ponente
-  etiqueta: Novo poñente confirmado
+  etiqueta: Poñente confirmado
   titular: "Roberto González"
   liña: "Surfeando o tsunami dev: como elixir a táboa correcta"
   detalle: "Arquitecto"
   imaxe: /images/ponentes/roberto-gonzalez.jpeg
 ---
 
-<p class="lead"><strong>Novo poñente confirmado para Un día con IA!</strong><br>O 21 de novembro contaremos con <strong>Roberto González</strong>, que nos axudará a ler o mar da IA para elixir a táboa correcta.</p>
+<p class="lead"><strong>Poñente confirmado para Un día con IA!</strong><br>O 21 de novembro contaremos con <strong>Roberto González</strong>, que nos axudará a ler o mar da IA para elixir a táboa correcta.</p>
 
 <img src="/images/ponentes/roberto-gonzalez.jpeg" alt="Foto de Roberto González" style="width: 10rem; height: 10rem; object-fit: cover; border-radius: 50%; display: block; margin: 1.5rem auto;">
 
