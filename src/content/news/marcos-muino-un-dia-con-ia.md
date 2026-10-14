@@ -1,13 +1,13 @@
 ---
 title: "Novo poñente confirmado en Un día con IA: Marcos Muíño"
 date: 2026-10-13
-description: "Marcos Muíño, Engineering Director en Factorial e fundador de YepCode, será un dos poñentes de Un día con IA o 21 de novembro na Cidade das TIC."
+description: "Marcos Muíño, Engineering Director en Factorial e fundador de YepCode, falaranos de como Factorial vitamina o seu ecosistema de integracións con IA en Un día con IA o 21 de novembro."
 video:
   evento: Un día con IA
   tipo: ponente
   etiqueta: Novo poñente confirmado
   titular: "Marcos Muíño"
-  liña: "Charla en breve"
+  liña: "O ecosistema de integracións hipervitaminado e mineralizado de Factorial"
   detalle: "Engineering Director @ Factorial"
   imaxe: /images/ponentes/marcos-muino.webp
 ---
@@ -18,9 +18,11 @@ video:
 
 ---
 
-## 🎤 A charla
+## 🎤 A charla: O ecosistema de integracións hipervitaminado e mineralizado de Factorial
 
-Xa temos poñente, e en breve contaremos o título e de que nos vai falar. Quedade atentos!
+Construír e manter integracións sempre foi lento e custoso. Nesta charla contaremos como Factorial usa a IA para darlle a volta a iso: **Factorial Code** como fábrica de integracións onde axentes xeran e manteñen conectores, e **MCPs** que conectan Factorial e ferramentas de terceiros con **One**, o noso asistente de IA, para que calquera usuario poida operar as súas integracións en linguaxe natural.
+
+Arquitectura, aprendizaxes e erros de levar todo isto a produción.
 
 ## 👤 Quen é Marcos
 
