@@ -143,3 +143,17 @@ html, body { margin: 0; padding: 0; background: var(--nc-cream); }
 }
 .nc--land .nc-footer { height: 80px; padding: 0 60px; font-size: 26px; }
 .nc--ig .nc-footer   { height: 200px; padding: 0 56px; font-size: 32px; white-space: nowrap; justify-content: center; text-align: center; }
+
+/* ---- Powered by (só novas de poñente) ---- */
+.nc-sponsors { position: absolute; left: 0; right: 0; display: flex; align-items: center; justify-content: center; gap: 24px; opacity: 0; }
+.nc-sponsors-label { color: var(--nc-primary); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.nc-sponsors-logos { display: flex; align-items: center; gap: 36px; }
+.nc-sponsors-logos img { display: block; width: auto; object-fit: contain; }
+.nc--land .nc-sponsors { bottom: 22px; height: 44px; }
+.nc--land .nc-sponsors-label { font-size: 16px; }
+.nc--land .nc-sponsors-logos img { height: 36px; max-width: 170px; }
+.nc--ig .nc-sponsors { bottom: 90px; height: 90px; flex-direction: column; gap: 14px; }
+.nc--ig .nc-sponsors-label { font-size: 26px; }
+.nc--ig .nc-sponsors-logos img { height: 70px; max-width: 300px; }
+.nc--land.nc--sponsors .nc-main { bottom: 90px; }
+.nc--ig.nc--sponsors .nc-main   { bottom: 300px; }

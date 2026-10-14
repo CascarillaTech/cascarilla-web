@@ -7,6 +7,7 @@
 // marca de Cascarilla Tech e a etiqueta quedan fixos e só cambia o texto.
 import '../styles/news-card.css';
 import { deriveNewsCardData, computeNewsRenderDuration } from '../lib/newsCard';
+import { getAllEventModules } from '../lib/eventPoster';
 
 interface Props { entry: any; format: 'land' | 'ig'; }
 const { entry, format } = Astro.props;
@@ -17,6 +18,14 @@ const chars = (s: string) => Array.from(s);
 const compId = `news-${format}`;
 const dataW = format === 'land' ? 1920 : 1080;
 const dataH = format === 'land' ? 1080 : 1920;
+// Só nas novas de poñente: fila "Powered by" cos logos das empresas
+// colaboradoras do evento (mesmos ficheiros ca nos carteis de evento).
+const sponsors: string[] = card.tipo === 'ponente'
+    ? ((Object.values(getAllEventModules()) as any[])
+        .map((m) => m.default ?? m)
+        .find((ev) => ev?.name === card.evento)?.sponsors ?? [])
+        .map((sp: any) => String(sp.img).split('/').pop() as string)
+    : [];
 const heroClass = {
     colaboradora: 'nc-hero--card',
     ponente: 'nc-hero--hex',
@@ -32,7 +41,7 @@ const heroClass = {
 </head>
 <body>
 <div
-    class={`nc nc--${format}${card.pe ? '' : ' nc--nofooter'}`}
+    class={`nc nc--${format}${card.pe ? '' : ' nc--nofooter'}${sponsors.length ? ' nc--sponsors' : ''}`}
     id="poster"
     data-composition-id={compId}
     data-width={dataW}
@@ -76,6 +85,15 @@ const heroClass = {
         )}
     </div>
 
+    {sponsors.length > 0 && (
+        <div class="nc-sponsors" id="nc-sponsors">
+            <span class="nc-sponsors-label">Powered by</span>
+            <div class="nc-sponsors-logos">
+                {sponsors.map((f) => <img src={`/images/poster/sponsors/${f}`} alt="" />)}
+            </div>
+        </div>
+    )}
+
     {card.pe && (
         <div class="nc-footer"><span id="nc-pe">
             {chars(card.pe).map((ch) => <span class="tw-char">{ch}</span>)}
@@ -111,6 +129,8 @@ const heroClass = {
         if (document.getElementById('nc-event')) tl.to('#nc-event', { opacity: 1, y: 0, duration: 0.4 }, 0);
         const hero = document.getElementById('nc-hero');
         if (hero) tl.to(hero, { opacity: 1, scale: 1, duration: 0.6 }, 0.15);
+        const sponsors = document.getElementById('nc-sponsors');
+        if (sponsors) tl.to(sponsors, { opacity: 1, duration: 0.5 }, 0.3);
 
         let t = INTRO;
         const scenes = Array.from(document.querySelectorAll('.nc-scene'));
