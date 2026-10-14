@@ -17,7 +17,7 @@ const renderDuration = computeNewsRenderDuration(card);
 const chars = (s: string) => Array.from(s);
 const compId = `news-${format}`;
 const dataW = format === 'land' ? 1920 : 1080;
-const dataH = format === 'land' ? 1080 : 1920;
+
 // Só nas novas de poñente: fila "Powered by" cos logos das empresas
 // colaboradoras do evento (mesmos ficheiros ca nos carteis de evento).
 const sponsors: string[] = card.tipo === 'ponente'
@@ -26,6 +26,8 @@ const sponsors: string[] = card.tipo === 'ponente'
         .find((ev) => ev?.name === card.evento)?.sponsors ?? [])
         .map((sp: any) => String(sp.img).split('/').pop() as string)
     : [];
+// IG con logos: 4:5 (1080x1350) en vez de 1080x1920.
+const dataH = format === 'land' ? 1080 : (sponsors.length ? 1350 : 1920);
 const heroClass = {
     colaboradora: 'nc-hero--card',
     ponente: 'nc-hero--hex',
