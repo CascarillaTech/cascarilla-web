@@ -159,9 +159,9 @@ html, body { margin: 0; padding: 0; background: var(--nc-cream); }
 .nc--ig.nc--sponsors .nc-main   { bottom: 300px; }
 
 /* IG + Powered by: bloque máis compacto (menos aire entre foto, texto e logos). */
-.nc--ig.nc--sponsors .nc-main { top: 230px; bottom: 240px; gap: 28px; }
+.nc--ig.nc--sponsors .nc-main { top: 230px; bottom: 440px; gap: 28px; }
 .nc--ig.nc--sponsors .nc-hex { width: 460px; }
 .nc--ig.nc--sponsors .nc-hero { width: 700px; }
 .nc--ig.nc--sponsors .nc-kicker { margin-bottom: 20px; }
 .nc--ig.nc--sponsors .nc-rule { margin: 26px auto; }
-.nc--ig.nc--sponsors .nc-sponsors { bottom: 150px; }
+.nc--ig.nc--sponsors .nc-sponsors { bottom: 360px; }
