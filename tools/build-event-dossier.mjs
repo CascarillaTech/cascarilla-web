@@ -11,13 +11,20 @@
 // Os textos viven neste ficheiro (obxecto CONTENT). Para outro evento, copia o
 // script e cambia CONTENT + SLUG.
 
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SLUG = 'one-ai-day';
 const EMAIL = 'asociacion@cascarillatech.org';
+
+// Empresas colaboradoras: saen de sponsors do JSON do evento, a mesma fonte
+// que a páxina do evento e o cartel (hai que engadir o logo en
+// public/images/colaboradoras/ e dar de alta a empresa alí).
+const SPONSORS = JSON.parse(
+  readFileSync(join(ROOT, 'src', 'data', 'eventos', 'proximoseventos', `${SLUG}.json`), 'utf8'),
+).sponsors ?? [];
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -423,10 +430,9 @@ ${L.give.example.items.map((i) => `            <li>${esc(i)}</li>`).join('\n')}
       <div class="logos">
         <p class="logos__label">${esc(L.give.logos)}</p>
         <div class="logos__row">
-          <div class="logo-slot">
-            <a href="https://odeene.es/" target="_blank" rel="noopener noreferrer"><img src="/images/colaboradoras/odeene-color-horizontal.png" alt="Odeene" width="180" height="45"></a>
-          </div>
-          <div class="logo-slot"><img src="/images/company-placeholder.svg" alt="" width="180" height="90" onerror="dossierLogoFallback(this);"></div>
+${SPONSORS.map((sp) => `          <div class="logo-slot">
+            <a href="${sp.url}" target="_blank" rel="noopener noreferrer"><img src="${sp.img}" alt="${esc(sp.name)}" style="max-height:64px"></a>
+          </div>`).join('\n')}
           <div class="logo-slot"><img src="/images/company-placeholder.svg" alt="" width="180" height="90" onerror="dossierLogoFallback(this);"></div>
         </div>
       </div>
