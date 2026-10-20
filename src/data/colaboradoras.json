@@ -16,5 +16,14 @@
         "tags": [
             "Colaboradora"
         ]
+    },
+    {
+        "name": "3MT Global Services",
+        "description": "O teu partner boutique. Non somos un provedor máis: integrámonos no core de cada cliente, codo con codo cos seus equipos. «Non buscamos ser os máis grandes, senón os máis importantes para cada un de vós.»",
+        "image": "/images/colaboradoras/3mt-global-services.png",
+        "url": "https://3mtglobal.com/",
+        "tags": [
+            "Colaboradora"
+        ]
     }
 ]
