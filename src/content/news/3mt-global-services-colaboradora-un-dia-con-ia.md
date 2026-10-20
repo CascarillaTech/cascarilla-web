@@ -10,7 +10,7 @@ video:
   liña: "Tamén colabora en Un día con IA"
   escenas:
     - titular: "Grazas, 3MT Global Services!"
-      liña: "Tamén colabora en Un día con IA"
+      liña: "Novo colaborador en Un día con IA"
     - titular: "O teu partner boutique"
       liña: "Non somos un provedor máis: integrámonos no core de cada cliente"
     - titular: "21 de novembro · Cidade das TIC"
@@ -19,7 +19,7 @@ video:
   imaxe: /images/colaboradoras/3mt-global-services.png
 ---
 
-<p class="lead"><strong>3MT Global Services tamén colabora en Un día con IA!</strong><br>Moitas grazas por apostar pola comunidade tecnolóxica da Coruña e por axudarnos a facer posible a xornada.</p>
+<p class="lead"><strong>3MT Global Services tamén colabora en Un día con IA!</strong><br>Benvidos á comunidade tecnolóxica da Coruña e axudarnos a facer posible a xornada.</p>
 
 <a href="https://3mtglobal.com/" target="_blank" rel="noopener noreferrer"><img src="/images/colaboradoras/3mt-global-services.png" alt="Logo de 3MT Global Services" style="max-width: 220px; height: auto; display: block; margin: 1.5rem auto;"></a>
 
