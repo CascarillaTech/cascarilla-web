@@ -393,17 +393,14 @@ html, body {
     display: flex;
     align-items: center;
     gap: 22px;
+    /* Oculto ata que GSAP abre a cortina circular (clip-path) dos logos. */
+    opacity: 0;
 }
 
 .poster-sponsors-logos img {
     display: block;
     width: auto;
     height: 73px;
-    /* Estado inicial só de opacity — o "entra dende a esquerda" (x) o
-       marca o propio GSAP con fromTo() no script, non CSS: mesturar un
-       transform inicial en CSS cun tween de GSAP na mesma propiedade
-       dispara o lint de HyperFrames (gsap_css_transform_conflict). */
-    opacity: 0;
 }
 
 /* --- Móbil / ventá estreita: o cartel deixa de ser un lenzo fixo de

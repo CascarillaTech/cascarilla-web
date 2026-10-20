@@ -241,9 +241,7 @@ const renderDuration = computePosterRenderDuration({
     const SPEAKER_FADE_DURATION = 0.5;
     const SPONSORS_TEXT_DURATION = 0.4;
     const SPONSORS_CIRCUIT_DURATION = 0.6;
-    const SPONSORS_LOGO_DURATION = 0.5;
-    const SPONSORS_LOGO_STAGGER = 0.12;
-    const SPONSORS_LOGO_X_FROM = -28;
+    const SPONSORS_LOGO_DURATION = 0.8;
 
     // Mide o título/ponentes/"Powered by" xa renderizados e devolve as
     // cantidades que precisa o timeline (anchos/posicións). O que NON
@@ -385,14 +383,17 @@ const renderDuration = computePosterRenderDuration({
         const sponsorsCircuitWrap = document.getElementById('poster-sponsors-circuit-wrap');
         if (sponsorsText) tl.to(sponsorsText, { opacity: 1, duration: SPONSORS_TEXT_DURATION }, sponsorsStart);
         if (sponsorsCircuitWrap) tl.to(sponsorsCircuitWrap, { width: geo.circuitW, duration: SPONSORS_CIRCUIT_DURATION }, sponsorsStart);
-        document.querySelectorAll('.poster-sponsors-logos img').forEach((img, i) => {
+        // Os logos aparecen TODOS á vez, cunha cortina circular que se abre
+        // dende o centro da fila (clip-path animado por GSAP, sen stagger).
+        const sponsorsLogos = document.querySelector('.poster-sponsors-logos');
+        if (sponsorsLogos) {
             tl.fromTo(
-                img,
-                { x: SPONSORS_LOGO_X_FROM },
-                { x: 0, opacity: 1, duration: SPONSORS_LOGO_DURATION },
-                sponsorsStart + i * SPONSORS_LOGO_STAGGER
+                sponsorsLogos,
+                { opacity: 1, clipPath: 'circle(0% at 50% 50%)' },
+                { opacity: 1, clipPath: 'circle(75% at 50% 50%)', duration: SPONSORS_LOGO_DURATION, ease: 'power2.out' },
+                sponsorsStart
             );
-        });
+        }
 
         const dateEnd = addTypeStagger(tl, document.getElementById('poster-footer-date'), sponsorsStart);
         addTypeStagger(tl, document.getElementById('poster-footer-venue'), dateEnd);

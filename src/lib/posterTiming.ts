@@ -16,8 +16,9 @@ export const CHAR_TAIL = 0.13;
 export const SPEAKER_FADE_DURATION = 0.5;
 export const SPONSORS_TEXT_DURATION = 0.4;
 export const SPONSORS_CIRCUIT_DURATION = 0.6;
-export const SPONSORS_LOGO_DURATION = 0.5;
-export const SPONSORS_LOGO_STAGGER = 0.12;
+// Os logos entran todos á vez (cortina circular), sen stagger.
+export const SPONSORS_LOGO_DURATION = 0.8;
+export const SPONSORS_LOGO_STAGGER = 0;
 
 // Marxe extra despois do final "real" calculado. Empiricamente o contorno
 // de render de HyperFrames necesita bastante máis folgura da que suxire a

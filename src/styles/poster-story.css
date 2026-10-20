@@ -222,16 +222,14 @@
     display: flex;
     align-items: center;
     gap: 26px;
+    /* Oculto ata que GSAP abre a cortina circular (clip-path) dos logos. */
+    opacity: 0;
 }
 
 .story-sponsors-logos img {
     display: block;
     width: auto;
     height: 88px;
-    /* x inicial (-32px) marcado por GSAP fromTo() no script, non en CSS
-       (mesturar transform CSS + tween GSAP na mesma propiedade dispara
-       gsap_css_transform_conflict no lint de HyperFrames). */
-    opacity: 0;
 }
 
 /* --- Footer: banda escura fixa abaixo, data/hora e lugar en dúas liñas
