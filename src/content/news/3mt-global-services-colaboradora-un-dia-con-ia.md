@@ -19,7 +19,7 @@ video:
   imaxe: /images/colaboradoras/3mt-global-services.png
 ---
 
-<p class="lead"><strong>3MT Global Services tamén colabora en Un día con IA!</strong><br>Benvidos á comunidade tecnolóxica da Coruña e axudarnos a facer posible a xornada.</p>
+<p class="lead"><strong>3MT Global Services tamén colabora en Un día con IA!</strong><br>Benvidos á comunidade tecnolóxica da Coruña e moitas grazas por axudarnos a facer posible a xornada.</p>
 
 <a href="https://3mtglobal.com/" target="_blank" rel="noopener noreferrer"><img src="/images/colaboradoras/3mt-global-services.png" alt="Logo de 3MT Global Services" style="max-width: 220px; height: auto; display: block; margin: 1.5rem auto;"></a>
 
