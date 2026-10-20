@@ -10,7 +10,7 @@ title: "Código de conduta"
 - Escoita e deixa que a outra persoa remate de falar. Non hai preguntas «tontas».
 - Usa unha linguaxe inclusiva; mide as bromas, que poden non ter graza para quen as recibe.
 - Respecta o espazo persoal e pregunta antes de tocar, fotografar ou gravar a alguén.
-- Respecta as normas do local (Oficinas de Odeene) e o traballo de quen o coida.
+- Respecta as normas do local e o traballo de quen o coida.
 - Se ves que alguén o está pasando mal, avisa á organización.
 
 ## 2. Que non toleramos

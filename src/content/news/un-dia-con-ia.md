@@ -12,7 +12,7 @@ video:
     - titular: "Unha xornada sobre IA en A Coruña"
       liña: "Charlas sobre intelixencia artificial e desenvolvemento con axentes"
     - titular: "21 de novembro"
-      liña: "Sábado, de 9:00 a 18:30 · Oficinas de Odeene, Cidade das TIC"
+      liña: "Sábado, de 9:00 a 18:30 · Cidade das TIC"
     - titular: "Primeira charla"
       liña: "Roberto González González: Surfeando o tsunami dev: como elixir a táboa correcta."
     - titular: "Segunda charla"
@@ -33,7 +33,7 @@ video:
 
 <ul style="list-style: none; padding-left: 0;">
 <li><strong>Data:</strong> sábado 21 de novembro de 2026, de 9:00 a 18:30.</li>
-<li><strong>Lugar:</strong> oficinas de <a href="https://odeene.es/" target="_blank">Odeene</a>, na Cidade das TIC (A Coruña).</li>
+<li><strong>Lugar:</strong> Cidade das TIC (A Coruña).</li>
 </ul>
 
 ## 🎤 Que imos ver
@@ -50,7 +50,7 @@ A entrada custa **20 €** e o importe destínase integramente á comida (sen co
 
 ## 🤝 Empresas colaboradoras
 
-Grazas a **Odeene** por participar no evento e acollernos nas súas oficinas.
+Grazas a **Odeene** por participar no evento e encargarse da xestión do espazo.
 
 <a href="https://odeene.es/" target="_blank" rel="noopener noreferrer"><img src="/images/colaboradoras/odeene-color-horizontal.png" alt="Logo de Odeene" style="max-width: 220px; height: auto;"></a>
 
