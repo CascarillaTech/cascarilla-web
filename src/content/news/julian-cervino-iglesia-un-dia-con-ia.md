@@ -30,6 +30,8 @@ Antes de incorporarse a NTT DATA, foi director da Axencia para a Modernización 
 
 Cunha traxectoria que inclúe a creación e dirección da empresa tecnolóxica Queres Tecnologías e responsabilidades en consultoría IT, achega máis de dúas décadas de experiencia en liderado tecnolóxico, goberno do dato e transformación dixital no sector público e privado.
 
+Podes seguilo en <a href="https://www.linkedin.com/in/juliancervino/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
+
 ## 🎟️ Entradas
 
 Xa hai entradas á venda por 20 € (o importe destínase integramente á comida). Os socios e socias de Cascarilla Tech teñen desconto: <a href="/membership">faite socio/a</a> e escríbenos para solicitalo.
