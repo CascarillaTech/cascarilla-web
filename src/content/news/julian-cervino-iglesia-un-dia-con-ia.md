@@ -20,7 +20,7 @@ video:
 
 ## 🎤 A charla: Intelixencia Artificial: retos e oportunidades en Saúde
 
-Xa temos o título e en breve contaremos os detalles de que nos vai falar. Quedade atentos!
+A intelixencia artificial xa está chegando á saúde e aos servizos sociais, pero con ela veñen tamén moitas preguntas. Nesta charla botaremos unha ollada práctica a onde pode axudar de verdade, que retos hai que resolver (datos, confianza, regulación) e como aproveitar as oportunidades sen perder de vista o que importa: as persoas.
 
 ## 👤 Quen é Julián
 
