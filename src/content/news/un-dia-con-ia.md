@@ -14,9 +14,13 @@ video:
     - titular: "21 de novembro"
       liña: "Sábado, de 9:00 a 18:30 · Cidade das TIC"
     - titular: "Primeira charla"
-      liña: "Roberto González González: Surfeando o tsunami dev: como elixir a táboa correcta."
+      liña: "Roberto González: Surfeando o tsunami dev: como elixir a táboa correcta."
     - titular: "Segunda charla"
       liña: "Roberto Garcia Navarro: Code Is Cheap. Understanding the Business Isn't."
+    - titular: "Terceira charla"
+      liña: "Marcos Muíño: O ecosistema de integracións hipervitaminado e mineralizado de Factorial."
+    - titular: "Cuarta charla"
+      liña: "Julián Cerviño Iglesia: Intelixencia Artificial: retos e oportunidades en Saúde."
     - titular: "Entradas: 20 €"
       liña: "Xa á venda · O importe vai íntegro á comida · Desconto para socios/as"
       detalle: "cascarillatech.org/events/one-ai-day"
@@ -40,7 +44,14 @@ video:
 
 Un día enteiro de charlas sobre intelixencia artificial e desenvolvemento con axentes, con pausas para o almorzo, a comida e a sobremesa, que é onde adoitan saír as mellores conversas.
 
-Xa está confirmada a charla de **Roberto Garcia Navarro**, «Code Is Cheap. Understanding the Business Isn't.», sobre como manter o criterio de arquitectura cando programamos con axentes de IA. Iremos anunciando o resto de poñentes na páxina do evento.
+Xa temos os catro poñentes confirmados:
+
+- **10:00 · Roberto González**: «Surfeando o tsunami dev: como elixir a táboa correcta».
+- **11:00 · Roberto Garcia Navarro**: «Code Is Cheap. Understanding the Business Isn't.», sobre como manter o criterio de arquitectura cando programamos con axentes de IA.
+- **12:30 · Marcos Muíño**: «O ecosistema de integracións hipervitaminado e mineralizado de Factorial».
+- **13:30 · Julián Cerviño Iglesia**: «Intelixencia Artificial: retos e oportunidades en Saúde».
+
+Podes ver o detalle de cada charla na páxina do evento.
 
 ## 🎟️ Entradas
 
@@ -59,7 +70,7 @@ Moitas grazas tamén a **Bahía Software**, que está connosco nesta aventura.
 
 <a href="https://bahiasoftware.es/" target="_blank" rel="noopener noreferrer"><img src="/images/colaboradoras/bahia-software-color.png" alt="Logo de Bahía Software" style="max-width: 220px; height: auto;"></a>
 
-E tamén a **3MT Global Services**, boutique partner coruñesa de Salesforce, que se suma a Un día con IA como empresa colaboradora.
+E non podemos esquecer a **3MT Global Services**, boutique partner coruñesa de Salesforce, que se suma a Un día con IA como empresa colaboradora.
 
 <a href="https://3mtglobal.com/" target="_blank" rel="noopener noreferrer"><img src="/images/colaboradoras/3mt-global-services.png" alt="Logo de 3MT Global Services" style="max-width: 220px; height: auto;"></a>
 
