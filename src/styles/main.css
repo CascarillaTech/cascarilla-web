@@ -39,15 +39,11 @@ body {
     color: var(--color-text-main);
 }
 
-/* O footer vai en position:fixed, así que deixamos sitio de abondo
-   debaixo do contido para que nunca quede tapado por el (sobre todo
-   en páxinas curtas, ou cando o footer medra por levar máis liñas,
-   coma na home e en /about, que teñen un parágrafo extra en
-   footer-extra e por iso un footer máis alto do habitual). En móbil
-   o footer deixa de ser fixed (ver máis abaixo), así que este espazo
-   extra tamén se recorta nesa media query. */
+/* O footer vai ao final do contido (non fixo): main ocupa o espazo que
+   sobre para que, en páxinas curtas, o footer quede abaixo do todo. */
 main {
-    padding-bottom: 14rem;
+    flex: 1 0 auto;
+    padding-bottom: 3rem;
 }
 
 /* Estructura del Header y Menu */
@@ -276,15 +272,11 @@ a:hover {
 /* Estructura del Footer */
 .footer {
     font-size: 0.9rem;
-    position: fixed;
-    bottom: 0;
-    left: 0;
     width: 100%;
     background-color: var(--color-bg-footer);
     color: var(--color-white);
     text-align: center;
     padding: 1rem 0;
-    z-index: 1000;
     box-shadow: 0 -2px 10px var(--color-shadow);
 }
 
@@ -292,21 +284,6 @@ a:hover {
     color: var(--color-white);
     margin: 0.2rem 0;
     font-size: 0.9rem;
-}
-
-/* En móbil non queremos o footer fixed/sticky: que quede ao final do
-   contido, no fluxo normal da páxina, e non "pegado" abaixo do todo
-   da pantalla en todo momento. Ao quitar o fixed xa non fai falta
-   reservar aquel espazo baixo o main pensado para el. */
-@media (max-width: 48rem) {
-    main {
-        padding-bottom: 3rem;
-    }
-
-    .footer {
-        position: static;
-        box-shadow: none;
-    }
 }
 
 /* Contedor interno do menú en liña */
