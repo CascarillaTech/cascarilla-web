@@ -49,11 +49,11 @@ function svg(v, { withShirt }) {
   ${inlineSvg('logo-letras-hexagono.svg', 81.5, 12, 22, 27.5)}
   ${inlineSvg('logo-corunajug-hexagono.svg', 106.5, 12, 22, 27.5)}
 
-  <!-- SPEAKER -->
+  <!-- lema -->
   <g ${sans} text-anchor="middle">
-    <line x1="40" y1="52" x2="72" y2="52" stroke="${v.accent}" stroke-width="0.8"/>
-    <line x1="138" y1="52" x2="170" y2="52" stroke="${v.accent}" stroke-width="0.8"/>
-    <text x="105" y="55.5" font-size="10" font-weight="700" letter-spacing="3.2" fill="${v.accent}">SPEAKER</text>
+    <line x1="30" y1="52" x2="52" y2="52" stroke="${v.accent}" stroke-width="0.8"/>
+    <line x1="158" y1="52" x2="180" y2="52" stroke="${v.accent}" stroke-width="0.8"/>
+    <text x="105" y="55.5" font-size="10" font-weight="700" letter-spacing="2.4" fill="${v.accent}">NOT AN AGENT</text>
   </g>
 
   <!-- robot (recorte 1840x2440 px de robot-x4.png) -->
