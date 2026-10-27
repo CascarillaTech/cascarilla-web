@@ -45,24 +45,24 @@ function svg(v, { withShirt }) {
   width="210mm" height="297mm" viewBox="0 0 210 297">
   ${withShirt ? `<rect width="210" height="297" fill="${v.shirt}"/>` : ''}
 
-  <!-- organizadores: hexágonos 40x50 mm a escala 0.55, flanqueando SPEAKER -->
-  ${inlineSvg('logo-letras-hexagono.svg', 14, 16.25, 22, 27.5)}
-  ${inlineSvg('logo-corunajug-hexagono.svg', 174, 16.25, 22, 27.5)}
+  <!-- organizadores: hexágonos 40x50 mm a escala 0.55, xuntos e centrados arriba -->
+  ${inlineSvg('logo-letras-hexagono.svg', 81.5, 12, 22, 27.5)}
+  ${inlineSvg('logo-corunajug-hexagono.svg', 106.5, 12, 22, 27.5)}
 
   <!-- SPEAKER -->
   <g ${sans} text-anchor="middle">
-    <line x1="44" y1="30" x2="72" y2="30" stroke="${v.accent}" stroke-width="0.8"/>
-    <line x1="138" y1="30" x2="166" y2="30" stroke="${v.accent}" stroke-width="0.8"/>
-    <text x="105" y="33.5" font-size="10" font-weight="700" letter-spacing="3.2" fill="${v.accent}">SPEAKER</text>
+    <line x1="40" y1="52" x2="72" y2="52" stroke="${v.accent}" stroke-width="0.8"/>
+    <line x1="138" y1="52" x2="170" y2="52" stroke="${v.accent}" stroke-width="0.8"/>
+    <text x="105" y="55.5" font-size="10" font-weight="700" letter-spacing="3.2" fill="${v.accent}">SPEAKER</text>
   </g>
 
   <!-- robot (recorte 1840x2440 px de robot-x4.png) -->
-  <image x="44" y="42" width="122" height="162" preserveAspectRatio="xMidYMid meet" xlink:href="data:image/png;base64,${robotPng}"/>
+  <image x="52" y="62" width="106" height="141" preserveAspectRatio="xMidYMid meet" xlink:href="data:image/png;base64,${robotPng}"/>
 
   <!-- título -->
   <g ${sans} text-anchor="middle">
-    <text x="105" y="222" font-size="25" font-weight="800" letter-spacing="0.5" fill="${v.title}">UN DÍA CON IA</text>
-    <text x="105" y="236" font-size="7.4" font-weight="600" letter-spacing="2.6" fill="${v.accent}">A CORUÑA · 21 · 11 · 2026</text>
+    <text x="105" y="221" font-size="22" font-weight="800" letter-spacing="0.5" fill="${v.title}">UN DÍA CON IA</text>
+    <text x="105" y="233" font-size="7" font-weight="600" letter-spacing="2.6" fill="${v.accent}">A CORUÑA · 21 · 11 · 2026</text>
   </g>
 
   <!-- patrocinadoras -->
