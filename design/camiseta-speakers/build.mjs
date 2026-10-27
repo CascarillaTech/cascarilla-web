@@ -9,7 +9,10 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..', '..');
 
 const robotPng = readFileSync(join(here, 'robot-recortado.png')).toString('base64');
-const jugLogo = readFileSync(join(root, 'public/images/corunajug-logo.png')).toString('base64');
+// incrusta un SVG de design/ como <svg> anidado (vectorial) na posición indicada, en mm
+const inlineSvg = (f, x, y, w, h) => readFileSync(join(root, 'design', f), 'utf8')
+  .replace(/<\?xml[^>]*>\s*/g, '')
+  .replace(/<svg\b([^>]*?)\swidth="[^"]*"\s+height="[^"]*"/, `<svg$1 x="${x}" y="${y}" width="${w}" height="${h}"`);
 
 const variants = {
   clara: {
@@ -32,7 +35,7 @@ function svg(v, { withShirt }) {
     <text x="105" y="33.5" font-size="10" font-weight="700" letter-spacing="3.2" fill="${v.accent}">SPEAKER</text>
   </g>
 
-  <!-- robot (recorte 1380x1830 px de un-dia-con-ia-robot.jpg) -->
+  <!-- robot (recorte 1840x2440 px de robot-x4.png) -->
   <image x="44" y="42" width="122" height="162" preserveAspectRatio="xMidYMid meet" xlink:href="data:image/png;base64,${robotPng}"/>
 
   <!-- título -->
@@ -41,13 +44,9 @@ function svg(v, { withShirt }) {
     <text x="105" y="236" font-size="7.4" font-weight="600" letter-spacing="2.6" fill="${v.accent}">A CORUÑA · 21 · 11 · 2026</text>
   </g>
 
-  <!-- organizadores -->
-  <g ${sans} text-anchor="middle">
-    <line x1="60" y1="252" x2="150" y2="252" stroke="${v.soft}" stroke-width="0.4" opacity="0.6"/>
-    <text x="104" y="268" text-anchor="end" font-size="6.4" font-weight="700" letter-spacing="1.6" fill="${v.soft}">CASCARILLA TECH</text>
-    <text x="109" y="268" font-size="6" fill="${v.soft}">×</text>
-    <image x="113" y="254" width="25" height="20" xlink:href="data:image/png;base64,${jugLogo}"/>
-  </g>
+  <!-- organizadores: hexágonos 40x50 mm a escala 0.6 -->
+  ${inlineSvg('logo-letras-hexagono.svg', 76, 244, 24, 30)}
+  ${inlineSvg('logo-corunajug-hexagono.svg', 110, 244, 24, 30)}
 </svg>`;
 }
 
@@ -55,7 +54,7 @@ for (const [name, v] of Object.entries(variants)) {
   const print = svg(v, { withShirt: false });
   const preview = svg(v, { withShirt: true });
   writeFileSync(join(here, `camiseta-speakers-${name}.svg`), print);
-  await sharp(Buffer.from(print), { density: 300 }).png().toFile(join(here, `camiseta-speakers-${name}.png`));
+  await sharp(Buffer.from(print), { density: 300 }).resize({ width: 2480 }).withMetadata({ density: 300 }).png().toFile(join(here, `camiseta-speakers-${name}.png`));
   await sharp(Buffer.from(preview), { density: 72 }).png().toFile(join(here, `preview-${name}.png`));
 }
 console.log('ok');

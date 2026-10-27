@@ -1,11 +1,11 @@
-// Recorta o robot de public/images/un-dia-con-ia-robot.jpg e quítalle o fondo claro (provisional:
-// a orixe é de baixa resolución, para imprimir fai falta un orixinal grande ou un reescalado con IA).
+// Recorta o robot de robot-x4.png (un-dia-con-ia-robot.jpg reescalado x4 con Real-ESRGAN realesrgan-x4plus)
+// e quítalle o fondo claro.
 import sharp from 'sharp';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
-const src = join(here, '..', '..', 'public/images/un-dia-con-ia-robot.jpg');
-const crop = { left: 300, top: 30, width: 460, height: 610 };
+const src = join(here, 'robot-x4.png');
+const crop = { left: 1200, top: 120, width: 1840, height: 2440 };
 const { data, info } = await sharp(src).extract(crop).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
 // fondo = píxeles claros e pouco saturados conectados co bordo (non borra os brillos do robot)
 const W = info.width, H = info.height;
@@ -33,5 +33,5 @@ for (let p = 0; p < W * H; p++) {
   const n = (bg[p - 1] | 0) + (bg[p + 1] | 0) + (bg[p - W] | 0) + (bg[p + W] | 0);
   if (n) data[p * 4 + 3] = 255 - n * 40;
 }
-await sharp(data, { raw: info }).resize({ width: info.width * 3, kernel: 'lanczos3' }).png().toFile(join(here, 'robot-recortado.png'));
+await sharp(data, { raw: info }).png().toFile(join(here, 'robot-recortado.png'));
 console.log('ok');
