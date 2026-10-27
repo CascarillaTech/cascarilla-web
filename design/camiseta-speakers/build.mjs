@@ -8,43 +8,25 @@ import sharp from 'sharp';
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..', '..');
 
-const robotSrc = readFileSync(join(root, 'src/assets/robot-cascarilla.svg'), 'utf8');
-const robot = robotSrc.match(/<g id="robot"[\s\S]*?\n {6}<\/g>/)[0]
-  .replace(/ transform="[^"]*"/, '');
-const plateClip = robotSrc.match(/<defs>[\s\S]*?<\/defs>/)[0];
+const robotPng = readFileSync(join(here, 'robot-recortado.png')).toString('base64');
 const jugLogo = readFileSync(join(root, 'public/images/corunajug-logo.png')).toString('base64');
 
 const variants = {
   escura: {
     shirt: '#2B2B2B',
-    roles: { limb: '#B85C29', cap: '#B85C29', shell: '#FFFFFF', plate: '#26160F', screen: '#26160F' },
-    shellStroke: null,
     title: '#FFFFFF', accent: '#F5B54A', soft: '#E9D9BE',
   },
   clara: {
     shirt: '#F4F1EA',
-    roles: { limb: '#B85C29', cap: '#B85C29', shell: '#FFFFFF', plate: '#26160F', screen: '#26160F' },
-    shellStroke: '#26160F',
     title: '#26160F', accent: '#B85C29', soft: '#5A3A28',
   },
 };
 
-function paintRobot(v) {
-  let g = robot;
-  for (const [role, color] of Object.entries(v.roles)) {
-    g = g.replace(new RegExp(`(data-role="${role}"[^>]*?)fill="#[0-9A-Fa-f]+"`, 'g'), `$1fill="${color}"`);
-  }
-  if (v.shellStroke) {
-    g = g.replace(/data-role="shell"/g, `data-role="shell" stroke="${v.shellStroke}" stroke-width="7"`);
-  }
-  return g;
-}
 
 function svg(v, { withShirt }) {
   const sans = `font-family="'Trebuchet MS','Avenir Next',Verdana,sans-serif"`;
   return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
   width="210mm" height="297mm" viewBox="0 0 210 297">
-  ${plateClip}
   ${withShirt ? `<rect width="210" height="297" fill="${v.shirt}"/>` : ''}
 
   <!-- SPEAKER -->
@@ -54,10 +36,8 @@ function svg(v, { withShirt }) {
     <text x="105" y="33.5" font-size="10" font-weight="700" letter-spacing="3.2" fill="${v.accent}">SPEAKER</text>
   </g>
 
-  <!-- robot: viewBox orixinal 512x600, área útil ~ x 100-412, y 15-475 -->
-  <g transform="translate(105,113) scale(0.32) translate(-256,-245)">
-    ${paintRobot(v)}
-  </g>
+  <!-- robot (recorte 1380x1830 px de un-dia-con-ia-robot.jpg) -->
+  <image x="44" y="42" width="122" height="162" preserveAspectRatio="xMidYMid meet" xlink:href="data:image/png;base64,${robotPng}"/>
 
   <!-- título -->
   <g ${sans} text-anchor="middle">
