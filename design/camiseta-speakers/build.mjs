@@ -14,6 +14,23 @@ const inlineSvg = (f, x, y, w, h) => readFileSync(join(root, 'design', f), 'utf8
   .replace(/<\?xml[^>]*>\s*/g, '')
   .replace(/<svg\b([^>]*?)\swidth="[^"]*"\s+height="[^"]*"/, `<svg$1 x="${x}" y="${y}" width="${w}" height="${h}"`);
 
+// logos de patrocinadoras recortados ao contido, nunha fila centrada (alto en mm por logo)
+const sponsorRow = { y: 262, gap: 10 };
+const sponsorDefs = [
+  ['odeene-color-horizontal.png', 9],
+  ['bahia-software-color.png', 13],
+  ['3mt-global-services.png', 14],
+];
+const sponsors = [];
+for (const [f, h] of sponsorDefs) {
+  const { data, info } = await sharp(join(root, 'public/images/colaboradoras', f)).trim().png().toBuffer({ resolveWithObject: true });
+  sponsors.push({ h, w: h * info.width / info.height, href: 'data:image/png;base64,' + data.toString('base64') });
+}
+let sx = (210 - sponsors.reduce((a, s) => a + s.w, 0) - sponsorRow.gap * (sponsors.length - 1)) / 2;
+for (const s of sponsors) {
+  s.x = sx; s.y = sponsorRow.y + (14 - s.h) / 2; sx += s.w + sponsorRow.gap;
+}
+
 const variants = {
   clara: {
     shirt: '#F4F1EA',
@@ -28,10 +45,14 @@ function svg(v, { withShirt }) {
   width="210mm" height="297mm" viewBox="0 0 210 297">
   ${withShirt ? `<rect width="210" height="297" fill="${v.shirt}"/>` : ''}
 
+  <!-- organizadores: hexágonos 40x50 mm a escala 0.55, flanqueando SPEAKER -->
+  ${inlineSvg('logo-letras-hexagono.svg', 14, 16.25, 22, 27.5)}
+  ${inlineSvg('logo-corunajug-hexagono.svg', 174, 16.25, 22, 27.5)}
+
   <!-- SPEAKER -->
   <g ${sans} text-anchor="middle">
-    <line x1="40" y1="30" x2="72" y2="30" stroke="${v.accent}" stroke-width="0.8"/>
-    <line x1="138" y1="30" x2="170" y2="30" stroke="${v.accent}" stroke-width="0.8"/>
+    <line x1="44" y1="30" x2="72" y2="30" stroke="${v.accent}" stroke-width="0.8"/>
+    <line x1="138" y1="30" x2="166" y2="30" stroke="${v.accent}" stroke-width="0.8"/>
     <text x="105" y="33.5" font-size="10" font-weight="700" letter-spacing="3.2" fill="${v.accent}">SPEAKER</text>
   </g>
 
@@ -44,9 +65,9 @@ function svg(v, { withShirt }) {
     <text x="105" y="236" font-size="7.4" font-weight="600" letter-spacing="2.6" fill="${v.accent}">A CORUÑA · 21 · 11 · 2026</text>
   </g>
 
-  <!-- organizadores: hexágonos 40x50 mm a escala 0.6 -->
-  ${inlineSvg('logo-letras-hexagono.svg', 76, 244, 24, 30)}
-  ${inlineSvg('logo-corunajug-hexagono.svg', 110, 244, 24, 30)}
+  <!-- patrocinadoras -->
+  <text x="105" y="256" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-style="italic" font-size="6" fill="${v.soft}">Powered by</text>
+${sponsors.map((s) => `  <image x="${s.x}" y="${s.y}" width="${s.w}" height="${s.h}" preserveAspectRatio="xMidYMid meet" xlink:href="${s.href}"/>`).join('\n')}
 </svg>`;
 }
 
