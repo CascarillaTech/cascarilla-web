@@ -71,12 +71,9 @@
 }
 
 .organizer-logo {
-    width: 1.6rem;
-    height: 1.6rem;
+    height: 2.8rem;
+    width: auto;
     object-fit: contain;
-    background-color: var(--color-background-logo);
-    border-radius: 4px;
-    padding: 2px;
 }
 
 /* ---------- Secciones genéricas ---------- */

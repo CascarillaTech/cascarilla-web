@@ -25,12 +25,12 @@
         {
             "name": "Cascarilla Tech",
             "url": "https://cascarillatech.org/",
-            "logo": "/images/cascarillatech-logo.svg"
+            "logo": "/images/cascarillatech-hexagono.svg"
         },
         {
             "name": "Coruña JUG",
             "url": "https://corunajug.org/",
-            "logo": "/images/corunajug-logo.png"
+            "logo": "/images/corunajug-hexagono.svg"
         }
     ],
     "tags": [
