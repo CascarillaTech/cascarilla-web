@@ -101,7 +101,6 @@ const sponsors = evento.sponsors ?? [];
 
         <section class="event-section-block">
             <h2>As charlas</h2>
-            <p class="section-intro">Poñentes en confirmación — en canto os pechemos, actualizamos esta sección.</p>
 
             <div class="talks-grid">
                 {agenda.filter((i) => i.isTalk).map((talk) => {
@@ -173,11 +172,10 @@ const sponsors = evento.sponsors ?? [];
         <img id="talk-modal-img" src={speakerPlaceholder} data-placeholder={speakerPlaceholder} alt="Foto de exemplo do/a poñente" />
         <p class="talk-modal-time" id="talk-modal-time"></p>
         <h3 id="talk-modal-title"></h3>
+        <p id="talk-modal-desc"></p>
         <p class="talk-modal-speaker" id="talk-modal-speaker"></p>
         <p id="talk-modal-bio" class="talk-modal-bio" hidden></p>
         <p id="talk-modal-links" class="talk-modal-links" hidden></p>
-        <h4 id="talk-modal-title-2" class="talk-modal-title-2"></h4>
-        <p id="talk-modal-desc"></p>
     </dialog>
 
 </Layout>
@@ -211,7 +209,6 @@ const sponsors = evento.sponsors ?? [];
             const idx = Number(btn.dataset.talkIdx);
             const talk = agenda[idx];
             document.getElementById('talk-modal-title').textContent = talk.name;
-            document.getElementById('talk-modal-title-2').textContent = talk.name;
             document.getElementById('talk-modal-time').textContent = talk.time;
             document.getElementById('talk-modal-speaker').textContent = 'Poñente: ' + (talk.speaker || 'TBA');
             document.getElementById('talk-modal-desc').textContent = talk.description || 'Descrición pendente de confirmar.';
