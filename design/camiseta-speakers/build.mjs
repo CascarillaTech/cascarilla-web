@@ -1,4 +1,4 @@
-// Xera o A4 frontal da camiseta de speakers de "Un día con IA" (versión camiseta escura e clara).
+// Xera o A4 frontal da camiseta de speakers de "Un día con IA" (camiseta clara).
 // Uso: node design/camiseta-speakers/build.mjs
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -12,10 +12,6 @@ const robotPng = readFileSync(join(here, 'robot-recortado.png')).toString('base6
 const jugLogo = readFileSync(join(root, 'public/images/corunajug-logo.png')).toString('base64');
 
 const variants = {
-  escura: {
-    shirt: '#2B2B2B',
-    title: '#FFFFFF', accent: '#F5B54A', soft: '#E9D9BE',
-  },
   clara: {
     shirt: '#F4F1EA',
     title: '#26160F', accent: '#B85C29', soft: '#5A3A28',
