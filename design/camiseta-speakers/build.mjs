@@ -55,7 +55,7 @@ function svg(v, { withShirt }) {
     <line x1="158" y1="52" x2="180" y2="52" stroke="${v.accent}" stroke-width="0.8"/>
     <text x="105" y="55.5" font-size="10" font-weight="700" letter-spacing="2.4" fill="${v.accent}">NOT AN AGENT</text>
   </g>
-  <text x="105" y="63" text-anchor="middle" font-family="'Playfair Display',Georgia,serif" font-style="italic" font-size="6.5" fill="${v.soft}">poñente</text>
+  <text x="105" y="63" text-anchor="middle" font-family="'Trebuchet MS','Avenir Next',Verdana,sans-serif" font-size="5.5" font-weight="600" letter-spacing="2.2" fill="${v.soft}">POÑENTE</text>
 
   <!-- robot (recorte 1840x2440 px de robot-x4.png) -->
   <image x="53.5" y="67" width="103" height="137" preserveAspectRatio="xMidYMid meet" xlink:href="data:image/png;base64,${robotPng}"/>
