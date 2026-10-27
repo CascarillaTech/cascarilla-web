@@ -383,8 +383,17 @@ a:hover {
     transform: translateY(-0.5rem) rotate(-45deg);
 }
 
-/* Menú colapsable en móbil */
-@media (max-width: 48rem) {
+/* Entre o móbil e o escritorio ancho o menú en liña non cabe (cortábase
+   «Dossier» e «Faite socio/a»): apertamos espazos e letra. */
+@media (min-width: 64rem) and (max-width: 80rem) {
+    .nav-menu { gap: 1rem; }
+    .header nav a { margin: 0 0.5rem; }
+    .nav-menu a { font-size: 1rem; }
+}
+
+/* Menú colapsable (móbil e tablet): por debaixo de 64rem o menú en liña
+   non cabe nunha soa liña. */
+@media (max-width: 64rem) {
     /* Cabeceira máis compacta en móbil: menos padding e menos altura
        que en escritorio. --height-header cámbiase tamén aquí para que
        o menú despregable (.nav-menu, máis abaixo) siga aparecendo
