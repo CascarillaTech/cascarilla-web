@@ -38,8 +38,13 @@ const variants = {
   },
 };
 
+// unha camiseta por rol: lema grande e subtítulo opcional debaixo
+const roles = {
+  speakers: { lema: 'NOT AN AGENT', sub: 'POÑENTE' },
+  staff: { lema: 'STAFF AGENT', sub: null },
+};
 
-function svg(v, { withShirt }) {
+function svg(v, role, { withShirt }) {
   const sans = `font-family="'Trebuchet MS','Avenir Next',Verdana,sans-serif"`;
   return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
   width="210mm" height="297mm" viewBox="0 0 210 297">
@@ -53,9 +58,9 @@ function svg(v, { withShirt }) {
   <g ${sans} text-anchor="middle">
     <line x1="30" y1="52" x2="52" y2="52" stroke="${v.accent}" stroke-width="0.8"/>
     <line x1="158" y1="52" x2="180" y2="52" stroke="${v.accent}" stroke-width="0.8"/>
-    <text x="105" y="55.5" font-size="10" font-weight="700" letter-spacing="2.4" fill="${v.accent}">NOT AN AGENT</text>
+    <text x="105" y="55.5" font-size="10" font-weight="700" letter-spacing="2.4" fill="${v.accent}">${role.lema}</text>
   </g>
-  <text x="105" y="63" text-anchor="middle" font-family="'Trebuchet MS','Avenir Next',Verdana,sans-serif" font-size="5.5" font-weight="600" letter-spacing="2.2" fill="${v.soft}">POÑENTE</text>
+  ${role.sub ? `<text x="105" y="63" text-anchor="middle" ${sans} font-size="5.5" font-weight="600" letter-spacing="2.2" fill="${v.soft}">${role.sub}</text>` : ''}
 
   <!-- robot (recorte 1840x2440 px de robot-x4.png) -->
   <image x="53.5" y="67" width="103" height="137" preserveAspectRatio="xMidYMid meet" xlink:href="data:image/png;base64,${robotPng}"/>
@@ -72,11 +77,13 @@ ${sponsors.map((s) => `  <image x="${s.x}" y="${s.y}" width="${s.w}" height="${s
 </svg>`;
 }
 
-for (const [name, v] of Object.entries(variants)) {
-  const print = svg(v, { withShirt: false });
-  const preview = svg(v, { withShirt: true });
-  writeFileSync(join(here, `camiseta-speakers-${name}.svg`), print);
-  await sharp(Buffer.from(print), { density: 300 }).resize({ width: 2480 }).withMetadata({ density: 300 }).png().toFile(join(here, `camiseta-speakers-${name}.png`));
-  await sharp(Buffer.from(preview), { density: 72 }).png().toFile(join(here, `preview-${name}.png`));
+for (const [roleName, role] of Object.entries(roles)) {
+  for (const [name, v] of Object.entries(variants)) {
+    const print = svg(v, role, { withShirt: false });
+    const preview = svg(v, role, { withShirt: true });
+    writeFileSync(join(here, `camiseta-${roleName}-${name}.svg`), print);
+    await sharp(Buffer.from(print), { density: 300 }).resize({ width: 2480 }).withMetadata({ density: 300 }).png().toFile(join(here, `camiseta-${roleName}-${name}.png`));
+    await sharp(Buffer.from(preview), { density: 72 }).png().toFile(join(here, `preview-${roleName}-${name}.png`));
+  }
 }
 console.log('ok');
