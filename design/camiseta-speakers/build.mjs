@@ -82,14 +82,14 @@ function svgBack(v, { withShirt }) {
   const sans = `font-family="'Trebuchet MS','Avenir Next',Verdana,sans-serif"`;
   const mono = `font-family="Consolas,'Cascadia Mono','Courier New',monospace"`;
   const prompt = 'Try "ASK ME ANYTHING" ';
-  const size = 10.5, charW = size * 0.55; // Consolas: avance de 0.55em
+  const size = 12.5, charW = size * 0.55; // Consolas: avance de 0.55em
   const width = (2 + prompt.length) * charW + charW; // "> " + texto + cursor
   const x0 = 105 - width / 2;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 210 297">
   ${withShirt ? `<rect width="210" height="297" fill="${v.shirt}"/>` : ''}
   <text x="105" y="90" text-anchor="middle" ${sans} font-size="52" font-weight="800" letter-spacing="2" fill="${v.title}">STAFF</text>
-  <text x="${x0}" y="122" ${mono} font-size="${size}" xml:space="preserve"><tspan fill="${v.accent}" font-weight="700">&gt; </tspan><tspan fill="${v.soft}">${prompt.replace(/"/g, '&quot;')}</tspan></text>
-  <rect x="${x0 + (2 + prompt.length) * charW}" y="${122 - size * 0.78}" width="${charW}" height="${size * 0.95}" fill="${v.accent}"/>
+  <text x="${x0}" y="124" ${mono} font-size="${size}" xml:space="preserve"><tspan fill="${v.accent}" font-weight="700">&gt; </tspan><tspan fill="${v.soft}">${prompt.replace(/"/g, '&quot;')}</tspan></text>
+  <rect x="${x0 + (2 + prompt.length) * charW}" y="${124 - size * 0.78}" width="${charW}" height="${size * 0.95}" fill="${v.accent}"/>
 </svg>`;
 }
 
