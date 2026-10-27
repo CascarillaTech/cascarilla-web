@@ -81,7 +81,7 @@ ${sponsors.map((s) => `  <image x="${s.x}" y="${s.y}" width="${s.w}" height="${s
 function svgBack(v, { withShirt }) {
   const sans = `font-family="'Trebuchet MS','Avenir Next',Verdana,sans-serif"`;
   const mono = `font-family="Consolas,'Cascadia Mono','Courier New',monospace"`;
-  const prompt = 'Try "ASK ME ANYTHING" ';
+  const prompt = 'Try "PÓDESME AXUDAR?" ';
   const size = 12.5, charW = size * 0.55; // Consolas: avance de 0.55em
   const width = (2 + prompt.length) * charW + charW; // "> " + texto + cursor
   const x0 = 105 - width / 2;
