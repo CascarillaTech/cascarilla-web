@@ -19,18 +19,11 @@ for (let i = shadowFrom; i < rob.length; i += 4) {
 }
 const robotPng = (await sharp(rob, { raw: robInfo }).png().toBuffer()).toString('base64');
 // incrusta un SVG de design/ como <svg> anidado (vectorial) na posición indicada, en mm.
-// O hexágono queda sen fondo, só co contorno; con `dark` os tons escuros dos logos pásanse a esa cor
-// (versión en negativo para camiseta escura).
-const darkTones = /#(411a0d|451a0b|451f14|452014|000000|636466|666666|626365)\b/gi;
-const inlineSvg = (f, x, y, w, h, { line = '#411a0d', dark = null } = {}) => {
-  let s = readFileSync(join(root, 'design', f), 'utf8')
-    .replace(/<\?xml[^>]*>\s*/g, '')
-    .replace(/<polygon points="[^"]*" fill="#411a0d"\/>\s*<polygon points="([^"]*)" fill="#fbf3ea"\/>/,
-      '<polygon points="$1" fill="none" stroke="@LINE@" stroke-width="1.6" stroke-linejoin="miter"/>')
-    .replace(/<svg\b([^>]*?)\swidth="[^"]*"\s+height="[^"]*"/, `<svg$1 x="${x}" y="${y}" width="${w}" height="${h}"`);
-  if (dark) s = s.replace(darkTones, dark);
-  return s.replace('@LINE@', line);
-};
+// O fondo crema do hexágono pásase a branco.
+const inlineSvg = (f, x, y, w, h) => readFileSync(join(root, 'design', f), 'utf8')
+  .replace(/<\?xml[^>]*>\s*/g, '')
+  .replace(/fill="#fbf3ea"/g, 'fill="#FFFFFF"')
+  .replace(/<svg\b([^>]*?)\swidth="[^"]*"\s+height="[^"]*"/, `<svg$1 x="${x}" y="${y}" width="${w}" height="${h}"`);
 
 const c = { shirt: '#111111', ink: '#FFFFFF', copper: '#B85C29', amber: '#F5B54A' };
 const impact = `font-family="Impact,'Bahnschrift',sans-serif"`;
@@ -94,8 +87,8 @@ function svg(role, { withShirt }) {
   <rect x="150" y="249" width="1.4" height="17" fill="${c.ink}"/>
 
   <!-- selos: hexágonos dos organizadores, aliñados á marxe dereita -->
-  ${inlineSvg('logo-letras-hexagono.svg', 160, 247, 16, 20, { line: c.ink, dark: c.ink })}
-  ${inlineSvg('logo-corunajug-hexagono.svg', 180, 247, 16, 20, { line: c.ink, dark: c.ink })}
+  ${inlineSvg('logo-letras-hexagono.svg', 160, 247, 16, 20)}
+  ${inlineSvg('logo-corunajug-hexagono.svg', 180, 247, 16, 20)}
 </svg>`;
 }
 

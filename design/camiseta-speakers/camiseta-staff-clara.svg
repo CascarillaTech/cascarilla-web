@@ -13,7 +13,8 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink">
   <!-- Hexágono con puntas arriba: 50 mm de punta a punta, 40 mm entre lados rectos -->
-  <polygon points="20.000,0.943 39.200,12.943 39.200,37.057 20.000,49.057 0.800,37.057 0.800,12.943" fill="none" stroke="#411a0d" stroke-width="1.6" stroke-linejoin="miter"/>
+  <polygon points="20.000,0.000 40.000,12.500 40.000,37.500 20.000,50.000 0.000,37.500 0.000,12.500" fill="#411a0d"/>
+  <polygon points="20.000,0.943 39.200,12.943 39.200,37.057 20.000,49.057 0.800,37.057 0.800,12.943" fill="#FFFFFF"/>
   <!-- Logo con letras (design/logo-letras.svg) escalado y centrado -->
   <svg x="3.151" y="12.153" width="33.698" height="25.694" viewBox="3.9 7.7 116.2 88.6" overflow="visible">
 <defs
@@ -299,7 +300,8 @@
   <svg x="106.5" y="12" width="22" height="27.5" viewBox="0 0 40 50" version="1.1"
    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <!-- Hexágono con puntas arriba, igual que logo-letras-hexagono.svg (40x50 mm) -->
-  <polygon points="20.000,0.943 39.200,12.943 39.200,37.057 20.000,49.057 0.800,37.057 0.800,12.943" fill="none" stroke="#411a0d" stroke-width="1.6" stroke-linejoin="miter"/>
+  <polygon points="20.000,0.000 40.000,12.500 40.000,37.500 20.000,50.000 0.000,37.500 0.000,12.500" fill="#411a0d"/>
+  <polygon points="20.000,0.943 39.200,12.943 39.200,37.057 20.000,49.057 0.800,37.057 0.800,12.943" fill="#FFFFFF"/>
   <!-- Logo Coruña JUG (corunajug.github.io/Design/coruñaJUG_logo.svg, vectorial) centrado -->
   <svg x="5" y="11.6" width="30" height="26.8" viewBox="75 44 350 313" preserveAspectRatio="xMidYMid meet">
 <style type="text/css">
