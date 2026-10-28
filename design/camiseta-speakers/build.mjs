@@ -9,10 +9,19 @@ const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, '..', '..');
 
 const robotPng = readFileSync(join(here, 'robot-recortado.png')).toString('base64');
-// incrusta un SVG de design/ como <svg> anidado (vectorial) na posición indicada, en mm
-const inlineSvg = (f, x, y, w, h) => readFileSync(join(root, 'design', f), 'utf8')
-  .replace(/<\?xml[^>]*>\s*/g, '')
-  .replace(/<svg\b([^>]*?)\swidth="[^"]*"\s+height="[^"]*"/, `<svg$1 x="${x}" y="${y}" width="${w}" height="${h}"`);
+// incrusta un SVG de design/ como <svg> anidado (vectorial) na posición indicada, en mm.
+// O hexágono queda sen fondo, só co contorno; con `dark` os tons escuros dos logos pásanse a esa cor
+// (versión en negativo para camiseta escura).
+const darkTones = /#(411a0d|451a0b|451f14|452014|000000|636466|666666|626365)\b/gi;
+const inlineSvg = (f, x, y, w, h, { line = '#411a0d', dark = null } = {}) => {
+  let s = readFileSync(join(root, 'design', f), 'utf8')
+    .replace(/<\?xml[^>]*>\s*/g, '')
+    .replace(/<polygon points="[^"]*" fill="#411a0d"\/>\s*<polygon points="([^"]*)" fill="#fbf3ea"\/>/,
+      '<polygon points="$1" fill="none" stroke="@LINE@" stroke-width="1.6" stroke-linejoin="miter"/>')
+    .replace(/<svg\b([^>]*?)\swidth="[^"]*"\s+height="[^"]*"/, `<svg$1 x="${x}" y="${y}" width="${w}" height="${h}"`);
+  if (dark) s = s.replace(darkTones, dark);
+  return s.replace('@LINE@', line);
+};
 
 // logos de patrocinadoras recortados ao contido, nunha fila centrada (alto en mm por logo)
 const sponsorRow = { y: 262, gap: 10 };

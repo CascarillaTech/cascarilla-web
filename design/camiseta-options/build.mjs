@@ -18,15 +18,23 @@ for (let i = shadowFrom; i < rob.length; i += 4) {
   if (Math.max(r, g, b) - Math.min(r, g, b) < 20 && Math.min(r, g, b) > 120) rob[i + 3] = 0;
 }
 const robotPng = (await sharp(rob, { raw: robInfo }).png().toBuffer()).toString('base64');
-// incrusta un SVG de design/ como <svg> anidado (vectorial) na posición indicada, en mm
-const inlineSvg = (f, x, y, w, h) => readFileSync(join(root, 'design', f), 'utf8')
-  .replace(/<\?xml[^>]*>\s*/g, '')
-  .replace(/<svg\b([^>]*?)\swidth="[^"]*"\s+height="[^"]*"/, `<svg$1 x="${x}" y="${y}" width="${w}" height="${h}"`);
+// incrusta un SVG de design/ como <svg> anidado (vectorial) na posición indicada, en mm.
+// O hexágono queda sen fondo, só co contorno; con `dark` os tons escuros dos logos pásanse a esa cor
+// (versión en negativo para camiseta escura).
+const darkTones = /#(411a0d|451a0b|451f14|452014|000000|636466|666666|626365)\b/gi;
+const inlineSvg = (f, x, y, w, h, { line = '#411a0d', dark = null } = {}) => {
+  let s = readFileSync(join(root, 'design', f), 'utf8')
+    .replace(/<\?xml[^>]*>\s*/g, '')
+    .replace(/<polygon points="[^"]*" fill="#411a0d"\/>\s*<polygon points="([^"]*)" fill="#fbf3ea"\/>/,
+      '<polygon points="$1" fill="none" stroke="@LINE@" stroke-width="1.6" stroke-linejoin="miter"/>')
+    .replace(/<svg\b([^>]*?)\swidth="[^"]*"\s+height="[^"]*"/, `<svg$1 x="${x}" y="${y}" width="${w}" height="${h}"`);
+  if (dark) s = s.replace(darkTones, dark);
+  return s.replace('@LINE@', line);
+};
 
 const c = { shirt: '#111111', ink: '#FFFFFF', copper: '#B85C29', amber: '#F5B54A' };
 const impact = `font-family="Impact,'Bahnschrift',sans-serif"`;
 const mono = `font-family="Consolas,'Courier New',monospace"`;
-const jp = `font-family="'Yu Gothic','Meiryo',sans-serif"`;
 
 const roles = {
   speakers: { band: 'NOT AN AGENT // POÑENTE', spec: ['> NOT AN AGENT. HUMAN SPEAKER, VERIFIED.'] },
@@ -57,10 +65,6 @@ function svg(role, { withShirt }) {
   <text x="105" y="46" text-anchor="middle" ${impact} font-size="31.5" fill="${c.ink}">UN DÍA CON IA</text>
   <rect x="62" y="55" width="124" height="2.2" fill="${c.ink}"/>
 
-  <!-- xaponés + barra curta -->
-  <text x="14" y="70" ${jp} font-size="9" font-weight="700" fill="${c.ink}">人工知能</text>
-  <rect x="54" y="64.5" width="20" height="2.2" fill="${c.ink}"/>
-
   <!-- bloques xeométricos detrás do robot -->
   <polygon points="140,92 198,80 198,132 140,142" fill="${c.ink}"/>
   <polygon points="150,160 198,152 198,196 166,201" fill="${c.ink}"/>
@@ -90,8 +94,8 @@ function svg(role, { withShirt }) {
   <rect x="150" y="249" width="1.4" height="17" fill="${c.ink}"/>
 
   <!-- selos: hexágonos dos organizadores, aliñados á marxe dereita -->
-  ${inlineSvg('logo-letras-hexagono.svg', 160, 247, 16, 20)}
-  ${inlineSvg('logo-corunajug-hexagono.svg', 180, 247, 16, 20)}
+  ${inlineSvg('logo-letras-hexagono.svg', 160, 247, 16, 20, { line: c.ink, dark: c.ink })}
+  ${inlineSvg('logo-corunajug-hexagono.svg', 180, 247, 16, 20, { line: c.ink, dark: c.ink })}
 </svg>`;
 }
 
@@ -111,8 +115,7 @@ function svgBackStaff({ withShirt }) {
 
   <!-- STAFF -->
   <text x="105" y="102" text-anchor="middle" ${impact} font-size="80" fill="${c.ink}">STAFF</text>
-  <rect x="14" y="109" width="124" height="2.2" fill="${c.ink}"/>
-  <text x="196" y="114" text-anchor="end" ${jp} font-size="9" font-weight="700" fill="${c.ink}">スタッフ</text>
+  <rect x="14" y="109" width="182" height="2.2" fill="${c.ink}"/>
 
   <!-- prompt -->
   <text x="${x0}" y="136" ${mono} font-size="${size}" xml:space="preserve"><tspan fill="${c.copper}" font-weight="700">&gt; </tspan><tspan fill="${c.ink}">${prompt.replace(/"/g, '&quot;')}</tspan></text>
