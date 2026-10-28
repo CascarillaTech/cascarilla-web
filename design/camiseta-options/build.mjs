@@ -25,7 +25,12 @@ const inlineSvg = (f, x, y, w, h) => readFileSync(join(root, 'design', f), 'utf8
   .replace(/fill="#fbf3ea"/g, 'fill="#FFFFFF"')
   .replace(/<svg\b([^>]*?)\swidth="[^"]*"\s+height="[^"]*"/, `<svg$1 x="${x}" y="${y}" width="${w}" height="${h}"`);
 
-const c = { shirt: '#111111', ink: '#FFFFFF', copper: '#B85C29', amber: '#F5B54A' };
+// cor da camiseta: o sufixo vai no nome do ficheiro ('' = escura, a orixinal)
+const themes = {
+  '': { shirt: '#111111', ink: '#FFFFFF', copper: '#B85C29', amber: '#F5B54A' },
+  '-clara': { shirt: '#F4F1EA', ink: '#26160F', copper: '#B85C29', amber: '#B85C29' },
+};
+let c = themes[''];
 const impact = `font-family="Impact,'Bahnschrift',sans-serif"`;
 const mono = `font-family="Consolas,'Courier New',monospace"`;
 
@@ -126,18 +131,21 @@ function svgBackStaff({ withShirt }) {
 </svg>`;
 }
 
-{
-  const file = 'bulldoze-staff-costas';
-  writeFileSync(join(here, `${file}.svg`), svgBackStaff({ withShirt: false }));
-  await sharp(Buffer.from(svgBackStaff({ withShirt: false })), { density: 300 }).resize({ width: 2480 }).withMetadata({ density: 300 }).png().toFile(join(here, `${file}.png`));
-  await sharp(Buffer.from(svgBackStaff({ withShirt: true })), { density: 72 }).png().toFile(join(here, `preview-${file}.png`));
-}
+for (const [suffix, theme] of Object.entries(themes)) {
+  c = theme;
+  {
+    const file = `bulldoze-staff-costas${suffix}`;
+    writeFileSync(join(here, `${file}.svg`), svgBackStaff({ withShirt: false }));
+    await sharp(Buffer.from(svgBackStaff({ withShirt: false })), { density: 300 }).resize({ width: 2480 }).withMetadata({ density: 300 }).png().toFile(join(here, `${file}.png`));
+    await sharp(Buffer.from(svgBackStaff({ withShirt: true })), { density: 72 }).png().toFile(join(here, `preview-${file}.png`));
+  }
 
-for (const [name, role] of Object.entries(roles)) {
-  const file = `bulldoze-${name}`;
-  const print = svg(role, { withShirt: false });
-  writeFileSync(join(here, `${file}.svg`), print);
-  await sharp(Buffer.from(print), { density: 300 }).resize({ width: 2480 }).withMetadata({ density: 300 }).png().toFile(join(here, `${file}.png`));
-  await sharp(Buffer.from(svg(role, { withShirt: true })), { density: 72 }).png().toFile(join(here, `preview-${file}.png`));
+  for (const [name, role] of Object.entries(roles)) {
+    const file = `bulldoze-${name}${suffix}`;
+    const print = svg(role, { withShirt: false });
+    writeFileSync(join(here, `${file}.svg`), print);
+    await sharp(Buffer.from(print), { density: 300 }).resize({ width: 2480 }).withMetadata({ density: 300 }).png().toFile(join(here, `${file}.png`));
+    await sharp(Buffer.from(svg(role, { withShirt: true })), { density: 72 }).png().toFile(join(here, `preview-${file}.png`));
+  }
 }
 console.log('ok');
