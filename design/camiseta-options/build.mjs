@@ -95,6 +95,48 @@ function svg(role, { withShirt }) {
 </svg>`;
 }
 
+// costas do staff: STAFF lexible de lonxe, sen robot nin logos, co prompt de terminal
+function svgBackStaff({ withShirt }) {
+  const prompt = 'Try "PÓDESME AXUDAR?" ';
+  const size = 12.5, charW = size * 0.55; // Consolas: avance de 0.55em
+  const x0 = 105 - ((2 + prompt.length) * charW + charW) / 2;
+  const spec = ['> HUMAN SUPPORT UNIT · NOT AN AGENT', '> UN DÍA CON IA · A CORUÑA · 21.11.2026'];
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 210 297">
+  ${withShirt ? `<rect width="210" height="297" fill="${c.shirt}"/>` : ''}
+
+  <!-- banda "on duty" + damero -->
+  <rect x="14" y="16" width="72" height="9" fill="${c.copper}"/>
+  <text x="17" y="23" ${impact} font-size="7" letter-spacing="0.6" fill="${c.shirt}">ON DUTY // 21.11.26</text>
+  ${checker(176, 16, 7, 3, 3)}
+
+  <!-- STAFF -->
+  <text x="105" y="102" text-anchor="middle" ${impact} font-size="80" fill="${c.ink}">STAFF</text>
+  <rect x="14" y="109" width="124" height="2.2" fill="${c.ink}"/>
+  <text x="196" y="114" text-anchor="end" ${jp} font-size="9" font-weight="700" fill="${c.ink}">スタッフ</text>
+
+  <!-- prompt -->
+  <text x="${x0}" y="136" ${mono} font-size="${size}" xml:space="preserve"><tspan fill="${c.copper}" font-weight="700">&gt; </tspan><tspan fill="${c.ink}">${prompt.replace(/"/g, '&quot;')}</tspan></text>
+  <rect x="${x0 + (2 + prompt.length) * charW}" y="${136 - size * 0.78}" width="${charW}" height="${size * 0.95}" fill="${c.amber}"/>
+
+  <!-- franxas de perigo e ficha técnica -->
+  ${hazard(14, 148, 182, 6)}
+  <g stroke="${c.ink}" stroke-width="0.9" fill="none">
+    <circle cx="19" cy="168" r="5"/><path d="M14 163 L24 173 M24 163 L14 173"/>
+    <circle cx="32" cy="168" r="5"/><path d="M27 163 L37 173 M37 163 L27 173"/>
+  </g>
+  <g ${mono} font-size="3.3" fill="${c.ink}">
+    ${spec.map((l, i) => `<text x="44" y="${167 + i * 5}">${l}</text>`).join('\n    ')}
+  </g>
+</svg>`;
+}
+
+{
+  const file = 'bulldoze-staff-costas';
+  writeFileSync(join(here, `${file}.svg`), svgBackStaff({ withShirt: false }));
+  await sharp(Buffer.from(svgBackStaff({ withShirt: false })), { density: 300 }).resize({ width: 2480 }).withMetadata({ density: 300 }).png().toFile(join(here, `${file}.png`));
+  await sharp(Buffer.from(svgBackStaff({ withShirt: true })), { density: 72 }).png().toFile(join(here, `preview-${file}.png`));
+}
+
 for (const [name, role] of Object.entries(roles)) {
   const file = `bulldoze-${name}`;
   const print = svg(role, { withShirt: false });
