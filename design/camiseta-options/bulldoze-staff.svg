@@ -38,11 +38,11 @@
     <text x="14" y="259">> UN DÍA CON IA · CIDADE DAS TIC · A CORUÑA</text>
     <text x="14" y="264">> 21.11.2026 · CASCARILLA TECH × CORUÑA JUG</text>
   </g>
-  <rect x="124" y="249" width="1.4" height="17" fill="#FFFFFF"/>
+  <rect x="150" y="249" width="1.4" height="17" fill="#FFFFFF"/>
 
-  <!-- selos: hexágonos e círculo IA -->
+  <!-- selos: hexágonos dos organizadores, aliñados á marxe dereita -->
   <svg
-   x="131" y="247" width="16" height="20"
+   x="160" y="247" width="16" height="20"
    viewBox="0 0 40 50"
    version="1.1"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -335,7 +335,7 @@
   </svg>
 </svg>
 
-  <svg x="150" y="247" width="16" height="20" viewBox="0 0 40 50" version="1.1"
+  <svg x="180" y="247" width="16" height="20" viewBox="0 0 40 50" version="1.1"
    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <!-- Hexágono con puntas arriba, igual que logo-letras-hexagono.svg (40x50 mm) -->
   <polygon points="20.000,0.000 40.000,12.500 40.000,37.500 20.000,50.000 0.000,37.500 0.000,12.500" fill="#411a0d"/>
@@ -456,6 +456,4 @@
 </svg>
 </svg>
 
-  <circle cx="183" cy="257" r="8.5" fill="#FFFFFF"/>
-  <text x="183" y="260.6" text-anchor="middle" font-family="Impact,'Bahnschrift',sans-serif" font-size="10" fill="#111111">IA</text>
 </svg>

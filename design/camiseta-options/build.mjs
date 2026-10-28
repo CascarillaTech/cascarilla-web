@@ -87,13 +87,11 @@ function svg(role, { withShirt }) {
   <g ${mono} font-size="3.3" fill="${c.ink}">
     ${spec.map((l, i) => `<text x="14" y="${254 + i * 5}">${l.replace(/"/g, '&quot;')}</text>`).join('\n    ')}
   </g>
-  <rect x="124" y="249" width="1.4" height="17" fill="${c.ink}"/>
+  <rect x="150" y="249" width="1.4" height="17" fill="${c.ink}"/>
 
-  <!-- selos: hexágonos e círculo IA -->
-  ${inlineSvg('logo-letras-hexagono.svg', 131, 247, 16, 20)}
-  ${inlineSvg('logo-corunajug-hexagono.svg', 150, 247, 16, 20)}
-  <circle cx="183" cy="257" r="8.5" fill="${c.ink}"/>
-  <text x="183" y="260.6" text-anchor="middle" ${impact} font-size="10" fill="${c.shirt}">IA</text>
+  <!-- selos: hexágonos dos organizadores, aliñados á marxe dereita -->
+  ${inlineSvg('logo-letras-hexagono.svg', 160, 247, 16, 20)}
+  ${inlineSvg('logo-corunajug-hexagono.svg', 180, 247, 16, 20)}
 </svg>`;
 }
 
