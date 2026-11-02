@@ -34,7 +34,7 @@ tools/            scripts de mantemento (ver abaixo)
 ## Eventos
 
 Cada evento é un ficheiro JSON en formato
-[OpenTechEvents](https://opentechevents.org) v0.3:
+[OpenTechEvents](https://opentechevents.org) v0.5:
 
 - `src/data/eventos/proximoseventos/` — o evento próximo (normalmente un só).
 - `src/data/eventos/eventospasados/` — arquivo. Cando pasa un evento móvese

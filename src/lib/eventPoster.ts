@@ -43,7 +43,7 @@ function slugify(text: string) {
  *  nome do evento como subtítulo, a hora da charla e o/a poñente (agora
  *  cunha foto). Sae das entradas de agenda type "talk" que teñan `photo`. */
 function talkPosterEvent(event: any, talk: any, withFooter = false) {
-    const { agenda, ...rest } = event;
+    const { agenda, "cascarilla:posterSpeakers": _posterSpeakers, ...rest } = event;
     return {
         ...rest,
         name: talk.name,
@@ -100,7 +100,11 @@ export function deriveEventPosterData(event: any) {
     const footerVenue = event.location?.venue || null;
 
     const sponsors = (event.sponsors || []).map((s: any) => s.img.split('/').pop());
-    const speakers = (event.speakers && event.speakers.length) ? event.speakers : [DEFAULT_SPEAKER_SLOT];
+    // `speakers` é campo normativo desde OTE v0.5 (quen dá as charlas). Se o
+    // cartel debe mostrar outra cousa (a imaxe do evento, p.ex.), declárase á
+    // parte en `cascarilla:posterSpeakers`, que non chega a significar nada no feed.
+    const posterSpeakers = event["cascarilla:posterSpeakers"] ?? event.speakers;
+    const speakers = (posterSpeakers && posterSpeakers.length) ? posterSpeakers : [DEFAULT_SPEAKER_SLOT];
 
     // Escala opcional do marco/foto do ponente (1 = tamaño estándar). Só a
     // usa un evento que a declare explicitamente no seu JSON — non afecta

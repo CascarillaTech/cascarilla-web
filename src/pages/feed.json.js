@@ -1,6 +1,6 @@
 // Feed público de eventos de Cascarilla Tech, en formato "feed-community"
-// da especificación OpenTechEvents (OTE) v0.3.0:
-// https://opentechevents.org/schema/v0.3/feed.schema.json
+// da especificación OpenTechEvents (OTE) v0.5.0:
+// https://opentechevents.org/schema/v0.5/feed.schema.json
 //
 // Cada evento xa vive en formato OTE no seu propio ficheiro JSON baixo
 // src/data/eventos/ (mesma fonte que le src/pages/events.astro). Este
@@ -82,7 +82,7 @@ function toFeedEvent(event) {
   };
 }
 
-// O schema (OTE v0.3, D015) rexeita un feed onde o updatedAt dalgún evento
+// O schema (OTE v0.5, D015) rexeita un feed onde o updatedAt dalgún evento
 // sexa posterior ao propio do feed. Derívase do máis recente entre os
 // eventos (que á súa vez saen de git, ver gitLastModified) en vez de fixalo
 // a man, para que nunca quede desincronizado.
@@ -108,7 +108,7 @@ export function GET() {
     .map(toFeedEvent);
 
   const feed = {
-    specVersion: "0.3.0",
+    specVersion: "0.5.0",
     title: "Eventos de Cascarilla Tech",
     description: "Charlas e xuntanzas da comunidade tecnolóxica Cascarilla Tech.",
     url: SITE_URL,

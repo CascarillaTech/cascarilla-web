@@ -1,5 +1,5 @@
 {
-    "specVersion": "0.3.0",
+    "specVersion": "0.5.0",
     "id": "https://cascarillatech.org/events/one-ai-day",
     "url": "https://cascarillatech.org/events/one-ai-day",
     "name": "Un día con IA",
@@ -40,7 +40,7 @@
     ],
     "status": "scheduled",
     "license": "CC-BY-4.0",
-    "_comment_extensions": "price, agenda, slots e sponsors non forman parte do core de OTE v0.3, pero o schema non prohibe campos adicionais: úsanse aquí como extensións propias do dossier deste evento.",
+    "_comment_extensions": "price, agenda, slots e sponsors non forman parte do core de OTE v0.5, pero o schema non prohibe campos adicionais: úsanse aquí como extensións propias do dossier deste evento.",
     "sponsors": [
         {
             "name": "Odeene",
@@ -218,6 +218,12 @@
         "es"
     ],
     "speakers": [
+        { "name": "Roberto González" },
+        { "name": "Roberto Garcia Navarro" },
+        { "name": "Marcos Muíño" },
+        { "name": "Julián Cerviño Iglesia" }
+    ],
+    "cascarilla:posterSpeakers": [
         {
             "name": "Cascarilla Tech",
             "role": "Organizador",
