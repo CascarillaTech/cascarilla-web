@@ -300,9 +300,10 @@ const renderDuration = computePosterRenderDuration({
             const maxLineW = Math.max(...rects.map((r) => r.width));
             const lastRect = rects[rects.length - 1];
 
-            hlWidth = Math.max(lastRect.width - 2 * HL_MARGIN, 20);
-            const hlX1 = leftEdge + maxLineW - HL_MARGIN;
-            const hlX0 = hlX1 - hlWidth;
+            // Mesmo criterio que o cartel vertical: a raia abarca a liña máis
+            // longa, para que nun título de varias liñas quede aliñada co texto.
+            hlWidth = Math.max(maxLineW - 2 * HL_MARGIN, 20);
+            const hlX0 = leftEdge + HL_MARGIN;
             const hlY = (lastRect.bottom - posterRect.top) + HL_GAP;
 
             underlineWrap.style.left = `${hlX0}px`;
