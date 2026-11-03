@@ -4,7 +4,7 @@
     "url": "https://www.eventbrite.es/e/ai-assisted-domain-driven-development-tickets-2004326573737",
     "name": "AI-Assisted Domain-Driven Development",
     "subtitle": "From Event Storming to an Event-Driven Modular Monolith with Kotlin & Spring Boot",
-    "description": "En esta charla Iván nos contará cómo usar la IA y DDD para implementar un monolito modular con Kotlin y Spring Boot.",
+    "description": "Iván nos cuenta cómo usar la IA y DDD para pasar del Event Storming a un monolito modular orientado a eventos con Kotlin y Spring Boot.",
     "image": [
         "https://www.corunajug.org/img/talks/ai-assisted-domain-driven-development.png"
     ],
