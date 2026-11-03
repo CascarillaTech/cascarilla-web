@@ -1,0 +1,93 @@
+{
+    "specVersion": "0.5.0",
+    "id": "https://www.corunajug.org/events/ai-assisted-domain-driven-development-2026-11-19",
+    "name": "AI-Assisted Domain-Driven Development",
+    "subtitle": "From Event Storming to an Event-Driven Modular Monolith with Kotlin & Spring Boot",
+    "description": "From Event Storming to an Event-Driven Modular Monolith with Kotlin & Spring Boot",
+    "image": [
+        "https://www.corunajug.org/img/talks/ai-assisted-domain-driven-development.png"
+    ],
+    "startDate": "2026-11-19T19:15",
+    "endDate": "2026-11-19T21:30",
+    "timezone": "Europe/Madrid",
+    "attendanceMode": "in-person",
+    "location": {
+        "venue": "Oficinas de Odeene. Cidade das TIC",
+        "address": {
+            "street": "Av. de Pedralonga",
+            "locality": "A Coruña",
+            "region": "Galicia",
+            "postalCode": "15009",
+            "country": "ES"
+        }
+    },
+    "organizers": [
+        {
+            "name": "Cascarilla Tech",
+            "url": "https://cascarillatech.org/"
+        },
+        {
+            "name": "Coruña JUG",
+            "url": "https://corunajug.org/"
+        }
+    ],
+    "speakers": [
+        {
+            "name": "Ivan Garcia Sainz-Aja",
+            "role": "Software Architect & Open Source Maintainer",
+            "image": "img/speakers/ivan-garcia-sainz-aja.png"
+        }
+    ],
+    "tags": [
+        "ddd",
+        "event storming",
+        "kotlin",
+        "spring boot",
+        "ia",
+        "cascarilla tech",
+        "coruña jug"
+    ],
+    "languages": [
+        "es"
+    ],
+    "status": "scheduled",
+    "license": "CC-BY-4.0",
+    "agenda": [
+        {
+            "time": "19:15",
+            "name": "Apertura de portas",
+            "description": "Recepción dos asistentes.",
+            "type": "doors-open",
+            "startDate": "2026-11-19T19:15",
+            "endDate": "2026-11-19T19:30",
+            "timezone": "Europe/Madrid"
+        },
+        {
+            "time": "19:30",
+            "name": "AI-Assisted Domain-Driven Development",
+            "description": "Ivan Garcia Sainz-Aja: From Event Storming to an Event-Driven Modular Monolith with Kotlin & Spring Boot.",
+            "type": "talk",
+            "startDate": "2026-11-19T19:30",
+            "endDate": "2026-11-19T20:30",
+            "timezone": "Europe/Madrid"
+        },
+        {
+            "time": "20:30",
+            "name": "Charleta e bebidas",
+            "description": "Espazo de conversa despois da charla.",
+            "type": "networking",
+            "startDate": "2026-11-19T20:30",
+            "endDate": "2026-11-19T21:30",
+            "timezone": "Europe/Madrid"
+        },
+        {
+            "time": "21:30",
+            "name": "Pechamos portas",
+            "description": "Fin do evento.",
+            "type": "doors-close",
+            "startDate": "2026-11-19T21:30",
+            "endDate": "2026-11-19T21:30",
+            "timezone": "Europe/Madrid"
+        }
+    ]
+}
