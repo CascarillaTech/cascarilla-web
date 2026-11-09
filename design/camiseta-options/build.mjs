@@ -28,7 +28,6 @@ const inlineSvg = (f, x, y, w, h) => readFileSync(join(root, 'design', f), 'utf8
 // cor da camiseta: o sufixo vai no nome do ficheiro ('' = escura, a orixinal)
 const themes = {
   '': { shirt: '#111111', ink: '#FFFFFF', copper: '#B85C29', amber: '#F5B54A' },
-  '-clara': { shirt: '#F4F1EA', ink: '#26160F', copper: '#B85C29', amber: '#B85C29' },
 };
 let c = themes[''];
 const impact = `font-family="Impact,'Bahnschrift',sans-serif"`;
@@ -89,11 +88,11 @@ function svg(role, { withShirt }) {
   <g ${mono} font-size="3.3" fill="${c.ink}">
     ${spec.map((l, i) => `<text x="14" y="${254 + i * 5}">${l.replace(/"/g, '&quot;')}</text>`).join('\n    ')}
   </g>
-  <rect x="150" y="249" width="1.4" height="17" fill="${c.ink}"/>
+  <rect x="143" y="248" width="1.4" height="22" fill="${c.ink}"/>
 
   <!-- selos: hexágonos dos organizadores, aliñados á marxe dereita -->
-  ${inlineSvg('logo-letras-hexagono.svg', 160, 247, 16, 20)}
-  ${inlineSvg('logo-corunajug-hexagono.svg', 180, 247, 16, 20)}
+  ${inlineSvg('logo-letras-hexagono.svg', 150, 246.5, 21, 26.25)}
+  ${inlineSvg('logo-corunajug-hexagono.svg', 174, 246.5, 21, 26.25)}
 </svg>`;
 }
 
@@ -136,16 +135,16 @@ for (const [suffix, theme] of Object.entries(themes)) {
   {
     const file = `bulldoze-staff-costas${suffix}`;
     writeFileSync(join(here, `${file}.svg`), svgBackStaff({ withShirt: false }));
-    await sharp(Buffer.from(svgBackStaff({ withShirt: false })), { density: 300 }).resize({ width: 2480 }).withMetadata({ density: 300 }).png().toFile(join(here, `${file}.png`));
-    await sharp(Buffer.from(svgBackStaff({ withShirt: true })), { density: 72 }).png().toFile(join(here, `preview-${file}.png`));
+    await sharp(Buffer.from(svgBackStaff({ withShirt: false })), { density: 300 }).resize({ width: 2480 }).withMetadata({ density: 300 }).png().toBuffer().then((b) => writeFileSync(join(here, `${file}.png`), b));
+    await sharp(Buffer.from(svgBackStaff({ withShirt: true })), { density: 72 }).png().toBuffer().then((b) => writeFileSync(join(here, `preview-${file}.png`), b));
   }
 
   for (const [name, role] of Object.entries(roles)) {
     const file = `bulldoze-${name}${suffix}`;
     const print = svg(role, { withShirt: false });
     writeFileSync(join(here, `${file}.svg`), print);
-    await sharp(Buffer.from(print), { density: 300 }).resize({ width: 2480 }).withMetadata({ density: 300 }).png().toFile(join(here, `${file}.png`));
-    await sharp(Buffer.from(svg(role, { withShirt: true })), { density: 72 }).png().toFile(join(here, `preview-${file}.png`));
+    await sharp(Buffer.from(print), { density: 300 }).resize({ width: 2480 }).withMetadata({ density: 300 }).png().toBuffer().then((b) => writeFileSync(join(here, `${file}.png`), b));
+    await sharp(Buffer.from(svg(role, { withShirt: true })), { density: 72 }).png().toBuffer().then((b) => writeFileSync(join(here, `preview-${file}.png`), b));
   }
 }
 console.log('ok');
