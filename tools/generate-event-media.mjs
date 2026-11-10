@@ -12,7 +12,7 @@
 // facer `astro build` antes de renderizar.
 
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync, renameSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { writeStandaloneHtml } from './lib/standalone-html.mjs';
@@ -41,9 +41,11 @@ function run(cmd, args, opts = {}) {
     execFileSync(cmd, args, { stdio: 'inherit', cwd: ROOT, shell: true, ...opts });
 }
 
-// extraArgs: o vertical renderízase con 1 só worker e captura por pantallazo —
+// Os dous formatos renderízanse con 1 só worker e captura por pantallazo —
 // co paralelismo "auto" os fotogramas saían desordenados (a máquina de
-// escribir reiniciábase e as letras pestanexaban). O landscape non o precisa.
+// escribir reiniciábase e as letras pestanexaban).
+const SEQUENTIAL_CAPTURE = ['--workers', '1', '--experimental-fast-capture=false'];
+
 function renderComposition(compositionRelPath, outputRelPath, extraArgs = []) {
     run('npx', [
         '--yes', `hyperframes@${HYPERFRAMES_VERSION}`,
@@ -83,6 +85,26 @@ function extractLastFrame(videoRelPath, pngRelPath) {
 
 
 
+// Instagram colle por defecto o primeiro fotograma coma portada: antepoñemos
+// o cartel final (1 fotograma, 1/30 s) e incrustámolo tamén coma miniatura
+// (attached_pic) do MP4.
+function prependCover(videoRelPath, pngRelPath) {
+    const tmp = videoRelPath.replace(/\.mp4$/, '.tmp.mp4');
+    run('ffmpeg', [
+        '-y',
+        '-loop', '1', '-framerate', '30', '-t', '0.0334', '-i', pngRelPath,
+        '-i', videoRelPath,
+        '-i', pngRelPath,
+        '-filter_complex', '"[0:v]scale=1080:1920,format=yuv420p,setsar=1[c];[1:v]setsar=1[v];[c][v]concat=n=2:v=1[out]"',
+        '-map', '"[out]"', '-map', '2:v',
+        '-c:v:0', 'libx264', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', '30',
+        '-c:v:1', 'png', '-disposition:v:1', 'attached_pic',
+        '-movflags', '+faststart',
+        tmp,
+    ]);
+    renameSync(path.join(ROOT, tmp), path.join(ROOT, videoRelPath));
+}
+
 console.log(`== Recompilando o sitio (astro build) ==`);
 run('npm', ['run', 'build']);
 
@@ -110,16 +132,18 @@ for (const slug of slugs) {
 
     if (only !== 'vertical') {
         console.log(`\n== ${slug}: vídeo landscape ==`);
-        renderComposition(landscapeSrc, landscapeVideo);
+        renderComposition(landscapeSrc, landscapeVideo, SEQUENTIAL_CAPTURE);
         console.log(`== ${slug}: cartel PNG landscape (fotograma final) ==`);
         extractLastFrame(landscapeVideo, path.posix.join(outRel, `${slug}.png`));
     }
 
     if (only !== 'landscape') {
         console.log(`\n== ${slug}: vídeo vertical (IG) ==`);
-        renderComposition(verticalSrc, verticalVideo, ['--workers', '1', '--experimental-fast-capture=false']);
+        renderComposition(verticalSrc, verticalVideo, SEQUENTIAL_CAPTURE);
         console.log(`== ${slug}: cartel PNG vertical (fotograma final) ==`);
         extractLastFrame(verticalVideo, path.posix.join(outRel, `${slug}-ig.png`));
+        console.log(`== ${slug}: portada IG = cartel final ==`);
+        prependCover(verticalVideo, path.posix.join(outRel, `${slug}-ig.png`));
     }
 
     if (only === 'vertical') continue;

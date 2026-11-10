@@ -396,8 +396,20 @@ const renderDuration = computePosterRenderDuration({
             );
         }
 
-        const dateEnd = addTypeStagger(tl, document.getElementById('poster-footer-date'), sponsorsStart);
-        addTypeStagger(tl, document.getElementById('poster-footer-venue'), dateEnd);
+        // A icona (calendario / localización) aparece xusto cando empeza a
+        // escribirse o seu texto, non antes.
+        const showIcon = (container, at) => {
+            const icon = container?.previousElementSibling;
+            if (icon && icon.tagName.toLowerCase() === 'svg') {
+                tl.fromTo(icon, { opacity: 0 }, { opacity: 1, duration: 0.2 }, at);
+            }
+        };
+        const footerDate = document.getElementById('poster-footer-date');
+        const footerVenue = document.getElementById('poster-footer-venue');
+        showIcon(footerDate, sponsorsStart);
+        const dateEnd = addTypeStagger(tl, footerDate, sponsorsStart);
+        showIcon(footerVenue, dateEnd);
+        addTypeStagger(tl, footerVenue, dateEnd);
 
         // Rexistrar SÓ despois de rematar de construír o timeline: HyperFrames
         // trata un timeline baleiro rexistrado antes de tempo coma "listo" e
