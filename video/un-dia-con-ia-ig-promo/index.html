@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="gl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Un día con IA — promo IG</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  :root {
+    --cream: #f0e2b6; --primary: #8C4B33; --secondary: #6B3622;
+    --dark: #382117; --deep: #140a05; --ochre: #B8863B; --gold: #e8b45a;
+  }
+  html, body { margin: 0; background: var(--deep); }
+  body { font-family: system-ui, sans-serif; color: var(--cream); }
+  #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--deep); }
+  .abs { position: absolute; }
+  .full { position: absolute; inset: 0; }
+  .hexclip { clip-path: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0 50%); }
+
+  #grid { inset: -200px; background-image:
+      linear-gradient(rgba(232,180,90,.09) 2px, transparent 2px),
+      linear-gradient(90deg, rgba(232,180,90,.09) 2px, transparent 2px);
+    background-size: 90px 90px; }
+  #glow { width: 1400px; height: 1400px; left: -160px; top: 260px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,134,59,.45) 0%, rgba(140,75,51,.18) 40%, transparent 70%); }
+  #vignette { background: radial-gradient(ellipse at 50% 45%, transparent 45%, rgba(0,0,0,.75) 100%); }
+  .particle { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 18px var(--gold); }
+  #flash { background: var(--cream); }
+  #s2, #s3, #s4, #s5, #flash, .spk { opacity: 0; }
+
+  /* 1: logos */
+  #s1 { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  #s1-logos { display: flex; align-items: center; gap: 60px; }
+  #s1-logos img { height: 210px; width: 210px; object-fit: contain; padding: 45px; border-radius: 50%; background: var(--cream); box-shadow: 0 0 80px rgba(232,180,90,.6); }
+  #s1-x { font-size: 110px; font-weight: 900; color: var(--gold); }
+  #s1-tag { margin-top: 80px; font-size: 54px; font-weight: 800; letter-spacing: 14px; text-transform: uppercase; }
+
+  /* 2: robot + título */
+  #s2 { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  #robotwrap { position: relative; width: 640px; height: 640px; }
+  .ring { position: absolute; inset: 0; border-radius: 50%; border: 6px dashed rgba(232,180,90,.7); }
+  #r2b { inset: -70px; border: 3px solid rgba(232,180,90,.35); border-top-color: var(--gold); border-right-color: var(--gold); }
+  #robot { position: absolute; inset: 50px; background: linear-gradient(135deg, var(--gold), var(--primary)); }
+  #robot img { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); object-fit: cover; }
+  #s2-title { margin-top: 130px; display: flex; gap: 30px; font-size: 150px; font-weight: 900; line-height: 1; }
+  .w { display: block; }
+  .w.hot { background: linear-gradient(90deg, var(--gold), #f59e42, var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  #s2-sub { margin-top: 50px; font-size: 48px; font-weight: 600; text-align: center; padding: 0 100px; line-height: 1.3; }
+
+  /* 3: ponentes */
+  #s3-head { position: absolute; left: 0; right: 0; top: 200px; text-align: center; font-size: 70px; font-weight: 900; }
+  #s3-head span { color: var(--gold); }
+  .spk { display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 120px; box-sizing: border-box; }
+  .spk .ph { position: relative; width: 560px; height: 560px; background: linear-gradient(135deg, var(--gold), var(--primary)); }
+  .spk .ph img { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); object-fit: cover; }
+  .spk .time { margin-top: 60px; font-size: 46px; font-weight: 900; color: var(--deep); background: var(--gold); padding: 10px 34px; border-radius: 40px; }
+  .spk .name { margin-top: 34px; font-size: 84px; font-weight: 900; text-align: center; line-height: 1.05; padding: 0 60px; }
+  .spk .talk { margin-top: 30px; font-size: 46px; font-weight: 600; text-align: center; line-height: 1.25; padding: 0 110px; opacity: .9; }
+  #counter { position: absolute; left: 0; right: 0; top: 1720px; display: flex; justify-content: center; gap: 22px; }
+  #counter i { width: 70px; height: 10px; border-radius: 5px; background: rgba(232,180,90,.25); }
+  #counter i b { display: block; height: 100%; width: 100%; border-radius: 5px; background: var(--gold); transform-origin: left center; }
+
+  /* 4: e ademais */
+  #s4 { display: flex; flex-direction: column; justify-content: center; padding: 0 110px; gap: 46px; }
+  #s4-head { font-size: 90px; font-weight: 900; margin-bottom: 30px; }
+  #s4-head span { color: var(--gold); }
+  .perk { display: flex; align-items: center; gap: 40px; font-size: 66px; font-weight: 800; }
+  .perk .ico { width: 130px; height: 130px; border-radius: 34px; background: rgba(232,180,90,.15); border: 4px solid var(--gold);
+    display: flex; align-items: center; justify-content: center; font-size: 90px; }
+
+  /* 5: cartel final */
+  #s5 { background: var(--cream); color: var(--dark); display: flex; flex-direction: column; align-items: center; }
+  #s5-logos { display: flex; justify-content: space-between; width: 920px; margin-top: 80px; }
+  #s5-logos img { height: 130px; }
+  #s5-title { margin-top: 110px; font-size: 150px; font-weight: 900; text-align: center; line-height: 1; }
+  #s5-ul { width: 560px; height: 14px; background: var(--ochre); border-radius: 7px; margin-top: 34px; transform-origin: left center; }
+  #s5-sub { margin-top: 40px; font-size: 42px; font-weight: 600; text-align: center; padding: 0 60px; line-height: 1.3; }
+  #s5-spk { display: flex; gap: 24px; margin-top: 90px; }
+  .mini { width: 220px; height: 220px; position: relative; background: var(--ochre); }
+  .mini img { position: absolute; inset: 7px; width: calc(100% - 14px); height: calc(100% - 14px); object-fit: cover; }
+  #s5-names { margin-top: 30px; font-size: 36px; font-weight: 700; text-align: center; padding: 0 60px; line-height: 1.35; }
+  #s5-date { margin-top: 90px; font-size: 104px; font-weight: 900; color: var(--primary); }
+  #s5-time { font-size: 50px; font-weight: 800; margin-top: 6px; }
+  #s5-pw { position: absolute; left: 0; right: 0; bottom: 330px; display: flex; align-items: center; justify-content: center; gap: 44px; }
+  #s5-pw span { font-family: Georgia, serif; font-style: italic; font-size: 34px; }
+  #s5-pw img { height: 70px; }
+  #s5-foot { position: absolute; left: 0; right: 0; bottom: 0; height: 290px; background: var(--dark); color: var(--cream);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; }
+  #s5-venue { font-size: 46px; font-weight: 700; }
+  #s5-cta { font-size: 48px; font-weight: 900; color: var(--dark); background: var(--gold); padding: 18px 50px; border-radius: 60px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="21">
+  <div id="bg" class="full">
+    <div id="grid" class="abs"></div>
+    <div id="glow" class="abs"></div>
+    <div id="particles" class="full"></div>
+    <div id="vignette" class="full"></div>
+  </div>
+
+  <div id="s1" class="full">
+    <div id="s1-logos">
+      <img id="s1-jug" src="assets/corunajug-logo.png" alt="" />
+      <div id="s1-x">×</div>
+      <img id="s1-cas" src="assets/cascarillatech-logo.png" alt="" />
+    </div>
+    <div id="s1-tag">presentan</div>
+  </div>
+
+  <div id="s2" class="full">
+    <div id="robotwrap">
+      <div id="r2b" class="ring"></div>
+      <div id="r2a" class="ring"></div>
+      <div id="robot" class="hexclip"><img class="hexclip" src="assets/un-dia-con-ia-robot.jpg" alt="" /></div>
+    </div>
+    <div id="s2-title"><span class="w">Un</span><span class="w">día</span><span class="w">con</span><span class="w hot">IA</span></div>
+    <div id="s2-sub">Unha xornada enteira de charlas, comunidade e empresas</div>
+  </div>
+
+  <div id="s3" class="full">
+    <div id="s3-head"><span>4</span> charlas. <span>4</span> cracks.</div>
+    <div id="spks" class="full"></div>
+    <div id="counter"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+  </div>
+
+  <div id="s4" class="full">
+    <div id="s4-head">E <span>ademais</span>…</div>
+    <div class="perk"><div class="ico">☕</div>Almorzo para arrincar</div>
+    <div class="perk"><div class="ico">🥘</div>Xantar de romaría</div>
+    <div class="perk"><div class="ico">🤝</div>Sobremesa e networking</div>
+    <div class="perk"><div class="ico">⏱️</div>De 9:00 a 18:30</div>
+  </div>
+
+  <div id="flash" class="full"></div>
+
+  <div id="s5" class="full">
+    <div id="s5-logos"><img src="assets/corunajug-logo.png" alt="" /><img src="assets/cascarillatech-logo.png" alt="" /></div>
+    <div id="s5-title">Un día con IA</div>
+    <div id="s5-ul"></div>
+    <div id="s5-sub">Comunidade, coñecemento e empresas de A Coruña</div>
+    <div id="s5-spk"></div>
+    <div id="s5-names">Roberto González · Roberto García Navarro · Marcos Muíño · Julián Cerviño Iglesia</div>
+    <div id="s5-date">21 · NOV · 2026</div>
+    <div id="s5-time">9:00 – 18:30 h</div>
+    <div id="s5-pw"><span>Powered by</span><img src="assets/odeene-color-horizontal.png" alt="" /><img src="assets/bahia-software-color.png" alt="" /><img src="assets/3mt-global-services.png" alt="" /></div>
+    <div id="s5-foot">
+      <div id="s5-venue">📍 Cidade das TIC · A Coruña</div>
+      <div id="s5-cta">Entradas: 20 € con xantar · link na bio</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let seed = 7;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const parts = document.getElementById('particles');
+  for (let i = 0; i < 40; i++) {
+    const d = document.createElement('div');
+    d.className = 'particle abs';
+    d.style.left = (rnd() * 1080) + 'px';
+    d.style.top = (rnd() * 1920) + 'px';
+    d.dataset.dy = String(-200 - rnd() * 500);
+    d.dataset.o = String(.25 + rnd() * .6);
+    parts.appendChild(d);
+  }
+
+  const speakers = [
+    ['roberto-gonzalez.jpeg', 'Roberto González', 'Surfeando o tsunami dev: como elixir a táboa correcta', '10:00'],
+    ['roberto-garcia.jpg', 'Roberto García Navarro', 'Code Is Cheap. Understanding the Business Isn’t.', '11:00'],
+    ['marcos-muino.webp', 'Marcos Muíño', 'O ecosistema de integracións hipervitaminado de Factorial', '12:30'],
+    ['julian-cervino-iglesia.jpg', 'Julián Cerviño Iglesia', 'IA: retos e oportunidades en Saúde', '13:30'],
+  ];
+  const spks = document.getElementById('spks');
+  const s5spk = document.getElementById('s5-spk');
+  const spkEls = speakers.map(([img, name, talk, time]) => {
+    const el = document.createElement('div');
+    el.className = 'spk full';
+    el.innerHTML = `<div class="ph hexclip"><img class="hexclip" src="assets/${img}" alt="" /></div>
+      <div class="time">${time}</div><div class="name">${name}</div><div class="talk">${talk}</div>`;
+    spks.appendChild(el);
+    const m = document.createElement('div');
+    m.className = 'mini hexclip';
+    m.innerHTML = `<img class="hexclip" src="assets/${img}" alt="" />`;
+    s5spk.appendChild(m);
+    return el;
+  });
+
+  const tl = gsap.timeline({ paused: true });
+  const D = 21;
+
+  tl.set(['#s2', '#s3', '#s4', '#s5', '#flash'], { opacity: 0 }, 0);
+  tl.set(spkEls, { opacity: 0 }, 0);
+  tl.set('#s1', { opacity: 1, scale: 1 }, 0);
+
+  tl.fromTo('#grid', { y: 0, rotation: 0 }, { y: 200, rotation: 4, duration: D, ease: 'none' }, 0);
+  tl.fromTo('#glow', { scale: .8, opacity: .6 }, { scale: 1.25, opacity: 1, duration: D / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
+  document.querySelectorAll('#particles .particle').forEach((p) => {
+    tl.fromTo(p, { y: 0, opacity: 0 }, { y: +p.dataset.dy, opacity: +p.dataset.o, duration: D, ease: 'none' }, 0);
+  });
+
+  // 1 (0–2.6)
+  tl.fromTo('#s1-jug', { x: -700, rotation: -30, opacity: 0 }, { x: 0, rotation: 0, opacity: 1, duration: .7, ease: 'back.out(1.6)' }, .15);
+  tl.fromTo('#s1-cas', { x: 700, rotation: 30, opacity: 0 }, { x: 0, rotation: 0, opacity: 1, duration: .7, ease: 'back.out(1.6)' }, .15);
+  tl.fromTo('#s1-x', { scale: 0, rotation: -180 }, { scale: 1, rotation: 0, duration: .5, ease: 'back.out(3)' }, .7);
+  tl.fromTo('#s1-tag', { opacity: 0, scaleX: 1.8 }, { opacity: 1, scaleX: 1, duration: .8, ease: 'power3.out' }, 1.0);
+  tl.to('#s1', { scale: 3, opacity: 0, duration: .5, ease: 'power3.in' }, 2.2);
+
+  // 2 (2.6–6): robot + título
+  tl.to('#s2', { opacity: 1, duration: .01 }, 2.6);
+  tl.fromTo('#robot', { scale: .1, rotation: -160 }, { scale: 1, rotation: 0, duration: .8, ease: 'back.out(1.5)' }, 2.6);
+  tl.fromTo('#r2a', { rotation: 0, scale: .6, opacity: 0 }, { rotation: 300, scale: 1, opacity: 1, duration: 3.4, ease: 'power1.out' }, 2.6);
+  tl.fromTo('#r2b', { rotation: 0, scale: .4, opacity: 0 }, { rotation: -420, scale: 1, opacity: 1, duration: 3.4, ease: 'power1.out' }, 2.7);
+  tl.fromTo('#s2-title .w', { y: 160, opacity: 0, rotation: 8 }, { y: 0, opacity: 1, rotation: 0, duration: .5, ease: 'back.out(2)', stagger: .15 }, 3.2);
+  tl.fromTo('#s2-title .w.hot', { scale: 1 }, { scale: 1.25, duration: .25, yoyo: true, repeat: 1, ease: 'power2.out', immediateRender: false }, 3.95);
+  tl.fromTo('#s2-title .w.hot', { backgroundPosition: '0% 0%' }, { backgroundPosition: '200% 0%', duration: 3, ease: 'none' }, 3.2);
+  tl.fromTo('#s2-sub', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .5 }, 4.2);
+  tl.to('#s2', { x: -1200, opacity: 0, duration: .45, ease: 'power3.in' }, 5.8);
+
+  // 3 (6.2–13.2): ponentes, 1.75 s cada un
+  tl.to('#s3', { opacity: 1, duration: .01 }, 6.2);
+  tl.fromTo('#s3-head', { y: -80, opacity: 0 }, { y: 0, opacity: 1, duration: .45, ease: 'power3.out' }, 6.2);
+  const bars = document.querySelectorAll('#counter b');
+  tl.set(bars, { scaleX: 0 }, 0);
+  spkEls.forEach((el, i) => {
+    const t = 6.35 + i * 1.75;
+    const dir = i % 2 ? -1 : 1;
+    tl.fromTo(el, { opacity: 0, x: 1100 * dir }, { opacity: 1, x: 0, duration: .4, ease: 'power3.out' }, t);
+    tl.fromTo(el.querySelector('.ph'), { scale: .3, rotation: -90 * dir }, { scale: 1, rotation: 0, duration: .55, ease: 'back.out(1.6)' }, t);
+    tl.fromTo(el.querySelector('.time'), { scale: 0 }, { scale: 1, duration: .35, ease: 'back.out(3)' }, t + .25);
+    tl.fromTo(el.querySelector('.name'), { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: .4, ease: 'power3.out' }, t + .3);
+    tl.fromTo(el.querySelector('.talk'), { opacity: 0 }, { opacity: .9, duration: .35 }, t + .45);
+    tl.to(bars[i], { scaleX: 1, duration: 1.6, ease: 'none' }, t);
+    if (i < spkEls.length - 1) tl.to(el, { opacity: 0, x: -1100 * dir, duration: .35, ease: 'power3.in' }, t + 1.45);
+  });
+  tl.to('#s3', { scale: .6, opacity: 0, duration: .4, ease: 'power3.in' }, 13.2);
+
+  // 4 (13.6–16.2): extras
+  tl.to('#s4', { opacity: 1, duration: .01 }, 13.6);
+  tl.fromTo('#s4-head', { x: -300, opacity: 0 }, { x: 0, opacity: 1, duration: .45, ease: 'power3.out' }, 13.6);
+  tl.fromTo('#s4 .perk', { x: 700, opacity: 0 }, { x: 0, opacity: 1, duration: .45, ease: 'back.out(1.6)', stagger: .22 }, 13.9);
+  tl.fromTo('#s4 .ico', { rotation: -90, scale: 0 }, { rotation: 0, scale: 1, duration: .5, ease: 'back.out(2.5)', stagger: .22 }, 14.0);
+  tl.to('#s4', { y: -400, opacity: 0, duration: .4, ease: 'power3.in' }, 16.1);
+  tl.to('#flash', { opacity: 1, duration: .12 }, 16.4);
+
+  // 5 (16.5–21): cartel final → portada
+  tl.to('#s5', { opacity: 1, duration: .01 }, 16.52);
+  tl.to('#flash', { opacity: 0, duration: .4 }, 16.55);
+  tl.fromTo('#s5-logos img', { y: -160, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: 'back.out(2)', stagger: .1 }, 16.6);
+  tl.fromTo('#s5-title', { scale: 1.5, opacity: 0 }, { scale: 1, opacity: 1, duration: .5, ease: 'power3.out' }, 16.7);
+  tl.fromTo('#s5-ul', { scaleX: 0 }, { scaleX: 1, duration: .5, ease: 'power2.inOut' }, 17.1);
+  tl.fromTo('#s5-sub', { opacity: 0 }, { opacity: 1, duration: .4 }, 17.3);
+  tl.fromTo('#s5-spk .mini', { scale: 0, rotation: -60 }, { scale: 1, rotation: 0, duration: .45, ease: 'back.out(2)', stagger: .1 }, 17.4);
+  tl.fromTo('#s5-names', { opacity: 0 }, { opacity: 1, duration: .4 }, 17.8);
+  tl.fromTo('#s5-date', { scale: 2.2, opacity: 0 }, { scale: 1, opacity: 1, duration: .45, ease: 'back.out(2)' }, 18.0);
+  tl.fromTo('#s5-time', { opacity: 0 }, { opacity: 1, duration: .3 }, 18.3);
+  tl.fromTo('#s5-foot', { yPercent: 100 }, { yPercent: 0, duration: .5, ease: 'power3.out' }, 18.4);
+  tl.fromTo('#s5-pw', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .4 }, 18.6);
+  tl.fromTo('#s5-cta', { scale: 0 }, { scale: 1, duration: .45, ease: 'back.out(3)' }, 18.9);
+  tl.to('#s5-cta', { scale: 1.08, duration: .3, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 19.6);
+
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>
