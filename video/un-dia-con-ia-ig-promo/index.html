@@ -91,7 +91,7 @@
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="21">
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="27.5">
   <div id="bg" class="full">
     <div id="grid" class="abs"></div>
     <div id="glow" class="abs"></div>
@@ -187,7 +187,7 @@
   });
 
   const tl = gsap.timeline({ paused: true });
-  const D = 21;
+  const D = 27.5;
 
   tl.set(['#s2', '#s3', '#s4', '#s5', '#flash'], { opacity: 0 }, 0);
   tl.set(spkEls, { opacity: 0 }, 0);
@@ -203,61 +203,61 @@
   tl.fromTo('#s1-jug', { x: -700, rotation: -30, opacity: 0 }, { x: 0, rotation: 0, opacity: 1, duration: .7, ease: 'back.out(1.6)' }, .15);
   tl.fromTo('#s1-cas', { x: 700, rotation: 30, opacity: 0 }, { x: 0, rotation: 0, opacity: 1, duration: .7, ease: 'back.out(1.6)' }, .15);
   tl.fromTo('#s1-x', { scale: 0, rotation: -180 }, { scale: 1, rotation: 0, duration: .5, ease: 'back.out(3)' }, .7);
-  tl.fromTo('#s1-tag', { opacity: 0, scaleX: 1.8 }, { opacity: 1, scaleX: 1, duration: .8, ease: 'power3.out' }, 1.0);
-  tl.to('#s1', { scale: 3, opacity: 0, duration: .5, ease: 'power3.in' }, 2.2);
+  tl.fromTo('#s1-tag', { opacity: 0, scaleX: 1.8 }, { opacity: 1, scaleX: 1, duration: .8, ease: 'power3.out' }, 1);
+  tl.to('#s1', { scale: 3, opacity: 0, duration: .5, ease: 'power3.in' }, 2.7);
 
   // 2 (2.6–6): robot + título
-  tl.to('#s2', { opacity: 1, duration: .01 }, 2.6);
-  tl.fromTo('#robot', { scale: .1, rotation: -160 }, { scale: 1, rotation: 0, duration: .8, ease: 'back.out(1.5)' }, 2.6);
-  tl.fromTo('#r2a', { rotation: 0, scale: .6, opacity: 0 }, { rotation: 300, scale: 1, opacity: 1, duration: 3.4, ease: 'power1.out' }, 2.6);
-  tl.fromTo('#r2b', { rotation: 0, scale: .4, opacity: 0 }, { rotation: -420, scale: 1, opacity: 1, duration: 3.4, ease: 'power1.out' }, 2.7);
-  tl.fromTo('#s2-title .w', { y: 160, opacity: 0, rotation: 8 }, { y: 0, opacity: 1, rotation: 0, duration: .5, ease: 'back.out(2)', stagger: .15 }, 3.2);
-  tl.fromTo('#s2-title .w.hot', { scale: 1 }, { scale: 1.25, duration: .25, yoyo: true, repeat: 1, ease: 'power2.out', immediateRender: false }, 3.95);
-  tl.fromTo('#s2-title .w.hot', { backgroundPosition: '0% 0%' }, { backgroundPosition: '200% 0%', duration: 3, ease: 'none' }, 3.2);
-  tl.fromTo('#s2-sub', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .5 }, 4.2);
-  tl.to('#s2', { x: -1200, opacity: 0, duration: .45, ease: 'power3.in' }, 5.8);
+  tl.to('#s2', { opacity: 1, duration: .01 }, 3.1);
+  tl.fromTo('#robot', { scale: .1, rotation: -160 }, { scale: 1, rotation: 0, duration: .8, ease: 'back.out(1.5)' }, 3.1);
+  tl.fromTo('#r2a', { rotation: 0, scale: .6, opacity: 0 }, { rotation: 300, scale: 1, opacity: 1, duration: 3.4, ease: 'power1.out' }, 3.1);
+  tl.fromTo('#r2b', { rotation: 0, scale: .4, opacity: 0 }, { rotation: -420, scale: 1, opacity: 1, duration: 3.4, ease: 'power1.out' }, 3.2);
+  tl.fromTo('#s2-title .w', { y: 160, opacity: 0, rotation: 8 }, { y: 0, opacity: 1, rotation: 0, duration: .5, ease: 'back.out(2)', stagger: .15 }, 3.7);
+  tl.fromTo('#s2-title .w.hot', { scale: 1 }, { scale: 1.25, duration: .25, yoyo: true, repeat: 1, ease: 'power2.out', immediateRender: false }, 4.45);
+  tl.fromTo('#s2-title .w.hot', { backgroundPosition: '0% 0%' }, { backgroundPosition: '200% 0%', duration: 3, ease: 'none' }, 3.7);
+  tl.fromTo('#s2-sub', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .5 }, 4.7);
+  tl.to('#s2', { x: -1200, opacity: 0, duration: .45, ease: 'power3.in' }, 7.1);
 
   // 3 (6.2–13.2): ponentes, 1.75 s cada un
-  tl.to('#s3', { opacity: 1, duration: .01 }, 6.2);
-  tl.fromTo('#s3-head', { y: -80, opacity: 0 }, { y: 0, opacity: 1, duration: .45, ease: 'power3.out' }, 6.2);
+  tl.to('#s3', { opacity: 1, duration: .01 }, 7.5);
+  tl.fromTo('#s3-head', { y: -80, opacity: 0 }, { y: 0, opacity: 1, duration: .45, ease: 'power3.out' }, 7.5);
   const bars = document.querySelectorAll('#counter b');
   tl.set(bars, { scaleX: 0 }, 0);
   spkEls.forEach((el, i) => {
-    const t = 6.35 + i * 1.75;
+    const t = 7.65 + i * 2.2;
     const dir = i % 2 ? -1 : 1;
     tl.fromTo(el, { opacity: 0, x: 1100 * dir }, { opacity: 1, x: 0, duration: .4, ease: 'power3.out' }, t);
     tl.fromTo(el.querySelector('.ph'), { scale: .3, rotation: -90 * dir }, { scale: 1, rotation: 0, duration: .55, ease: 'back.out(1.6)' }, t);
     tl.fromTo(el.querySelector('.time'), { scale: 0 }, { scale: 1, duration: .35, ease: 'back.out(3)' }, t + .25);
     tl.fromTo(el.querySelector('.name'), { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: .4, ease: 'power3.out' }, t + .3);
     tl.fromTo(el.querySelector('.talk'), { opacity: 0 }, { opacity: .9, duration: .35 }, t + .45);
-    tl.to(bars[i], { scaleX: 1, duration: 1.6, ease: 'none' }, t);
-    if (i < spkEls.length - 1) tl.to(el, { opacity: 0, x: -1100 * dir, duration: .35, ease: 'power3.in' }, t + 1.45);
+    tl.to(bars[i], { scaleX: 1, duration: 2.05, ease: 'none' }, t);
+    if (i < spkEls.length - 1) tl.to(el, { opacity: 0, x: -1100 * dir, duration: .35, ease: 'power3.in' }, t + 1.9);
   });
-  tl.to('#s3', { scale: .6, opacity: 0, duration: .4, ease: 'power3.in' }, 13.2);
+  tl.to('#s3', { scale: .6, opacity: 0, duration: .4, ease: 'power3.in' }, 15.85);
 
   // 4 (13.6–16.2): extras
-  tl.to('#s4', { opacity: 1, duration: .01 }, 13.6);
-  tl.fromTo('#s4-head', { x: -300, opacity: 0 }, { x: 0, opacity: 1, duration: .45, ease: 'power3.out' }, 13.6);
-  tl.fromTo('#s4 .perk', { x: 700, opacity: 0 }, { x: 0, opacity: 1, duration: .45, ease: 'back.out(1.6)', stagger: .22 }, 13.9);
-  tl.fromTo('#s4 .ico', { rotation: -90, scale: 0 }, { rotation: 0, scale: 1, duration: .5, ease: 'back.out(2.5)', stagger: .22 }, 14.0);
-  tl.to('#s4', { y: -400, opacity: 0, duration: .4, ease: 'power3.in' }, 16.1);
-  tl.to('#flash', { opacity: 1, duration: .12 }, 16.4);
+  tl.to('#s4', { opacity: 1, duration: .01 }, 16.25);
+  tl.fromTo('#s4-head', { x: -300, opacity: 0 }, { x: 0, opacity: 1, duration: .45, ease: 'power3.out' }, 16.25);
+  tl.fromTo('#s4 .perk', { x: 700, opacity: 0 }, { x: 0, opacity: 1, duration: .45, ease: 'back.out(1.6)', stagger: .22 }, 16.55);
+  tl.fromTo('#s4 .ico', { rotation: -90, scale: 0 }, { rotation: 0, scale: 1, duration: .5, ease: 'back.out(2.5)', stagger: .22 }, 16.65);
+  tl.to('#s4', { y: -400, opacity: 0, duration: .4, ease: 'power3.in' }, 19.55);
+  tl.to('#flash', { opacity: 1, duration: .12 }, 19.85);
 
   // 5 (16.5–21): cartel final → portada
-  tl.to('#s5', { opacity: 1, duration: .01 }, 16.52);
-  tl.to('#flash', { opacity: 0, duration: .4 }, 16.55);
-  tl.fromTo('#s5-logos img', { y: -160, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: 'back.out(2)', stagger: .1 }, 16.6);
-  tl.fromTo('#s5-title', { scale: 1.5, opacity: 0 }, { scale: 1, opacity: 1, duration: .5, ease: 'power3.out' }, 16.7);
-  tl.fromTo('#s5-ul', { scaleX: 0 }, { scaleX: 1, duration: .5, ease: 'power2.inOut' }, 17.1);
-  tl.fromTo('#s5-sub', { opacity: 0 }, { opacity: 1, duration: .4 }, 17.3);
-  tl.fromTo('#s5-spk .mini', { scale: 0, rotation: -60 }, { scale: 1, rotation: 0, duration: .45, ease: 'back.out(2)', stagger: .1 }, 17.4);
-  tl.fromTo('#s5-names', { opacity: 0 }, { opacity: 1, duration: .4 }, 17.8);
-  tl.fromTo('#s5-date', { scale: 2.2, opacity: 0 }, { scale: 1, opacity: 1, duration: .45, ease: 'back.out(2)' }, 18.0);
-  tl.fromTo('#s5-time', { opacity: 0 }, { opacity: 1, duration: .3 }, 18.3);
-  tl.fromTo('#s5-foot', { yPercent: 100 }, { yPercent: 0, duration: .5, ease: 'power3.out' }, 18.4);
-  tl.fromTo('#s5-pw', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .4 }, 18.6);
-  tl.fromTo('#s5-cta', { scale: 0 }, { scale: 1, duration: .45, ease: 'back.out(3)' }, 18.9);
-  tl.to('#s5-cta', { scale: 1.08, duration: .3, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 19.6);
+  tl.to('#s5', { opacity: 1, duration: .01 }, 19.98);
+  tl.to('#flash', { opacity: 0, duration: .4 }, 20.02);
+  tl.fromTo('#s5-logos img', { y: -160, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: 'back.out(2)', stagger: .1 }, 20.08);
+  tl.fromTo('#s5-title', { scale: 1.5, opacity: 0 }, { scale: 1, opacity: 1, duration: .5, ease: 'power3.out' }, 20.21);
+  tl.fromTo('#s5-ul', { scaleX: 0 }, { scaleX: 1, duration: .5, ease: 'power2.inOut' }, 20.73);
+  tl.fromTo('#s5-sub', { opacity: 0 }, { opacity: 1, duration: .4 }, 20.99);
+  tl.fromTo('#s5-spk .mini', { scale: 0, rotation: -60 }, { scale: 1, rotation: 0, duration: .45, ease: 'back.out(2)', stagger: .1 }, 21.12);
+  tl.fromTo('#s5-names', { opacity: 0 }, { opacity: 1, duration: .4 }, 21.64);
+  tl.fromTo('#s5-date', { scale: 2.2, opacity: 0 }, { scale: 1, opacity: 1, duration: .45, ease: 'back.out(2)' }, 21.9);
+  tl.fromTo('#s5-time', { opacity: 0 }, { opacity: 1, duration: .3 }, 22.29);
+  tl.fromTo('#s5-foot', { yPercent: 100 }, { yPercent: 0, duration: .5, ease: 'power3.out' }, 22.42);
+  tl.fromTo('#s5-pw', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .4 }, 22.68);
+  tl.fromTo('#s5-cta', { scale: 0 }, { scale: 1, duration: .45, ease: 'back.out(3)' }, 23.07);
+  tl.to('#s5-cta', { scale: 1.08, duration: .3, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 23.98);
 
   window.__timelines['main'] = tl;
 </script>
