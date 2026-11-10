@@ -14,7 +14,7 @@ escenas:
   - titular: "Odeene únese a nos para levar a cabo o día da IA"
     liña: "Talento para a transformación dixital"
   - titular: "21 de novembro · Cidade das TIC"
-    liña: "Entrada a 20 €, destinada íntegra á comida"
+    liña: "Entrada a 30 €, destinada íntegra á comida"
     detalle: "cascarillatech.org/events/one-ai-day"
 imaxe: /images/colaboradoras/odeene-color-horizontal.png
 ---
@@ -33,7 +33,7 @@ Desde Cascarilla Tech e Coruña JUG só nos queda dicirvos: **grazas, grazas e m
 
 ## 📅 Xa tes a túa entrada?
 
-Un día con IA será o **21 de novembro de 2026**, de 9:00 a 18:30. A entrada custa 20 € (o importe destínase integramente á comida) e as socias e socios de Cascarilla Tech teñen desconto.
+Un día con IA será o **21 de novembro de 2026**, de 9:00 a 18:30. A entrada custa 30 € (o importe destínase integramente á comida) e as socias e socios de Cascarilla Tech teñen desconto.
 
 <a href="/events/one-ai-day">Ver axenda, charlas e mercar a túa entrada &rarr;</a>
 

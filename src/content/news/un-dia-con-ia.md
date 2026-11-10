@@ -21,7 +21,7 @@ video:
       liña: "Marcos Muíño: O ecosistema de integracións hipervitaminado e mineralizado de Factorial."
     - titular: "Cuarta charla"
       liña: "Julián Cerviño Iglesia: Intelixencia Artificial: retos e oportunidades en Saúde."
-    - titular: "Entradas: 20 €"
+    - titular: "Entradas: 30 €"
       liña: "Xa á venda · O importe vai íntegro á comida · Desconto para socios/as"
       detalle: "cascarillatech.org/events/one-ai-day"
   imaxe: /images/poster/speakers/un-dia-con-ia-robot.jpg
@@ -55,7 +55,7 @@ Podes ver o detalle de cada charla na páxina do evento.
 
 ## 🎟️ Entradas
 
-A entrada custa **20 €** e o importe destínase integramente á comida (sen contar os gastos de xestión de entradas nin o IVE). Os socios e socias de Cascarilla Tech teñen desconto: <a href="/membership">faite socio/a</a> e escríbenos para solicitalo.
+A entrada custa **30 €** e o importe destínase integramente á comida (sen contar os gastos de xestión de entradas nin o IVE). Os socios e socias de Cascarilla Tech teñen desconto: <a href="/membership">faite socio/a</a> e escríbenos para solicitalo.
 
 <a href="/events/one-ai-day">Ver axenda, charlas e mercar a túa entrada &rarr;</a>
 

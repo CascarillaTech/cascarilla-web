@@ -32,7 +32,7 @@ Podes seguilo en <a href="https://www.linkedin.com/in/mmuino/" target="_blank" r
 
 ## 🎟️ Entradas
 
-Xa hai entradas á venda por 20 € (o importe destínase integramente á comida). Os socios e socias de Cascarilla Tech teñen desconto: <a href="/membership">faite socio/a</a> e escríbenos para solicitalo.
+Xa hai entradas á venda por 30 € (o importe destínase integramente á comida). Os socios e socias de Cascarilla Tech teñen desconto: <a href="/membership">faite socio/a</a> e escríbenos para solicitalo.
 
 <a href="/events/one-ai-day">Ver axenda, charlas e mercar a túa entrada &rarr;</a>
 

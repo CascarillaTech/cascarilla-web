@@ -14,7 +14,7 @@ video:
     - titular: "O teu partner boutique"
       liña: "Non somos un provedor máis: integrámonos no core de cada cliente"
     - titular: "21 de novembro · Cidade das TIC"
-      liña: "Entrada a 20 €, destinada íntegra á comida"
+      liña: "Entrada a 30 €, destinada íntegra á comida"
       detalle: "cascarillatech.org/events/one-ai-day"
   imaxe: /images/colaboradoras/3mt-global-services.png
 ---
@@ -39,7 +39,7 @@ Desde Cascarilla Tech e Coruña JUG só nos queda dicir: **grazas, grazas e mil 
 
 ## 📅 Xa tes a túa entrada?
 
-Un día con IA será o **21 de novembro de 2026**, de 9:00 a 18:30, na Cidade das TIC. A entrada custa 20 € (o importe destínase integramente á comida) e as socias e socios de Cascarilla Tech teñen desconto.
+Un día con IA será o **21 de novembro de 2026**, de 9:00 a 18:30, na Cidade das TIC. A entrada custa 30 € (o importe destínase integramente á comida) e as socias e socios de Cascarilla Tech teñen desconto.
 
 <a href="/events/one-ai-day">Ver axenda, charlas e mercar a túa entrada &rarr;</a>
 
