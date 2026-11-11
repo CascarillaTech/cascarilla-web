@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/LayoutLanding.astro';
+import '../../styles/news.css';
 
 export async function getStaticPaths() {
     const newsEntries = await getCollection('news');
