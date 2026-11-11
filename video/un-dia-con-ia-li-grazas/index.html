@@ -239,7 +239,7 @@
     tl.fromTo(el.querySelector('.card img'), { scale: .6, opacity: 0 }, { scale: 1, opacity: 1, duration: .45, ease: 'power3.out' }, t + .3);
     burstSets[i].forEach((c) => {
       tl.fromTo(c, { x: 0, y: 0, rotation: 0, opacity: 1, scale: 1 },
-        { x: +c.dataset.x, y: +c.dataset.y, rotation: +c.dataset.rot, opacity: 0, scale: .5, duration: 1.3, ease: 'power3.out' }, t + .4);
+        { x: +c.dataset.x, y: +c.dataset.y, rotation: +c.dataset.rot, opacity: 0, scale: .5, duration: 1.3, ease: 'power3.out', immediateRender: false }, t + .4);
     });
     tl.fromTo(el.querySelector('.thx'), { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: .45, ease: 'power3.out' }, t + .65);
     tl.fromTo(el.querySelector('.line'), { opacity: 0 }, { opacity: .9, duration: .4 }, t + .9);
