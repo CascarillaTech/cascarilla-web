@@ -14,11 +14,11 @@ video:
     - titular: "21 de novembro"
       liña: "Sábado, de 9:00 a 18:30 · Cidade das TIC"
     - titular: "Primeira charla"
-      liña: "Roberto González: Surfeando o tsunami dev: como elixir a táboa correcta."
+      liña: "Roberto González González: Surfeando o tsunami dev: como elixir a táboa correcta."
     - titular: "Segunda charla"
       liña: "Roberto Garcia Navarro: Code Is Cheap. Understanding the Business Isn't."
     - titular: "Terceira charla"
-      liña: "Marcos Muíño: O ecosistema de integracións hipervitaminado e mineralizado de Factorial."
+      liña: "Marcos Muíño García: O ecosistema de integracións hipervitaminado e mineralizado de Factorial."
     - titular: "Cuarta charla"
       liña: "Julián Cerviño Iglesia: Intelixencia Artificial: retos e oportunidades en Saúde."
     - titular: "Entradas: 30 €"
@@ -46,9 +46,9 @@ Un día enteiro de charlas sobre intelixencia artificial e desenvolvemento con a
 
 Xa temos os catro poñentes confirmados:
 
-- **10:00 · Roberto González**: «Surfeando o tsunami dev: como elixir a táboa correcta».
+- **10:00 · Roberto González González**: «Surfeando o tsunami dev: como elixir a táboa correcta».
 - **11:00 · Roberto Garcia Navarro**: «Code Is Cheap. Understanding the Business Isn't.», sobre como manter o criterio de arquitectura cando programamos con axentes de IA.
-- **12:30 · Marcos Muíño**: «O ecosistema de integracións hipervitaminado e mineralizado de Factorial».
+- **12:30 · Marcos Muíño García**: «O ecosistema de integracións hipervitaminado e mineralizado de Factorial».
 - **13:30 · Julián Cerviño Iglesia**: «Intelixencia Artificial: retos e oportunidades en Saúde».
 
 Podes ver o detalle de cada charla na páxina do evento.

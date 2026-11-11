@@ -96,7 +96,7 @@
             "time": "10:00",
             "name": "Surfeando o tsunami dev: como elixir a táboa correcta",
             "description": "O tsunami da Intelixencia Artificial pillounos a todos na auga, pero... sabes realmente que onda estás remando? Aprender a ler o mar para saber que tipo de modelo encaixa mellor co teu proxecto e, se a marea nos dá tregua, cando convén surfear na nube (online) ou cando é mellor montarte a túa propia piscina de ondas privada (on-premise).",
-            "speaker": "Roberto González",
+            "speaker": "Roberto González González",
             "photo": "/images/ponentes/roberto-gonzalez.jpeg",
             "bio": "Arquitecto e enxeñeiro con máis de 20 anos de experiencia no sector tecnolóxico. Despois de pasar por empresas de diferentes tamaños e sectores, en múltiples roles, actualmente establece estándares técnicos para a adopción e implantación da intelixencia artificial nos equipos de desenvolvemento.",
             "links": [
@@ -145,7 +145,7 @@
             "time": "12:30",
             "name": "O ecosistema de integracións hipervitaminado e mineralizado de Factorial",
             "description": "Construír e manter integracións sempre foi lento e custoso. Nesta charla contaremos como Factorial usa a IA para darlle a volta a iso: Factorial Code como fábrica de integracións onde axentes xeran e manteñen conectores, e MCPs que conectan Factorial e ferramentas de terceiros con One, o noso asistente de IA, para que calquera usuario poida operar as súas integracións en linguaxe natural. Arquitectura, aprendizaxes e erros de levar todo isto a produción.",
-            "speaker": "Marcos Muíño",
+            "speaker": "Marcos Muíño García",
             "photo": "/images/ponentes/marcos-muino.webp",
             "bio": "Engineering Director en Factorial, onde lidera Factorial Code e Integrations. Cofundador de Trileuco e fundador de YepCode, adquirida por Factorial en maio de 2026.",
             "links": [
@@ -218,9 +218,9 @@
         "es"
     ],
     "speakers": [
-        { "name": "Roberto González" },
+        { "name": "Roberto González González" },
         { "name": "Roberto Garcia Navarro" },
-        { "name": "Marcos Muíño" },
+        { "name": "Marcos Muíño García" },
         { "name": "Julián Cerviño Iglesia" }
     ],
     "cascarilla:posterSpeakers": [
