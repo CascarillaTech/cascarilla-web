@@ -259,8 +259,9 @@ body {
     width: 360px;
     height: 12px;
     margin: 18px 0 22px 30px;
-    background: var(--ochre);
-    opacity: 0.62;
+    /* Transparencia na cor (non con opacity) para que a animación de
+       entrada, que remata en opacity:1, non a pise */
+    background: rgba(184, 134, 59, 0.62);
     border-radius: 6px;
     clip-path: polygon(1% 20%, 6% 0%, 94% 8%, 99% 25%, 98% 78%, 93% 100%, 8% 92%, 2% 75%);
 }
