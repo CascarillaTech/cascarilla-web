@@ -81,9 +81,9 @@ body {
 
 .deck-jug {
     position: absolute;
-    right: 60px;
-    top: 23px;
-    height: 56px;
+    right: 40px;
+    top: 24px;
+    height: 84px; /* mesmo tamaño có logo de Cascarilla Tech */
 }
 
 /* --- Pé común: "Powered by" + colaboradoras --- */
@@ -330,6 +330,26 @@ body {
 }
 
 .center .underline { margin-left: auto; margin-right: auto; }
+
+.quote {
+    margin: 4px 0 0;
+    font-family: 'Playfair Display Italic', serif;
+    font-style: italic;
+    font-size: 40px;
+    line-height: 1.3;
+    color: var(--primary);
+}
+
+.quote cite {
+    display: block;
+    margin-top: 10px;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--secondary);
+}
 
 .statement {
     font-size: 48px !important;
