@@ -498,6 +498,43 @@ body {
     border-radius: 4px;
 }
 
+/* --- Retrospectiva: QR grande --- */
+.qr {
+    flex: 0 0 auto;
+    width: 400px;
+    height: 400px;
+    margin: -20px 0;
+    padding: 14px;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(56, 33, 23, 0.25);
+    image-rendering: pixelated;
+}
+
+.retro-list li { font-size: 28px; }
+
+/* --- Peche: "Isto é todo, amigos!" --- */
+.finale { font-size: 76px !important; }
+
+.to-be-continued {
+    margin-top: 6px !important;
+    font-family: 'Playfair Display Italic', serif;
+    font-style: italic;
+    font-size: 54px !important;
+    color: var(--primary);
+}
+
+/* Os tres puntos aparecen un a un e volven empezar */
+.dots i { font-style: inherit; opacity: 0; }
+.slide.is-active .dots i { animation: 2.4s steps(1, end) 0.8s infinite; }
+.slide.is-active .dots i:nth-child(1) { animation-name: dot1; }
+.slide.is-active .dots i:nth-child(2) { animation-name: dot2; }
+.slide.is-active .dots i:nth-child(3) { animation-name: dot3; }
+
+@keyframes dot1 { 0% { opacity: 0; } 20%, 100% { opacity: 1; } }
+@keyframes dot2 { 0% { opacity: 0; } 40%, 100% { opacity: 1; } }
+@keyframes dot3 { 0% { opacity: 0; } 60%, 100% { opacity: 1; } }
+
 /* --- Barra de progreso fina (abaixo de todo) --- */
 .progress {
     position: absolute;
