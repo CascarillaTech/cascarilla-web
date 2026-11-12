@@ -37,11 +37,12 @@
         <div class="hex-frame"><img src="assets/un-dia-con-ia-robot.jpg" alt="" /></div>
     </section>
 
-    <!-- 2 · Sección -->
+    <!-- 2 · Grazas -->
     <section class="slide center">
-        <p class="statement">Benvidas e benvidos!</p>
-        <span class="underline underline--short"></span>
-        <p class="muted">Grazas por vir a pasar o día con nós</p>
+        <svg class="heart" viewBox="0 0 32 29" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M16 28.5 13.7 26.4C5.6 19 0 14 0 7.9 0 3.5 3.5 0 7.9 0c2.5 0 4.8 1.2 6.4 3L16 4.9 17.7 3C19.3 1.2 21.6 0 24.1 0 28.5 0 32 3.5 32 7.9 32 14 26.4 19 18.3 26.4L16 28.5Z" />
+        </svg>
+        <p class="thanks">Grazas!</p>
     </section>
 
     <!-- 3 · Texto con lista -->
@@ -130,7 +131,10 @@
 
     function go(i) {
         current = Math.max(0, Math.min(slides.length - 1, i));
-        slides.forEach((el, k) => el.classList.toggle('is-active', k === current));
+        slides.forEach((el, k) => {
+            el.classList.toggle('is-active', k === current);
+            el.classList.toggle('is-past', k < current);
+        });
         counter.textContent = `${current + 1} / ${slides.length}`;
         progress.style.width = `${((current + 1) / slides.length) * 100}%`;
         history.replaceState(null, '', `#${current + 1}`);
