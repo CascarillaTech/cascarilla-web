@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Keynote — Un día con IA</title>
+    <link rel="stylesheet" href="slides.css" />
+</head>
+<body>
+<!--
+    Diapositivas da keynote de "Un día con IA" (21/11/2026, Cidade das TIC).
+    Funciona SEN internet: abrir este ficheiro directamente no navegador.
+
+    Teclas:  → ↓ Espazo AvPáx  seguinte  ·  ← ↑ RePáx  anterior
+             Inicio / Fin  primeira / última  ·  F  pantalla completa
+             Clic esquerdo = seguinte  ·  Ctrl+P = gardar como PDF
+
+    Para engadir unha diapositiva: copiar un <section class="slide">.
+    Layouts dispoñibles: (nada) texto, "split" texto + imaxe,
+    "center" frase/sección centrada.
+-->
+<main class="deck" id="deck">
+
+    <header class="deck-header">
+        <img class="deck-cascarilla" src="assets/cascarillatech-logo.png" alt="Cascarilla Tech" />
+        <img class="deck-jug" src="assets/corunajug-logo.png" alt="Coruña JUG" />
+    </header>
+
+    <!-- 1 · Portada -->
+    <section class="slide split">
+        <div>
+            <p class="kicker">Keynote de apertura</p>
+            <h1>Un día con IA</h1>
+            <span class="underline"></span>
+            <p class="muted">Sábado 21 de novembro · Cidade das TIC, A Coruña</p>
+        </div>
+        <div class="hex-frame"><img src="assets/un-dia-con-ia-robot.jpg" alt="" /></div>
+    </section>
+
+    <!-- 2 · Sección -->
+    <section class="slide center">
+        <p class="statement">Benvidas e benvidos!</p>
+        <span class="underline underline--short"></span>
+        <p class="muted">Grazas por vir a pasar o día con nós</p>
+    </section>
+
+    <!-- 3 · Texto con lista -->
+    <section class="slide">
+        <h2>Quen somos</h2>
+        <span class="underline underline--short"></span>
+        <ul class="hex-list">
+            <li>Cascarilla Tech: asociación de comunidades tecnolóxicas da Coruña</li>
+            <li>Coruña JUG: o grupo de usuarios de Java da cidade</li>
+            <li>Meetups, xornadas e moito networking dende hai anos</li>
+        </ul>
+    </section>
+
+    <!-- 4 · Axenda -->
+    <section class="slide">
+        <h2>Axenda do día</h2>
+        <ol class="agenda">
+            <li><time>9:00</time><span class="is-break">Apertura de portas e almorzo</span></li>
+            <li><time>13:30</time><span>Intelixencia Artificial: retos e oportunidades en Saúde<small>Julián Cerviño Iglesia</small></span></li>
+            <li class="is-now"><time>9:40</time><span>Keynote</span></li>
+            <li><time>14:30</time><span class="is-break">Comida</span></li>
+            <li><time>10:00</time><span>Surfeando o tsunami dev: como elixir a táboa correcta<small>Roberto González González</small></span></li>
+            <li><time>15:30</time><span class="is-break">Sobremesa</span></li>
+            <li><time>11:00</time><span>Code Is Cheap. Understanding the Business Isn’t.<small>Roberto Garcia Navarro</small></span></li>
+            <li><time>17:45</time><span>Despedida</span></li>
+            <li><time>12:00</time><span class="is-break">Descanso</span></li>
+            <li><time>18:30</time><span class="is-break">Pechamos portas</span></li>
+            <li><time>12:30</time><span>O ecosistema de integracións hipervitaminado e mineralizado de Factorial<small>Marcos Muíño García</small></span></li>
+        </ol>
+    </section>
+
+    <!-- 5 · Colaboradoras -->
+    <section class="slide center">
+        <h2>Grazas ás colaboradoras</h2>
+        <span class="underline underline--short"></span>
+        <div class="big-logos">
+            <img src="assets/odeene-color-horizontal.png" alt="Odeene" />
+            <img src="assets/bahia-software-color.png" alt="Bahía Software" />
+            <img src="assets/3mt-global-services.png" alt="3MT Global Services" />
+        </div>
+    </section>
+
+    <!-- 6 · Peche -->
+    <section class="slide center">
+        <p class="statement">Que comece o día!</p>
+        <span class="underline underline--short"></span>
+        <p class="muted">cascarillatech.org</p>
+    </section>
+
+    <footer class="deck-footer">
+        <div class="powered">
+            <span class="powered-text">Powered by</span>
+            <svg width="90" height="14" viewBox="0 0 90 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="7" x2="38" y2="7" stroke="currentColor" stroke-width="2" />
+                <circle cx="0" cy="7" r="2.5" fill="currentColor" />
+                <line x1="40" y1="1" x2="40" y2="13" stroke="currentColor" stroke-width="2" />
+                <line x1="48" y1="3" x2="48" y2="11" stroke="currentColor" stroke-width="4" />
+                <line x1="52" y1="7" x2="90" y2="7" stroke="currentColor" stroke-width="2" />
+                <circle cx="90" cy="7" r="2.5" fill="currentColor" />
+            </svg>
+        </div>
+        <div class="sponsors">
+            <img src="assets/odeene-color-horizontal.png" alt="Odeene" />
+            <img src="assets/bahia-software-color.png" alt="Bahía Software" />
+            <img src="assets/3mt-global-services.png" alt="3MT Global Services" />
+        </div>
+        <span class="slide-counter" id="counter"></span>
+    </footer>
+
+    <div class="progress" id="progress"></div>
+</main>
+
+<script>
+(() => {
+    const deck = document.getElementById('deck');
+    const slides = [...deck.querySelectorAll('.slide')];
+    const counter = document.getElementById('counter');
+    const progress = document.getElementById('progress');
+    let current = 0;
+
+    // Escalar o lenzo 1200x675 para encher a pantalla mantendo o 16:9
+    function fit() {
+        const s = Math.min(innerWidth / 1200, innerHeight / 675);
+        deck.style.setProperty('--scale', s);
+    }
+
+    function go(i) {
+        current = Math.max(0, Math.min(slides.length - 1, i));
+        slides.forEach((el, k) => el.classList.toggle('is-active', k === current));
+        counter.textContent = `${current + 1} / ${slides.length}`;
+        progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+        history.replaceState(null, '', `#${current + 1}`);
+    }
+
+    addEventListener('keydown', (e) => {
+        if (e.altKey || e.ctrlKey || e.metaKey) return;
+        switch (e.key) {
+            case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': case 'Enter':
+                go(current + 1); break;
+            case 'ArrowLeft': case 'ArrowUp': case 'PageUp': case 'Backspace':
+                go(current - 1); break;
+            case 'Home': go(0); break;
+            case 'End': go(slides.length - 1); break;
+            case 'f': case 'F':
+                document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+                break;
+            default: return;
+        }
+        e.preventDefault();
+    });
+
+    addEventListener('click', (e) => go(current + (e.button === 0 ? 1 : -1)));
+    addEventListener('contextmenu', (e) => { e.preventDefault(); go(current - 1); });
+    addEventListener('resize', fit);
+
+    // Imprimir / PDF: copia da cabeceira e do pé en cada diapositiva
+    addEventListener('beforeprint', () => {
+        const header = deck.querySelector(':scope > .deck-header');
+        const footer = deck.querySelector(':scope > .deck-footer');
+        slides.forEach((el, k) => {
+            const h = header.cloneNode(true);
+            const f = footer.cloneNode(true);
+            f.querySelector('.slide-counter').textContent = `${k + 1} / ${slides.length}`;
+            h.classList.add('print-copy');
+            f.classList.add('print-copy');
+            el.append(h, f);
+        });
+    });
+    addEventListener('afterprint', () => deck.querySelectorAll('.print-copy').forEach((n) => n.remove()));
+
+    fit();
+    go((parseInt(location.hash.slice(1), 10) || 1) - 1);
+})();
+</script>
+</body>
+</html>
