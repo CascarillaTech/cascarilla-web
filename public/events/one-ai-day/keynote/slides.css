@@ -184,7 +184,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
     .slide, .slide.is-active { transition: opacity 0.3s ease, visibility 0s linear 0.3s; transform: none; }
-    .slide.is-active > * { animation: none; }
+    .slide.is-active > *, .slide.is-active .bar { animation: none; }
 }
 
 /* --- Diapositiva de grazas: corazón latindo --- */
@@ -393,6 +393,110 @@ body {
 }
 
 .big-logos img { height: 120px; width: auto; display: block; }
+
+/* --- Gráficos (despedida): barras horizontais en SVG/HTML, sen librarías.
+   Cores categóricas validadas contra o fondo crema (paleta dataviz):
+   o ocre ten pouco contraste co fondo, por iso todas as barras levan
+   etiqueta co valor á vista. --- */
+:root {
+    --c1: #A84E2A;  /* terracota */
+    --c2: #C48A2E;  /* ocre */
+    --c3: #2E7FB8;  /* azul */
+}
+
+.stats {
+    display: flex;
+    align-items: center;
+    gap: 70px;
+    margin-top: 10px;
+}
+
+.hero {
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+.hero-number {
+    display: block;
+    font-size: 110px;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 3px 5px 4px rgba(56, 33, 23, 0.4);
+    font-variant-numeric: tabular-nums;
+}
+
+.hero-label {
+    display: block;
+    margin-top: 6px;
+    font-size: 22px;
+    color: var(--secondary);
+}
+
+.hero-number.is-positive { color: var(--dark); }
+
+.bars {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    gap: 18px 20px;
+    margin: 0;
+}
+
+.bar-label {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.bar-track {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.bar {
+    height: 40px;
+    min-width: 6px;
+    border-radius: 0 4px 4px 0;
+    background: var(--bar-color, var(--c1));
+    transform-origin: left center;
+}
+
+.bar-value {
+    font-size: 22px;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.bar-value b { font-weight: 700; }
+.bar-value span { color: var(--secondary); }
+
+/* As barras medran dende a esquerda ao entrar a diapositiva */
+.slide.is-active .bar {
+    animation: grow 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(0.6s + var(--n, 0) * 0.12s);
+}
+
+@keyframes grow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+/* Aviso visible mentres os números sexan de exemplo */
+.placeholder-badge {
+    position: absolute;
+    right: 90px;
+    top: 4px;
+    padding: 4px 12px;
+    font-size: 14px !important;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: #B3261E;
+    border-radius: 4px;
+}
 
 /* --- Barra de progreso fina (abaixo de todo) --- */
 .progress {

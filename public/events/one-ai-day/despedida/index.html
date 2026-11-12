@@ -39,6 +39,60 @@
         <p class="thanks">Grazas!</p>
     </section>
 
+    <!-- 3–6 · Números do día. Os datos están en datos.js -->
+
+    <!-- 3 · Asistentes -->
+    <section class="slide" data-chart>
+        <h2>Asistentes</h2>
+        <span class="underline underline--short"></span>
+        <div class="stats">
+            <div class="hero">
+                <span class="hero-number" id="asistentes-total"></span>
+                <span class="hero-label">persoas</span>
+            </div>
+            <dl class="bars" id="asistentes-bars"></dl>
+        </div>
+    </section>
+
+    <!-- 4 · Ingresos e gastos -->
+    <section class="slide" data-chart>
+        <h2>Ingresos e gastos</h2>
+        <span class="underline underline--short"></span>
+        <div class="stats">
+            <dl class="bars" id="balance-bars"></dl>
+            <div class="hero">
+                <span class="hero-number" id="saldo"></span>
+                <span class="hero-label">saldo</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5 · De onde vén o diñeiro -->
+    <section class="slide" data-chart>
+        <h2>De onde vén o diñeiro</h2>
+        <span class="underline underline--short"></span>
+        <div class="stats">
+            <dl class="bars" id="ingresos-bars"></dl>
+            <div class="hero">
+                <span class="hero-number" id="ingresos-total" style="font-size:72px"></span>
+                <span class="hero-label">ingresos</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6 · En que se gasta -->
+    <section class="slide" data-chart>
+        <h2>En que se gasta</h2>
+        <span class="underline underline--short"></span>
+        <div class="stats">
+            <dl class="bars" id="gastos-bars"></dl>
+            <div class="hero">
+                <span class="hero-number" id="gastos-total" style="font-size:72px"></span>
+                <span class="hero-label">gastos</span>
+            </div>
+        </div>
+    </section>
+
     <footer class="deck-footer">
         <div class="powered">
             <span class="powered-text">Powered by</span>
@@ -62,6 +116,8 @@
     <div class="progress" id="progress"></div>
 </main>
 
+<script src="datos.js"></script>
+<script src="graficos.js"></script>
 <script src="../keynote/deck.js"></script>
 </body>
 </html>
