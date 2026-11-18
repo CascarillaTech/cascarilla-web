@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>3MT Global Services — promo</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  @font-face { font-family: 'Nunito'; src: url('assets/Nunito.ttf') format('truetype'); font-weight: 200 1000; }
+  :root { --navy: #111c24; --navy2: #1d282f; --ink: #0a0f14; --white: #ffffff; --sf: #00a1e0; --sf2: #1b96ff; --mute: #9fb3c2; }
+  html, body { margin: 0; background: var(--ink); }
+  body { font-family: 'Nunito', sans-serif; color: var(--white); }
+  #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--ink); }
+  .full { position: absolute; inset: 0; }
+  .scene { position: absolute; inset: 0; overflow: hidden; opacity: 0; }
+  .photo { position: absolute; inset: -40px; background-size: cover; background-position: center; }
+  .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,15,20,.92) 0%, rgba(17,28,36,.75) 40%, rgba(17,28,36,.15) 75%, rgba(17,28,36,0) 100%); }
+  .shade.b { background: linear-gradient(0deg, rgba(10,15,20,.9) 0%, rgba(17,28,36,.4) 45%, rgba(17,28,36,.1) 100%); }
+
+  /* 1: hero */
+  #s1 { opacity: 1; }
+  #s1 .photo { background-image: url(assets/3mt_111_001.jpg); }
+  #s1 .shade { background: radial-gradient(ellipse at 30% 50%, rgba(10,15,20,.2), rgba(10,15,20,.85) 75%); }
+  #s1-txt { position: absolute; left: 0; right: 0; top: 330px; text-align: center; }
+  .l1 { font-size: 110px; font-weight: 300; letter-spacing: 2px; line-height: 1.05; }
+  .l1 b { font-weight: 900; }
+  .l2 { margin-top: 30px; font-size: 60px; font-weight: 700; color: #dfe9f0; }
+  #s1-txt, #s5-a, #s5-b, #s5-c { text-shadow: 0 6px 30px rgba(0,0,0,.85), 0 2px 6px rgba(0,0,0,.7); }
+  .l2 em { font-style: normal; color: var(--sf); font-weight: 900; }
+  .word { display: inline-block; }
+  #ring { position: absolute; left: 960px; top: 540px; width: 900px; height: 900px; margin: -450px 0 0 -450px; }
+
+  /* 2: logo reveal */
+  #s2 { background: radial-gradient(circle at 50% 45%, #1d2b36 0%, var(--navy) 50%, var(--ink) 100%); }
+  #bigLogo { position: absolute; left: 660px; top: 120px; width: 600px; height: 600px;
+    background: url(assets/3MT-galicia-global-services-1200x1200-1.jpg) center/contain no-repeat; filter: invert(1); mix-blend-mode: screen; }
+  #s2-tag { position: absolute; left: 0; right: 0; top: 760px; text-align: center; font-size: 64px; font-weight: 300; }
+  #s2-tag b { font-weight: 900; color: var(--sf); }
+  #sfBadge { position: absolute; left: 760px; top: 880px; width: 400px; height: 117px; background: url(assets/salesforce-partner.png) center/contain no-repeat; border-radius: 10px; }
+
+  /* 3: servizos */
+  .svc .num { position: absolute; left: 140px; top: 300px; font-size: 34px; font-weight: 800; letter-spacing: 8px; color: var(--sf); }
+  .svc .bar { position: absolute; left: 140px; top: 360px; width: 120px; height: 6px; background: var(--sf); transform-origin: left center; }
+  .svc h2 { position: absolute; left: 130px; top: 390px; margin: 0; font-size: 150px; font-weight: 900; line-height: 1; letter-spacing: -2px; white-space: nowrap; }
+  .svc p { position: absolute; left: 140px; top: 580px; margin: 0; width: 900px; font-size: 48px; font-weight: 500; line-height: 1.3; color: #dfe9f0; }
+  #progress { position: absolute; left: 240px; right: 140px; top: 1000px; height: 4px; background: rgba(255,255,255,.18); opacity: 0; }
+  #progress i { display: block; height: 100%; width: 100%; background: var(--sf); transform-origin: left center; }
+
+  /* 4: cita */
+  #s4 { background: var(--navy); }
+  #s4 .photo { background-image: url(assets/3mt_1111_001.jpg); opacity: .22; filter: grayscale(1); }
+  #quote { position: absolute; left: 220px; right: 220px; top: 300px; font-size: 76px; font-weight: 300; line-height: 1.25; text-align: center; }
+  #quote .k { font-weight: 900; color: var(--sf); }
+  #qmark { position: absolute; left: 160px; top: 170px; font-size: 300px; font-weight: 900; color: var(--sf); line-height: 1; opacity: .9; }
+  #author { position: absolute; left: 0; right: 0; top: 760px; text-align: center; font-size: 40px; font-weight: 700; letter-spacing: 10px; color: var(--mute); }
+
+  /* 5: boutique + global */
+  #s5 .photo { background-image: url(assets/3mt_1111_016.jpg); }
+  #s5 .shade { background: linear-gradient(180deg, rgba(10,15,20,.85) 0%, rgba(10,15,20,.55) 55%, rgba(10,15,20,.2) 100%); }
+  #s5-a, #s5-b { position: absolute; left: 0; right: 0; text-align: center; font-weight: 900; }
+  #s5-a { top: 180px; font-size: 120px; }
+  #s5-b { top: 330px; font-size: 120px; color: var(--sf); }
+  #s5-c { position: absolute; left: 0; right: 0; top: 510px; text-align: center; font-size: 52px; font-weight: 500; }
+
+  /* 6: peche */
+  #s6 { background: radial-gradient(circle at 50% 40%, #1d2b36 0%, var(--navy) 55%, var(--ink) 100%); }
+  #endLogo { position: absolute; left: 735px; top: 70px; width: 450px; height: 450px;
+    background: url(assets/3MT-galicia-global-services-1200x1200-1.jpg) center/contain no-repeat; filter: invert(1); mix-blend-mode: screen; }
+  #end-cta { position: absolute; left: 0; right: 0; top: 560px; text-align: center; font-size: 78px; font-weight: 900; }
+  #end-cta span { color: var(--sf); }
+  #end-sf { position: absolute; left: 785px; top: 700px; width: 350px; height: 103px; background: url(assets/salesforce-partner.png) center/contain no-repeat; border-radius: 8px; }
+  #end-web { position: absolute; left: 0; right: 0; top: 850px; text-align: center; font-size: 46px; font-weight: 700; letter-spacing: 2px; }
+  #end-web small { display: block; margin-top: 10px; font-size: 32px; font-weight: 500; color: var(--mute); letter-spacing: 1px; }
+
+  /* transicións e capas fixas */
+  #wipe { background: var(--sf); opacity: 0; }
+  #grain { opacity: .06; background-image: radial-gradient(rgba(255,255,255,.6) 1px, transparent 1px); background-size: 4px 4px; pointer-events: none; }
+  #cornerLogo { position: absolute; left: 50px; bottom: 40px; width: 130px; height: 124px; background: url(assets/3MT-global-services-logo-cl.png) center/contain no-repeat;
+    filter: drop-shadow(0 4px 14px rgba(0,0,0,.6)); }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="38">
+
+  <div id="s1" class="scene">
+    <div class="photo"></div><div class="shade"></div>
+    <svg id="ring" viewBox="0 0 900 900"><circle id="ringC" cx="450" cy="450" r="430" fill="none" stroke="#00a1e0" stroke-width="3" stroke-dasharray="2702" stroke-dashoffset="2702" opacity=".7"/></svg>
+    <div id="s1-txt">
+      <div class="l1"><span class="word">Redescubre</span> <span class="word"><b>tu empresa</b></span></div>
+      <div class="l2"><span class="word">con nuestra transformación digital</span> <span class="word"><em id="deg">0º</em></span></div>
+    </div>
+  </div>
+
+  <div id="s2" class="scene">
+    <div id="bigLogo"></div>
+    <div id="s2-tag">Tu <b>Boutique Partner</b> de Salesforce</div>
+    <div id="sfBadge"></div>
+  </div>
+
+  <div id="svcs"></div>
+  <div id="progress"><i></i></div>
+
+  <div id="s4" class="scene">
+    <div class="photo"></div>
+    <div id="qmark">“</div>
+    <div id="quote"></div>
+    <div id="author">FRIEDRICH NIETZSCHE</div>
+  </div>
+
+  <div id="s5" class="scene">
+    <div class="photo"></div><div class="shade"></div>
+    <div id="s5-a">Agilidad boutique.</div>
+    <div id="s5-b">Alcance global.</div>
+    <div id="s5-c">Trato personal con toda la potencia de Salesforce</div>
+  </div>
+
+  <div id="s6" class="scene">
+    <div id="endLogo"></div>
+    <div id="end-cta">¿<span>Hablamos</span>?</div>
+    <div id="end-sf"></div>
+    <div id="end-web">www.3mtglobal.es<small>info@3mtglobal.com</small></div>
+  </div>
+
+  <div id="wipe" class="full"></div>
+  <div id="grain" class="full"></div>
+  <div id="cornerLogo"></div>
+</div>
+
+<script>
+  const services = [
+    ['Retail Operations', 'Todo lo que tu tienda necesita para funcionar: física, online y stock', '3mt_1111_000.jpg', 'circle'],
+    ['Omnichannel', 'Todos los canales conectados. Tu cliente, siempre bien atendido', '3mt_1111_006.jpg', 'left'],
+    ['Supply Chain', 'Del pedido a la entrega, sin perder el rastro', '3mt_1111_005.jpg', 'up'],
+    ['eCommerce', 'Vende online. Vende más', '3mt_1111_013.jpg', 'diag'],
+    ['Medios de Pago', 'Del efectivo al pago online, probados y funcionando', '3mt_1111_015.jpg', 'circle'],
+    ['CRM 360º', 'Cada relación con tus clientes, en un solo lugar', '3mt_1111_014.jpg', 'left'],
+    ['Marketing Digital', 'Sacamos partido a cada canal digital', '3mt_1111_003.jpg', 'up'],
+    ['SEO', 'Que te encuentren primero', '3mt_111_113.jpg', 'diag'],
+  ];
+  const holder = document.getElementById('svcs');
+  const svcEls = services.map(([name, line, img], i) => {
+    const el = document.createElement('div');
+    el.className = 'scene svc';
+    el.innerHTML = `<div class="photo" style="background-image:url(assets/${img})"></div><div class="shade"></div>
+      <div class="num">${String(i + 1).padStart(2, '0')} / ${String(services.length).padStart(2, '0')}</div>
+      <div class="bar"></div><h2>${name}</h2><p>${line}</p>`;
+    holder.appendChild(el);
+    return el;
+  });
+
+  // cita, palabra a palabra (as palabras clave en azul)
+  const qWords = 'Es sencillo hacer que las cosas sean *complicadas, pero es difícil hacer que sean *sencillas'.split(' ');
+  document.getElementById('quote').innerHTML = qWords.map((w) =>
+    `<span class="word q${w.startsWith('*') ? ' k' : ''}">${w.replace('*', '')}</span>`).join(' ');
+
+  const clipFrom = {
+    circle: 'circle(0% at 50% 50%)',
+    left: 'inset(0% 100% 0% 0%)',
+    up: 'inset(100% 0% 0% 0%)',
+    diag: 'polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%)',
+  };
+  const clipTo = {
+    circle: 'circle(150% at 50% 50%)',
+    left: 'inset(0% 0% 0% 0%)',
+    up: 'inset(0% 0% 0% 0%)',
+    diag: 'polygon(0% 0%, 200% 0%, 0% 200%, 0% 0%)',
+  };
+
+  const tl = gsap.timeline({ paused: true });
+  const D = 38;
+  const all = ['#s1', '#s2', '#s4', '#s5', '#s6', ...svcEls];
+  tl.set(all, { opacity: 0 }, 0);
+  tl.set('#s1', { opacity: 1 }, 0);
+
+  // logo da esquina: entra ao principio e queda todo o vídeo
+  tl.fromTo('#cornerLogo', { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: .6, ease: 'power3.out' }, .2);
+
+  // ---- 1. hero (0–4.3)
+  tl.fromTo('#s1 .photo', { scale: 1.25 }, { scale: 1.02, duration: 4.6, ease: 'power1.out' }, 0);
+  tl.fromTo('#s1 .l1 .word', { y: 80, opacity: 0, filter: 'blur(12px)' }, { y: 0, opacity: 1, filter: 'blur(0px)', duration: .7, ease: 'power3.out', stagger: .25 }, .3);
+  tl.fromTo('#s1 .l2 .word', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .6, ease: 'power3.out', stagger: .3 }, 1.2);
+  tl.fromTo('#ringC', { attr: { 'stroke-dashoffset': 2702 } }, { attr: { 'stroke-dashoffset': 0 }, duration: 2, ease: 'power2.inOut' }, 1.4);
+  tl.fromTo('#ring', { rotation: -90 }, { rotation: 270, duration: 3, ease: 'none' }, 1.4);
+  const deg = { v: 0 };
+  tl.to(deg, { v: 360, duration: 2, ease: 'power2.inOut', onUpdate: () => { document.getElementById('deg').textContent = Math.round(deg.v) + 'º'; } }, 1.4);
+  tl.to('#s1-txt', { scale: 1.15, opacity: 0, filter: 'blur(14px)', duration: .5, ease: 'power2.in' }, 3.9);
+  tl.to('#ring', { scale: 3, opacity: 0, duration: .6, ease: 'power2.in' }, 3.9);
+
+  // ---- 2. logo (4.3–8)
+  tl.fromTo('#s2', { opacity: 0, clipPath: 'circle(0% at 50% 50%)' }, { opacity: 1, clipPath: 'circle(80% at 50% 50%)', duration: .7, ease: 'power3.inOut' }, 4.2);
+  tl.set('#s1', { opacity: 0 }, 4.9);
+  tl.fromTo('#bigLogo', { scale: .5, opacity: 0, rotation: -25 }, { scale: 1, opacity: 1, rotation: 0, duration: 1, ease: 'expo.out' }, 4.5);
+  tl.fromTo('#s2-tag', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .6, ease: 'power3.out' }, 5.3);
+  tl.fromTo('#sfBadge', { scale: .6, opacity: 0 }, { scale: 1, opacity: 1, duration: .55, ease: 'back.out(2)' }, 5.8);
+  tl.to('#bigLogo', { scale: 1.06, duration: 2, ease: 'none' }, 5.5);
+
+  // ---- 3. servizos (7.9–27.1), 2.4 s cada un
+  const T0 = 7.9, STEP = 2.4;
+  tl.to('#progress', { opacity: 1, duration: .3 }, T0 + .4);
+  tl.fromTo('#progress i', { scaleX: 0 }, { scaleX: 1, duration: STEP * services.length, ease: 'none' }, T0);
+  svcEls.forEach((el, i) => {
+    const t = T0 + i * STEP;
+    const mode = services[i][3];
+    tl.fromTo(el, { opacity: 1, clipPath: clipFrom[mode] }, { opacity: 1, clipPath: clipTo[mode], duration: .6, ease: 'power3.inOut', immediateRender: false }, t);
+    tl.fromTo(el.querySelector('.photo'), { scale: 1.2, x: i % 2 ? 40 : -40 }, { scale: 1.04, x: 0, duration: STEP + .6, ease: 'none', immediateRender: false }, t);
+    tl.fromTo(el.querySelector('.num'), { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: .4, immediateRender: false }, t + .35);
+    tl.fromTo(el.querySelector('.bar'), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: 'power3.out', immediateRender: false }, t + .4);
+    tl.fromTo(el.querySelector('h2'), { opacity: 0, x: -120, skewX: -12 }, { opacity: 1, x: 0, skewX: 0, duration: .55, ease: 'expo.out', immediateRender: false }, t + .45);
+    tl.fromTo(el.querySelector('p'), { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .45, ease: 'power3.out', immediateRender: false }, t + .75);
+    if (i > 0) tl.set(svcEls[i - 1], { opacity: 0 }, t + .6);
+    if (i === 0) tl.set('#s2', { opacity: 0 }, t + .6);
+  });
+  const svcEnd = T0 + STEP * services.length; // 27.1
+  tl.to('#progress', { opacity: 0, duration: .3 }, svcEnd - .3);
+
+  // ---- 4. cita (27.1–31.6)
+  tl.fromTo('#wipe', { opacity: 1, xPercent: -100 }, { xPercent: 0, duration: .35, ease: 'power3.in', immediateRender: false }, svcEnd - .35);
+  tl.set(svcEls[svcEls.length - 1], { opacity: 0 }, svcEnd);
+  tl.set('#s4', { opacity: 1 }, svcEnd);
+  tl.to('#wipe', { xPercent: 100, duration: .4, ease: 'power3.out' }, svcEnd);
+  tl.fromTo('#qmark', { scale: 0, rotation: -30 }, { scale: 1, rotation: 0, duration: .5, ease: 'back.out(2)' }, svcEnd + .2);
+  tl.fromTo('#quote .q', { opacity: 0, y: 30, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .35, ease: 'power2.out', stagger: .13 }, svcEnd + .35);
+  tl.fromTo('#author', { opacity: 0 }, { opacity: 1, duration: .5 }, svcEnd + 2.4);
+  tl.fromTo('#s4 .photo', { scale: 1.15 }, { scale: 1, duration: 4.6, ease: 'none' }, svcEnd);
+
+  // ---- 5. boutique / global (31.6–34.6)
+  const t5 = svcEnd + 4.5;
+  tl.fromTo('#s5', { opacity: 1, clipPath: 'inset(0% 0% 100% 0%)' }, { opacity: 1, clipPath: 'inset(0% 0% 0% 0%)', duration: .6, ease: 'power3.inOut', immediateRender: false }, t5);
+  tl.set('#s4', { opacity: 0 }, t5 + .6);
+  tl.fromTo('#s5 .photo', { scale: 1.2 }, { scale: 1.02, duration: 3.6, ease: 'none', immediateRender: false }, t5);
+  tl.fromTo('#s5-a', { opacity: 0, x: -200 }, { opacity: 1, x: 0, duration: .55, ease: 'expo.out' }, t5 + .4);
+  tl.fromTo('#s5-b', { opacity: 0, x: 200 }, { opacity: 1, x: 0, duration: .55, ease: 'expo.out' }, t5 + .75);
+  tl.fromTo('#s5-c', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .5 }, t5 + 1.3);
+
+  // ---- 6. peche (34.6–38)
+  const t6 = t5 + 3.1;
+  tl.fromTo('#s6', { opacity: 1, clipPath: 'circle(0% at 50% 50%)' }, { opacity: 1, clipPath: 'circle(80% at 50% 50%)', duration: .7, ease: 'power3.inOut', immediateRender: false }, t6);
+  tl.set('#s5', { opacity: 0 }, t6 + .7);
+  tl.fromTo('#endLogo', { scale: .6, opacity: 0 }, { scale: 1, opacity: 1, duration: .8, ease: 'expo.out' }, t6 + .2);
+  tl.fromTo('#end-cta', { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: .5, ease: 'back.out(1.8)' }, t6 + .7);
+  tl.fromTo('#end-sf', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .4 }, t6 + 1.0);
+  tl.fromTo('#end-web', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .4 }, t6 + 1.2);
+
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>
