@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>Odeene — promo</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  @font-face { font-family: 'Plus Jakarta Sans'; src: url('assets/PlusJakartaSans.ttf') format('truetype'); font-weight: 200 900; }
+  :root { --deep: #0f1d1d; --teal0: #203c3c; --teal1: #315959; --teal2: #417676; --teal3: #62b1b1; --navy: #252840; --white: #fff; --mute: #b9cfcf; }
+  html, body { margin: 0; background: var(--deep); }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--white); }
+  #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--deep); }
+  .full { position: absolute; inset: 0; }
+  .scene { position: absolute; inset: 0; overflow: hidden; opacity: 0; }
+  .photo { position: absolute; inset: -40px; background-size: cover; background-position: center; }
+  .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,29,29,.94) 0%, rgba(32,60,60,.78) 42%, rgba(32,60,60,.15) 78%, rgba(32,60,60,0) 100%); }
+  .shadow { text-shadow: 0 6px 30px rgba(0,0,0,.8), 0 2px 6px rgba(0,0,0,.6); }
+  .word { display: inline-block; }
+
+  /* 1: hero */
+  #s1 { opacity: 1; }
+  #s1 .photo { background-image: url(assets/Odeene-letras-oficina-original-IFMNCA7G.jpg); }
+  #s1 .shade { background: linear-gradient(90deg, rgba(15,29,29,.9) 0%, rgba(15,29,29,.6) 50%, rgba(15,29,29,.15) 100%); }
+  #kicker { position: absolute; left: 140px; top: 300px; font-size: 30px; font-weight: 800; letter-spacing: 6px; color: var(--teal3);
+    padding: 14px 28px; border: 2px solid var(--teal3); border-radius: 50px; }
+  #hero { position: absolute; left: 130px; top: 400px; font-size: 140px; font-weight: 800; line-height: 1.02; letter-spacing: -3px; }
+  #hero .t { color: var(--teal3); }
+
+  /* 2: logo con aro de puntos */
+  #s2 { background: radial-gradient(circle at 50% 42%, var(--teal1) 0%, var(--teal0) 45%, var(--deep) 100%); }
+  #dots { position: absolute; left: 960px; top: 400px; width: 0; height: 0; }
+  .dot { position: absolute; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: #fff; }
+  #s2-word { position: absolute; left: 0; right: 0; top: 700px; text-align: center; font-size: 150px; font-weight: 800; letter-spacing: -2px; }
+  #s2-word span { color: var(--teal3); }
+  #s2-sub { position: absolute; left: 0; right: 0; top: 890px; text-align: center; font-size: 36px; font-weight: 600; letter-spacing: 14px; color: var(--mute); }
+
+  /* 3: tres verbos */
+  .pill { display: flex; flex-direction: column; justify-content: center; padding-left: 160px; }
+  .pill .photo { filter: saturate(.9); }
+  .pill .shade { background: linear-gradient(90deg, rgba(32,60,60,.95) 0%, rgba(32,60,60,.7) 55%, rgba(32,60,60,.2) 100%); }
+  .pill h2 { position: relative; margin: 0; font-size: 150px; font-weight: 800; letter-spacing: -3px; line-height: 1; }
+  .pill h2 span { color: var(--teal3); }
+  .pill p { position: relative; margin: 34px 0 0; font-size: 48px; font-weight: 500; color: var(--mute); width: 1000px; }
+
+  /* 4: servizos */
+  .svc .num { position: absolute; left: 140px; top: 290px; font-size: 32px; font-weight: 800; letter-spacing: 8px; color: var(--teal3); }
+  .svc .bar { position: absolute; left: 140px; top: 350px; width: 120px; height: 6px; background: var(--teal3); transform-origin: left center; }
+  .svc h2 { position: absolute; left: 130px; top: 380px; margin: 0; font-size: 140px; font-weight: 800; line-height: 1; letter-spacing: -3px; white-space: nowrap; }
+  .svc p { position: absolute; left: 140px; top: 560px; margin: 0; width: 920px; font-size: 46px; font-weight: 500; line-height: 1.3; color: #e2eeee; }
+  #progress { position: absolute; left: 260px; right: 140px; top: 1010px; height: 4px; background: rgba(255,255,255,.18); opacity: 0; }
+  #progress i { display: block; height: 100%; width: 100%; background: var(--teal3); transform-origin: left center; }
+
+  /* 5: equipo / oficina */
+  #s5 { background: var(--teal0); }
+  .tile { position: absolute; top: 0; height: 1080px; width: 640px; background-size: cover; background-position: center; }
+  #t1 { left: 0; background-image: url(assets/Odeene-carrusel3.jpg); }
+  #t2 { left: 640px; background-image: url(assets/Odeene-sillas-colores.jpg); }
+  #t3 { left: 1280px; background-image: url(assets/Odeene-carrusel7.jpg); }
+  #s5 .veil { position: absolute; inset: 0; background: rgba(15,29,29,.62); }
+  #years { position: absolute; left: 0; right: 0; top: 250px; text-align: center; font-size: 320px; font-weight: 800; line-height: 1; letter-spacing: -8px; }
+  #years span { color: var(--teal3); }
+  #years-l { position: absolute; left: 0; right: 0; top: 590px; text-align: center; font-size: 46px; font-weight: 800; letter-spacing: 14px; }
+  #years-s { position: absolute; left: 0; right: 0; top: 680px; text-align: center; font-size: 46px; font-weight: 500; color: #e2eeee; }
+
+  /* 6: hagamos algo grande */
+  #s6 .photo { background-image: url(assets/Odeene-inicio-footer-B6VK5JZO.jpg); }
+  #s6 .shade { background: rgba(15,29,29,.7); }
+  #big { position: absolute; left: 0; right: 0; top: 340px; text-align: center; font-size: 118px; font-weight: 800; letter-spacing: -3px; line-height: 1.05; }
+  #big .word > span { color: var(--teal3); }
+  #big-s { position: absolute; left: 0; right: 0; top: 660px; text-align: center; font-size: 48px; font-weight: 500; color: #e2eeee; }
+
+  /* 7: peche */
+  #s7 { background: radial-gradient(circle at 50% 40%, var(--teal1) 0%, var(--teal0) 50%, var(--deep) 100%); }
+  #endLogo { position: absolute; left: 760px; top: 70px; width: 400px; height: 400px; background: url(assets/odeene-fondo-verde.png) center/contain no-repeat; filter: brightness(0) invert(1); }
+  #end-cta { position: absolute; left: 0; right: 0; top: 520px; text-align: center; font-size: 72px; font-weight: 800; }
+  #end-cta span { color: var(--teal3); }
+  #end-info { position: absolute; left: 0; right: 0; top: 680px; display: flex; justify-content: center; gap: 70px; font-size: 40px; font-weight: 700; }
+  #end-info div { padding: 18px 36px; border: 2px solid rgba(98,177,177,.6); border-radius: 60px; }
+  #end-web { position: absolute; left: 0; right: 0; top: 830px; text-align: center; font-size: 52px; font-weight: 800; color: var(--teal3); letter-spacing: 1px; }
+
+  #wipe { background: var(--teal3); opacity: 0; }
+  #cornerLogo { position: absolute; left: 50px; bottom: 36px; width: 150px; height: 150px; background: url(assets/odeene-fondo-verde.png) center/contain no-repeat;
+    filter: brightness(0) invert(1) drop-shadow(0 4px 14px rgba(0,0,0,.6)); }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="51">
+
+  <div id="s1" class="scene">
+    <div class="photo"></div><div class="shade"></div>
+    <div id="kicker">HAGA CRECER SU NEGOCIO CON NOSOTROS</div>
+    <div id="hero" class="shadow"><div><span class="word">Talento</span> <span class="word">para</span> <span class="word">la</span></div><div><span class="word t">transformación</span> <span class="word t">digital</span></div></div>
+  </div>
+
+  <div id="s2" class="scene">
+    <div id="dots"></div>
+    <div id="s2-word">ode<span>ene</span></div>
+    <div id="s2-sub">INGENIERÍA · SECURITY · INICIATIVAS</div>
+  </div>
+
+  <div id="pills"></div>
+  <div id="svcs"></div>
+  <div id="progress"><i></i></div>
+
+  <div id="s5" class="scene">
+    <div id="t1" class="tile"></div><div id="t2" class="tile"></div><div id="t3" class="tile"></div>
+    <div class="veil"></div>
+    <div id="years" class="shadow"><span id="yn">0</span>+</div>
+    <div id="years-l" class="shadow">AÑOS DE EXPERIENCIA</div>
+    <div id="years-s" class="shadow">Ingenieros con experiencia y pasión, en A Coruña</div>
+  </div>
+
+  <div id="s6" class="scene">
+    <div class="photo"></div><div class="shade"></div>
+    <div id="big" class="shadow"><span class="word">Hagamos</span> <span class="word">algo</span> <span class="word"><span>grande</span></span> <span class="word">juntos.</span></div>
+    <div id="big-s" class="shadow">Soluciones creativas para su negocio</div>
+  </div>
+
+  <div id="s7" class="scene">
+    <div id="endLogo"></div>
+    <div id="end-cta">¿Tiene un <span>proyecto</span> en mente?</div>
+    <div id="end-info"><div>+34 881 006 396</div><div>info@odeene.es</div></div>
+    <div id="end-web">odeene.es</div>
+  </div>
+
+  <div id="wipe" class="full"></div>
+  <div id="cornerLogo"></div>
+</div>
+
+<script>
+  // aro de puntos (imaxotipo de Odeene), determinista
+  let seed = 3;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const dotsEl = document.getElementById('dots');
+  const dots = [];
+  for (let ring = 0; ring < 6; ring++) {
+    const r = 70 + ring * 34, n = Math.round(2 * Math.PI * r / 40);
+    for (let k = 0; k < n; k++) {
+      const a = (k / n) * Math.PI * 2 + ring * .3;
+      const d = document.createElement('div');
+      d.className = 'dot';
+      const s = .55 + (1 - Math.abs(ring - 2.5) / 3) * .6;
+      d.style.transform = `scale(${s})`;
+      dotsEl.appendChild(d);
+      dots.push({ el: d, x: Math.cos(a) * r, y: Math.sin(a) * r, fx: (rnd() - .5) * 2400, fy: (rnd() - .5) * 1400, s });
+    }
+  }
+
+  const pillsData = [
+    ['Impulse', 'su negocio', 'Soluciones para un crecimiento sostenible', 'Odeene-oficina9-E67QEUKO.jpg'],
+    ['Optimice', 'sus recursos', 'Le guiamos hacia las mejores decisiones', 'Odeene-carrusel.jpg'],
+    ['Mejore', 'su eficiencia', 'Automatice tareas y lleve su empresa al siguiente nivel', 'Odeene-oficina10-BYXJ2CSW.jpg'],
+  ];
+  const pills = document.getElementById('pills');
+  const pillEls = pillsData.map(([a, b, c, img]) => {
+    const el = document.createElement('div');
+    el.className = 'scene pill';
+    el.innerHTML = `<div class="photo" style="background-image:url(assets/${img})"></div><div class="shade"></div>
+      <h2 class="shadow">${a} <span>${b}</span></h2><p>${c}</p>`;
+    pills.appendChild(el);
+    return el;
+  });
+
+  const services = [
+    ['Cybersecurity', 'Protegemos dispositivos, correo y red: prevenir, detectar y responder', 'ciberseguridad.jpg', 'circle'],
+    ['Application Services', 'Modernizamos tus aplicaciones legacy en entornos críticos', 'application-services.jpg', 'left'],
+    ['Automation', 'Procesos automáticos que liberan a tu equipo para lo estratégico', 'automation.jpg', 'up'],
+    ['Business Consulting', 'Consultoría estratégica para nuevos modelos de negocio', 'business_consulting.jpg', 'diag'],
+    ['Banking', 'Integración bancaria, normativa y modernización de sistemas', 'banking.jpg', 'circle'],
+    ['Industry Services', 'Internacionalización e IA aplicada a la industria', 'industry_services.jpg', 'left'],
+    ['Insurance', 'Arquitecturas modulares para el sector asegurador', 'insurance.jpg', 'up'],
+    ['R&D', 'IA generativa, AIoT y traducción automática de código', 'RYD.jpg', 'diag'],
+  ];
+  const holder = document.getElementById('svcs');
+  const svcEls = services.map(([name, line, img], i) => {
+    const el = document.createElement('div');
+    el.className = 'scene svc';
+    el.innerHTML = `<div class="photo" style="background-image:url(assets/${img})"></div><div class="shade"></div>
+      <div class="num">${String(i + 1).padStart(2, '0')} / ${String(services.length).padStart(2, '0')}</div>
+      <div class="bar"></div><h2 class="shadow">${name}</h2><p class="shadow">${line}</p>`;
+    holder.appendChild(el);
+    return el;
+  });
+
+  const clipFrom = { circle: 'circle(0% at 50% 50%)', left: 'inset(0% 100% 0% 0%)', up: 'inset(100% 0% 0% 0%)', diag: 'polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%)' };
+  const clipTo = { circle: 'circle(150% at 50% 50%)', left: 'inset(0% 0% 0% 0%)', up: 'inset(0% 0% 0% 0%)', diag: 'polygon(0% 0%, 200% 0%, 0% 200%, 0% 0%)' };
+
+  const tl = gsap.timeline({ paused: true });
+  const all = ['#s2', '#s5', '#s6', '#s7', ...pillEls, ...svcEls];
+  tl.set(all, { opacity: 0 }, 0);
+
+  tl.fromTo('#cornerLogo', { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: .6, ease: 'power3.out' }, .2);
+
+  // 1. hero (0–4.6)
+  tl.fromTo('#s1 .photo', { scale: 1.25, x: -60 }, { scale: 1.04, x: 0, duration: 5, ease: 'power1.out' }, 0);
+  tl.fromTo('#kicker', { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: .6, ease: 'power3.out' }, .3);
+  tl.fromTo('#hero .word', { opacity: 0, y: 90, filter: 'blur(10px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .65, ease: 'expo.out', stagger: .18 }, .6);
+  tl.to(['#hero', '#kicker'], { opacity: 0, x: -120, duration: .45, ease: 'power2.in' }, 4.1);
+
+  // 2. aro de puntos + marca (4.4–8.6)
+  const t2 = 4.4;
+  tl.fromTo('#s2', { opacity: 1, clipPath: 'circle(0% at 50% 40%)' }, { opacity: 1, clipPath: 'circle(90% at 50% 40%)', duration: .7, ease: 'power3.inOut', immediateRender: false }, t2);
+  tl.set('#s1', { opacity: 0 }, t2 + .7);
+  dots.forEach((d, i) => {
+    tl.fromTo(d.el, { x: d.fx, y: d.fy, opacity: 0 }, { x: d.x, y: d.y, opacity: 1, duration: 1.1, ease: 'expo.out', immediateRender: false }, t2 + .2 + (i % 17) * .025);
+  });
+  tl.fromTo('#dots', { rotation: 0 }, { rotation: 90, duration: 4.2, ease: 'none' }, t2);
+  tl.fromTo('#s2-word', { opacity: 0, y: 60, scale: .9 }, { opacity: 1, y: 0, scale: 1, duration: .7, ease: 'expo.out' }, t2 + 1.2);
+  tl.fromTo('#s2-sub', { opacity: 0 }, { opacity: 1, duration: .6 }, t2 + 1.7);
+
+  // 3. tres verbos (8.6–13.1), 1.5 s cada un
+  const t3 = 8.6, P = 1.5;
+  pillEls.forEach((el, i) => {
+    const t = t3 + i * P;
+    tl.fromTo(el, { opacity: 1, clipPath: 'inset(0% 0% 0% 100%)' }, { opacity: 1, clipPath: 'inset(0% 0% 0% 0%)', duration: .45, ease: 'power3.inOut', immediateRender: false }, t);
+    tl.fromTo(el.querySelector('.photo'), { scale: 1.2 }, { scale: 1.05, duration: P + .5, ease: 'none', immediateRender: false }, t);
+    tl.fromTo(el.querySelector('h2'), { opacity: 0, x: 160 }, { opacity: 1, x: 0, duration: .5, ease: 'expo.out', immediateRender: false }, t + .2);
+    tl.fromTo(el.querySelector('p'), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .4, immediateRender: false }, t + .45);
+    tl.set(i === 0 ? '#s2' : pillEls[i - 1], { opacity: 0 }, t + .45);
+  });
+
+  // 4. servizos (13.1–41.1), 3.5 s cada un
+  const T0 = t3 + P * pillEls.length, STEP = 3.5;
+  tl.to('#progress', { opacity: 1, duration: .3 }, T0 + .4);
+  tl.fromTo('#progress i', { scaleX: 0 }, { scaleX: 1, duration: STEP * services.length, ease: 'none' }, T0);
+  svcEls.forEach((el, i) => {
+    const t = T0 + i * STEP;
+    const mode = services[i][3];
+    tl.fromTo(el, { opacity: 1, clipPath: clipFrom[mode] }, { opacity: 1, clipPath: clipTo[mode], duration: .6, ease: 'power3.inOut', immediateRender: false }, t);
+    tl.fromTo(el.querySelector('.photo'), { scale: 1.2, x: i % 2 ? 40 : -40 }, { scale: 1.04, x: 0, duration: STEP + .6, ease: 'none', immediateRender: false }, t);
+    tl.fromTo(el.querySelector('.num'), { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: .4, immediateRender: false }, t + .35);
+    tl.fromTo(el.querySelector('.bar'), { scaleX: 0 }, { scaleX: 1, duration: .45, ease: 'power3.out', immediateRender: false }, t + .4);
+    tl.fromTo(el.querySelector('h2'), { opacity: 0, x: -120, skewX: -12 }, { opacity: 1, x: 0, skewX: 0, duration: .55, ease: 'expo.out', immediateRender: false }, t + .45);
+    tl.fromTo(el.querySelector('p'), { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .45, ease: 'power3.out', immediateRender: false }, t + .75);
+    tl.set(i === 0 ? pillEls[pillEls.length - 1] : svcEls[i - 1], { opacity: 0 }, t + .6);
+  });
+  const svcEnd = T0 + STEP * services.length;
+  tl.to('#progress', { opacity: 0, duration: .3 }, svcEnd - .3);
+
+  // 5. equipo (svcEnd – +4)
+  tl.fromTo('#wipe', { opacity: 1, xPercent: -100 }, { xPercent: 0, duration: .35, ease: 'power3.in', immediateRender: false }, svcEnd - .35);
+  tl.set(svcEls[svcEls.length - 1], { opacity: 0 }, svcEnd);
+  tl.set('#s5', { opacity: 1 }, svcEnd);
+  tl.to('#wipe', { xPercent: 100, duration: .4, ease: 'power3.out' }, svcEnd);
+  ['#t1', '#t2', '#t3'].forEach((id, i) => {
+    tl.fromTo(id, { yPercent: i % 2 ? -100 : 100 }, { yPercent: 0, duration: .6, ease: 'expo.out' }, svcEnd + .1 + i * .1);
+    tl.fromTo(id, { backgroundPosition: '50% 40%' }, { backgroundPosition: '50% 60%', duration: 4, ease: 'none' }, svcEnd);
+  });
+  const yrs = { v: 0 };
+  tl.fromTo('#years', { opacity: 0, scale: .7 }, { opacity: 1, scale: 1, duration: .6, ease: 'back.out(1.6)' }, svcEnd + .5);
+  tl.to(yrs, { v: 7, duration: 1.2, ease: 'power2.out', onUpdate: () => { document.getElementById('yn').textContent = Math.round(yrs.v); } }, svcEnd + .5);
+  tl.fromTo('#years-l', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .5 }, svcEnd + 1.2);
+  tl.fromTo('#years-s', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .5 }, svcEnd + 1.5);
+
+  // 6. hagamos algo grande (+4 – +7.6)
+  const t6 = svcEnd + 4;
+  tl.fromTo('#s6', { opacity: 1, clipPath: 'inset(0% 0% 100% 0%)' }, { opacity: 1, clipPath: 'inset(0% 0% 0% 0%)', duration: .6, ease: 'power3.inOut', immediateRender: false }, t6);
+  tl.set('#s5', { opacity: 0 }, t6 + .6);
+  tl.fromTo('#s6 .photo', { scale: 1.2 }, { scale: 1.03, duration: 4, ease: 'none', immediateRender: false }, t6);
+  tl.fromTo('#big .word', { opacity: 0, y: 80, rotation: 4 }, { opacity: 1, y: 0, rotation: 0, duration: .55, ease: 'back.out(1.6)', stagger: .18 }, t6 + .4);
+  tl.fromTo('#big-s', { opacity: 0 }, { opacity: 1, duration: .5 }, t6 + 1.4);
+
+  // 7. peche
+  const t7 = t6 + 3.6;
+  tl.fromTo('#s7', { opacity: 1, clipPath: 'circle(0% at 50% 50%)' }, { opacity: 1, clipPath: 'circle(80% at 50% 50%)', duration: .7, ease: 'power3.inOut', immediateRender: false }, t7);
+  tl.set('#s6', { opacity: 0 }, t7 + .7);
+  tl.fromTo('#endLogo', { scale: .6, opacity: 0, rotation: -40 }, { scale: 1, opacity: 1, rotation: 0, duration: .9, ease: 'expo.out' }, t7 + .2);
+  tl.fromTo('#end-cta', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: .5, ease: 'power3.out' }, t7 + .7);
+  tl.fromTo('#end-info div', { opacity: 0, scale: .8 }, { opacity: 1, scale: 1, duration: .45, ease: 'back.out(2)', stagger: .15 }, t7 + 1.0);
+  tl.fromTo('#end-web', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .4 }, t7 + 1.4);
+
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>
