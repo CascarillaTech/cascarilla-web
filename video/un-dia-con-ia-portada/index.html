@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="gl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>Un día con IA — portada</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  :root { --cream: #f0e2b6; --primary: #8C4B33; --dark: #382117; --ochre: #B8863B; --gold: #e8b45a; }
+  html, body { margin: 0; background: var(--cream); }
+  body { font-family: system-ui, sans-serif; color: var(--dark); }
+  #root { position: relative; width: 100%; height: 100%; overflow: hidden;
+    background: radial-gradient(circle at 78% 42%, #f7ecc8 0%, var(--cream) 45%, #e8d6a2 100%); }
+  .abs { position: absolute; }
+  .hexclip { clip-path: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0 50%); }
+  #logos { left: 80px; right: 80px; top: 56px; display: flex; justify-content: space-between; align-items: center; }
+  #logos img { height: 130px; }
+  #title { left: 120px; top: 310px; font-size: 150px; font-weight: 900; line-height: 1; letter-spacing: -3px; text-shadow: 0 6px 18px rgba(56,33,23,.18); }
+  #title span { color: var(--primary); }
+  #ul { left: 126px; top: 495px; width: 640px; height: 16px; border-radius: 8px; background: var(--ochre); }
+  #sub { left: 122px; top: 545px; font-size: 46px; font-weight: 600; line-height: 1.3; width: 900px; }
+  #date { left: 122px; top: 690px; font-size: 64px; font-weight: 900; color: var(--primary); }
+  #date small { display: block; margin-top: 10px; font-size: 40px; font-weight: 700; color: var(--dark); }
+  #robot { left: 1250px; top: 220px; width: 560px; height: 560px; background: linear-gradient(135deg, var(--gold), var(--primary)); box-shadow: 0 0 0 rgba(0,0,0,0); }
+  #robot img { position: absolute; inset: 14px; width: calc(100% - 28px); height: calc(100% - 28px); object-fit: cover; }
+  #ring { left: 1190px; top: 160px; width: 680px; height: 680px; border-radius: 50%; border: 5px dashed rgba(184,134,59,.55); }
+  #band { left: 0; right: 0; bottom: 0; height: 190px; background: var(--dark); display: flex; align-items: center; justify-content: center; gap: 70px; }
+  #band span { font-family: Georgia, serif; font-style: italic; font-size: 44px; color: var(--cream); }
+  #band .chip { background: var(--cream); border-radius: 22px; padding: 16px 30px; display: flex; align-items: center; }
+  #band img { height: 86px; display: block; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="1">
+  <div id="logos" class="abs"><img src="assets/corunajug-logo.png" alt="" /><img src="assets/cascarillatech-logo.png" alt="" /></div>
+  <div id="title" class="abs">Un día con <span>IA</span></div>
+  <div id="ul" class="abs"></div>
+  <div id="sub" class="abs">Comunidade, coñecemento e empresas de A Coruña</div>
+  <div id="date" class="abs">21 · NOV · 2026<small>9:00 – 18:30 · Cidade das TIC</small></div>
+  <div id="ring" class="abs"></div>
+  <div id="robot" class="abs hexclip"><img class="hexclip" src="assets/un-dia-con-ia-robot.jpg" alt="" /></div>
+  <div id="band" class="abs">
+    <span>Powered by</span>
+    <div class="chip"><img src="assets/odeene-color-horizontal.png" alt="" /></div>
+    <div class="chip"><img src="assets/bahia-software-color.png" alt="" /></div>
+    <div class="chip"><img src="assets/3mt-global-services.png" alt="" /></div>
+  </div>
+</div>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  tl.set('#root', { opacity: 1 }, 0);
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>
