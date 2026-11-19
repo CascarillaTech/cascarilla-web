@@ -6,10 +6,12 @@
     <title>Despedida — Un día con IA</title>
     <link rel="stylesheet" href="../keynote/slides.css" />
     <style>
-        .empresas { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6em .7em; align-content: center; font-size: .62em; }
+        .empresas { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .45em .55em; align-content: center; font-size: 21px; }
+        .slide .empresas li { font-size: 21px !important; line-height: 1.2 !important; }
         .empresa { padding: .35em .8em; border: 2px solid var(--c2); border-radius: 999px; color: var(--dark); font-weight: 600; white-space: nowrap; background: rgba(255,255,255,.35); }
         .empresa--logo { padding: .2em .8em; background: #fff; display: flex; align-items: center; }
-        .empresa--logo img { height: 1.6em; width: auto; display: block; }
+        .empresa--logo { height: 2.2em; box-sizing: border-box; }
+        .empresa--logo img { height: 1.5em; width: 5.5em; object-fit: contain; display: block; }
     </style>
 </head>
 <body>
@@ -157,7 +159,7 @@
     <div class="progress" id="progress"></div>
 </main>
 
-<script src="datos.js?v=6"></script>
+<script src="datos.js?v=11"></script>
 <script src="graficos.js?v=3"></script>
 <script src="../keynote/deck.js"></script>
 </body>
