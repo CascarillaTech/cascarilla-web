@@ -24,6 +24,10 @@
         .data-cal { display: flex; align-items: center; gap: .45em; }
         .data-cal svg { color: var(--c1); flex: none; }
         .folks { margin: 0; max-height: 470px; max-width: 80%; filter: drop-shadow(0 8px 16px rgba(0,0,0,.3)); }
+        /* Peche: sen desprazamento lateral; a imaxe ábrese en círculo desde o centro */
+        .slide.slide--iris, .slide.slide--iris.is-past { transform: none; }
+        .slide.is-active.slide--iris > .folks { animation: iris 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both; }
+        @keyframes iris { from { clip-path: circle(0% at 50% 50%); opacity: 0; } 30% { opacity: 1; } to { clip-path: circle(71% at 50% 50%); opacity: 1; } }
     </style>
 </head>
 <body>
@@ -196,7 +200,7 @@
 
 
     <!-- 10 · Peche -->
-    <section class="slide center">
+    <section class="slide center slide--iris">
         <!-- Homenaxe a "That's all folks!" co noso robot -->
         <img class="folks" src="isto-e-todo-amigos.png?v=2" alt="Isto é todo, amigos!" />
     </section>
