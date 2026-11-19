@@ -42,9 +42,9 @@ window.DATOS = {
     ],
 
     ingresos: [
-        { nome: 'Patrocinadores', valor: 1500 },
-        { nome: 'Entradas',       valor: 3600 },
-        { nome: 'Asociación',     valor: 400 },
+        // ~3000 € en total. Entradas = bruto real de Eventbrite (badges); patrocinadores aproximado
+        { nome: 'Patrocinadores', valor: 2050 },
+        { nome: 'Entradas',       valor: 955 },
     ],
 
     gastos: [
