@@ -41,13 +41,13 @@
     bars($('ingresos-bars'), D.ingresos, { fmt: eur, color: 'var(--c1)' });
     bars($('gastos-bars'), D.gastos, { fmt: eur, color: 'var(--c2)' });
     const ast = D.nota ? '*' : '';
-    $('ingresos-total').textContent = eur(ingresos) + ast;
+    $('ingresos-total').textContent = eur(ingresos);
     $('gastos-total').textContent = eur(gastos) + ast;
     $('saldo').textContent += ast;
     if (D.nota) {
         ['saldo', 'ingresos-total', 'gastos-total'].forEach((id) => {
-            const extra = id === 'ingresos-total' ? D.ingresos.filter((r) => r.nota).map((r) => r.nota) : [];
-            $(id).closest('section').insertAdjacentHTML('beforeend', [D.nota, ...extra].map((t) => `<p class="nota-pe">${t}</p>`).join(''));
+            const notas = id === 'ingresos-total' ? D.ingresos.filter((r) => r.nota).map((r) => r.nota) : [D.nota];
+            $(id).closest('section').insertAdjacentHTML('beforeend', notas.map((t) => `<p class="nota-pe">${t}</p>`).join(''));
         });
     }
 

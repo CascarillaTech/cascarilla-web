@@ -46,7 +46,7 @@ window.DATOS = {
 
     // Da folla Cuentas.ods (19/11/2026). Fee de Eventbrite segundo badges.
     ingresos: [
-        { nome: 'Patrocinadores**', valor: 1200, nota: '** Máis o espazo' },
+        { nome: 'Patrocinadores*', valor: 1200, nota: '* Máis o espazo' },
         { nome: 'Entradas', valor: 860 + 94.31 }, // 860 netos + fee de Eventbrite
     ],
 
