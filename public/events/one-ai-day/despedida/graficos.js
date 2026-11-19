@@ -45,6 +45,7 @@
 
     if (D.exemplo) {
         document.querySelectorAll('[data-chart]').forEach((s) => {
+            if (s.querySelector('#asistentes-bars')) return; // asistentes xa son reais
             s.insertAdjacentHTML('beforeend', '<span class="placeholder-badge">Datos de exemplo</span>');
         });
     }
