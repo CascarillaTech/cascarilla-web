@@ -14,10 +14,10 @@
         const total = sum(rows);
         const top = max ?? Math.max(...rows.map((r) => r.valor), 1);
         el.innerHTML = rows.map((r, i) => `
-            <dt class="bar-label">${r.nome}</dt>
+            <dt class="bar-label">${r.nome}${r.detalle ? `<small class="bar-detalle">${r.detalle}</small>` : ''}</dt>
             <dd class="bar-track" style="margin:0">
                 <span class="bar" style="width:${(r.valor / top) * 100 * 0.72}%;--n:${i};--bar-color:${color ?? COLORS[i % COLORS.length]}"></span>
-                <span class="bar-value"><b>${fmt(r.valor)}</b>${max === null ? ` <span>· ${pct(r.valor, total)} %</span>` : ''}</span>
+                <span class="bar-value">${r.texto ? `<b>${r.texto}</b>` : `<b>${fmt(r.valor)}</b>${max === null ? ` <span>· ${pct(r.valor, total)} %</span>` : ''}`}</span>
             </dd>`).join('');
     }
 
@@ -46,7 +46,8 @@
     $('saldo').textContent += ast;
     if (D.nota) {
         ['saldo', 'ingresos-total', 'gastos-total'].forEach((id) => {
-            $(id).closest('section').insertAdjacentHTML('beforeend', `<p class="nota-pe">${D.nota}</p>`);
+            const extra = id === 'ingresos-total' ? D.ingresos.filter((r) => r.nota).map((r) => r.nota) : [];
+            $(id).closest('section').insertAdjacentHTML('beforeend', [D.nota, ...extra].map((t) => `<p class="nota-pe">${t}</p>`).join(''));
         });
     }
 

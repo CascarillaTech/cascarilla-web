@@ -45,15 +45,16 @@ window.DATOS = {
     ],
 
     ingresos: [
-        // ~3000 € en total. Entradas = bruto real de Eventbrite (badges); patrocinadores aproximado
-        { nome: 'Patrocinadores', valor: 2050 },
-        { nome: 'Entradas',       valor: 955 },
+        // Entradas = bruto real de Eventbrite (badges); patrocinadores aproximado
+        { nome: 'Patrocinadores**', valor: 1200, nota: '** Máis o espazo' },
+        { nome: 'Entradas',         valor: 955 },
     ],
 
     gastos: [
-        // ~2900 € provisional; reparto proporcional ao exemplo anterior
-        { nome: 'Comida',         valor: 1970 },
-        { nome: 'Merchandising',  valor: 490 },
-        { nome: 'Espazo',         valor: 440 },
+        // Total provisional 2900 €; comida = o resto
+        { nome: 'Comida, bebida e menaxe', valor: 2900 - 45 - 350 },
+        { nome: 'Merchandising e material', valor: 350, detalle: 'camisetas de ponentes e staff, aparellos…' },
+        { nome: 'Acreditacións', valor: 45 },
+        { nome: 'Espazo', valor: 0, texto: 'patrocinado por Odeene (grazas ❤️)' },
     ],
 };
