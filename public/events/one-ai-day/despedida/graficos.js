@@ -3,7 +3,7 @@
 (() => {
     const D = window.DATOS;
     const COLORS = ['var(--c1)', 'var(--c2)', 'var(--c3)'];
-    const n = (v) => v.toLocaleString('gl-ES');
+    const n = (v) => Math.round(v).toLocaleString('gl-ES');
     const eur = (v) => `${n(v)} €`;
     const sum = (rows) => rows.reduce((a, r) => a + r.valor, 0);
     const pct = (v, total) => (total ? Math.round((v / total) * 100) : 0);
