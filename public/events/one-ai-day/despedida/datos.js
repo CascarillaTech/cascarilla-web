@@ -7,9 +7,11 @@ window.DATOS = {
     exemplo: true,
 
     asistentes: [
-        { nome: 'Mulleres',   valor: 38 },
-        { nome: 'Homes',      valor: 78 },
-        { nome: 'Non indica', valor: 4 },
+        // Confirmados en badges (activos, sen reembolsados) a 19/11/2026
+        { nome: 'Asistentes', valor: 69 },
+        { nome: 'Staff',      valor: 9 },
+        { nome: 'Ponentes',   valor: 4 },
+        { nome: 'Empresas',   valor: 3 },
     ],
 
     ingresos: [
