@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Despedida — Un día con IA</title>
     <link rel="stylesheet" href="../keynote/slides.css" />
+    <style>
+        .empresas { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6em .7em; align-content: center; font-size: .62em; }
+        .empresa { padding: .35em .8em; border: 2px solid var(--c2); border-radius: 999px; color: var(--dark); font-weight: 600; white-space: nowrap; background: rgba(255,255,255,.35); }
+        .empresa--logo { padding: .2em .8em; background: #fff; display: flex; align-items: center; }
+        .empresa--logo img { height: 1.6em; width: auto; display: block; }
+    </style>
 </head>
 <body>
 <!--
@@ -51,6 +57,19 @@
                 <span class="hero-label">persoas</span>
             </div>
             <dl class="bars" id="asistentes-bars"></dl>
+        </div>
+    </section>
+
+    <!-- 3b · Empresas representadas -->
+    <section class="slide" data-chart>
+        <h2>Empresas representadas</h2>
+        <span class="underline underline--short"></span>
+        <div class="stats">
+            <div class="hero">
+                <span class="hero-number" id="empresas-total"></span>
+                <span class="hero-label">empresas e entidades</span>
+            </div>
+            <ul class="empresas" id="empresas-grid"></ul>
         </div>
     </section>
 
@@ -138,8 +157,8 @@
     <div class="progress" id="progress"></div>
 </main>
 
-<script src="datos.js?v=4"></script>
-<script src="graficos.js?v=2"></script>
+<script src="datos.js?v=6"></script>
+<script src="graficos.js?v=3"></script>
 <script src="../keynote/deck.js"></script>
 </body>
 </html>

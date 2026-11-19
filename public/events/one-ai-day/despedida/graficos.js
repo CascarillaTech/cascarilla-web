@@ -43,9 +43,15 @@
     $('ingresos-total').textContent = eur(ingresos);
     $('gastos-total').textContent = eur(gastos);
 
+    // Empresas representadas: logo se o hai, se non o nome
+    $('empresas-total').textContent = D.empresas.length;
+    $('empresas-grid').innerHTML = D.empresas.map((e) => e.logo
+        ? `<li class="empresa empresa--logo"><img src="${e.logo}" alt="${e.nome}" /></li>`
+        : `<li class="empresa">${e.nome}</li>`).join('');
+
     if (D.exemplo) {
         document.querySelectorAll('[data-chart]').forEach((s) => {
-            if (s.querySelector('#asistentes-bars')) return; // asistentes xa son reais
+            if (s.querySelector('#asistentes-bars, #empresas-grid')) return; // asistentes xa son reais
             s.insertAdjacentHTML('beforeend', '<span class="placeholder-badge">Datos de exemplo</span>');
         });
     }
