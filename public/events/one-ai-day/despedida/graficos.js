@@ -32,16 +32,23 @@
 
     // 4 · Ingresos e gastos (mesmo eixo para as dúas barras)
     bars($('balance-bars'), [
-        { nome: 'Ingresos', valor: ingresos },
-        { nome: 'Gastos', valor: gastos },
+        { nome: 'Ingresos' + (D.nota ? '*' : ''), valor: ingresos },
+        { nome: 'Gastos' + (D.nota ? '*' : ''), valor: gastos },
     ], { fmt: eur, max: Math.max(ingresos, gastos) });
     $('saldo').textContent = `${saldo >= 0 ? '+' : '−'}${eur(Math.abs(saldo))}`;
 
     // 5 e 6 · Reparto (unha cor por diapositiva: ingresos terracota, gastos ocre)
     bars($('ingresos-bars'), D.ingresos, { fmt: eur, color: 'var(--c1)' });
     bars($('gastos-bars'), D.gastos, { fmt: eur, color: 'var(--c2)' });
-    $('ingresos-total').textContent = eur(ingresos);
-    $('gastos-total').textContent = eur(gastos);
+    const ast = D.nota ? '*' : '';
+    $('ingresos-total').textContent = eur(ingresos) + ast;
+    $('gastos-total').textContent = eur(gastos) + ast;
+    $('saldo').textContent += ast;
+    if (D.nota) {
+        ['saldo', 'ingresos-total', 'gastos-total'].forEach((id) => {
+            $(id).closest('section').insertAdjacentHTML('beforeend', `<p class="nota-pe">${D.nota}</p>`);
+        });
+    }
 
     // Empresas representadas: logo se o hai, se non o nome
     $('empresas-total').textContent = D.empresas.length;

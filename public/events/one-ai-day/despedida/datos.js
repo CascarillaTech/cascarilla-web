@@ -4,7 +4,10 @@
 // vermello "Datos de exemplo". Poñelo a false cos números reais.
 // ============================================================
 window.DATOS = {
-    exemplo: true,
+    exemplo: false,
+
+    // Ingresos e gastos levan * e esta nota mentres falte algún dato
+    nota: '* Hai un dato que aínda non temos',
 
     asistentes: [
         // Confirmados en badges (activos, sen reembolsados) a 19/11/2026
@@ -48,8 +51,9 @@ window.DATOS = {
     ],
 
     gastos: [
-        { nome: 'Comida',         valor: 3600 },
-        { nome: 'Merchandising',  valor: 900 },
-        { nome: 'Espazo',         valor: 800 },
+        // ~2900 € provisional; reparto proporcional ao exemplo anterior
+        { nome: 'Comida',         valor: 1970 },
+        { nome: 'Merchandising',  valor: 490 },
+        { nome: 'Espazo',         valor: 440 },
     ],
 };
