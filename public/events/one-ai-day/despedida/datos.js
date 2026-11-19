@@ -9,9 +9,8 @@ window.DATOS = {
     asistentes: [
         // Confirmados en badges (activos, sen reembolsados) a 19/11/2026
         { nome: 'Asistentes', valor: 69 },
-        { nome: 'Staff',      valor: 9 },
         { nome: 'Ponentes',   valor: 4 },
-        { nome: 'Empresas',   valor: 3 },
+        { nome: 'Staff',      valor: 9 },
     ],
 
     ingresos: [
