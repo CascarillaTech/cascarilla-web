@@ -2,7 +2,7 @@
 // Barras horizontais en HTML+CSS: nada de librarías, funciona sen internet.
 (() => {
     const D = window.DATOS;
-    const COLORS = ['var(--c1)', 'var(--c2)', 'var(--c3)'];
+    const COLORS = ['var(--c1)', 'var(--c2)', 'var(--c3)', 'var(--c4)'];
     const n = (v) => Math.round(v).toLocaleString('gl-ES');
     const eur = (v) => `${n(v)} €`;
     const sum = (rows) => rows.reduce((a, r) => a + r.valor, 0);
@@ -37,9 +37,23 @@
     ], { fmt: eur, max: Math.max(ingresos, gastos) });
     $('saldo').textContent = `${saldo >= 0 ? '+' : '−'}${eur(Math.abs(saldo))}`;
 
-    // 5 e 6 · Reparto (unha cor por diapositiva: ingresos terracota, gastos ocre)
-    bars($('ingresos-bars'), D.ingresos, { fmt: eur, color: 'var(--c1)' });
-    bars($('gastos-bars'), D.gastos, { fmt: eur, color: 'var(--c2)' });
+    // 5 e 6 · Reparto: barras + quesito coas mesmas cores por categoría.
+    // (No balance non hai quesito: alí compáranse dúas cantidades, non partes dun todo.)
+    function quesito(id, rows) {
+        const vis = rows.filter((r) => r.valor > 0);
+        const total = sum(vis);
+        let acc = 0;
+        const stops = vis.map((r, i) => {
+            const from = (acc / total) * 100; acc += r.valor;
+            return `${COLORS[rows.indexOf(r) % COLORS.length]} ${from}% ${(acc / total) * 100}%`;
+        });
+        const hero = $(id).closest('.hero');
+        hero.innerHTML = `<div class="quesito" style="background:conic-gradient(${stops.join(',')})" aria-hidden="true"></div><div>${hero.innerHTML}</div>`;
+    }
+    bars($('ingresos-bars'), D.ingresos, { fmt: eur });
+    bars($('gastos-bars'), D.gastos, { fmt: eur });
+    quesito('ingresos-total', D.ingresos);
+    quesito('gastos-total', D.gastos);
     const ast = D.nota ? '*' : '';
     $('ingresos-total').textContent = eur(ingresos);
     $('gastos-total').textContent = eur(gastos) + ast;

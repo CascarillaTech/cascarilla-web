@@ -29,6 +29,11 @@
         .slide.is-active.slide--iris > .folks { animation: iris 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both; }
         @keyframes iris { from { clip-path: circle(0% at 50% 50%); opacity: 0; } 30% { opacity: 1; } to { clip-path: circle(71% at 50% 50%); opacity: 1; } }
         .retro-nosa small { display: block; font-size: .72em; font-weight: 400; opacity: .8; margin-top: 4px; }
+        :root { --c4: #6B8E4E; }
+        .hero:has(.quesito) { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+        .quesito { flex: none; width: 150px; height: 150px; border-radius: 50%; -webkit-mask: radial-gradient(circle, transparent 44%, #000 45%); mask: radial-gradient(circle, transparent 44%, #000 45%); }
+        .slide.is-active .quesito { animation: quesito-in .9s cubic-bezier(.22,1,.36,1) .5s both; }
+        @keyframes quesito-in { from { transform: rotate(-90deg) scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
     </style>
 </head>
 <body>
@@ -243,7 +248,7 @@
 </main>
 
 <script src="datos.js?v=17"></script>
-<script src="graficos.js?v=8"></script>
+<script src="graficos.js?v=10"></script>
 <script src="../keynote/deck.js"></script>
 </body>
 </html>
