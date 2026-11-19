@@ -7,7 +7,7 @@ window.DATOS = {
     exemplo: false,
 
     // Ingresos e gastos levan * e esta nota mentres falte algún dato
-    nota: '* Hai un dato que aínda non temos',
+    nota: '* Falta o prezo do espazo, que está patrocinado',
 
     asistentes: [
         // Confirmados en badges (activos, sen reembolsados) a 19/11/2026
