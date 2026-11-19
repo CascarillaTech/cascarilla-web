@@ -23,6 +23,7 @@
         @keyframes q-bob { 0%, 100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-6px) rotate(6deg); } }
         .data-cal { display: flex; align-items: center; gap: .45em; }
         .data-cal svg { color: var(--c1); flex: none; }
+        .folks { margin-top: 28px; max-height: 300px; max-width: 70%; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
     </style>
 </head>
 <body>
@@ -198,7 +199,8 @@
     <section class="slide center">
         <p class="statement finale">Isto é todo, amigos!</p>
         <span class="underline underline--short"></span>
-        <p class="to-be-continued">Continuará<span class="dots"><i>.</i><i>.</i><i>.</i></span>?</p>
+        <!-- Foto de Porky (&quot;That's all folks!&quot;): gardala como thats-all-folks.jpg nesta carpeta -->
+        <img class="folks" src="thats-all-folks.jpg" alt="That's all folks!" onerror="this.remove()" />
     </section>
 
     <footer class="deck-footer">
