@@ -68,7 +68,9 @@
     // Empresas representadas: logo se o hai, se non o nome
     $('empresas-total').textContent = D.empresas.length;
     $('empresas-grid').innerHTML = D.empresas.map((e) => e.logo
-        ? `<li class="empresa empresa--logo"><img src="${e.logo}" alt="${e.nome}" /></li>`
+        ? (e.conNome
+            ? `<li class="empresa empresa--logo empresa--con-nome"><img src="${e.logo}" alt="" />${e.nome}</li>`
+            : `<li class="empresa empresa--logo"><img src="${e.logo}" alt="${e.nome}" /></li>`)
         : `<li class="empresa">${e.nome}</li>`).join('');
 
     if (D.exemplo) {

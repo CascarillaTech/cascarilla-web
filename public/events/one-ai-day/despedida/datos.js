@@ -17,13 +17,14 @@ window.DATOS = {
     ],
 
     // Empresas e entidades representadas (badges: empresa do perfil, dominio do
-    // correo e entradas de patrocinador). Sen as organizadoras. `logo` opcional.
+    // correo e entradas de patrocinador). Sen as organizadoras. `logo` opcional;
+    // `conNome` amosa tamén o nome ao lado do logo.
     empresas: [
         { nome: 'ABANCA', logo: '../keynote/assets/empresas/abanca.svg' },
         { nome: 'Altia', logo: '../keynote/assets/empresas/altia.svg' },
         { nome: 'Bahía Software', logo: '../keynote/assets/bahia-software-color.png' },
-        { nome: 'BeTIC Technology' },
-        { nome: 'CPR Liceo La Paz', logo: '../keynote/assets/empresas/liceo-la-paz.png' },
+        { nome: 'BeTIC Technology', logo: '../keynote/assets/empresas/betic.png' },
+        { nome: 'CPR Liceo La Paz', logo: '../keynote/assets/empresas/liceo-la-paz.png', conNome: true }, // o logo é cadrado e a letra non se le
         { nome: 'Deputación da Coruña', logo: '../keynote/assets/empresas/deputacion.png' },
         { nome: 'Docuten', logo: '../keynote/assets/empresas/docuten.svg' },
         { nome: 'EcoMT', logo: '../keynote/assets/empresas/ecomt.svg' },
@@ -36,7 +37,7 @@ window.DATOS = {
         { nome: 'Odeene', logo: '../keynote/assets/odeene-color-horizontal.png' },
         { nome: 'Oesia' },
         { nome: 'Plexus Tech', logo: '../keynote/assets/empresas/plexus.png' },
-        { nome: 'Prima Assicurazioni' },
+        { nome: 'Prima Assicurazioni', logo: '../keynote/assets/empresas/prima.svg' },
         { nome: 'Statista', logo: '../keynote/assets/empresas/statista.svg' },
         { nome: 'Teimas', logo: '../keynote/assets/empresas/teimas.svg' },
         { nome: 'Vig-Sec Drone', logo: '../keynote/assets/empresas/vigsec.png' },
