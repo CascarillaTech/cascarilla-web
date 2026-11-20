@@ -27,7 +27,7 @@
             <dt class="bar-label">${r.nome}${r.detalle ? `<small class="bar-detalle">${r.detalle}</small>` : ''}</dt>
             <dd class="bar-track" style="margin:0">
                 <span class="bar" style="width:${(r.valor / top) * 100 * 0.72}%;--n:${i};--bar-color:${color ?? COLORS[i % COLORS.length]}"></span>
-                <span class="bar-value">${r.texto ? `<b>${r.texto}</b>` : `<b>${fmt(r.valor)}</b>${max === null ? ` <span>· ${pc[i]} %</span>` : ''}`}</span>
+                <span class="bar-value">${r.texto ? `<b>${r.texto}</b>` : `<b>${fmt(r.valor)}</b>${max === null ? ` <span>· ${pc[i] === 0 && r.valor > 0 ? '&lt; 1' : pc[i]} %</span>` : ''}`}</span>
             </dd>`).join('');
     }
 
@@ -45,7 +45,8 @@
         { nome: 'Ingresos' + (D.nota ? '*' : ''), valor: ingresos },
         { nome: 'Gastos' + (D.nota ? '*' : ''), valor: gastos },
     ], { fmt: eur, max: Math.max(ingresos, gastos) });
-    $('saldo').textContent = `${saldo >= 0 ? '+' : '−'}${eur(Math.abs(saldo))}`;
+    const s0 = Math.round(saldo);
+    $('saldo').textContent = s0 === 0 ? eur(0) : `${s0 > 0 ? '+' : '−'}${eur(Math.abs(saldo))}`;
 
     // 5 e 6 · Reparto: barras + quesito coas mesmas cores por categoría.
     // (No balance non hai quesito: alí compáranse dúas cantidades, non partes dun todo.)

@@ -50,6 +50,8 @@ window.DATOS = {
     ingresos: [
         { nome: 'Patrocinadores*', valor: 1200, nota: '* Máis o espazo' },
         { nome: 'Entradas', valor: 860 + 94.31 },
+        // A asociación pon o que falta para cadrar (saldo −8,77 € na folla)
+        { nome: 'Cascarilla Tech', valor: 8.77 },
     ],
 
     gastos: [
