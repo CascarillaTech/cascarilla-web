@@ -605,3 +605,13 @@ body {
         -webkit-print-color-adjust: exact;
     }
 }
+
+/* Sobremesa: pasos do open space */
+.steps { list-style: none; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.slide .steps li { position: relative; padding: 46px 22px 24px; border-radius: 18px; background: rgba(255,255,255,.4); border: 2px solid var(--ochre);
+                   display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; font-size: 30px; }
+.steps strong { color: var(--dark); }
+.steps small { font-size: 20px; color: var(--secondary); line-height: 1.35; }
+.step-n { position: absolute; top: -26px; left: 50%; transform: translateX(-50%); width: 52px; height: 52px; border-radius: 50%;
+          background: var(--primary); color: var(--cream); font-weight: 800; font-size: 26px; display: grid; place-items: center; }
+.steps-where { margin-top: 26px; text-align: center; }
