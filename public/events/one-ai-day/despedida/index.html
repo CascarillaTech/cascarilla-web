@@ -34,6 +34,10 @@
         .slide .hex-list .retro-items li { font-size: .72em; font-weight: 400; opacity: .85; padding-left: 1.1em; margin: 2px 0; }
         .slide .hex-list .retro-items li::before { content: '•'; width: auto; height: auto; top: 0; left: .25em; background: none; clip-path: none; color: var(--c2); }
         :root { --c4: #6B8E4E; }
+        /* Separadores Demo · Retrospectiva · Planificación: o bloque actual resaltado */
+        .fases { list-style: none; margin: 28px 0 0; padding: 0; display: flex; gap: 14px; justify-content: center; }
+        .slide .fases li { font-size: 22px; padding: 6px 18px; border-radius: 999px; border: 2px solid var(--c2); color: var(--dark); opacity: .55; }
+        .slide .fases li.is-on { opacity: 1; background: var(--primary); border-color: var(--primary); color: var(--cream); font-weight: 700; }
         .hero:has(.quesito) { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
         .quesito { flex: none; width: 150px; height: 150px; border-radius: 50%; -webkit-mask: radial-gradient(circle, transparent 44%, #000 45%); mask: radial-gradient(circle, transparent 44%, #000 45%); }
         .slide.is-active .quesito { animation: quesito-in .9s cubic-bezier(.22,1,.36,1) .5s both; }
@@ -71,6 +75,18 @@
             <path d="M16 28.5 13.7 26.4C5.6 19 0 14 0 7.9 0 3.5 3.5 0 7.9 0c2.5 0 4.8 1.2 6.4 3L16 4.9 17.7 3C19.3 1.2 21.6 0 24.1 0 28.5 0 32 3.5 32 7.9 32 14 26.4 19 18.3 26.4L16 28.5Z" />
         </svg>
         <p class="thanks">Grazas!</p>
+    </section>
+
+    <!-- Separador de bloque, como nun sprint de scrum: Demo · Retrospectiva · Planificación -->
+    <section class="slide center">
+        <p class="kicker">Como nun sprint</p>
+        <p class="statement">Demo</p>
+        <span class="underline underline--short"></span>
+        <ol class="fases" aria-label="Bloques da despedida">
+            <li class="is-on">Demo</li>
+            <li>Retrospectiva</li>
+            <li>Planificación</li>
+        </ol>
     </section>
 
     <!-- 3–6 · Números do día. Os datos están en datos.js -->
