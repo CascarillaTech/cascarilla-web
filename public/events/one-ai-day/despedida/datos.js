@@ -45,18 +45,21 @@ window.DATOS = {
         { nome: '3MT Global Services', logo: '../keynote/assets/3mt-global-services.png' },
     ],
 
-    // Ingresos: patrocinios + entradas (badges a 21/11/2026: 955 € brutos, dos que 94 € son a comisión de Eventbrite)
+    // Da folla Cuentas.ods (20/11/2026). Entradas: 860 € netos que paga Eventbrite + a súa
+    // comisión (94,31 €, segundo badges), que vai tamén en gastos: así o saldo é o mesmo da folla.
     ingresos: [
         { nome: 'Patrocinadores*', valor: 1200, nota: '* Máis o espazo' },
-        { nome: 'Entradas', valor: 955 },
+        { nome: 'Entradas', valor: 860 + 94.31 },
     ],
 
-    // Gastos actualizados a 21/11/2026
     gastos: [
-        { nome: 'Comida, bebida e menaxe', valor: 825 + 233 + 426 },
-        { nome: 'Merchandising e material', valor: 20 + 55 + 16 + 26 + 329, detalle: 'camisetas de ponentes e staff, aparellos…' },
-        { nome: 'Comisión de Eventbrite', valor: 94 },
-        { nome: 'Acreditacións', valor: 30 + 20 },
+        // Matilda + Lamastelle + Empanadería + Alcampo
+        { nome: 'Comida, bebida e menaxe', valor: 824.05 + 232.75 + 91 + 425.82 },
+        // NFC + chaveiros, PLA, auriculares, roll-ups
+        { nome: 'Merchandising e material', valor: 19.16 + 55 + 15.99 + 349, detalle: 'camisetas de ponentes e staff, aparellos…' },
+        { nome: 'Comisión de Eventbrite', valor: 94.31 },
+        // Etiquetas + Sucopia
+        { nome: 'Acreditacións', valor: 30 + 26 },
         { nome: 'Espazo', valor: 0, texto: 'patrocinado por Odeene (grazas ❤️)' },
     ],
 };

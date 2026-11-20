@@ -6,18 +6,28 @@
     const n = (v) => Math.round(v).toLocaleString('gl-ES');
     const eur = (v) => `${n(v)} €`;
     const sum = (rows) => rows.reduce((a, r) => a + r.valor, 0);
-    const pct = (v, total) => (total ? Math.round((v / total) * 100) : 0);
+    // Porcentaxes que suman sempre 100 (maior resto): redondear cada un por separado pode dar 99 ou 101
+    const pcts = (rows) => {
+        const total = sum(rows);
+        if (!total) return rows.map(() => 0);
+        const raw = rows.map((r) => (r.valor / total) * 100);
+        const out = raw.map(Math.floor);
+        const order = raw.map((v, i) => [v - out[i], i]).sort((a, b) => b[0] - a[0]);
+        const missing = 100 - out.reduce((a, b) => a + b, 0);
+        for (let k = 0; k < missing; k++) out[order[k][1]]++;
+        return out;
+    };
 
     // rows: [{nome, valor}] · fmt: formato do valor · color: fixa (unha serie)
     // ou null (unha cor por categoría, sempre na mesma orde)
     function bars(el, rows, { fmt = n, color = null, max = null } = {}) {
-        const total = sum(rows);
+        const pc = pcts(rows);
         const top = max ?? Math.max(...rows.map((r) => r.valor), 1);
         el.innerHTML = rows.map((r, i) => `
             <dt class="bar-label">${r.nome}${r.detalle ? `<small class="bar-detalle">${r.detalle}</small>` : ''}</dt>
             <dd class="bar-track" style="margin:0">
                 <span class="bar" style="width:${(r.valor / top) * 100 * 0.72}%;--n:${i};--bar-color:${color ?? COLORS[i % COLORS.length]}"></span>
-                <span class="bar-value">${r.texto ? `<b>${r.texto}</b>` : `<b>${fmt(r.valor)}</b>${max === null ? ` <span>· ${pct(r.valor, total)} %</span>` : ''}`}</span>
+                <span class="bar-value">${r.texto ? `<b>${r.texto}</b>` : `<b>${fmt(r.valor)}</b>${max === null ? ` <span>· ${pc[i]} %</span>` : ''}`}</span>
             </dd>`).join('');
     }
 
