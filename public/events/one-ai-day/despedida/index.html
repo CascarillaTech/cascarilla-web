@@ -30,7 +30,9 @@
         .slide.slide--iris, .slide.slide--iris.is-past { transform: none; }
         .slide.is-active.slide--iris > .folks { animation: iris 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both; }
         @keyframes iris { from { clip-path: circle(0% at 50% 50%); opacity: 0; } 30% { opacity: 1; } to { clip-path: circle(71% at 50% 50%); opacity: 1; } }
-        .retro-nosa small { display: block; font-size: .72em; font-weight: 400; opacity: .8; margin-top: 4px; }
+        .retro-items { list-style: none; margin: 4px 0 0; padding: 0; }
+        .slide .hex-list .retro-items li { font-size: .72em; font-weight: 400; opacity: .85; padding-left: 1.1em; margin: 2px 0; }
+        .slide .hex-list .retro-items li::before { content: '•'; width: auto; height: auto; top: 0; left: .25em; background: none; clip-path: none; color: var(--c2); }
         :root { --c4: #6B8E4E; }
         .hero:has(.quesito) { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
         .quesito { flex: none; width: 150px; height: 150px; border-radius: 50%; -webkit-mask: radial-gradient(circle, transparent 44%, #000 45%); mask: radial-gradient(circle, transparent 44%, #000 45%); }
@@ -144,9 +146,12 @@
             <h1>Retrospectiva</h1>
             <span class="underline"></span>
             <ul class="hex-list retro-list retro-nosa">
-                <li>Que foi ben?<small>A comida. Cumprimos o obxectivo de número de persoas. As charlas!</small></li>
-                <li>Que foi mal?<small>Non conseguimos convencer a máis empresas. Xestión das entradas 🎟️</small></li>
-                <li>Que mellorarías?<small>Presenza das comunidades. Máis diversidade</small></li>
+                <li>Que foi ben?
+                    <ul class="retro-items"><li>A comida</li><li>Cumprimos o obxectivo de número de persoas</li><li>As charlas!</li></ul></li>
+                <li>Que foi mal?
+                    <ul class="retro-items"><li>Non conseguimos convencer a máis empresas</li><li>Xestión das entradas 🎟️</li></ul></li>
+                <li>Que mellorarías?
+                    <ul class="retro-items"><li>Presenza das comunidades</li><li>Máis diversidade</li></ul></li>
             </ul>
         </div>
     </section>
