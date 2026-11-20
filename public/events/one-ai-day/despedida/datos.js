@@ -13,7 +13,7 @@ window.DATOS = {
         // Badges activos (sen reembolsados nin desactivados) a 20/11/2026
         { nome: 'Asistentes', valor: 72 },
         { nome: 'Ponentes',   valor: 4 },
-        { nome: 'Staff',      valor: 9 },
+        { nome: 'Staff',      valor: 8 },
     ],
 
     // Empresas e entidades representadas (badges: empresa do perfil, dominio do
